@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VFL Roblox - Scores</title>
+    <style>
+        :root {
+            --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
+            --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation */
+        nav { background-color: var(--bg-main); padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+
+        /* Series Selector Buttons Bar */
+        .series-bar { background-color: #0b0a0e; padding: 1rem 4%; display: flex; gap: 1rem; border-bottom: 1px solid var(--border); }
+        .series-btn { background-color: var(--accent); color: white; border: none; padding: 0.6rem 1.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; transition: opacity 0.2s; }
+        .series-btn.inactive { opacity: 0.4; }
+        .series-btn:hover { opacity: 1; }
+
+        /* Container & Content Header */
+        .container { max-width: 1300px; margin: 2rem auto; padding: 0 2rem; width: 100%; flex: 1; }
+        .header-title { font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 2.2rem; margin-bottom: 0.2rem; }
+        .header-subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+
+        /* Week Columns Grid Layout */
+        .weeks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .week-column { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.8rem; }
+        .week-column h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; border-bottom: 2px solid #2f2e3d; padding-bottom: 0.5rem; }
+        
+        /* Game Slot Box Outlines */
+        .game-slot { height: 45px; border: 1px solid #333242; border-radius: 25px; margin-bottom: 1rem; display: flex; align-items: center; padding: 0 1.5rem; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); }
+        .series-content { display: none; }
+        .series-content.active-view { display: block; }
+
+        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-top: auto; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">
+            <div class="logo-circle">VFL</div>
+            <div class="logo-text">Virtual Football<span>League • Season 7</span></div>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scores.html" class="active">Scores</a></li>
+            <li><a href="standings.html">Standings</a></li>
+            <li><a href="stats.html">Stats</a></li>
+            <li><a href="legacy.html">Legacy</a></li>
+            <li><a href="rulebook.html">Rulebook</a></li>
+        </ul>
+        <a href="#" class="nav-btn">Join Now!</a>
+    </nav>
+
+    <!-- Interactive Filter Buttons Bar -->
+    <div class="series-bar">
+        <button class="series-btn" onclick="switchSeries('series-1', this)">Series I</button>
+        <button class="series-btn inactive" onclick="switchSeries('series-2', this)">Series II</button>
+        <button class="series-btn inactive" onclick="switchSeries('series-3', this)">Series III</button>
+        <button class="series-btn inactive" onclick="switchSeries('series-4', this)">Series IV</button>
+        <button class="series-btn inactive" onclick="switchSeries('series-5', this)">Series V</button>
+    </div>
+
+    <div class="container">
+        <h1 class="header-title">Scores</h1>
+        <p class="header-subtitle">Every matchup week by week</p>
+
+        <!-- Series 1 Container Block -->
+        <div id="series-1" class="series-content active-view">
+            <div class="weeks-grid">
+                <div class="week-column">
+                    <h3>Week 1</h3>
+                    <div class="game-slot"><span>Tigers vs Bulldogs</span><strong>Final: 24 - 14</strong></div>
+                    <div class="game-slot"><span>Gators vs Longhorns</span><strong>Final: 17 - 21</strong></div>
+                </div>
+                <div class="week-column">
+                    <h3>Week 2</h3>
+                    <div class="game-slot"><span>Bulldogs vs Gators</span><strong>Final: 10 - 28</strong></div>
+                    <div class="game-slot"><span>Longhorns vs Tigers</span><strong>Final: 35 - 31</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Series 2 Container Block -->
+        <div id="series-2" class="series-content">
+            <div class="weeks-grid">
+                <div class="week-column">
+                    <h3>Week 3</h3>
+                    <div class="game-slot"><span>Sooners vs Wildcats</span><strong>Final: 42 - 38</strong></div>
+                    <div class="game-slot"><span>Aggies vs Wolverines</span><strong>Final: 14 - 17</strong></div>
+                </div>
+                <div class="week-column">
+                    <h3>Week 4</h3>
+                    <div class="game-slot"><span>Wildcats vs Aggies</span><strong>Final: 21 - 24</strong></div>
+                    <div class="game-slot"><span>Wolverines vs Sooners</span><strong>Final: 28 - 31</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Series 3 Container Block -->
+        <div id="series-3" class="series-content">
+            <div class="weeks-grid">
+                <div class="week-column">
+                    <h3>Week 5</h3>
+                    <div class="game-slot"><span>Buckeyes vs Trojans</span><strong>Final: 38 - 10</strong></div>
+                    <div class="game-slot"><span>Bruins vs Ducks</span><strong>Final: 17 - 24</strong></div>
+                </div>
+                <div class="week-column">
+                    <h3>Week 6</h3>
+                    <div class="game-slot"><span>Trojans vs Bruins</span><strong>Final: 30 - 20</strong></div>
+                    <div class="game-slot"><span>Ducks vs Buckeyes</span><strong>Final: 24 - 28</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Series 4 Container Block -->
+        <div id="series-4" class="series-content">
+            <div class="weeks-grid">
+                <div class="week-column">
+                    <h3>Week 7</h3>
+                    <div class="game-slot"><span>Crimson Tide vs Volunteers</span><strong>Final: 45 - 42</strong></div>
+                    <div class="game-slot"><span>Seminoles vs Hurricanes</span><strong>Final: 13 - 10</strong></div>
+                </div>
+                <div class="week-column">
+                    <h3>Week 8</h3>
+                    <div class="game-slot"><span>Volunteers vs Seminoles</span><strong>Final: 24 - 27</strong></div>
+                    <div class="game-slot"><span>Hurricanes vs Crimson Tide</span><strong>Final: 17 - 38</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Series 5 Container Block -->
+        <div id="series-5" class="series-content">
+            <div class="weeks-grid">
+                <div class="week-column">
+                    <h3>Week 9</h3>
+                    <div class="game-slot"><span>Spartans vs Nittany Lions</span><strong>Final: 14 - 21</strong></div>
+                    <div class="game-slot"><span>Jayhawks vs Cowboys</span><strong>Final: 35 - 38</strong></div>
+                </div>
+                <div class="week-column">
+                    <h3>Week 10</h3>
+                    <div class="game-slot"><span>Nittany Lions vs Jayhawks</span><strong>Final: 28 - 24</strong></div>
+                    <div class="game-slot"><span>Cowboys vs Spartans</span><strong>Final: 41 - 17</strong></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>2026 Virtual Football League INC</footer>
+
+    <script>
+        function switchSeries(seriesId, clickedButton) {
+            // Hide all active series panels
+            const modules = document.querySelectorAll('.series-content');
+            modules.forEach(mod => mod.classList.remove('active-view'));
+            
+            // Show the targeted selected panel
+            document.getElementById(seriesId).classList.add('active-view');
+            
+            // Update selected structural tab look
+            const buttons = document.querySelectorAll('.series-btn');
+            buttons.forEach(btn => btn.classList.add('inactive'));
+            clickedButton.classList.remove('inactive');
+        }
+    </script>
+</body>
+</html>
