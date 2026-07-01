@@ -6,157 +6,55 @@
     <title>VFL Roblox - Home</title>
     <style>
         :root {
-            --bg-color: #0f0f12;
-            --card-bg: #191822;
-            --accent-color: #ea5d51;
-            --accent-hover: #d14c40;
-            --text-primary: #ffffff;
-            --text-secondary: #a4a4b5;
-            --border-color: #2b2a3a;
+            --bg-main: #111017;
+            --bg-card: #1b1a25;
+            --accent: #f05d51;
+            --accent-hover: #d44d42;
+            --text-main: #ffffff;
+            --text-muted: #8b8a99;
+            --border: #282735;
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Universal Navigation */
+        nav { background-color: var(--bg-main); padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; }
+        .logo-text { font-size: 0.85rem; font-weight: 700; line-height: 1.2; text-transform: uppercase; }
+        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s; }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; transition: background 0.2s; }
+        .nav-btn:hover { background-color: var(--accent-hover); }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        /* Hero Banner Section */
+        .hero { position: relative; height: 320px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 1rem; }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase; }
+        .hero-btn { background-color: var(--accent); color: white; padding: 0.7rem 1.8rem; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+        /* Main Content Container */
+        .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; display: flex; justify-content: center; }
+        .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 500px; padding: 2rem; height: 350px; }
+        .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.8rem; border-bottom: 2px solid #3d3b4f; padding-bottom: 0.8rem; }
 
-        /* Navigation Bar */
-        nav {
-            background-color: var(--card-bg);
-            border-bottom: 2px solid var(--border-color);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        /* Highlight Callout Footer Section */
+        .join-footer { background-color: var(--accent); color: #111017; padding: 2.5rem 4%; display: flex; justify-content: space-between; align-items: center; }
+        .join-footer h2 { font-size: 1.8rem; font-weight: 700; text-transform: lowercase; }
+        .join-footer .footer-btn { background-color: #2b2726; color: white; padding: 0.7rem 1.8rem; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1); }
 
-        nav .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: var(--text-primary);
-        }
-
-        nav .logo span {
-            color: var(--accent-color);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-        }
-
-        nav ul li a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover, nav ul li a.active {
-            color: var(--accent-color);
-        }
-
-        /* Container & Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            width: 100%;
-            flex: 1;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(234,93,81,0.1) 100%), var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 4rem 2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-        }
-
-        .card h3 {
-            margin-bottom: 0.8rem;
-            border-left: 4px solid var(--accent-color);
-            padding-left: 0.5rem;
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        footer {
-            background-color: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            padding: 1.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
+        /* Legal Footer */
+        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">VFL <span>ROBLOX</span></div>
+        <div class="logo-area">
+            <div class="logo-circle">VFL</div>
+            <div class="logo-text">Virtual Football<span>League • Season 7</span></div>
+        </div>
         <ul>
             <li><a href="index.html" class="active">Home</a></li>
             <li><a href="scores.html">Scores</a></li>
@@ -165,33 +63,27 @@
             <li><a href="legacy.html">Legacy</a></li>
             <li><a href="rulebook.html">Rulebook</a></li>
         </ul>
+        <a href="#" class="nav-btn">Join Now!</a>
     </nav>
 
-    <div class="container">
-        <div class="hero">
-            <h1>Welcome to the Virtual Football League</h1>
-            <p>Experience competitive Roblox football at its highest level. Track match stats, view standings, and explore league history.</p>
-            <a href="https://discord.gg/ScFcE87CdV" target="_blank" class="btn">Join the Discord</a>
-        </div>
+    <div class="hero">
+        <h1>Virtual Football League</h1>
+        <a href="#" class="hero-btn">Join the VFL today!</a>
+    </div>
 
-        <div class="grid">
-            <div class="card">
-                <h3>Latest Announcement</h3>
-                <p>The new VFL season kicks off this weekend! Ensure your team roster is finalized before roster lock on Friday midnight.</p>
-            </div>
-            <div class="card">
-                <h3>Matchday Focus</h3>
-                <p>Check out the upcoming fixtures on the Scores page to see when the top franchises face off in prime time slots.</p>
-            </div>
-            <div class="card">
-                <h3>Rule Updates</h3>
-                <p>Make sure to review the updated Rulebook page detailing recent changes regarding gameplay glitches and fair-play policies.</p>
-            </div>
+    <div class="container">
+        <div class="matchup-panel">
+            <h2>Matchups</h2>
         </div>
     </div>
 
+    <div class="join-footer">
+        <h2>come join in on the fun!</h2>
+        <a href="#" class="footer-btn">GET STARTED</a>
+    </div>
+
     <footer>
-        &copy; 2026 VFL Roblox. All Rights Reserved.
+        2026 Virtual Football League INC
     </footer>
 
 </body>
