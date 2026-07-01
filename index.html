@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VFL Roblox - Home</title>
+    <style>
+        :root {
+            --bg-color: #0f0f12;
+            --card-bg: #191822;
+            --accent-color: #ea5d51;
+            --accent-hover: #d14c40;
+            --text-primary: #ffffff;
+            --text-secondary: #a4a4b5;
+            --border-color: #2b2a3a;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+        }
+
+        nav .logo span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--accent-color);
+        }
+
+        /* Container & Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(234,93,81,0.1) 100%), var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.8rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">VFL <span>ROBLOX</span></div>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="scores.html">Scores</a></li>
+            <li><a href="standings.html">Standings</a></li>
+            <li><a href="stats.html">Stats</a></li>
+            <li><a href="legacy.html">Legacy</a></li>
+            <li><a href="rulebook.html">Rulebook</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome to the Virtual Football League</h1>
+            <p>Experience competitive Roblox football at its highest level. Track match stats, view standings, and explore league history.</p>
+            <a href="https://discord.gg/ScFcE87CdV" target="_blank" class="btn">Join the Discord</a>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Latest Announcement</h3>
+                <p>The new VFL season kicks off this weekend! Ensure your team roster is finalized before roster lock on Friday midnight.</p>
+            </div>
+            <div class="card">
+                <h3>Matchday Focus</h3>
+                <p>Check out the upcoming fixtures on the Scores page to see when the top franchises face off in prime time slots.</p>
+            </div>
+            <div class="card">
+                <h3>Rule Updates</h3>
+                <p>Make sure to review the updated Rulebook page detailing recent changes regarding gameplay glitches and fair-play policies.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 VFL Roblox. All Rights Reserved.
+    </footer>
+
+</body>
+</html>
