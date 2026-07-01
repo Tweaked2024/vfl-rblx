@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VFL Roblox - Standings</title>
+    <style>
+        :root {
+            --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
+            --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation Header */
+        nav { background-color: var(--bg-main); padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+
+        /* Content Container Layout */
+        .container { max-width: 1400px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
+        .standings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); gap: 2rem; }
+        
+        /* Conference Card Base Layout */
+        .conf-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .conf-header { background: linear-gradient(90deg, #024471, #082d47); padding: 1rem; display: flex; align-items: center; gap: 15px; font-size: 1.2rem; font-weight: bold; }
+        .conf-header.acc { background: linear-gradient(90deg, #00539b, #002d54); }
+        .conf-header.sec { background: linear-gradient(90deg, #004b87, #00284f); }
+        .conf-header.big12 { background: linear-gradient(90deg, #cf102d, #6e000f); }
+        
+        .badge-placeholder { background: rgba(255,255,255,0.1); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 800; }
+        
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+        th, td { padding: 0.8rem 1rem; }
+        th { background-color: #15141e; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; }
+        td { color: var(--text-muted); border-bottom: 1px solid #232230; }
+        tr:last-child td { border-bottom: none; }
+        .active-row td { color: var(--text-main); }
+        
+        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">
+            <div class="logo-circle">VFL</div>
+            <div class="logo-text">Virtual Football<span>League • Season 7</span></div>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scores.html">Scores</a></li>
+            <li><a href="standings.html" class="active">Standings</a></li>
+            <li><a href="stats.html">Stats</a></li>
+            <li><a href="legacy.html">Legacy</a></li>
+            <li><a href="rulebook.html">Rulebook</a></li>
+        </ul>
+        <a href="#" class="nav-btn">Join Now!</a>
+    </nav>
+
+    <div class="container">
+        <div class="standings-grid">
+            
+            <!-- Big 10 Block -->
+            <div class="conf-card">
+                <div class="conf-header b1g"><div class="badge-placeholder">B1G</div> Big 10 Standings</div>
+                <table>
+                    <thead><tr><th>#R</th><th>TEAM</th><th>W</th><th>L</th><th>T</th><th>CNF</th><th>PD</th></tr></thead>
+                    <tbody>
+                        <tr class="active-row"><td>1</td><td>Ohio State</td><td>6</td><td>0</td><td>0</td><td>4-0</td><td>+84</td></tr>
+                        <tr><td>2</td><td>Michigan</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>3</td><td>Penn State</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>4</td><td>USC</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>5</td><td>Oregon</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>6</td><td>Iowa</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ACC Block -->
+            <div class="conf-card">
+                <div class="conf-header acc"><div class="badge-placeholder">ACC</div> Atlantic Coast Standings</div>
+                <table>
+                    <thead><tr><th>#R</th><th>TEAM</th><th>W</th><th>L</th><th>T</th><th>CNF</th><th>PD</th></tr></thead>
+                    <tbody>
+                        <tr class="active-row"><td>1</td><td>Clemson</td><td>5</td><td>1</td><td>0</td><td>3-1</td><td>+42</td></tr>
+                        <tr><td>2</td><td>FSU</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>3</td><td>Miami</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>4</td><td>Louisville</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>5</td><td>NC State</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>6</td><td>Virginia Tech</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SEC Block -->
+            <div class="conf-card">
+                <div class="conf-header sec"><div class="badge-placeholder">SEC</div> South Eastern Standings</div>
+                <table>
+                    <thead><tr><th>#R</th><th>TEAM</th><th>W</th><th>L</th><th>T</th><th>CNF</th><th>PD</th></tr></thead>
+                    <tbody>
+                        <tr class="active-row"><td>1</td><td>Georgia</td><td>6</td><td>0</td><td>0</td><td>5-0</td><td>+98</td></tr>
+                        <tr><td>2</td><td>Alabama</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>3</td><td>Texas</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>4</td><td>LSU</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>5</td><td>Ole Miss</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>6</td><td>Tennessee</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Big 12 Block -->
+            <div class="conf-card">
+                <div class="conf-header big12"><div class="badge-placeholder">XII</div> Big 12 Standings</div>
+                <table>
+                    <thead><tr><th>#R</th><th>TEAM</th><th>W</th><th>L</th><th>T</th><th>CNF</th><th>PD</th></tr></thead>
+                    <tbody>
+                        <tr class="active-row"><td>1</td><td>Utah</td><td>4</td><td>2</td><td>0</td><td>2-1</td><td>+14</td></tr>
+                        <tr><td>2</td><td>Kansas State</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>3</td><td>Oklahoma State</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>4</td><td>TCU</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>5</td><td>Arizona</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                        <tr><td>6</td><td>Colorado</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>2026 Virtual Football League INC</footer>
+</body>
+</html>
