@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VFL Roblox - Legacy</title>
+    <style>
+        :root {
+            --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
+            --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        nav { background-color: var(--bg-main); padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+
+        .container { max-width: 1000px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
+        .history-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-bottom: 1.5rem; display: flex; gap: 2rem; align-items: center; }
+        .season-badge { background-color: #242233; border: 2px solid var(--accent); border-radius: 6px; padding: 1rem; text-align: center; min-width: 120px; font-weight: 800; font-size: 1.1rem; }
+        .history-details h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .history-details p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+
+        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">
+            <div class="logo-circle">VFL</div>
+            <div class="logo-text">Virtual Football<span>League • Season 7</span></div>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scores.html">Scores</a></li>
+            <li><a href="standings.html">Standings</a></li>
+            <li><a href="stats.html">Stats</a></li>
+            <li><a href="legacy.html" class="active">Legacy</a></li>
+            <li><a href="rulebook.html">Rulebook</a></li>
+        </ul>
+        <a href="#" class="nav-btn">Join Now!</a>
+    </nav>
+
+    <div class="container">
+        <div class="history-card">
+            <div class="season-badge">SEASON 6</div>
+            <div class="history-details">
+                <h3>Championship: Ohio State Takeover</h3>
+                <p>Ohio State capped off a historical undefeated postseason run to secure the championship title in a legendary defensive standoff.</p>
+            </div>
+        </div>
+        
+        <div class="history-card">
+            <div class="season-badge">SEASON 5</div>
+            <div class="history-details">
+                <h3>Championship: Georgia Conquest</h3>
+                <p>Georgia took home the trophy after a dramatic game-winning field goal execution during final overtime play sequences.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>2026 Virtual Football League INC</footer>
+</body>
+</html>
