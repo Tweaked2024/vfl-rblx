@@ -8,6 +8,7 @@
         :root {
             --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
             --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
+            --pink-bg: #2d1e24; --pink-border: #f05d51;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
@@ -22,12 +23,55 @@
         nav ul li a:hover, nav ul li a.active { color: var(--text-main); border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
-        .container { max-width: 900px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
-        .rule-section { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; }
-        .rule-section h2 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent); text-transform: uppercase; }
-        .rule-section p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
+        /* Legacy Centered Layout Container */
+        .container { max-width: 860px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; display: flex; flex-direction: column; gap: 1.75rem; }
+        
+        /* Rulebook Hero Header Area */
+        .rulebook-header { text-align: center; margin-bottom: 2.5rem; }
+        .rulebook-header .kicker { color: var(--accent); text-transform: uppercase; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.5rem; display: block; }
+        .rulebook-header h1 { font-size: 2.2rem; font-weight: 800; text-transform: lowercase; margin-bottom: 0.75rem; }
+        .rulebook-header h1 span { color: var(--accent); text-transform: none; }
+        .rulebook-header .desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; max-width: 720px; margin: 0 auto; }
 
-        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); }
+        /* Centered Rule Cards (Split Layout Style) */
+        .rule-section { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; display: flex; gap: 2rem; align-items: flex-start; }
+        
+        /* Left Column Section Badges */
+        .rule-badge { border: 1px solid var(--accent); border-radius: 8px; min-width: 95px; height: 95px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; background-color: rgba(240, 93, 81, 0.05); }
+        .rule-badge .badge-label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em; }
+        .rule-badge .badge-num { font-size: 1.4rem; font-weight: 800; color: var(--text-main); }
+
+        /* Right Column Content Structure */
+        .rule-content { flex-grow: 1; }
+        .rule-content h2 { font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--text-main); text-transform: lowercase; font-weight: 700; }
+        .rule-content p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
+        .rule-content h3 { font-size: 1rem; color: var(--text-main); margin: 1.5rem 0 0.5rem 0; text-transform: lowercase; font-weight: 600; }
+        
+        /* Custom Inline Warning Callouts inside Content Column */
+        .rule-alert { display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem 1.2rem; margin: 0.75rem 0; background-color: rgba(255,255,255,0.02); }
+        .rule-alert span { font-size: 0.9rem; font-weight: 600; }
+        .rule-alert .alert-pill { background-color: var(--accent); color: #ffffff; font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 4px; text-transform: uppercase; }
+
+        /* Special Pink Container Block for Configs/Server Settings */
+        .settings-box { background-color: var(--pink-bg); border-left: 3px solid var(--pink-border); border-radius: 4px; padding: 1.25rem 1.5rem; margin: 1.25rem 0; }
+        .settings-box strong { display: block; margin-bottom: 0.75rem; font-size: 0.95rem; text-transform: lowercase; color: #ffffff; }
+        
+        /* Bullet Lists Styling Layout */
+        .rule-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.5rem; }
+        .rule-list li { position: relative; padding-left: 1.2rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+        .rule-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+        
+        /* Command Line Text Snippets */
+        code { background-color: #111017; padding: 0.2rem 0.5rem; border-radius: 4px; color: var(--accent); font-size: 0.85rem; font-family: monospace; }
+
+        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
+
+        /* Mobile Viewport Layout Tuning */
+        @media (max-width: 640px) {
+            .rule-section { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
+            .rule-badge { width: 100%; height: 50px; flex-direction: row; gap: 8px; min-width: auto; }
+            .rule-badge .badge-num { font-size: 1.2rem; }
+        }
     </style>
 </head>
 <body>
@@ -49,14 +93,297 @@
     </nav>
 
     <div class="container">
+        
+        <!-- Rulebook Hero Section -->
+        <header class="rulebook-header">
+            <span class="kicker">league operations</span>
+            <h1>AFL Rulebook <span>2026 Edition</span></h1>
+            <p class="desc">Everything you need to run and play an official AFL game — from server setup and start-of-game procedure through blocking, penalties, special teams, and overtime.</p>
+        </header>
+
+        <!-- SECTION 1: GAME SETUP -->
         <div class="rule-section">
-            <h2>1. General Play & Rosters</h2>
-            <p>All competing active rosters must follow structural requirements designated prior to registration lockdowns. Roster revisions are prohibited once standard season play sequences officially open.</p>
+            <div class="rule-badge">
+                <span class="badge-label">section</span>
+                <span class="badge-num">01</span>
+            </div>
+            <div class="rule-content">
+                <h2>game setup</h2>
+                <p>Before any game, it's important to know how to set up an official AFL server. This ensures that the gameplay is played fairly & for a smooth experience. Either a Head Coach or Referee will create the server while adjusting the following settings:</p>
+                
+                <div class="settings-box">
+                    <strong>server settings</strong>
+                    <ul class="rule-list">
+                        <li>turn off public listing</li>
+                        <li>set fumbling chances to 1</li>
+                        <li>set play clock size to 20</li>
+                        <li>set quarter length to 4</li>
+                        <li>turn off pass break up</li>
+                        <li>turn on trucking</li>
+                        <li>turn on hitstick</li>
+                    </ul>
+                </div>
+
+                <h3>webhook</h3>
+                <p>This is the most important step, in order to ensure game results & stats are shared with high ranks, referees or head coaches will need to have a webhook attached to their server settings. To get this webhook, you must be a head coach or referee. Receive it by contacting the operations executive team.</p>
+                
+                <h3>team arrival</h3>
+                <p>Games should start at the scheduled time, however, in the event of a delay, there are time limits to how much longer a delay can be prolonged.</p>
+                <ul class="rule-list">
+                    <li>If Team A has less than 6 players after 10 minutes ahead of the scheduled time, Team B is given the option to either take the forfeit win, or prolong the delay longer to allow Team A more time to get players.</li>
+                    <li>If Team A & B both have less than 6 players after 10 minutes ahead of the scheduled time, the game will result in a two-way forfeit. Both teams may opt to schedule the game to a later time or day within the current week scheduling deadline.</li>
+                </ul>
+                <p style="margin-top: 1rem;">Both Head coaches must be given admin permissions upon joining. In order to do this, the server owner will use the following command: <code>:padmin [roblox-username]</code></p>
+            </div>
         </div>
+
+        <!-- SECTION 2: BLOCKING -->
         <div class="rule-section">
-            <h2>2. Connection & Server Rules</h2>
-            <p>Games will be hosted across designated standard Roblox servers. Disconnections or unexpected structural server crashes will result in immediate official inspection states for fair handling.</p>
+            <div class="rule-badge">
+                <span class="badge-label">section</span>
+                <span class="badge-num">02</span>
+            </div>
+            <div class="rule-content">
+                <h2>blocking</h2>
+                <p>Teams will have two blocking schemes to choose from, and will be differentiated by formations.</p>
+                
+                <div class="rule-alert">
+                    <span>Center rollout</span>
+                    <span class="alert-pill">Illegal</span>
+                </div>
+                <p>Centers cannot rollout / cross the line of scrimmage at all times.</p>
+
+                <div class="rule-alert">
+                    <span>Illegal formation</span>
+                    <span class="alert-pill">5 YD</span>
+                </div>
+                <ul class="rule-list">
+                    <li>Tight ends must be up on the line of scrimmage before snap</li>
+                    <li>Wide receivers cannot lineup inside the hashes</li>
+                    <li>Improperly lining up based off blocking formations (see details below)</li>
+                </ul>
+
+                <div class="rule-alert">
+                    <span>Too many blockers</span>
+                    <span class="alert-pill">5 YD & Loss of Down</span>
+                </div>
+                <p>When more than 3 players block on a play, or a tight end goes past their 5 YD limit (depending on blocking scheme).</p>
+                <p>If more than 3 players block, the offense must run the ball, if any attempt at throwing is made, the flag is thrown. Blocking is based on intention and referee discretion, clear intention to block a pass rusher will result in a flag.</p>
+
+                <h3>1C-2TE</h3>
+                <p>The center must be lined up within the purple zone / inside the hashes when the ball is placed in the middle. If ball is offset, the center can line up on the hash (left or right according to placement).</p>
+                <p>Both tight ends must be outside the hashes and lineup on the line of scrimmage. Tight ends may double up on the same side of the field.</p>
+                <p>Tight ends are only able to block up to 5 YDs, behind the line of scrimmage. Tight ends cannot be in the yellow zone.</p>
+
+                <h3>2C-1TE</h3>
+                <p>The centers must be lined up within the purple zone, 1 on each side of the quarterback; same goes even if the ball is offset.</p>
+                <p>The tight end must be lined up inside or on the hashes or the red zone and on the line of scrimmage.</p>
+                <p>The tight end is only able to block up to 5 YDs behind the line of scrimmage. They are not restricted to the red zone when it comes to blocking after snap.</p>
+            </div>
         </div>
+
+        <!-- SECTION 3: PENALTIES -->
+        <div class="rule-section">
+            <div class="rule-badge">
+                <span class="badge-label">section</span>
+                <span class="badge-num">03</span>
+            </div>
+            <div class="rule-content">
+                <h2>penalties</h2>
+                <p>It is important to ensure both head coaches are civil about penalties. Both teams are responsible for obeying the rulebook & going by the referee's call.</p>
+
+                <div class="rule-alert">
+                    <span>Delay of game</span>
+                    <span class="alert-pill">5 YD & Loss of Down</span>
+                </div>
+                <p>This occurs when the play clock expires before the ball can be hiked.</p>
+
+                <div class="rule-alert">
+                    <span>Too many men</span>
+                    <span class="alert-pill">5 YD or Repeat Play</span>
+                </div>
+                <p>This occurs when either the offense or defense has more than 5 players on the field during a play.</p>
+
+                <div class="rule-alert">
+                    <span>Ineligible receiver</span>
+                    <span class="alert-pill">Incomplete</span>
+                </div>
+                <p>This occurs when the receiver steps out of bounds before or after the ball is thrown & catches the pass.</p>
+                <ul class="rule-list">
+                    <li>This also applies to defensive players & will still result in an incomplete play.</li>
+                </ul>
+
+                <div class="rule-alert">
+                    <span>Leg sacks</span>
+                    <span class="alert-pill">15 YD & Loss of Down</span>
+                </div>
+                <p>This occurs when a defensive end, who is lagging heavily, sacks the quarterback. Ways to determine if a sack was a leg sack: a) to see if the defensive end falls down a few moments after the quarterback falls, as well as the distance the player was sacked from. This is a clear sign of a leg sack.</p>
+                <ul class="rule-list">
+                    <li>If called, the defensive end will receive a leg warning, 3 will result in an ejection from the game.</li>
+                </ul>
+
+                <div class="rule-alert">
+                    <span>Grounding</span>
+                    <span class="alert-pill">Repeat Down & Loss of YDs</span>
+                </div>
+                <p>This occurs when the quarterback, while in the pocket, throws a pass with no receiver in the area. The ball must land within 15 yards of an eligible receiver.</p>
+                <ul class="rule-list">
+                    <li>If the quarterback is outside of the pocket, a pass just has to be across the line of scrimmage to avoid a grounding call.</li>
+                    <li>While in the air, if the ball crosses out of bounds, that is where the ball will be marked 'down'.</li>
+                </ul>
+
+                <div class="rule-alert">
+                    <span>Head riding</span>
+                    <span class="alert-pill">Repeat Down / Loss of Down</span>
+                </div>
+                <p>This occurs when a receiver or defensive back rides atop of another players' head & catches the ball.</p>
+                <ul class="rule-list">
+                    <li>If called on the offense, will result in a loss of down & ball spotted at the previous spot.</li>
+                    <li>If called on the defense, will result in a spot penalty, meaning the offense will get the ball where the interception occurred.</li>
+                </ul>
+
+                <div class="rule-alert">
+                    <span>Trucking</span>
+                    <span class="alert-pill">Spot of occurrence</span>
+                </div>
+                <p>This occurs when a player uses the trucking mechanic during a play. Only during the following circumstances is trucking ok:</p>
+                <ul class="rule-list">
+                    <li>Quarterback hands the ball off to a player (Runningback).</li>
+                    <li>Quarterback throws a backwards pass, allowing the running back to truck.</li>
+                </ul>
+
+                <div class="rule-alert">
+                    <span>Illegal Motion</span>
+                    <span class="alert-pill">Replay of down</span>
+                </div>
+                <p>This occurs when a receiver dives after catching the ball behind the line of scrimmage.</p>
+                <ul class="rule-list">
+                    <li>This applies to all screen / quick passes.</li>
+                    <li>Does not apply to passes over 20+ yards from distance between quarterback and receiver.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 4: SPECIAL TEAMS -->
+        <div class="rule-section">
+            <div class="rule-badge">
+                <span class="badge-label">section</span>
+                <span class="badge-num">04</span>
+            </div>
+            <div class="rule-content">
+                <h2>special teams</h2>
+                <p>The offense is forced to punt or kick a field goal if it is 4th & 7 or longer. This does not apply under 2 minutes in the 2nd or 4th quarter.</p>
+                <ul class="rule-list">
+                    <li>Teams are not allowed to fake punts or field goals.</li>
+                    <li>Teams may only onside once there is 3 minutes or less left in the game. Must be trailing & cannot onside while tied.</li>
+                </ul>
+
+                <h3>pin kicks</h3>
+                <p>Teams have the ability to announce pin kicks once per half, allowing the returning team to return the kickoff.</p>
+                <ul class="rule-list">
+                    <li>Will proceed as regular kickoff as per the game.</li>
+                    <li>Must announce at least 3 seconds before kick.</li>
+                    <li>Returning team can fumble.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 5: FUMBLES -->
+        <div class="rule-section">
+            <div class="rule-badge">
+                <span class="badge-label">section</span>
+                <span class="badge-num">05</span>
+            </div>
+            <div class="rule-content">
+                <h2>fumbles</h2>
+                <p>There are only specific circumstances where fumbles are allowed to occur:</p>
+                <ul class="rule-list">
+                    <li>Quarterbacks can always fumble.</li>
+                    <li>Running backs can always fumble on running plays, and passes caught behind the line of scrimmage.</li>
+                    <li>Defensive backs can only fumble if they've crossed the line of scrimmage during an interception return. Or in other cases, intercepting the ball on the opponents' side of the line of scrimmage & fumbling while returning.</li>
+                    <li>Kick or punt returners can always fumble, including onsides.</li>
+                    <li>Receiver catching a pass behind the line of scrimmage & fumbling while behind.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 6: HIT STICK -->
+        <div class="rule-section">
+            <div class="rule-badge">
+                <span class="badge-label">section</span>
+                <span class="badge-num">06</span>
+            </div>
+            <div class="rule-content">
+                <h2>hit stick</h2>
+                <p>All defensive players are allowed to use the hit stick mechanic.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 7: MILKING -->
+        <div class="rule-section">
+            <div class="rule-badge">
+                <span class="badge-label">section</span>
+                <span class="badge-num">07</span>
+            </div>
+            <div class="rule-content">
+                <h2>milking</h2>
+                <p>Teams are only allowed to waste time (or milk) for certain periods during the game.</p>
+                <ul class="rule-list">
+                    <li>While the clock is running, the offense must hike the ball before the play clock runs under 10 seconds. If unable to, time will be added back to the game clock. This rule is dismissed if there is less than 1 minute remaining in the 2nd or 4th quarter.</li>
+                    <li>If the quarterback drops back more than 30 yards behind the line of scrimmage, the clock will stop & resume after the following snap.</li>
+                    <li>If a player gets tackled behind the line of scrimmage, the clock will stop (if in the 2nd or 4th quarter). This rule is dismissed if the offense is trailing.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 8: OVERTIME -->
+        <div class="rule-section">
+            <div class="rule-badge">
+                <span class="badge-label">section</span>
+                <span class="badge-num">08</span>
+            </div>
+            <div class="rule-content">
+                <h2>overtime</h2>
+                
+                <h3>11.1 OVERTIME FORMAT</h3>
+                <p>Overtime shall be conducted using a sudden-death shootout format designed to ensure both teams receive an equal scoring opportunity.</p>
+                <ul class="rule-list">
+                    <li>Each possession begins at the opponent's 25-yard line.</li>
+                    <li>possessions alternate until a winner is determined.</li>
+                    <li>the team that won the coin toss at the beginning of the game will receive the ball first in overtime.</li>
+                </ul>
+
+                <h3>11.2 SCORING RESOLUTION</h3>
+                <p>Overtime scoring follows a "match-or-beat" structure.</p>
+                <ul class="rule-list">
+                    <li>If Team A scores and Team B fails to match — game ends.</li>
+                    <li>If Team A doesn't score and Team B scores — game ends.</li>
+                    <li>Once a team outscores the other during their corresponding possession, the game is over.</li>
+                    <li>Teams cannot attempt to kick field goals at any point in this period.</li>
+                </ul>
+
+                <h3>11.3 POINT AFTER ATTEMPTS</h3>
+                <p>The availability of point-after conversion attempts changes as overtime progresses:</p>
+                <ul class="rule-list">
+                    <li><strong>OT 1-3:</strong> Teams may not attempt a 1-point or 2-point conversion.</li>
+                    <li><strong>OT 4+:</strong> Teams may select to attempt a 1/2-point conversion; the responding team must match or beat the previous conversion attempt.</li>
+                    <li><strong>example:</strong> Team A scores & attempts a 1-point conversion. Team B scores & can decide to extend overtime with a 1-point conversion, or attempt a 2-point conversion and win the game. If Team B fails, the game is over & Team A wins.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 9: MERCY RULE -->
+        <div class="rule-section">
+            <div class="rule-badge">
+                <span class="badge-label">section</span>
+                <span class="badge-num">09</span>
+            </div>
+            <div class="rule-content">
+                <h2>mercy rule</h2>
+                <p>If at any point in the game a team leads by 40 or more points, the game will be called final.</p>
+            </div>
+        </div>
+
     </div>
 
     <footer>2026 Virtual Football League INC</footer>
