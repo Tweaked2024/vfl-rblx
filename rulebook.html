@@ -79,7 +79,7 @@
     <nav>
         <div class="logo-area">
             <div class="logo-circle">VFL</div>
-            <div class="logo-text">Virtual Football<span>League • Season 7</span></div>
+            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
         </div>
         <ul>
             <li><a href="index.html">Home</a></li>
@@ -97,8 +97,8 @@
         <!-- Rulebook Hero Section -->
         <header class="rulebook-header">
             <span class="kicker">league operations</span>
-            <h1>AFL Rulebook <span>2026 Edition</span></h1>
-            <p class="desc">Everything you need to run and play an official AFL game — from server setup and start-of-game procedure through blocking, penalties, special teams, and overtime.</p>
+            <h1>VFL Rulebook <span>2026 Edition</span></h1>
+            <p class="desc">Everything you need to run and play an official VFL game — from server setup and start-of-game procedure through blocking, penalties, special teams, and overtime.</p>
         </header>
 
         <!-- SECTION 1: GAME SETUP -->
@@ -108,13 +108,14 @@
                 <span class="badge-num">01</span>
             </div>
             <div class="rule-content">
-                <h2>game setup</h2>
-                <p>Before any game, it's important to know how to set up an official AFL server. This ensures that the gameplay is played fairly & for a smooth experience. Either a Head Coach or Referee will create the server while adjusting the following settings:</p>
+                <h2>Game Setup</h2>
+                <p>Before any game, it's important to know how to set up an official VFL server. This ensures that the gameplay is played fairly & for a smooth experience. Either a Head Coach or Referee will create the server while adjusting the following settings:</p>
                 
                 <div class="settings-box">
-                    <strong>server settings</strong>
+                    <strong>Server Settings</strong>
                     <ul class="rule-list">
                         <li>turn off public listing</li>
+                        <li>7v7 - 9v9 league forces are allowed, both teams can run the ball</li>li>
                         <li>set fumbling chances to 1</li>
                         <li>set play clock size to 20</li>
                         <li>set quarter length to 4</li>
@@ -124,8 +125,8 @@
                     </ul>
                 </div>
 
-                <h3>webhook</h3>
-                <p>This is the most important step, in order to ensure game results & stats are shared with high ranks, referees or head coaches will need to have a webhook attached to their server settings. To get this webhook, you must be a head coach or referee. Receive it by contacting the operations executive team.</p>
+                <h3>Webhook</h3>
+                <p>This is the most important step, in order to ensure game results & stats are shared with high ranks, referees or head coaches will need to have a webhook attached to their server settings. To get this webhook, you must be a head coach or referee. Receive it by contacting the operations/analytics team.</p>
                 
                 <h3>team arrival</h3>
                 <p>Games should start at the scheduled time, however, in the event of a delay, there are time limits to how much longer a delay can be prolonged.</p>
@@ -134,6 +135,31 @@
                     <li>If Team A & B both have less than 6 players after 10 minutes ahead of the scheduled time, the game will result in a two-way forfeit. Both teams may opt to schedule the game to a later time or day within the current week scheduling deadline.</li>
                 </ul>
                 <p style="margin-top: 1rem;">Both Head coaches must be given admin permissions upon joining. In order to do this, the server owner will use the following command: <code>:padmin [roblox-username]</code></p>
+                
+                <h3>Start of Game</h3>
+                <p>Once both head coaches are ready, the server owner will start the game from Intro. Games have no reason to be starting more than 15 minutes after the scheduled time. Whether both head coaches are ready or not, the game must start by then.</p>
+
+                <h3>First Play</h3>
+                <p>Each offensive possession starts at the 25 yard line.</p>
+                <p>After kickoff concludes, the referee or either head coach will extend the play clock, using the command: :pclock 100. This will give both teams time to sort out positions on either offense or defense. No extra time can be given and the ball must be hiked before the 100 seconds expire.</p>
+
+                <h3>Start of Drives</h3>
+                <p>Before the ball is hiked on the first play of a drive, either team can call "subs", "not ready" or "nr" to indicate they need more time to re-organize their lineup. The referee or head coach will execute the following command: :pclock 60</p>
+                <ul class="rule-list">
+                    <li>If the defense calls subs, then the offense must wait until there are 10 seconds left on the play clock before hiking the ball. Unless the opposition states they're ready to indicate they're ready for the offense to hike the ball.</li>
+                </ul>
+                    
+                <h3>Challenges</h3>
+                <p>By default, we go by the game call or ruling. The only way to overturn a game call is if a challenge is called OR the referee makes the call. It must fall under the applicable circumstances in order to be called.</p>
+                
+                <h3>When applicable</h3>
+                <ul class="rule-list">
+                    <li>Attempting to overturn whether a player's feet were inbounds during a catch</li>
+                    <li>If you believe your Quarterback was sacked unfairly by the advantage of lag</li>
+                    <li>If you believe the offense had too many blockers during a play</li>
+                    <li>Failing to overturn the play will cost your team a timeout</li>
+                <p>If you feel like a challenge is warranted, you must use the following command before the ball is snapped: :challenge</p>
+                </ul>
             </div>
         </div>
 
@@ -141,10 +167,10 @@
         <div class="rule-section">
             <div class="rule-badge">
                 <span class="badge-label">section</span>
-                <span class="badge-num">02</span>
+                <span class="badge-num">03</span>
             </div>
             <div class="rule-content">
-                <h2>blocking</h2>
+                <h2>Blocking</h2>
                 <p>Teams will have two blocking schemes to choose from, and will be differentiated by formations.</p>
                 
                 <div class="rule-alert">
