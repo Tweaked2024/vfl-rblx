@@ -50,7 +50,7 @@
         .round-header span { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); font-size: 0.7rem; }
         
         /* Matchup Block Cards (Interactive Mode) */
-        .matchup-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; margin: 0.8rem 0; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease; }
+        .matchup-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; margin: 0.8rem 0; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
         .matchup-card:hover { transform: translateY(-2px); border-color: var(--accent); }
         .team-row { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.8rem; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid #232230; }
         .team-row:last-child { border-bottom: none; }
@@ -60,6 +60,16 @@
         .team-name { color: var(--text-main); }
         .team-score { font-weight: 700; color: var(--text-main); }
         
+        /* Shiny National Championship Card Styling Modification */
+        .championship-card {
+            border: 2px solid #e61e32 !important; /* Vivid red border matching the logo */
+            box-shadow: 0 0 20px rgba(230, 30, 50, 0.35); /* Outer glowing light beam effect */
+        }
+        .championship-card:hover {
+            border-color: #ff2a3f !important;
+            box-shadow: 0 0 30px rgba(230, 30, 50, 0.6) !important;
+        }
+
         /* TBD styling placeholder */
         .tbd-row .team-name { color: var(--text-muted); }
 
@@ -218,7 +228,8 @@
             <div class="bracket-round">
                 <div class="round-header"><span>★</span> National Championship</div>
                 
-                <div class="matchup-card" data-bowl="VFL National Championship" data-bowl-logo="https://via.placeholder.com/150x70/1b1a25/f05d51?text=NATIONAL+CHAMPIONSHIP" data-location="SoFi Stadium, Los Angeles">
+                <!-- Added "championship-card" to trigger the glowing shine layout -->
+                <div class="matchup-card championship-card" data-bowl="VFL National Championship" data-bowl-logo="https://via.placeholder.com/150x70/1b1a25/f05d51?text=NATIONAL+CHAMPIONSHIP" data-location="SoFi Stadium, Los Angeles">
                     <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
                     <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
                 </div>
