@@ -52,7 +52,7 @@
         .mega-dropdown {
             display: none;
             position: absolute;
-            top: 100%;
+            top: 90%; /* Brought up slightly to eliminate the dead-zone gap */
             left: 50%;
             transform: translateX(-50%) translateY(10px);
             background-color: #ffffff; 
@@ -61,7 +61,7 @@
             padding: 1.5rem 2rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
             list-style: none !important;
-            margin-top: 5px;
+            margin-top: 0; /* Removed the extra spacing causing the disconnect */
             z-index: 99999;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
