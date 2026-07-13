@@ -54,7 +54,7 @@
         .page-title { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; margin-top: 0.2rem; letter-spacing: -0.5px; }
         .subtitle-notice { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 600px; line-height: 1.4; }
 
-        /* Award Filter Pill Box & Custom Dropdown Select Buttons */
+        /* Award Filter Pill Box & Clean Buttons */
         .award-selector-bar { 
             background-color: #16151f; border: 1px solid var(--border); 
             padding: 0.8rem 1.2rem; border-radius: 8px; display: flex; 
@@ -62,45 +62,19 @@
         }
         .award-pills { display: flex; gap: 8px; flex-wrap: wrap; }
         
-        /* Wrapper for our clickable dropdown button combo */
-        .award-pill-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        
-        /* Transparent select layer directly over the styled layout */
-        .award-pill-wrapper select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; /* completely invisible button overlay trick */
-            cursor: pointer;
-            z-index: 2;
-        }
-
         .award-pill { 
             background-color: var(--bg-card); border: 1px solid var(--border); 
-            color: var(--text-muted); padding: 0.4rem 2rem 0.4rem 1rem; border-radius: 20px; 
+            color: var(--text-muted); padding: 0.4rem 1.2rem; border-radius: 20px; 
             font-size: 0.75rem; font-weight: 700; text-decoration: none; transition: all 0.2s;
-            display: inline-flex; align-items: center; gap: 4px; position: relative;
-            white-space: nowrap; pointer-events: none; /* Let select get clicks */
-        }
-        .award-pill::after {
-            content: '▾';
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            position: absolute;
-            right: 0.8rem;
+            display: inline-flex; align-items: center; justify-content: center;
+            white-space: nowrap; cursor: pointer;
+            border-style: solid;
         }
         
-        .award-pill-wrapper:hover .award-pill { border-color: var(--accent); color: var(--text-main); }
-        .award-pill-wrapper:hover .award-pill::after { color: var(--text-main); }
+        .award-pill:hover { border-color: var(--accent); color: var(--text-main); }
         
         /* Active highlight for selected elements */
-        .award-pill-wrapper.active .award-pill { background-color: var(--accent); color: white; border-color: var(--accent); }
-        .award-pill-wrapper.active .award-pill::after { color: white; }
+        .award-pill.active { background-color: var(--accent); color: white; border-color: var(--accent); }
 
         /* Category Section Header */
         .category-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
@@ -206,115 +180,21 @@
         </div>
         <p class="subtitle-notice">The race for the VFL's top honors, ranked live from league stats. Pick an award category below to see who's leading the field.</p>
         
-        <!-- Award Filter Pills Custom Selector Menu Block -->
+        <!-- Award Filter Pills Clean Toggle Row -->
         <div class="award-selector-bar">
             <div class="award-pills">
-                <!-- Dropdown Button Layouts for tracking choices -->
-                <div class="award-pill-wrapper active">
-                    <select onchange="updateAwardUI('MVP', this)">
-                        <option value="nicesonecodyy" selected>nicesonecodyy (MVP)</option>
-                        <option value="DimingSLC">DimingSLC</option>
-                        <option value="KOISURII">KOISURII</option>
-                    </select>
-                    <div class="award-pill">MVP</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('OPOTY', this)">
-                        <option value="" disabled selected>OPOTY</option>
-                        <option value="nicesonecodyy">nicesonecodyy</option>
-                        <option value="HalfDunk">HalfDunk</option>
-                        <option value="jpingonza77">jpingonza77</option>
-                    </select>
-                    <div class="award-pill">OPOTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('DPOTY', this)">
-                        <option value="" disabled selected>DPOTY</option>
-                        <option value="DimingSLC">DimingSLC</option>
-                        <option value="KOISURII">KOISURII</option>
-                        <option value="Twentysizewndreams">Twentysizewndreams</option>
-                    </select>
-                    <div class="award-pill">DPOTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('OROTY', this)">
-                        <option value="" disabled selected>OROTY</option>
-                        <option value="Player1">Player 1</option>
-                        <option value="Player2">Player 2</option>
-                    </select>
-                    <div class="award-pill">OROTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('DROTY', this)">
-                        <option value="" disabled selected>DROTY</option>
-                        <option value="Player1">Player 1</option>
-                        <option value="Player2">Player 2</option>
-                    </select>
-                    <div class="award-pill">DROTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('QBOTY', this)">
-                        <option value="" disabled selected>QBOTY</option>
-                        <option value="Player1">Player 1</option>
-                    </select>
-                    <div class="award-pill">QBOTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('RBOTY', this)">
-                        <option value="" disabled selected>RBOTY</option>
-                        <option value="jpingonza77">jpingonza77</option>
-                        <option value="Ctezave">Ctezave</option>
-                    </select>
-                    <div class="award-pill">RBOTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('WROTY', this)">
-                        <option value="" disabled selected>WROTY</option>
-                        <option value="nicesonecodyy">nicesonecodyy</option>
-                        <option value="m1tchalll">m1tchalll</option>
-                    </select>
-                    <div class="award-pill">WROTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('TEOTY', this)">
-                        <option value="" disabled selected>TEOTY</option>
-                        <option value="HalfDunk">HalfDunk</option>
-                    </select>
-                    <div class="award-pill">TEOTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('COTY', this)">
-                        <option value="" disabled selected>COTY</option>
-                        <option value="Coach1">Coach 1</option>
-                    </select>
-                    <div class="award-pill">COTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('DEOTY', this)">
-                        <option value="" disabled selected>DEOTY</option>
-                        <option value="KOISURII">KOISURII</option>
-                    </select>
-                    <div class="award-pill">DEOTY</div>
-                </div>
-
-                <div class="award-pill-wrapper">
-                    <select onchange="updateAwardUI('LBOTY', this)">
-                        <option value="" disabled selected>LBOTY</option>
-                        <option value="DimingSLC">DimingSLC</option>
-                        <option value="fake11l">fake11l</option>
-                    </select>
-                    <div class="award-pill">LBOTY</div>
-                </div>
+                <div class="award-pill active" onclick="updateAwardUI('MVP', this)">MVP</div>
+                <div class="award-pill" onclick="updateAwardUI('OPOTY', this)">OPOTY</div>
+                <div class="award-pill" onclick="updateAwardUI('DPOTY', this)">DPOTY</div>
+                <div class="award-pill" onclick="updateAwardUI('OROTY', this)">OROTY</div>
+                <div class="award-pill" onclick="updateAwardUI('DROTY', this)">DROTY</div>
+                <div class="award-pill" onclick="updateAwardUI('QBOTY', this)">QBOTY</div>
+                <div class="award-pill" onclick="updateAwardUI('RBOTY', this)">RBOTY</div>
+                <div class="award-pill" onclick="updateAwardUI('WROTY', this)">WROTY</div>
+                <div class="award-pill" onclick="updateAwardUI('TEOTY', this)">TEOTY</div>
+                <div class="award-pill" onclick="updateAwardUI('COTY', this)">COTY</div>
+                <div class="award-pill" onclick="updateAwardUI('DEOTY', this)">DEOTY</div>
+                <div class="award-pill" onclick="updateAwardUI('LBOTY', this)">LBOTY</div>
             </div>
         </div>
 
@@ -560,40 +440,37 @@
 
     <footer>2026 Virtual Football League INC</footer>
 
-    <!-- Interactive Dropdown Control Script -->
+    <!-- Interactive Toggle Control Script -->
     <script>
-        // Descriptions dictionary matching your VFL metrics
         const awardInfo = {
             'MVP': { title: 'Most Valuable Player', desc: "The league's best player overall, each contender's positional rating, weighted by the impact of their role." },
             'OPOTY': { title: 'Offensive Player of the Year', desc: "Top performing offensive weapons across positions, focusing heavily on total production and efficiency counters." },
             'DPOTY': { title: 'Defensive Player of the Year', desc: "The impact anchor on defense. Ranks players based on total takeaways, defensive stops, and shutdown efficiency indices." },
-            'OROTY': { title: 'Offensive Rookie of the Year', desc: "First-year offensive breakout stars making major contributions to team yardage and point logs." },
-            'DROTY': { title: 'Defensive Rookie of the Year', desc: "Fresh defensive prospects putting up big numbers in tackles, picks, or containment analytics." },
-            'QBOTY': { title: 'Quarterback of the Year', desc: "Leading general from the pocket evaluated by total passing scores, accuracy thresholds, and clean air play." },
-            'RBOTY': { title: 'Running Back of the Year', desc: "Pure rushing workhorses ranked by ground efficiency, total yards after contact, and goal-line touchdowns." },
-            'WROTY': { title: 'Wide Receiver of the Year', desc: "Elite deep-threat weapons tracking high targets, conversion depth metrics, and scoring runs." },
-            'TEOTY': { title: 'Tight End of the Year', desc: "Hybrid playmakers grading high across security blocking assignments and crucial moving targets." },
-            'COTY': { title: 'Coach of the Year', desc: "Team leads commanding top tier rosters or turning unexpected performance margins into clear winning records." },
-            'DEOTY': { title: 'Defensive End of the Year', desc: "Front-line disruptors leading the league rosters in offensive line pressure, pocket collapse, and sack completions." },
-            'LBOTY': { title: 'Linebacker of the Year', desc: "Second-level defenders cleaning up rush attempts and shutting down target lines over the middle." }
+            'OROTY': { title: 'Offensive Rookie of the Year', desc: "First-year offensive standout award." },
+            'DROTY': { title: 'Defensive Rookie of the Year', desc: "First-year defensive standout award." },
+            'QBOTY': { title: 'Quarterback of the Year', desc: "Top performing quarterback based on passing efficiency and touchdowns." },
+            'RBOTY': { title: 'Running Back of the Year', desc: "Top running back based on rushing yards and total production." },
+            'WROTY': { title: 'Wide Receiver of the Year', desc: "Top target based on receptions, yards, and explosive plays." },
+            'TEOTY': { title: 'Tight End of the Year', desc: "Top hybrid option across the line of scrimmage." },
+            'COTY': { title: 'Coach of the Year', desc: "Best team strategist based on records and situational wins." },
+            'DEOTY': { title: 'Defensive End of the Year', desc: "Top pass rusher based on total sacks and defensive line impacts." },
+            'LBOTY': { title: 'Linebacker of the Year', desc: "Top linebacker based on total tackles, stops, and run protection metrics." }
         };
 
-        function updateAwardUI(awardKey, selectElement) {
-            // 1. Shift visual active border highlight to selected wrapper element
-            document.querySelectorAll('.award-pill-wrapper').forEach(wrapper => {
-                wrapper.classList.remove('active');
-            });
-            selectElement.parentElement.classList.add('active');
-
-            // 2. Change Category Text Headers Dynamically
+        function updateAwardUI(awardKey, element) {
+            // Update the text fields dynamically
             if (awardInfo[awardKey]) {
                 document.getElementById('display-award-title').innerText = awardInfo[awardKey].title;
                 document.getElementById('display-award-desc').innerText = awardInfo[awardKey].desc;
             }
 
-            // 3. Update the #1 Winner Crown box label value based on dropdown selection
-            const selectedName = selectElement.options[selectElement.selectedIndex].text.split(' (')[0];
-            document.getElementById('podium-winner-name').innerText = selectedName;
+            // Manage active class changes visually across the elements
+            const pills = document.querySelectorAll('.award-pill');
+            pills.forEach(pill => pill.classList.remove('active'));
+            element.classList.add('active');
+            
+            // NOTE: Add your data rendering/updating hook logic below to swap stats/leaderboard rows dynamically!
+            console.log("Loading tracker data view layer for type: " + awardKey);
         }
     </script>
 </body>
