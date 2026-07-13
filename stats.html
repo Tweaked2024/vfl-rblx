@@ -12,17 +12,96 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* Nav */
-        nav { background-color: var(--bg-main); padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        /* Navigation Header Base */
+        nav { 
+            background-color: var(--bg-main); 
+            padding: 1.2rem 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border); 
+            position: relative;
+            z-index: 1000;
+        }
         .logo-area { display: flex; align-items: center; gap: 10px; }
         .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
         .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
         .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
-        nav ul { display: flex; list-style: none; gap: 2rem; }
-        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
-        nav ul li a:hover, nav ul li a.active { color: var(--text-main); border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+        
+        /* Navigation Menu Lists */
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav ul li { position: relative !important; display: inline-block; }
+        
+        nav ul li a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s ease;
+        }
+        nav ul li a:hover, nav ul li a.active { 
+            color: var(--text-main); 
+        }
+
+        /* Pure Floating Dropdown Box Design */
+        .dropdown-menu {
+            display: none !important;
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background-color: #ffffff; /* Stark white card popout matches Image 1 */
+            min-width: 210px;
+            border-radius: 12px; /* Smooth rounded corners */
+            padding: 0.6rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Clean elevation shadow */
+            list-style: none !important;
+            margin-top: 5px;
+            z-index: 99999;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+        }
+
+        /* Displays only on hover state */
+        nav ul li.dropdown:hover .dropdown-menu {
+            display: block !important;
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px);
+        }
+
+        /* Dropdown Item Typography & Link Actions */
+        .dropdown-menu li { width: 100%; display: block; }
+        .dropdown-menu li a {
+            color: #111017 !important; /* Rich dark text on clean white background */
+            padding: 0.7rem 1.4rem;
+            display: block !important;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: none !important; /* Beautiful sentence-case formatting */
+            text-decoration: none;
+            text-align: left;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .dropdown-menu li a:hover { 
+            background-color: #f4f4f6 !important; /* Soft highlight fill */
+            color: var(--accent) !important; 
+        }
+
+        /* Animates down arrow turn on hover */
+        nav ul li.dropdown:hover .nav-arrow {
+            transform: rotate(180deg);
+        }
+
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
+        /* Container Layout */
         .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; }
         .leader-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
@@ -48,9 +127,15 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="scores.html">Scores</a></li>
             <li><a href="standings.html">Standings</a></li>
-            <li><a href="stats.html">Stats</a></li>
+            <li><a href="stats.html" class="active">Stats</a></li>
             <li class="dropdown">
-                <a href="#" class="active">Legacy ▾</a>
+                <a href="#">
+                    Legacy
+                    <!-- Native crisp SVG down arrow icon -->
+                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </a>
                 <ul class="dropdown-menu">
                     <li><a href="champions-awards.html">Champions & Awards</a></li>
                     <li><a href="hall-of-fame.html">Hall of Fame</a></li>
@@ -88,6 +173,7 @@
                     </tbody>
                 </table>
             </div>
+            
             <div class="leader-card">
                 <h3>Receiving Leaders</h3>
                 <table>
@@ -99,6 +185,7 @@
                     </tbody>
                 </table>
             </div>
+            
             <div class="leader-card">
                 <h3>Receiving Leaders</h3>
                 <table>
