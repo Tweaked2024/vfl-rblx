@@ -12,7 +12,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* Navigation Header Base */
+        /* Navigation Header */
         nav { 
             background-color: var(--bg-main); 
             padding: 1.2rem 4%; 
@@ -28,7 +28,6 @@
         .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
         .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
         
-        /* Navigation Menu Lists */
         nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
         nav ul li { position: relative !important; display: inline-block; }
         
@@ -44,15 +43,13 @@
             gap: 5px;
             transition: color 0.2s ease;
         }
-        nav ul li a:hover, nav ul li a.active { 
-            color: var(--text-main); 
-        }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
 
-        /* Stats Mega Dropdown Design */
+        /* Mega Dropdown Setup with Hover Bridge Fixed */
         .mega-dropdown {
             display: none;
             position: absolute;
-            top: 100%; /* Positions right at the bottom edge of the nav bar */
+            top: 100%; 
             left: 50%;
             transform: translateX(-50%);
             background-color: #ffffff; 
@@ -65,26 +62,16 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
-
-        /* Invisible bridge element that seals any remaining pixels of empty space */
         .mega-dropdown::before {
             content: '';
             position: absolute;
-            top: -25px; /* Reaches up behind the nav link */
+            top: -25px; 
             left: 0;
             width: 100%;
             height: 25px;
-            background: transparent; /* Totally hidden, but acts as a hit-box */
+            background: transparent; 
         }
-
-        /* Displays only on hover state */
-        nav ul li.dropdown:hover .mega-dropdown {
-            display: grid;
-        }
-
-        nav ul li.dropdown:hover .mega-dropdown {
-            display: grid;
-        }
+        nav ul li.dropdown:hover .mega-dropdown { display: grid; }
 
         .dropdown-col h4 {
             color: #b0afb8;
@@ -94,20 +81,7 @@
             margin-bottom: 0.8rem;
             font-weight: 700;
         }
-
-        .dropdown-col ul {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.6rem;
-            list-style: none;
-            padding: 0;
-        }
-
-        .dropdown-col ul li {
-            width: 100%;
-        }
-
+        .dropdown-col ul { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; list-style: none; padding: 0; }
         .dropdown-col ul li a {
             color: #111017 !important; 
             padding: 0.3rem 0;
@@ -116,63 +90,27 @@
             font-weight: 600;
             text-transform: none !important; 
             text-decoration: none;
-            transition: color 0.15s ease;
         }
-        .dropdown-col ul li a:hover { 
-            color: var(--accent) !important; 
-            background: none !important;
-        }
+        .dropdown-col ul li a:hover { color: var(--accent) !important; }
 
-        /* Legacy Standard Dropdown */
+        /* Legacy Dropdown */
         .legacy-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            min-width: 200px;
-            border-radius: 8px;
-            padding: 0.5rem 0;
-            list-style: none;
-            z-index: 99999;
+            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+            background-color: var(--bg-card); border: 1px solid var(--border); min-width: 200px; border-radius: 8px; padding: 0.5rem 0; list-style: none; z-index: 99999;
         }
-        .legacy-dropdown li a {
-            color: var(--text-muted) !important;
-            padding: 0.5rem 1rem;
-            display: block;
-            text-transform: none;
-        }
-        .legacy-dropdown li a:hover {
-            color: var(--text-main) !important;
-            background-color: rgba(255,255,255,0.05);
-        }
-        nav ul li.dropdown-legacy:hover .legacy-dropdown {
-            display: block;
-        }
-
-        nav ul li.dropdown:hover .nav-arrow {
-            transform: rotate(180deg);
-        }
-
+        .legacy-dropdown li a { color: var(--text-muted) !important; padding: 0.5rem 1rem; display: block; text-transform: none; }
+        .legacy-dropdown li a:hover { color: var(--text-main) !important; background-color: rgba(255,255,255,0.05); }
+        nav ul li.dropdown-legacy:hover .legacy-dropdown { display: block; }
+        nav ul li.dropdown:hover .nav-arrow { transform: rotate(180deg); }
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
-        /* Container Layout */
+        /* Layout Main Containers */
         .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; }
-        .leader-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
-        .leader-card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; border-left: 3px solid var(--accent); padding-left: 10px; }
         
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th, td { padding: 0.75rem 1rem; font-size: 0.85rem; }
-        th { color: var(--text-muted); border-bottom: 2px solid #232230; text-transform: uppercase; font-size: 0.75rem; }
-        td { color: var(--text-main); border-bottom: 1px solid #232230; }
-        .rank-num { font-weight: 700; color: var(--accent); }
-
-        /* Sub-page Specific Layout Styles (Images 2 & 3) */
+        /* Sub-navigation Category Tabs Styles */
         .sub-nav-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
-        .tab-btn { background: #1b1a25; color: white; border: 1px solid #282735; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; }
+        .tab-btn { background: #1b1a25; color: white; border: 1px solid #282735; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; transition: background 0.15s; }
+        .tab-btn:hover { background: #232230; }
         .tab-btn.active { background: var(--accent); border-color: var(--accent); }
         
         .section-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
@@ -181,13 +119,15 @@
         .search-input { width: 100%; background: #1b1a25; border: 1px solid #282735; padding: 0.6rem 1rem 0.6rem 2.2rem; border-radius: 8px; color: white; font-size: 0.85rem; }
         .search-icon { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 14px; height: 14px; }
         
-        .red-table-header th { background-color: var(--accent); color: white; font-weight: 700; padding: 0.9rem 1rem; border: none; }
-        .red-table-header th:first-child { border-top-left-radius: 8px; }
-        .red-table-header th:last-child { border-top-right-radius: 8px; }
+        /* Table Styles */
         .stat-table-card { background: #1b1a25; border-radius: 8px; overflow: hidden; border: 1px solid #282735; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 0.75rem 1rem; font-size: 0.85rem; }
+        .red-table-header th { background-color: var(--accent); color: white; font-weight: 700; padding: 0.9rem 1rem; border: none; text-transform: uppercase; font-size: 0.75rem; }
+        td { color: var(--text-main); border-bottom: 1px solid #232230; }
         .highlight-col { background-color: rgba(240, 93, 81, 0.05); font-weight: 700; }
 
-        /* Image 3 Banner Specifics */
+        /* All-Time Dashboard Layout */
         .alltime-hero { background: linear-gradient(135deg, #401012 0%, #111017 60%); padding: 3.5rem 2rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid #3d1b1d; }
         .hero-tag { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-bottom: 0.5rem; }
         .hero-heading { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; }
@@ -195,7 +135,6 @@
         .hero-search { display: flex; gap: 0.5rem; max-width: 500px; }
         .hero-search input { flex: 1; background: white; border: none; padding: 0.8rem 1.2rem; border-radius: 25px; color: #111017; font-size: 0.9rem; }
         .hero-search button { background: var(--accent); border: none; color: white; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 700; cursor: pointer; }
-        
         .pill-toggle-row { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
         .pill-btn { background: #1b1a25; border: 1px solid #282735; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
         .pill-btn.active { background: var(--accent); border-color: var(--accent); }
@@ -218,20 +157,20 @@
             <li><a href="scores.html">Scores</a></li>
             <li><a href="standings.html">Standings</a></li>
             <li class="dropdown">
-                <a href="stats.html" class="active">
+                <!-- Clicking this directly runs our layout function to build the view on demand -->
+                <a href="#" class="active" onclick="switchCategory('passing', this)">
                     Stats
                     <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
                         <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                     </svg>
                 </a>
-                <!-- Image 1 Mega Dropdown Build -->
                 <div class="mega-dropdown">
                     <div class="dropdown-col">
                         <h4>Offense</h4>
                         <ul>
-                            <li><a href="#" onclick="loadQuarterbacks(event)">Quarterbacks</a></li>
-                            <li><a href="#">Running Backs</a></li>
-                            <li><a href="#">Wide Receivers</a></li>
+                            <li><a href="#" onclick="switchCategory('passing')">Quarterbacks</a></li>
+                            <li><a href="#" onclick="switchCategory('rushing')">Running Backs</a></li>
+                            <li><a href="#" onclick="switchCategory('receiving')">Wide Receivers</a></li>
                             <li><a href="#">Tight Ends</a></li>
                             <li><a href="#">Centers</a></li>
                         </ul>
@@ -274,62 +213,66 @@
         <a href="#" class="nav-btn">Join Now!</a>
     </nav>
 
-    <!-- Master Container for Dynamic Sub-Pages -->
     <div class="container" id="view-container">
-        
-        <!-- Default State: Standard Leaderboard Cards -->
-        <div class="stats-grid">
-            <div class="leader-card">
-                <h3>Passing Yards Leaders</h3>
-                <table>
-                    <thead><tr><th>Rank</th><th>Player</th><th>Team</th><th>Yards</th><th>TD</th></tr></thead>
-                    <tbody>
-                        <tr><td class="rank-num">1</td><td>L1GHTWORKS</td><td>Birmingham</td><td>2,468</td><td>32</td></tr>
-                        <tr><td class="rank-num">2</td><td>Jping1012</td><td>Minnesota</td><td>1,644</td><td>17</td></tr>
-                        <tr><td class="rank-num">3</td><td>T4MPAS</td><td>N/A</td><td>1,129</td><td>17</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="leader-card">
-                <h3>Receiving Leaders</h3>
-                <table>
-                    <thead><tr><th>Rank</th><th>Player</th><th>Team</th><th>Yards</th><th>TD</th></tr></thead>
-                    <tbody>
-                        <tr><td class="rank-num">1</td><td>TBYellowDragon</td><td>Pittsburgh</td><td>181</td><td>0</td></tr>
-                        <tr><td class="rank-num">2</td><td>Eliback000</td><td>N/A</td><td>168</td><td>4</td></tr>
-                        <tr><td class="rank-num">3</td><td>jaxversi</td><td>N/A</td><td>120</td><td>3</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
+        <!-- Default State: Pre-loaded with Passing View layout on load -->
     </div>
 
     <footer>2026 Virtual Football League INC</footer>
 
-    <!-- JavaScript Router to load Image 2 and Image 3 views instantly -->
     <script>
         const container = document.getElementById('view-container');
 
-        // Function to render Image 2 View (Quarterbacks Seasonal Passing Page)
-        function loadQuarterbacks(e) {
-            e.preventDefault();
-            container.innerHTML = `
+        // Dynamic database containing dummy stats for various reactive tabs
+        const statsDatabase = {
+            passing: {
+                title: "passing stats",
+                headers: ["#", "TM", "PLAYER", "PTS", "YDS", "C %", "TD", "INT", "SCK", "3RD", "4TH", "SNAP"],
+                rows: [
+                    ["1", "W", "DiminqSLC", "509.2", "7131", "60.66%", "68", "24", "16", "17", "9", "411"],
+                    ["2", "IND", "IrxnIV", "426.6", "6014", "53.95%", "65", "37", "10", "33", "8", "470"],
+                    ["3", "KC", "SOVER7IGN", "377.3", "5082", "51.95%", "54", "21", "17", "32", "11", "428"],
+                    ["4", "NO", "hrupt", "374.9", "5622", "56.97%", "51", "27", "36", "37", "13", "388"]
+                ]
+            },
+            rushing: {
+                title: "rushing stats",
+                headers: ["#", "TM", "PLAYER", "PTS", "YDS", "AVG", "TD", "FUM", "LNG", "20+", "SNAP"],
+                rows: [
+                    ["1", "DAL", "RobloxGamer", "210.4", "1420", "6.2", "14", "2", "65", "5", "180"],
+                    ["2", "SF", "GridironKing", "195.1", "1290", "5.8", "11", "1", "42", "3", "210"]
+                ]
+            },
+            receiving: {
+                title: "receiving stats",
+                headers: ["#", "TM", "PLAYER", "PTS", "YDS", "REC", "AVG", "TD", "DRP", "YAC", "SNAP"],
+                rows: [
+                    ["1", "PIT", "TBYellowDragon", "181.0", "1120", "78", "14.3", "9", "3", "412", "320"],
+                    ["2", "NYG", "Eliback000", "168.4", "980", "62", "15.8", "12", "1", "310", "295"]
+                ]
+            }
+        };
+
+        // Main Router Function to build and activate sub-category views
+        function switchCategory(categoryKey, eventElement = null) {
+            if(eventElement) eventElement.preventDefault();
+            
+            const data = statsDatabase[categoryKey] || statsDatabase['passing'];
+            
+            let htmlOutput = `
                 <div class="sub-nav-tabs">
-                    <button class="tab-btn active">Passing</button>
-                    <button class="tab-btn">Rushing</button>
-                    <button class="tab-btn">Receiving</button>
-                    <button class="tab-btn">Tight Ends</button>
-                    <button class="tab-btn">Center</button>
-                    <button class="tab-btn">Defensive Ends</button>
-                    <button class="tab-btn">Linebackers</button>
-                    <button class="tab-btn">Secondary</button>
-                    <button class="tab-btn">Kicking</button>
+                    <button class="tab-btn ${categoryKey === 'passing' ? 'active' : ''}" onclick="switchCategory('passing')">Passing</button>
+                    <button class="tab-btn ${categoryKey === 'rushing' ? 'active' : ''}" onclick="switchCategory('rushing')">Rushing</button>
+                    <button class="tab-btn ${categoryKey === 'receiving' ? 'active' : ''}" onclick="switchCategory('receiving')">Receiving</button>
+                    <button class="tab-btn" onclick="switchCategory('tightends')">Tight Ends</button>
+                    <button class="tab-btn" onclick="switchCategory('center')">Center</button>
+                    <button class="tab-btn" onclick="switchCategory('defensiveends')">Defensive Ends</button>
+                    <button class="tab-btn" onclick="switchCategory('linebackers')">Linebackers</button>
+                    <button class="tab-btn" onclick="switchCategory('secondary')">Secondary</button>
+                    <button class="tab-btn" onclick="switchCategory('kicking')">Kicking</button>
                 </div>
 
                 <div class="section-header-row">
-                    <h2 class="page-title-main">passing stats</h2>
+                    <h2 class="page-title-main">${data.title}</h2>
                     <div class="search-wrapper">
                         <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         <input type="text" class="search-input" placeholder="Search players or teams...">
@@ -339,103 +282,65 @@
                 <div class="stat-table-card">
                     <table>
                         <thead class="red-table-header">
-                            <tr>
-                                <th>#</th>
-                                <th>TM</th>
-                                <th>PLAYER</th>
-                                <th>PTS</th>
-                                <th>YDS</th>
-                                <th>C %</th>
-                                <th>TD</th>
-                                <th>INT</th>
-                                <th>SCK</th>
-                                <th>3RD</th>
-                                <th>4TH</th>
-                                <th>SNAP</th>
-                            </tr>
+                            <tr>${data.headers.map(h => `<th>${h}</th>`).join('')}</tr>
                         </thead>
                         <tbody>
-                            <tr><td>1</td><td><span style="color:var(--accent)">W</span></td><td>DiminqSLC</td><td class="highlight-col">509.2</td><td>7131</td><td>60.66%</td><td>68</td><td>24</td><td>16</td><td>17</td><td>9</td><td>411</td></tr>
-                            <tr><td>2</td><td><span style="color:#8b8a99">IND</span></td><td>IrxnIV</td><td class="highlight-col">426.6</td><td>6014</td><td>53.95%</td><td>65</td><td>37</td><td>10</td><td>33</td><td>8</td><td>470</td></tr>
-                            <tr><td>3</td><td><span style="color:#f0a851">KC</span></td><td>SOVER7IGN</td><td class="highlight-col">377.3</td><td>5082</td><td>51.95%</td><td>54</td><td>21</td><td>17</td><td>32</td><td>11</td><td>428</td></tr>
-                            <tr><td>4</td><td><span style="color:#d4af37">NO</span></td><td>hrupt</td><td class="highlight-col">374.9</td><td>5622</td><td>56.97%</td><td>51</td><td>27</td><td>36</td><td>37</td><td>13</td><td>388</td></tr>
+                            ${data.rows.map(row => `
+                                <tr>
+                                    ${row.map((cell, idx) => `<td class="${idx === 3 ? 'highlight-col' : ''}">${cell}</td>`).join('')}
+                                </tr>
+                            `).join('')}
                         </tbody>
                     </table>
                 </div>
             `;
+            
+            container.innerHTML = htmlOutput;
         }
 
-        // Function to render Image 3 View (All-Time Record Book Dashboard)
+        // Sub-page view for the Record Book
         function loadAllTimeStats(e) {
             e.preventDefault();
             container.innerHTML = `
                 <div class="alltime-hero">
                     <div class="hero-tag">AFL Record Book</div>
                     <h1 class="hero-heading">All-Time Stats</h1>
-                    <p class="hero-desc">Every snap since Season 17. Search any player by their Roblox username to open their career profile, or browse the all-time leaderboards below.</p>
+                    <p class="hero-desc">Every snap since Season 17. Search any player by their Roblox username to open their career profile.</p>
                     <div class="hero-search">
                         <input type="text" placeholder="Search a Roblox username...">
                         <button>Search</button>
                     </div>
                 </div>
-
-                <div class="pill-toggle-row">
-                    <button class="pill-btn active">All-Time</button>
-                    <button class="pill-btn">By Season</button>
-                </div>
-
+                <div class="pill-toggle-row"><button class="pill-btn active">All-Time</button><button class="pill-btn">By Season</button></div>
                 <div class="circle-tab-row">
-                    <button class="circle-btn active">QB</button>
-                    <button class="circle-btn">RB</button>
-                    <button class="circle-btn">WR</button>
-                    <button class="circle-btn">TE</button>
-                    <button class="circle-btn">C</button>
-                    <button class="circle-btn">DE</button>
-                    <button class="circle-btn">LB</button>
-                    <button class="circle-btn">DB</button>
-                    <button class="circle-btn">K</button>
+                    <button class="circle-btn active">QB</button><button class="circle-btn">RB</button><button class="circle-btn">WR</button>
+                    <button class="circle-btn">TE</button><button class="circle-btn">C</button><button class="circle-btn">DE</button>
+                    <button class="circle-btn">LB</button><button class="circle-btn">DB</button><button class="circle-btn">K</button>
                 </div>
-
                 <div class="section-header-row">
                     <div>
                         <h2 class="page-title-main" style="margin-bottom:0.2rem">quarterback</h2>
                         <p style="color:var(--text-muted); font-size:0.8rem">All-time leaders • 661 players</p>
                     </div>
-                    <div class="search-wrapper">
-                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        <input type="text" class="search-input" placeholder="Filter by player...">
-                    </div>
                 </div>
-
                 <div class="stat-table-card">
                     <table>
                         <thead class="red-table-header">
-                            <tr>
-                                <th>#</th>
-                                <th>PLAYER</th>
-                                <th>YDS</th>
-                                <th>ATT</th>
-                                <th>CMP</th>
-                                <th>TD</th>
-                                <th>INT</th>
-                                <th>SCK</th>
-                                <th>3RD</th>
-                                <th>4TH</th>
-                                <th>&lt;15</th>
-                                <th>&lt;35</th>
-                                <th>&lt;50</th>
-                                <th>50+</th>
-                            </tr>
+                            <tr><th>#</th><th>PLAYER</th><th>YDS</th><th>ATT</th><th>CMP</th><th>TD</th><th>INT</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>1</td><td>hrupt</td><td class="highlight-col">67212</td><td>4952</td><td>2653</td><td>734</td><td>329</td><td>207</td><td>346</td><td>129</td><td>1430</td><td>1403</td><td>1348</td><td>1239</td></tr>
-                            <tr><td>2</td><td>Cleaave</td><td class="highlight-col">62983</td><td>4676</td><td>2603</td><td>731</td><td>338</td><td>349</td><td>302</td><td>139</td><td>1501</td><td>1379</td><td>1364</td><td>1268</td></tr>
-                            <tr><td>3</td><td>spinthespiral</td><td class="highlight-col">62068</td><td>4158</td><td>2686</td><td>745</td><td>252</td><td>207</td><td>281</td><td>118</td><td>1458</td><td>1209</td><td>1183</td><td>1134</td></tr>
+                            <tr><td>1</td><td>hrupt</td><td class="highlight-col">67212</td><td>4952</td><td>2653</td><td>734</td><td>329</td></tr>
+                            <tr><td>2</td><td>Cleaave</td><td class="highlight-col">62983</td><td>4676</td><td>2603</td><td>731</td><td>338</td></tr>
                         </tbody>
                     </table>
                 </div>
             `;
         }
+
+        // Pre-render the layout view immediately when the document window loads
+        window.onload = function() {
+            switchCategory('passing');
+        };
     </script>
 </body>
 </html>
