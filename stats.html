@@ -3,382 +3,543 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>American Football League - Stats</title>
+    <title>VFL Roblox - Stats</title>
     <style>
         :root {
-            --bg-main: #ffffff;
-            --bg-card: #f8f9fa;
-            --accent: #e61e2a;
-            --accent-hover: #cc1a25;
-            --text-main: #111111;
-            --text-muted: #666666;
-            --border: #e0e0e0;
-            --gold-bg: #fdf3d8;
-            --gold-accent: #f1c232;
-            --shelf-color: #4a321a;
+            --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
+            --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
+            --gold-bg: #271d12; --gold-accent: #e3b047; --shelf-color: #4a321a;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
         
         /* Navigation Header */
         nav { 
             background-color: var(--bg-main); 
-            padding: 1rem 6%; 
+            padding: 1.2rem 4%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border); 
             position: relative;
             z-index: 1000;
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-img { width: 50px; height: auto; }
+        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
         
-        nav ul { display: flex; list-style: none; gap: 1.5rem; align-items: center; }
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav ul li { position: relative !important; display: inline-block; }
+        
         nav ul li a { 
-            color: var(--text-main); 
+            color: var(--text-muted); 
             text-decoration: none; 
             font-size: 0.85rem; 
             font-weight: 600; 
-            text-transform: lowercase;
+            text-transform: uppercase; 
             padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
             transition: color 0.2s ease;
         }
-        nav ul li a.active { border-bottom: 2px solid var(--accent); font-weight: 700; }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
 
         /* Mega Dropdown Setup */
         .mega-dropdown {
-            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-            background-color: #ffffff; width: 600px; border-radius: 8px; padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); list-style: none; z-index: 99999;
-            grid-template-columns: repeat(3, 1fr); gap: 1.5rem; border: 1px solid var(--border);
+            display: none;
+            position: absolute;
+            top: 100%; 
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff; 
+            width: 680px;
+            border-radius: 12px; 
+            padding: 1.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
+            list-style: none !important;
+            z-index: 99999;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .mega-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -25px; 
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background: transparent; 
         }
         nav ul li.dropdown:hover .mega-dropdown { display: grid; }
-        .dropdown-col h4 { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.6rem; }
-        .dropdown-col ul { display: flex; flex-direction: column; gap: 0.4rem; list-style: none; }
-        .dropdown-col ul li a { font-size: 0.85rem; text-transform: none; font-weight: 500; }
-        .dropdown-col ul li a:hover { color: var(--accent); }
 
-        .nav-btn { background-color: var(--accent); color: white; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 700; }
+        .dropdown-col h4 {
+            color: #b0afb8;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+        .dropdown-col ul { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; list-style: none; padding: 0; }
+        .dropdown-col ul li a {
+            color: #111017 !important; 
+            padding: 0.3rem 0;
+            display: block !important;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: none !important; 
+            text-decoration: none;
+        }
+        .dropdown-col ul li a:hover { color: var(--accent) !important; }
 
-        /* Layout Container */
-        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; width: 100%; flex: 1; }
+        /* Legacy Dropdown */
+        .legacy-dropdown {
+            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+            background-color: var(--bg-card); border: 1px solid var(--border); min-width: 200px; border-radius: 8px; padding: 0.5rem 0; list-style: none; z-index: 99999;
+        }
+        .legacy-dropdown li a { color: var(--text-muted) !important; padding: 0.5rem 1rem; display: block; text-transform: none; }
+        .legacy-dropdown li a:hover { color: var(--text-main) !important; background-color: rgba(255,255,255,0.05); }
+        nav ul li.dropdown-legacy:hover .legacy-dropdown { display: block; }
+        nav ul li.dropdown:hover .nav-arrow { transform: rotate(180deg); }
+        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+
+        /* Layout Main Containers */
+        .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
         
-        .back-link { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 1.5rem; cursor: pointer; }
+        /* Sub-navigation Category Tabs Styles */
+        .sub-nav-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .tab-btn { background: #1b1a25; color: white; border: 1px solid #282735; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; transition: background 0.15s; }
+        .tab-btn:hover { background: #232230; }
+        .tab-btn.active { background: var(--accent); border-color: var(--accent); }
         
-        /* Profile Lookup Search Row */
-        .search-row-profile { display: flex; gap: 0.5rem; max-width: 450px; margin-bottom: 1.5rem; }
-        .search-row-profile input { flex: 1; border: 1px solid var(--border); background: #fdfdfd; padding: 0.6rem 1rem; border-radius: 20px; font-size: 0.9rem; }
-        .search-row-profile button { background: var(--accent); border: none; color: white; padding: 0.6rem 1.5rem; border-radius: 20px; font-weight: 700; cursor: pointer; }
-
-        /* RED BANNER HERO DESIGN */
-        .profile-banner-card { background: linear-gradient(135deg, #bd101d 0%, #d61826 100%); border-radius: 16px; padding: 2rem; display: flex; align-items: center; gap: 2rem; color: white; position: relative; margin-bottom: 2rem; }
-        .profile-avatar-circle { width: 100px; height: 100px; border-radius: 50%; background: #333; border: 3px solid rgba(255,255,255,0.4); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .profile-avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-details { flex: 1; }
-        .profile-details h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; line-height: 1.1; }
-        .profile-sub-id { font-size: 0.85rem; opacity: 0.85; margin: 0.2rem 0 0.6rem 0; font-weight: 500; }
+        .section-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .page-title-main { font-size: 1.8rem; font-weight: 700; color: white; text-transform: lowercase; }
+        .search-wrapper { position: relative; width: 320px; }
+        .search-input { width: 100%; background: #1b1a25; border: 1px solid #282735; padding: 0.6rem 1rem 0.6rem 2.2rem; border-radius: 8px; color: white; font-size: 0.85rem; }
+        .search-icon { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; }
         
-        .pos-pills-row { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
-        .pos-pill { background: rgba(245, 245, 245, 0.2); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 12px; padding: 0.2rem 0.6rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
-        
-        /* Yellow Image Match Trophy Button */
-        .yellow-trophy-btn { background-color: #f7d047; color: #523a04; border: none; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.15s; }
-        .yellow-trophy-btn:hover { transform: translateY(-1px); }
+        /* Table Styles */
+        .stat-table-card { background: #1b1a25; border-radius: 8px; overflow: hidden; border: 1px solid #282735; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 0.75rem 1rem; font-size: 0.85rem; }
+        .red-table-header th { background-color: var(--accent); color: white; font-weight: 700; padding: 0.9rem 1rem; border: none; text-transform: uppercase; font-size: 0.75rem; }
+        td { color: var(--text-main); border-bottom: 1px solid #232230; }
+        .highlight-col { background-color: rgba(240, 93, 81, 0.05); font-weight: 700; }
 
-        /* SECTION HEADER COMPONENT */
-        .section-block-title { font-size: 1.3rem; font-weight: 700; padding-bottom: 0.6rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--accent); color: var(--text-main); }
-        
-        /* ACHIEVEMENTS BLOCK SYSTEM */
-        .achievements-grid-layout { display: grid; grid-template-columns: 1fr 1.8fr; gap: 1.5rem; margin-bottom: 2.5rem; }
-        .archetype-box { background: #fcfcfc; border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.01) 10px, rgba(0,0,0,0.01) 20px); }
-        .lock-icon-circle { width: 50px; height: 50px; border-radius: 50%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; margin-bottom: 0.8rem; font-size: 1.2rem; color: #777; }
-        .archetype-title { font-size: 0.9rem; font-weight: 700; color: #333; margin-bottom: 0.2rem; }
-        .archetype-subtext { font-size: 0.75rem; color: var(--text-muted); max-width: 200px; line-height: 1.4; }
+        /* All-Time Dashboard Layout */
+        .alltime-hero { background: linear-gradient(135deg, #401012 0%, #111017 60%); padding: 3.5rem 2rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid #3d1b1d; }
+        .hero-tag { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .hero-heading { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; }
+        .hero-desc { color: var(--text-muted); font-size: 0.9rem; max-width: 500px; margin-bottom: 1.5rem; line-height: 1.5; }
+        .hero-search { display: flex; gap: 0.5rem; max-width: 500px; }
+        .hero-search input { flex: 1; background: white; border: none; padding: 0.8rem 1.2rem; border-radius: 25px; color: #111017; font-size: 0.9rem; }
+        .hero-search button { background: var(--accent); border: none; color: white; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 700; cursor: pointer; }
+        .pill-toggle-row { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .pill-btn { background: #1b1a25; border: 1px solid #282735; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+        .pill-btn.active { background: var(--accent); border-color: var(--accent); }
 
-        .mastery-box { background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
-        .mastery-header-row { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 0.5px; }
-        .mastery-row-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.9rem; }
-        .mastery-pos-badge { background: var(--accent); color: white; width: 32px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; flex-shrink: 0; }
-        .mastery-label-title { font-size: 0.75rem; font-weight: 700; width: 110px; color: #222; }
-        .mastery-progress-track { flex: 1; height: 8px; background: #eee; border-radius: 4px; overflow: hidden; position: relative; }
-        .mastery-progress-bar { height: 100%; background: linear-gradient(90deg, #42a5f5, #29b6f6); border-radius: 4px; width: 0%; }
-        .mastery-fraction-count { font-size: 0.75rem; font-weight: 700; color: #444; width: 35px; text-align: right; display: flex; align-items: center; gap: 2px; justify-content: flex-end; }
+        /* Career Profile View Layout */
+        .back-link { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 1.5rem; cursor: pointer; }
+        .profile-card { background: linear-gradient(90deg, #1b1a25 0%, #252335 100%); border-radius: 16px; padding: 2.5rem; display: flex; align-items: center; gap: 2rem; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); margin-top: 1rem; position: relative; overflow: hidden; }
+        .avatar-container { width: 110px; height: 110px; border-radius: 50%; background: #282735; border: 4px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 2; }
+        .avatar-placeholder { font-size: 3rem; }
+        .profile-info { z-index: 2; flex-grow: 1; }
+        .profile-title-tag { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-bottom: 0.2rem; }
+        .profile-name { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1; margin-bottom: 0.4rem; }
+        .profile-id { color: var(--text-muted); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; }
+        .trophy-btn { background: var(--gold-accent); color: #4a3200; border: none; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: opacity 0.15s; }
+        .trophy-btn:hover { opacity: 0.9; }
 
-        /* CAREER TOTALS GRID SYSTEM */
-        .career-position-group { margin-bottom: 2rem; }
-        .position-group-header { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.6rem; color: #111; display: flex; align-items: center; gap: 6px; }
-        .alltime-ranking-tag { color: var(--accent); font-size: 0.7rem; font-weight: 700; }
-        .metrics-card-grid { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
-        .metric-stat-box { border: 1px solid #e2e2e8; background: #ffffff; border-radius: 8px; min-width: 76px; height: 68px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0.4rem; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
-        .metric-stat-value { font-size: 1.15rem; font-weight: 800; color: #111; }
-        .metric-stat-label { font-size: 0.6rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-top: 0.1rem; letter-spacing: 0.3px; }
+        /* Profile Showcase Highlight Metrics Blocks */
+        .profile-metrics-row { display: flex; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+        .metric-block { background: #13121a; border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.5rem; text-align: center; min-width: 100px; }
+        .metric-value { font-size: 1.4rem; font-weight: 800; color: white; }
+        .metric-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-top: 0.1rem; }
+        .profile-badges-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .badge-pill { background: #271615; border: 1px solid #4a201d; color: #ff8b80; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; gap: 4px; }
 
-        /* TABLES: SEASON BY SEASON */
-        .season-table-wrapper { background: #ffffff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        .season-table-title-banner { background: #ffffff; padding: 1rem; font-size: 0.95rem; font-weight: 700; color: #111; border-bottom: 1px solid var(--border); }
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.8rem; }
-        th { background-color: var(--accent); color: white; font-weight: 700; padding: 0.65rem 0.8rem; border: none; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.5px; }
-        td { padding: 0.65rem 0.8rem; color: #333; border-bottom: 1px solid #f0f0f2; font-weight: 500; }
-        tr.career-highlight-row td { background-color: #fbebeb !important; color: #b8141f !important; font-weight: 700 !important; }
-        tbody tr:hover td { background-color: #f8f9fa; }
-
-        /* --- INTERACTIVE TROPHY SHOWCASE DESIGNS --- */
-        .trophy-showcase-container { display: flex; flex-direction: column; gap: 2rem; margin-top: 1rem; }
-        .trophy-category-card { background: #fcfcfd; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; position: relative; }
+        /* --- TROPHY ROOM STYLES --- */
+        .trophy-showcase-container { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
+        .trophy-category-card { background: #16151d; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; position: relative; }
         .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-left: 3px solid var(--gold-accent); padding-left: 10px; }
-        .category-title { font-size: 1.05rem; font-weight: 700; color: #111; }
+        .category-title { font-size: 1.1rem; font-weight: 700; color: white; }
         .category-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; }
-        .count-badge { background: var(--gold-bg); color: #7f6000; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 10px; border: 1px solid rgba(0,0,0,0.05); text-transform: uppercase; }
+        .count-badge { background: var(--gold-accent); color: #4a3200; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 10px; text-transform: uppercase; }
         
-        .shelf-row { display: flex; gap: 2rem; padding: 1rem 1.5rem 1.5rem 1.5rem; position: relative; flex-wrap: wrap; background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.03) 100%); margin-bottom: 0.5rem; }
-        .shelf-row::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background: var(--shelf-color); border-radius: 3px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .shelf-row { display: flex; gap: 2rem; padding: 1rem 1.5rem 1.8rem 1.5rem; position: relative; flex-wrap: wrap; background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%); margin-bottom: 0.5rem; }
+        .shelf-row::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: var(--shelf-color); border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); }
         
+        /* Trophy Slots and CSS Custom Tooltips */
         .trophy-slot { position: relative; display: flex; flex-direction: column; align-items: center; width: 80px; cursor: pointer; }
-        .trophy-img-wrapper { width: 60px; height: 70px; display: flex; align-items: center; justify-content: center; position: relative; transition: transform 0.2s; }
-        .trophy-img-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .trophy-slot:hover .trophy-img-wrapper { transform: translateY(-4px); }
+        .trophy-img-wrapper { width: 60px; height: 75px; display: flex; align-items: center; justify-content: center; position: relative; transition: transform 0.2s; }
+        .trophy-img-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 0 10px rgba(227, 176, 71, 0.1)); }
+        .trophy-slot:hover .trophy-img-wrapper { transform: translateY(-5px); }
+        .trophy-slot:hover .trophy-img-wrapper img { filter: drop-shadow(0 0 15px rgba(227, 176, 71, 0.4)); }
         
-        .trophy-label-badge { background: #fdfaf2; border: 1px solid #eddcb4; color: #7f6000; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.4rem; border-radius: 4px; text-align: center; width: 100%; margin-top: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .trophy-label-badge { background: #30261a; border: 1px solid #544127; color: var(--gold-accent); font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.4rem; border-radius: 4px; text-align: center; width: 100%; margin-top: 0.6rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
-        /* CSS Tooltip Engine matching dark design rules safely inside light room frames */
+        /* Interactive CSS Tooltip Engine */
         .trophy-tooltip {
             position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%) translateY(10px);
-            background: #111116; border: 1px solid #222; width: 160px; border-radius: 8px; padding: 0.8rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); opacity: 0; pointer-events: none;
+            background: #0d0c10; border: 1px solid #38342a; width: 160px; border-radius: 8px; padding: 0.8rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7); opacity: 0; pointer-events: none;
             z-index: 100; display: flex; flex-direction: column; gap: 4px; text-align: center;
-            transition: opacity 0.2s ease, transform 0.2s ease; color: white;
+            transition: opacity 0.2s ease, transform 0.2s ease;
         }
-        .trophy-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: #111116; }
+        .trophy-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: #0d0c10; }
         .trophy-slot:hover .trophy-tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
         
-        .tip-title { font-size: 0.8rem; font-weight: 700; }
-        .tip-season { font-size: 0.7rem; color: #aaa; }
-        .tip-xp { background: #3b2d15; color: #ffc454; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 4px; margin-top: 4px; align-self: center; }
+        .tip-title { font-size: 0.8rem; font-weight: 700; color: white; }
+        .tip-season { font-size: 0.7rem; color: var(--text-muted); }
+        .tip-xp { background: #3b2d15; color: #ffc454; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 4px; margin-top: 4px; align-self: center; display: inline-flex; align-items: center; gap: 3px; }
 
-        footer { background-color: #f8f9fa; color: var(--text-muted); padding: 1.5rem 6%; font-size: 0.75rem; font-weight: 600; border-top: 1px solid var(--border); margin-top: auto; letter-spacing: 0.5px; }
+        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo-area">
-            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23111' /><path d='M25,50 Q50,20 75,50 Q50,80 25,50' fill='none' stroke='white' stroke-width='4'/></svg>" class="logo-img" alt="Logo">
+            <div class="logo-circle">VFL</div>
+            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
         </div>
         <ul>
-            <li><a href="#">standings</a></li>
-            <li><a href="#">teams</a></li>
-            <li><a href="#">scores</a></li>
+            <li><a href="#" onclick="switchCategory('passing', event)">Home</a></li>
+            <li><a href="#" onclick="switchCategory('passing', event)">Scores</a></li>
+            <li><a href="#" onclick="switchCategory('passing', event)">Standings</a></li>
             <li class="dropdown">
-                <a href="#" class="active">stats</a>
+                <a href="#" class="active" id="stats-nav-link" onclick="switchCategory('passing', event)">
+                    Stats
+                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </a>
                 <div class="mega-dropdown">
                     <div class="dropdown-col">
                         <h4>Offense</h4>
                         <ul>
-                            <li><a href="#" onclick="switchCategory('passing')">Quarterbacks</a></li>
-                            <li><a href="#" onclick="switchCategory('rushing')">Running Backs</a></li>
+                            <li><a href="#" onclick="switchCategory('passing', event)">Quarterbacks</a></li>
+                            <li><a href="#" onclick="switchCategory('rushing', event)">Running Backs</a></li>
+                            <li><a href="#" onclick="switchCategory('receiving', event)">Wide Receivers</a></li>
+                            <li><a href="#" onclick="switchCategory('tightends', event)">Tight Ends</a></li>
+                            <li><a href="#" onclick="switchCategory('center', event)">Centers</a></li>
                         </ul>
                     </div>
                     <div class="dropdown-col">
                         <h4>Defense</h4>
                         <ul>
-                            <li><a href="#" onclick="switchCategory('secondary')">Defensive Backs</a></li>
+                            <li><a href="#" onclick="switchCategory('defensiveends', event)">Defensive Ends</a></li>
+                            <li><a href="#" onclick="switchCategory('linebackers', event)">Linebackers</a></li>
+                            <li><a href="#" onclick="switchCategory('secondary', event)">Defensive Backs</a></li>
                         </ul>
                     </div>
                     <div class="dropdown-col">
-                        <h4>Global Links</h4>
+                        <h4>Special Teams</h4>
+                        <ul style="margin-bottom: 1.5rem;">
+                            <li><a href="#" onclick="switchCategory('kicking', event)">Kickers</a></li>
+                        </ul>
+                        <h4>Record Book</h4>
                         <ul>
-                            <li><a href="#" onclick="loadAllTimeStatsView()">All-Time Records Dashboard</a></li>
+                            <li><a href="#" onclick="loadAllTimeStats(event)">All-Time Stats</a></li>
                         </ul>
                     </div>
                 </div>
             </li>
-            <li><a href="#">rulebook</a></li>
-            <li><a href="#">legacy</a></li>
+            <li class="dropdown-legacy">
+                <a href="#">
+                    Legacy
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="margin-left: 2px;">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </a>
+                <ul class="legacy-dropdown">
+                    <li><a href="#" onclick="loadAllTimeStats(event)">Legacy Book</a></li>
+                    <li><a href="#" onclick="loadAllTimeStats(event)">Champions & Awards</a></li>
+                    <li><a href="#" onclick="loadAllTimeStats(event)">Award Tracker</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Rulebook</a></li>
         </ul>
-        <a href="#" class="nav-btn">join now</a>
+        <a href="#" class="nav-btn">Join Now!</a>
     </nav>
 
-    <div class="container" id="view-layer-container">
-        <!-- Dashboard views inject automatically here -->
+    <div class="container" id="view-container">
+        <!-- Dynamic views map here -->
     </div>
 
-    <footer>American Football League</footer>
+    <footer>2026 Virtual Football League INC</footer>
 
     <script>
-        const displayContainer = document.getElementById('view-layer-container');
+        const container = document.getElementById('view-container');
+        let currentCategoryGlobal = 'passing';
+        let isRecordBookView = false;
+        let currentRecordBookPos = 'QB';
 
-        // Main lookup data engine profile mock matching image references accurately
-        function loadPlayerProfile(username) {
-            const cleanUser = username.trim();
-            const displayUser = cleanUser.toUpperCase();
+        const statsDatabase = {
+            passing: {
+                title: "passing stats",
+                headers: ["#", "TM", "PLAYER", "PTS", "YDS", "C %", "TD", "INT", "SCK", "3RD", "4TH", "SNAP"],
+                rows: [
+                    ["1", "W", "DiminqSLC", "509.2", "7131", "60.66%", "68", "24", "16", "17", "9", "411"],
+                    ["2", "IND", "IrxnIV", "426.6", "6014", "53.95%", "65", "37", "10", "33", "8", "470"],
+                    ["3", "KC", "SOVER7IGN", "377.3", "5082", "51.95%", "54", "21", "17", "32", "11", "428"],
+                    ["4", "NO", "hrupt", "374.9", "5622", "56.97%", "51", "27", "36", "37", "13", "388"],
+                    ["5", "CLE", "Cleaave", "310.2", "4921", "55.20%", "42", "19", "22", "25", "10", "390"],
+                    ["6", "TB", "FINLEY", "295.4", "4105", "58.10%", "39", "12", "15", "20", "5", "350"]
+                ]
+            },
+            rushing: {
+                title: "rushing stats",
+                headers: ["#", "TM", "PLAYER", "PTS", "YDS", "AVG", "TD", "FUM", "LNG", "20+", "SNAP"],
+                rows: [
+                    ["1", "DAL", "RobloxGamer", "210.4", "1420", "6.2", "14", "2", "65", "5", "180"],
+                    ["2", "SF", "GridironKing", "195.1", "1290", "5.8", "11", "1", "42", "3", "210"],
+                    ["3", "TB", "FINLEY", "110.5", "820", "5.1", "6", "0", "35", "2", "120"]
+                ]
+            },
+            receiving: {
+                title: "receiving stats",
+                headers: ["#", "TM", "PLAYER", "PTS", "YDS", "REC", "AVG", "TD", "DRP", "YAC", "SNAP"],
+                rows: [
+                    ["1", "PIT", "TBYellowDragon", "181.0", "1120", "78", "14.3", "9", "3", "412", "320"],
+                    ["2", "NYG", "Eliback000", "168.4", "980", "62", "15.8", "12", "1", "310", "295"],
+                    ["3", "TB", "FINLEY", "145.2", "890", "55", "16.1", "8", "2", "240", "280"]
+                ]
+            },
+            tightends: { title: "tight end stats", headers: ["#", "TM", "PLAYER", "YDS", "REC", "TD"], rows: [["1", "NE", "GronkRoblox", "750", "48", "8"]] },
+            center: { title: "center stats", headers: ["#", "TM", "PLAYER", "PANCAKES", "SACKS ALLOWED"], rows: [["1", "PHI", "BigBlocker", "42", "1"]] },
+            defensiveends: { title: "defensive end stats", headers: ["#", "TM", "PLAYER", "TACKLES", "SACKS", "FF"], rows: [["1", "LA", "SackMaster", "55", "18.5", "4"]] },
+            linebackers: { title: "linebacker stats", headers: ["#", "TM", "PLAYER", "TACKLES", "INT", "TD"], rows: [["1", "CHI", "MidfieldHawk", "98", "3", "1"]] },
+            secondary: { title: "defensive back stats", headers: ["#", "TM", "PLAYER", "INT", "PD", "TACKLES"], rows: [["1", "SEA", "IslandLock", "8", "19", "45"]] },
+            kicking: { title: "kicking stats", headers: ["#", "TM", "PLAYER", "FGM", "FGA", "LNG"], rows: [["1", "BAL", "LegPower", "28", "30", "58"]] }
+        };
+
+        const allTimeLeaderboards = {
+            QB: { title: "quarterback", count: "661 players", headers: ["#", "PLAYER", "YDS", "ATT", "CMP", "TD", "INT"], rows: [["1", "hrupt", "67212", "4952", "2653", "734", "329"], ["2", "Cleaave", "62983", "4676", "2603", "731", "338"], ["3", "FINLEY", "45120", "3801", "2100", "490", "180"]] },
+            RB: { title: "running back", count: "412 players", headers: ["#", "PLAYER", "YDS", "ATT", "AVG", "TD", "FUM"], rows: [["1", "RobloxGamer", "14205", "2100", "6.7", "134", "12"]] },
+            WR: { title: "wide receiver", count: "894 players", headers: ["#", "PLAYER", "YDS", "REC", "TD", "YAC"], rows: [["1", "TBYellowDragon", "18450", "1102", "165", "4520"]] },
+            TE: { title: "tight end", count: "215 players", headers: ["#", "PLAYER", "YDS", "REC", "TD"], rows: [["1", "GronkRoblox", "8920", "610", "82"]] },
+            C: { title: "center", count: "140 players", headers: ["#", "PLAYER", "PANCAKES", "SNAPS"], rows: [["1", "BigBlocker", "380", "5420"]] },
+            DE: { title: "defensive end", count: "310 players", headers: ["#", "PLAYER", "SACKS", "TACKLES"], rows: [["1", "SackMaster", "142.5", "410"]] },
+            LB: { title: "linebacker", count: "430 players", headers: ["#", "PLAYER", "TACKLES", "INT", "FF"], rows: [["1", "MidfieldHawk", "740", "18", "11"]] },
+            DB: { title: "defensive back", count: "520 players", headers: ["#", "PLAYER", "INT", "PD"], rows: [["1", "IslandLock", "62", "145"]] },
+            K: { title: "kicker", count: "98 players", headers: ["#", "PLAYER", "FGM", "LNG"], rows: [["1", "LegPower", "210", "63"]] }
+        };
+
+        // Standard Season Category view routing loader 
+        function switchCategory(category, event) {
+            if (event) event.preventDefault();
+            isRecordBookView = false;
+            currentCategoryGlobal = category;
             
-            displayContainer.innerHTML = `
-                <div class="back-link" onclick="loadAllTimeStatsView()">
-                    ← All-Time Stats
-                </div>
+            document.getElementById('stats-nav-link').classList.add('active');
+            
+            const data = statsDatabase[category] || statsDatabase['passing'];
+            
+            // Generate standard seasonal navigation chips sub-row inside layout
+            let tabsHtml = '<div class="sub-nav-tabs">';
+            for (let key in statsDatabase) {
+                const activeClass = key === category ? 'active' : '';
+                tabsHtml += `<button class="tab-btn ${activeClass}" onclick="switchCategory('${key}')">${key}</button>`;
+            }
+            tabsHtml += '</div>';
 
-                <div class="search-row-profile">
-                    <input type="text" id="inner-lookup-field" placeholder="Look up another player..." value="${cleanUser}">
-                    <button onclick="triggerSearchEngine('inner-lookup-field')">Search</button>
-                </div>
+            let tableHeaders = data.headers.map(h => `<th>${h}</th>`).join('');
+            let tableRows = data.rows.map(row => {
+                return `<tr>${row.map((cell, idx) => {
+                    // Turn player names into clickable layout hooks to their profile card
+                    if (idx === 2) {
+                        return `<td class="highlight-col" style="cursor:pointer; color:var(--accent);" onclick="loadPlayerProfile('${cell}')">${cell}</td>`;
+                    }
+                    return `<td>${cell}</td>`;
+                }).join('')}</tr>`;
+            }).join('');
 
-                <!-- RED HERO CONTAINER PROFILE BLOCK LAYER MATCH -->
-                <div class="profile-banner-card">
-                    <div class="profile-avatar-circle">
-                        <span style="font-size: 2.8rem;">👤</span>
-                    </div>
-                    <div class="profile-details">
-                        <h1>${displayUser}</h1>
-                        <div class="profile-sub-id">Roblox ID 221991455</div>
-                        
-                        <div class="pos-pills-row">
-                            <span class="pos-pill">QB</span>
-                            <span class="pos-pill">RB</span>
-                            <span class="pos-pill">WR</span>
-                            <span class="pos-pill">DE</span>
-                            <span class="pos-pill">DB</span>
-                            <span class="pos-pill">K</span>
-                        </div>
-
-                        <button class="yellow-trophy-btn" onclick="loadTrophyShowcaseView('${cleanUser}')">🏆 Trophy Room</button>
-                    </div>
-                </div>
-
-                <!-- ACHIEVEMENTS PROFILE COMPONENT STRUCTURE MATCH -->
-                <h2 class="section-block-title">Achievements</h2>
-                <div class="achievements-grid-layout">
-                    <div class="archetype-box">
-                        <div class="lock-icon-circle">🔒</div>
-                        <div class="archetype-title">Archetype</div>
-                        <div class="archetype-subtext">COMING SOON<br>Your signature play-style, forged from how you dominate the field.</div>
-                    </div>
-                    
-                    <div class="mastery-box">
-                        <div class="mastery-header-row">
-                            <span>Mastery</span>
-                            <span>0/5 Positions Mastered</span>
-                        </div>
-                        
-                        <div class="mastery-row-item">
-                            <div class="mastery-pos-badge">QB</div>
-                            <div class="mastery-label-title">Quarterback</div>
-                            <div class="mastery-progress-track"><div class="mastery-progress-bar" style="width: 80%;"></div></div>
-                            <div class="mastery-fraction-count">🔹 0/3</div>
-                        </div>
-                        <div class="mastery-row-item">
-                            <div class="mastery-pos-badge" style="background:#e06666;">RB</div>
-                            <div class="mastery-label-title">Running Back</div>
-                            <div class="mastery-progress-track"><div class="mastery-progress-bar" style="width: 45%;"></div></div>
-                            <div class="mastery-fraction-count">🔹 0/2</div>
-                        </div>
-                        <div class="mastery-row-item">
-                            <div class="mastery-pos-badge" style="background:#f6b26b;">WR</div>
-                            <div class="mastery-label-title">Wide Receiver</div>
-                            <div class="mastery-progress-track"><div class="mastery-progress-bar" style="width: 20%;"></div></div>
-                            <div class="mastery-fraction-count">🔹 0/4</div>
-                        </div>
-                        <div class="mastery-row-item">
-                            <div class="mastery-pos-badge" style="background:#93c47d;">DE</div>
-                            <div class="mastery-label-title">Defensive End</div>
-                            <div class="mastery-progress-track"><div class="mastery-progress-bar" style="width: 10%;"></div></div>
-                            <div class="mastery-fraction-count">🔹 0/3</div>
-                        </div>
-                        <div class="mastery-row-item">
-                            <div class="mastery-pos-badge" style="background:#6fa8dc;">DB</div>
-                            <div class="mastery-label-title">Defensive Back</div>
-                            <div class="mastery-progress-track"><div class="mastery-progress-bar" style="width: 65%;"></div></div>
-                            <div class="mastery-fraction-count">🔹 1/3</div>
-                        </div>
+            container.innerHTML = `
+                ${tabsHtml}
+                <div class="section-header-row">
+                    <h2 class="page-title-main">${data.title}</h2>
+                    <div class="search-wrapper">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" id="table-filter" placeholder="Search player name..." oninput="filterCurrentTable()">
                     </div>
                 </div>
-
-                <!-- CAREER TOTALS STATS GRID BLOCKS MATCH -->
-                <h2 class="section-block-title">Career Totals</h2>
-                <div class="career-totals-wrapper-block">
-                    
-                    <div class="career-position-group">
-                        <div class="position-group-header">Quarterback <span class="alltime-ranking-tag">#10 all-time</span></div>
-                        <div class="metrics-card-grid">
-                            <div class="metric-stat-box"><div class="metric-stat-value">41469</div><div class="metric-stat-label">Yds</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">2632</div><div class="metric-stat-label">Att</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">1617</div><div class="metric-stat-label">Cmp</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">503</div><div class="metric-stat-label">Td</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">130</div><div class="metric-stat-label">Int</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">150</div><div class="metric-stat-label">Sck</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">195</div><div class="metric-stat-label">3rd</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">60</div><div class="metric-stat-label">4th</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">752</div><div class="metric-stat-label">&lt;15</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">815</div><div class="metric-stat-label">&lt;35</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">599</div><div class="metric-stat-label">&lt;50</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">620</div><div class="metric-stat-label">50+</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">2403</div><div class="metric-stat-label">Snap</div></div>
-                        </div>
-                    </div>
-
-                    <div class="career-position-group">
-                        <div class="position-group-header">Running Back <span class="alltime-ranking-tag">#12 all-time</span></div>
-                        <div class="metrics-card-grid">
-                            <div class="metric-stat-box"><div class="metric-stat-value">4093</div><div class="metric-stat-label">Yds</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">558</div><div class="metric-stat-label">Att</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">87</div><div class="metric-stat-label">Td</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">5</div><div class="metric-stat-label">Fum</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">212</div><div class="metric-stat-label">1st</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">47</div><div class="metric-stat-label">3rd</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">5</div><div class="metric-stat-label">4th</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">9</div><div class="metric-stat-label">20+</div></div>
-                            <div class="metric-stat-box"><div class="metric-stat-value">510</div><div class="metric-stat-label">Snap</div></div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- SEASON BY SEASON HISTORICAL TRACKER DATA TABLES -->
-                <h2 class="section-block-title" style="margin-top: 2rem;">Season by Season</h2>
-                
-                <div class="season-table-wrapper">
-                    <div class="season-table-title-banner">${displayUser}'s Quarterback stats</div>
+                <div class="stat-table-card">
                     <table>
-                        <thead>
-                            <tr><th>Season</th><th>Yds</th><th>Att</th><th>Cmp</th><th>Td</th><th>Int</th><th>Sck</th><th>3rd</th><th>4th</th><th>&lt;15</th><th>&lt;35</th><th>&lt;50</th><th>50+</th><th>Snap</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr class="career-highlight-row"><td>Career</td><td>41469</td><td>2632</td><td>1617</td><td>503</td><td>130</td><td>150</td><td>195</td><td>60</td><td>752</td><td>815</td><td>599</td><td>620</td><td>2403</td></tr>
-                            <tr><td>S34</td><td>5615</td><td>374</td><td>224</td><td>50</td><td>20</td><td>32</td><td>23</td><td>6</td><td>42</td><td>116</td><td>79</td><td>84</td><td>363</td></tr>
-                            <tr><td>S27</td><td>5343</td><td>327</td><td>190</td><td>71</td><td>15</td><td>7</td><td>21</td><td>7</td><td>115</td><td>111</td><td>132</td><td>108</td><td>293</td></tr>
-                            <tr><td>S26</td><td>3660</td><td>266</td><td>154</td><td>38</td><td>16</td><td>15</td><td>25</td><td>12</td><td>83</td><td>121</td><td>114</td><td>119</td><td>236</td></tr>
-                            <tr><td>S25</td><td>2058</td><td>146</td><td>78</td><td>22</td><td>11</td><td>10</td><td>13</td><td>3</td><td>4</td><td>8</td><td>50</td><td>107</td><td>130</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="season-table-wrapper">
-                    <div class="season-table-title-banner">${displayUser}'s Running Back stats</div>
-                    <table>
-                        <thead>
-                            <tr><th>Season</th><th>Yds</th><th>Att</th><th>Td</th><th>Fum</th><th>1st</th><th>3rd</th><th>4th</th><th>20+</th><th>Snap</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr class="career-highlight-row"><td>Career</td><td>4093</td><td>558</td><td>87</td><td>5</td><td>212</td><td>47</td><td>5</td><td>9</td><td>510</td></tr>
-                            <tr><td>S34</td><td>612</td><td>94</td><td>20</td><td>1</td><td>39</td><td>10</td><td>2</td><td>1</td><td>81</td></tr>
-                            <tr><td>S27</td><td>247</td><td>32</td><td>4</td><td>1</td><td>12</td><td>4</td><td>0</td><td>0</td><td>29</td></tr>
-                        </tbody>
+                        <thead class="red-table-header"><tr>${tableHeaders}</tr></thead>
+                        <tbody id="stat-table-body">${tableRows}</tbody>
                     </table>
                 </div>
             `;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Renders the precise full view showcase of earned trophies with structural shelf layouts
-        function loadTrophyShowcaseView(username) {
-            displayContainer.innerHTML = `
-                <div class="back-link" onclick="loadPlayerProfile('${username}')">
-                    ← Back to ${username}'s Profile
+        // Live filtration hook inside active table layouts
+        function filterCurrentTable() {
+            const query = document.getElementById('table-filter').value.toLowerCase();
+            const rows = document.querySelectorAll('#stat-table-body tr');
+            rows.forEach(row => {
+                // Check name column (idx 2 for regular stats, idx 1 for record book)
+                const nameCell = row.cells[isRecordBookView ? 1 : 2];
+                if (nameCell) {
+                    const txt = nameCell.textContent.toLowerCase();
+                    row.style.display = txt.includes(query) ? '' : 'none';
+                }
+            });
+        }
+
+        // Standard Record Book Layout routing loader
+        function loadAllTimeStats(event) {
+            if (event) event.preventDefault();
+            isRecordBookView = true;
+            
+            // Build the positions selector layout row
+            let positionsHtml = '<div class="pill-toggle-row">';
+            for (let key in allTimeLeaderboards) {
+                const activeClass = key === currentRecordBookPos ? 'active' : '';
+                positionsHtml += `<button class="pill-btn ${activeClass}" onclick="switchRecordBookPosition('${key}')">${key}</button>`;
+            }
+            positionsHtml += '</div>';
+
+            const data = allTimeLeaderboards[currentRecordBookPos];
+            let tableHeaders = data.headers.map(h => `<th>${h}</th>`).join('');
+            let tableRows = data.rows.map(row => {
+                return `<tr>${row.map((cell, idx) => {
+                    if (idx === 1) {
+                        return `<td class="highlight-col" style="cursor:pointer; color:var(--accent);" onclick="loadPlayerProfile('${cell}')">${cell}</td>`;
+                    }
+                    return `<td>${cell}</td>`;
+                }).join('')}</tr>`;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="alltime-hero">
+                    <div class="hero-tag">VFL History book</div>
+                    <h1 class="hero-heading">All-Time Records</h1>
+                    <p class="hero-desc">Search historical records or explore the career tracking data across all legacy seasons.</p>
+                    <div class="hero-search">
+                        <input type="text" id="alltime-search-input" placeholder="Enter custom player name...">
+                        <button onclick="triggerProfileSearch('alltime-search-input')">Search Profile</button>
+                    </div>
                 </div>
 
-                <div style="margin-bottom: 2rem;">
-                    <h2 style="font-size:1.6rem; font-weight:800; text-transform:uppercase;">${username}'s Trophy Showcase</h2>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.2rem;">Inspect historical season championship parameters via standard cursor hovering.</p>
+                ${positionsHtml}
+
+                <div class="section-header-row">
+                    <h2 class="page-title-main" style="text-transform:uppercase; font-size:1.2rem;">All-Time ${data.title} leaderboard (${data.count})</h2>
+                    <div class="search-wrapper">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" id="table-filter" placeholder="Filter position rows..." oninput="filterCurrentTable()">
+                    </div>
+                </div>
+
+                <div class="stat-table-card">
+                    <table>
+                        <thead class="red-table-header"><tr>${tableHeaders}</tr></thead>
+                        <tbody id="stat-table-body">${tableRows}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function switchRecordBookPosition(pos) {
+            currentRecordBookPos = pos;
+            loadAllTimeStats();
+        }
+
+        function triggerProfileSearch(inputId) {
+            const val = document.getElementById(inputId).value;
+            if(val.trim() !== "") {
+                loadPlayerProfile(val);
+            }
+        }
+
+        function goBackFromProfile() {
+            if (isRecordBookView) {
+                loadAllTimeStats();
+            } else {
+                switchCategory(currentCategoryGlobal);
+            }
+        }
+
+        // Renders the profile summary view layer card
+        function loadPlayerProfile(username) {
+            const cleanName = username.trim();
+            const upperName = cleanName.toUpperCase();
+            let robloxId = Math.floor(100000 + Math.random() * 900000);
+            if(upperName === "FINLEY" || upperName === "FINLEY4K") robloxId = 207157;
+            if(upperName === "HRUPT") robloxId = 554312;
+
+            container.innerHTML = `
+                <div class="back-link" onclick="goBackFromProfile()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Back to Leaderboards
+                </div>
+                
+                <div class="hero-search" style="margin-bottom: 2rem; max-width: 420px;">
+                    <input type="text" id="profile-lookup-input" placeholder="Look up another player..." value="${cleanName}">
+                    <button onclick="triggerProfileSearch('profile-lookup-input')">Search</button>
+                </div>
+
+                <div class="profile-card">
+                    <div class="avatar-container">
+                        <span class="avatar-placeholder">👤</span>
+                    </div>
+                    <div class="profile-info">
+                        <div class="profile-title-tag">Trophy Room</div>
+                        <h1 class="profile-name">${cleanName}</h1>
+                        <p class="profile-id">Roblox ID ${robloxId}</p>
+                        
+                        <div class="profile-metrics-row">
+                            <div class="metric-block">
+                                <div class="metric-value">38</div>
+                                <div class="metric-label">Trophies</div>
+                            </div>
+                            <div class="metric-block">
+                                <div class="metric-value">6</div>
+                                <div class="metric-label">Championships</div>
+                            </div>
+                            <div class="metric-block">
+                                <div class="metric-value">4</div>
+                                <div class="metric-label">Honors</div>
+                            </div>
+                            <div class="metric-block">
+                                <div class="metric-value" style="color:var(--gold-accent)">17,250</div>
+                                <div class="metric-label">Trophy XP</div>
+                            </div>
+                        </div>
+
+                        <div class="profile-badges-row">
+                            <div class="badge-pill">💍 6× Allegiance Bowl Champion</div>
+                            <div class="badge-pill">🔥 2× MVP</div>
+                            <div class="badge-pill">👑 6× Conference Champion</div>
+                            <div class="badge-pill">⭐ 5× All-Pro</div>
+                            <div class="badge-pill">🌟 12× Star Bowl</div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem;">
+                            <button class="trophy-btn" onclick="loadTrophyRoomView('${cleanName}')">🏆 Enter Trophy Room</button>
+                            <button class="pill-btn" onclick="goBackFromProfile()">← Back</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Renders the specific full view showcase of earned trophies with structural layouts matching user images
+        function loadTrophyRoomView(username) {
+            container.innerHTML = `
+                <div class="back-link" onclick="loadPlayerProfile('${username}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Back to ${username}'s Profile
+                </div>
+
+                <div class="section-header-row">
+                    <div>
+                        <h2 class="page-title-main" style="text-transform: uppercase; font-size: 1.8rem; letter-spacing: 0.5px;">${username}'s Showcase</h2>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.2rem;">Hover over any award to inspect historical season details.</p>
+                    </div>
                 </div>
 
                 <div class="trophy-showcase-container">
@@ -388,7 +549,7 @@
                         <div class="category-header">
                             <div>
                                 <div class="category-title">Allegiance Bowls</div>
-                                <div class="category-subtitle">Every grand league championship earned.</div>
+                                <div class="category-subtitle">Every championship earned.</div>
                             </div>
                             <span class="count-badge">6 Trophies</span>
                         </div>
@@ -399,81 +560,57 @@
                                     <div class="tip-season">Season 18 Champion</div>
                                     <div class="tip-xp">⚡ 1,000 XP</div>
                                 </div>
-                                <div class="trophy-img-wrapper"><span style="font-size:2.5rem">🏆</span></div>
+                                <div class="trophy-img-wrapper">
+                                    <span style="font-size:2.5rem">🏆</span>
+                                </div>
                                 <div class="trophy-label-badge">AB II<br><span style="font-size:10px; opacity:0.6;">Season 18</span></div>
                             </div>
+
                             <div class="trophy-slot">
                                 <div class="trophy-tooltip">
                                     <div class="tip-title">Allegiance Bowl IV</div>
                                     <div class="tip-season">Season 20 Champion</div>
                                     <div class="tip-xp">⚡ 1,000 XP</div>
                                 </div>
-                                <div class="trophy-img-wrapper"><span style="font-size:2.5rem">🏆</span></div>
+                                <div class="trophy-img-wrapper">
+                                    <span style="font-size:2.5rem">🏆</span>
+                                </div>
                                 <div class="trophy-label-badge">AB IV<br><span style="font-size:10px; opacity:0.6;">Season 20</span></div>
                             </div>
+
                             <div class="trophy-slot">
                                 <div class="trophy-tooltip">
-                                    <div class="tip-title">Allegiance Bowl X</div>
-                                    <div class="tip-season">Season 26 Champion</div>
+                                    <div class="tip-title">Allegiance Bowl V</div>
+                                    <div class="tip-season">Season 21 Champion</div>
                                     <div class="tip-xp">⚡ 1,000 XP</div>
                                 </div>
-                                <div class="trophy-img-wrapper"><span style="font-size:2.5rem">🏆</span></div>
-                                <div class="trophy-label-badge">AB X<br><span style="font-size:10px; opacity:0.6;">Season 26</span></div>
+                                <div class="trophy-img-wrapper">
+                                    <span style="font-size:2.5rem">🏆</span>
+                                </div>
+                                <div class="trophy-label-badge">AB V<br><span style="font-size:10px; opacity:0.6;">Season 21</span></div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- Box 2: Individual Top Honors -->
-                    <div class="trophy-category-card">
-                        <div class="category-header">
-                            <div>
-                                <div class="category-title">Top Honors</div>
-                                <div class="category-subtitle">Marquee MVP and Player of the Year awards.</div>
-                            </div>
-                            <span class="count-badge">2 Trophies</span>
-                        </div>
-                        <div class="shelf-row">
                             <div class="trophy-slot">
                                 <div class="trophy-tooltip">
-                                    <div class="tip-title">Most Valuable Player</div>
-                                    <div class="tip-season">Season 21 MVP Award</div>
-                                    <div class="tip-xp">⚡ 1,500 XP</div>
+                                    <div class="tip-title">Allegiance Bowl VI</div>
+                                    <div class="tip-season">Season 22 Champion</div>
+                                    <div class="tip-xp">⚡ 1,000 XP</div>
                                 </div>
-                                <div class="trophy-img-wrapper"><span style="font-size:2.5rem">👑</span></div>
-                                <div class="trophy-label-badge">MVP<br><span style="font-size:10px; opacity:0.6;">Season 21</span></div>
+                                <div class="trophy-img-wrapper">
+                                    <span style="font-size:2.5rem">🏆</span>
+                                </div>
+                                <div class="trophy-label-badge">AB VI<br><span style="font-size:10px; opacity:0.6;">Season 22</span></div>
                             </div>
                         </div>
                     </div>
-
-                </div>
-            `;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function loadAllTimeStatsView() {
-            displayContainer.innerHTML = `
-                <div style="background: #fdfdfd; border: 1px solid var(--border); border-radius: 12px; padding: 3rem 2rem; text-align: center; margin-bottom: 2rem;">
-                    <h1 style="font-size: 2rem; margin-bottom: 0.5rem; font-weight:800;">League Record Book</h1>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size:0.9rem;">Search a valid username below to open their custom player card profile dashboard.</p>
-                    <div class="search-row-profile" style="margin: 0 auto;">
-                        <input type="text" id="landing-search-field" placeholder="Search Roblox username (e.g., FINLEY4K)...">
-                        <button onclick="triggerSearchEngine('landing-search-field')">Search</button>
-                    </div>
                 </div>
             `;
         }
 
-        function triggerSearchEngine(elementId) {
-            const inputVal = document.getElementById(elementId).value;
-            if(inputVal.trim() !== "") {
-                loadPlayerProfile(inputVal);
-            }
-        }
-
-        window.onload = function() {
-            // Drop directly into a clean user dashboard match view on landing initialization
-            loadPlayerProfile('FINLEY4K');
-        };
+        // Initialize the app view state on cold load
+        window.addEventListener('DOMContentLoaded', () => {
+            switchCategory('passing');
+        });
     </script>
 </body>
 </html>
