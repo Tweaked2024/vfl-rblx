@@ -142,6 +142,16 @@
         .circle-btn { width: 36px; height: 36px; background: #1b1a25; border: 1px solid #282735; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
         .circle-btn.active { background: var(--accent); border-color: var(--accent); }
 
+        /* Career Profile View (2nd Image Layout Styles) */
+        .back-link { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 1.5rem; cursor: pointer; }
+        .profile-card { background: linear-gradient(90deg, #990f1a 0%, #eb2c3b 100%); border-radius: 16px; padding: 2.5rem; display: flex; align-items: center; gap: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); margin-top: 1rem; position: relative; overflow: hidden; }
+        .avatar-container { width: 110px; height: 110px; border-radius: 50%; background: #fff; border: 4px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 2; }
+        .avatar-placeholder { font-size: 3rem; }
+        .profile-info { z-index: 2; }
+        .profile-name { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1; margin-bottom: 0.4rem; }
+        .profile-id { color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; }
+        .trophy-btn { background: #e3b047; color: #4a3200; border: none; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+
         footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
     </style>
 </head>
@@ -153,12 +163,11 @@
             <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
         </div>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="scores.html">Scores</a></li>
-            <li><a href="standings.html">Standings</a></li>
+            <li><a href="#" onclick="switchCategory('passing')">Home</a></li>
+            <li><a href="#" onclick="switchCategory('passing')">Scores</a></li>
+            <li><a href="#" onclick="switchCategory('passing')">Standings</a></li>
             <li class="dropdown">
-                <!-- Clicking this directly runs our layout function to build the view on demand -->
-                <a href="#" class="active" onclick="switchCategory('passing', this)">
+                <a href="#" class="active" onclick="switchCategory('passing', event)">
                     Stats
                     <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
                         <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
@@ -168,25 +177,25 @@
                     <div class="dropdown-col">
                         <h4>Offense</h4>
                         <ul>
-                            <li><a href="#" onclick="switchCategory('passing')">Quarterbacks</a></li>
-                            <li><a href="#" onclick="switchCategory('rushing')">Running Backs</a></li>
-                            <li><a href="#" onclick="switchCategory('receiving')">Wide Receivers</a></li>
-                            <li><a href="#" onclick="switchCategory('receiving')">Tight Ends</a></li>
-                            <li><a href="#" onclick="switchCategory('receiving')">Centers</a></li>
+                            <li><a href="#" onclick="switchCategory('passing', event)">Quarterbacks</a></li>
+                            <li><a href="#" onclick="switchCategory('rushing', event)">Running Backs</a></li>
+                            <li><a href="#" onclick="switchCategory('receiving', event)">Wide Receivers</a></li>
+                            <li><a href="#" onclick="switchCategory('tightends', event)">Tight Ends</a></li>
+                            <li><a href="#" onclick="switchCategory('center', event)">Centers</a></li>
                         </ul>
                     </div>
                     <div class="dropdown-col">
                         <h4>Defense</h4>
                         <ul>
-                            <li><a href="#" onclick="switchCategory('receiving')">Defensive Ends</a></li>
-                            <li><a href="#" onclick="switchCategory('receiving')">Linebackers</a></li>
-                            <li><a href="#" onclick="switchCategory('receiving')">Defensive Backs</a></li>
+                            <li><a href="#" onclick="switchCategory('defensiveends', event)">Defensive Ends</a></li>
+                            <li><a href="#" onclick="switchCategory('linebackers', event)">Linebackers</a></li>
+                            <li><a href="#" onclick="switchCategory('secondary', event)">Defensive Backs</a></li>
                         </ul>
                     </div>
                     <div class="dropdown-col">
                         <h4>Special Teams</h4>
                         <ul style="margin-bottom: 1.5rem;">
-                            <li><a href="#" onclick="switchCategory('receiving')">Kickers</a></li>
+                            <li><a href="#" onclick="switchCategory('kicking', event)">Kickers</a></li>
                         </ul>
                         <h4>Record Book</h4>
                         <ul>
@@ -203,26 +212,29 @@
                     </svg>
                 </a>
                 <ul class="legacy-dropdown">
-                    <li><a href="legacy.html">Legacy</a></li>
-                    <li><a href="champions-awards.html">Champions & Awards</a></li>
-                    <li><a href="award-tracker.html">Award Tracker</a></li>
+                    <li><a href="#" onclick="loadAllTimeStats(event)">Legacy Book</a></li>
+                    <li><a href="#" onclick="loadAllTimeStats(event)">Champions & Awards</a></li>
+                    <li><a href="#" onclick="loadAllTimeStats(event)">Award Tracker</a></li>
                 </ul>
             </li>
-            <li><a href="rulebook.html">Rulebook</a></li>
+            <li><a href="#">Rulebook</a></li>
         </ul>
         <a href="#" class="nav-btn">Join Now!</a>
     </nav>
 
     <div class="container" id="view-container">
-        <!-- Default State: Pre-loaded with Passing View layout on load -->
+        <!-- Default State -->
     </div>
 
     <footer>2026 Virtual Football League INC</footer>
 
     <script>
         const container = document.getElementById('view-container');
+        let currentCategoryGlobal = 'passing';
+        let isRecordBookView = false;
+        let currentRecordBookPos = 'QB';
 
-        // Dynamic database containing dummy stats for various reactive tabs
+        // Expanded Dynamic local mock data values
         const statsDatabase = {
             passing: {
                 title: "passing stats",
@@ -231,7 +243,9 @@
                     ["1", "W", "DiminqSLC", "509.2", "7131", "60.66%", "68", "24", "16", "17", "9", "411"],
                     ["2", "IND", "IrxnIV", "426.6", "6014", "53.95%", "65", "37", "10", "33", "8", "470"],
                     ["3", "KC", "SOVER7IGN", "377.3", "5082", "51.95%", "54", "21", "17", "32", "11", "428"],
-                    ["4", "NO", "hrupt", "374.9", "5622", "56.97%", "51", "27", "36", "37", "13", "388"]
+                    ["4", "NO", "hrupt", "374.9", "5622", "56.97%", "51", "27", "36", "37", "13", "388"],
+                    ["5", "CLE", "Cleaave", "310.2", "4921", "55.20%", "42", "19", "22", "25", "10", "390"],
+                    ["6", "TB", "FINLEY", "295.4", "4105", "58.10%", "39", "12", "15", "20", "5", "350"]
                 ]
             },
             rushing: {
@@ -239,7 +253,8 @@
                 headers: ["#", "TM", "PLAYER", "PTS", "YDS", "AVG", "TD", "FUM", "LNG", "20+", "SNAP"],
                 rows: [
                     ["1", "DAL", "RobloxGamer", "210.4", "1420", "6.2", "14", "2", "65", "5", "180"],
-                    ["2", "SF", "GridironKing", "195.1", "1290", "5.8", "11", "1", "42", "3", "210"]
+                    ["2", "SF", "GridironKing", "195.1", "1290", "5.8", "11", "1", "42", "3", "210"],
+                    ["3", "TB", "FINLEY", "110.5", "820", "5.1", "6", "0", "35", "2", "120"]
                 ]
             },
             receiving: {
@@ -247,14 +262,101 @@
                 headers: ["#", "TM", "PLAYER", "PTS", "YDS", "REC", "AVG", "TD", "DRP", "YAC", "SNAP"],
                 rows: [
                     ["1", "PIT", "TBYellowDragon", "181.0", "1120", "78", "14.3", "9", "3", "412", "320"],
-                    ["2", "NYG", "Eliback000", "168.4", "980", "62", "15.8", "12", "1", "310", "295"]
+                    ["2", "NYG", "Eliback000", "168.4", "980", "62", "15.8", "12", "1", "310", "295"],
+                    ["3", "TB", "FINLEY", "145.2", "890", "55", "16.1", "8", "2", "240", "280"]
                 ]
-            }
+            },
+            tightends: { title: "tight end stats", headers: ["#", "TM", "PLAYER", "YDS", "REC", "TD"], rows: [["1", "NE", "GronkRoblox", "750", "48", "8"]] },
+            center: { title: "center stats", headers: ["#", "TM", "PLAYER", "PANCAKES", "SACKS ALLOWED"], rows: [["1", "PHI", "BigBlocker", "42", "1"]] },
+            defensiveends: { title: "defensive end stats", headers: ["#", "TM", "PLAYER", "TACKLES", "SACKS", "FF"], rows: [["1", "LA", "SackMaster", "55", "18.5", "4"]] },
+            linebackers: { title: "linebacker stats", headers: ["#", "TM", "PLAYER", "TACKLES", "INT", "TD"], rows: [["1", "CHI", "MidfieldHawk", "98", "3", "1"]] },
+            secondary: { title: "defensive back stats", headers: ["#", "TM", "PLAYER", "INT", "PD", "TACKLES"], rows: [["1", "SEA", "IslandLock", "8", "19", "45"]] },
+            kicking: { title: "kicking stats", headers: ["#", "TM", "PLAYER", "FGM", "FGA", "LNG"], rows: [["1", "BAL", "LegPower", "28", "30", "58"]] }
         };
 
-        // Main Router Function to build and activate sub-category views
-        function switchCategory(categoryKey, eventElement = null) {
-            if(eventElement) eventElement.preventDefault();
+        // All-Time Leaderboards structure dynamically loaded by position circle buttons
+        const allTimeLeaderboards = {
+            QB: { title: "quarterback", count: "661 players", headers: ["#", "PLAYER", "YDS", "ATT", "CMP", "TD", "INT"], rows: [["1", "hrupt", "67212", "4952", "2653", "734", "329"], ["2", "Cleaave", "62983", "4676", "2603", "731", "338"], ["3", "FINLEY", "45120", "3801", "2100", "490", "180"]] },
+            RB: { title: "running back", count: "412 players", headers: ["#", "PLAYER", "YDS", "ATT", "AVG", "TD", "FUM"], rows: [["1", "RobloxGamer", "14205", "2100", "6.7", "134", "12"]] },
+            WR: { title: "wide receiver", count: "894 players", headers: ["#", "PLAYER", "YDS", "REC", "TD", "YAC"], rows: [["1", "TBYellowDragon", "18450", "1102", "165", "4520"]] },
+            TE: { title: "tight end", count: "215 players", headers: ["#", "PLAYER", "YDS", "REC", "TD"], rows: [["1", "GronkRoblox", "8920", "610", "82"]] },
+            C: { title: "center", count: "140 players", headers: ["#", "PLAYER", "PANCAKES", "SNAPS"], rows: [["1", "BigBlocker", "380", "5420"]] },
+            DE: { title: "defensive end", count: "310 players", headers: ["#", "PLAYER", "SACKS", "TACKLES"], rows: [["1", "SackMaster", "142.5", "410"]] },
+            LB: { title: "linebacker", count: "430 players", headers: ["#", "PLAYER", "TACKLES", "INT", "FF"], rows: [["1", "MidfieldHawk", "740", "18", "11"]] },
+            DB: { title: "defensive back", count: "520 players", headers: ["#", "PLAYER", "INT", "PD"], rows: [["1", "IslandLock", "62", "145"]] },
+            K: { title: "kicker", count: "98 players", headers: ["#", "PLAYER", "FGM", "LNG"], rows: [["1", "LegPower", "210", "63"]] }
+        };
+
+        // Renders the career details view based on searched string name matches
+        function loadPlayerProfile(username) {
+            const cleanName = username.trim();
+            const upperName = cleanName.toUpperCase();
+            
+            // Random ID generator substitute for sandbox design flow placement
+            let robloxId = Math.floor(100000 + Math.random() * 900000);
+            if(upperName === "FINLEY") robloxId = 207157;
+            if(upperName === "HRUPT") robloxId = 554312;
+
+            container.innerHTML = `
+                <div class="back-link" onclick="goBackFromProfile()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    All-Time Stats
+                </div>
+                
+                <div class="hero-search" style="margin-bottom: 2rem; max-width: 420px;">
+                    <input type="text" id="profile-lookup-input" placeholder="Look up another player..." value="${cleanName}">
+                    <button onclick="triggerProfileSearch('profile-lookup-input')">Search</button>
+                </div>
+
+                <div class="profile-card">
+                    <div class="avatar-container">
+                        <span class="avatar-placeholder">🙂</span>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">${cleanName}</h1>
+                        <p class="profile-id">Roblox ID ${robloxId}</p>
+                        <button class="trophy-btn">🏆 Trophy Room</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function triggerProfileSearch(inputId) {
+            const val = document.getElementById(inputId).value;
+            if(val.trim() !== "") {
+                loadPlayerProfile(val);
+            }
+        }
+
+        function goBackFromProfile() {
+            if (isRecordBookView) {
+                renderAllTimeStatsDOM();
+            } else {
+                switchCategory(currentCategoryGlobal);
+            }
+        }
+
+        // Live table row item search text filter mapping
+        function filterTableRows(searchVal) {
+            const query = searchVal.toLowerCase().trim();
+            const rows = document.querySelectorAll("tbody tr");
+            
+            rows.forEach(row => {
+                // Evaluates player or team column cells match 
+                const cellText = row.innerText.toLowerCase();
+                if(cellText.includes(query)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        // Main Regular Category Router Function
+        function switchCategory(categoryKey, event = null) {
+            if(event) event.preventDefault();
+            isRecordBookView = false;
+            currentCategoryGlobal = categoryKey;
             
             const data = statsDatabase[categoryKey] || statsDatabase['passing'];
             
@@ -263,19 +365,19 @@
                     <button class="tab-btn ${categoryKey === 'passing' ? 'active' : ''}" onclick="switchCategory('passing')">Passing</button>
                     <button class="tab-btn ${categoryKey === 'rushing' ? 'active' : ''}" onclick="switchCategory('rushing')">Rushing</button>
                     <button class="tab-btn ${categoryKey === 'receiving' ? 'active' : ''}" onclick="switchCategory('receiving')">Receiving</button>
-                    <button class="tab-btn" onclick="switchCategory('tightends')">Tight Ends</button>
-                    <button class="tab-btn" onclick="switchCategory('center')">Center</button>
-                    <button class="tab-btn" onclick="switchCategory('defensiveends')">Defensive Ends</button>
-                    <button class="tab-btn" onclick="switchCategory('linebackers')">Linebackers</button>
-                    <button class="tab-btn" onclick="switchCategory('secondary')">Secondary</button>
-                    <button class="tab-btn" onclick="switchCategory('kicking')">Kicking</button>
+                    <button class="tab-btn ${categoryKey === 'tightends' ? 'active' : ''}" onclick="switchCategory('tightends')">Tight Ends</button>
+                    <button class="tab-btn ${categoryKey === 'center' ? 'active' : ''}" onclick="switchCategory('center')">Center</button>
+                    <button class="tab-btn ${categoryKey === 'defensiveends' ? 'active' : ''}" onclick="switchCategory('defensiveends')">Defensive Ends</button>
+                    <button class="tab-btn ${categoryKey === 'linebackers' ? 'active' : ''}" onclick="switchCategory('linebackers')">Linebackers</button>
+                    <button class="tab-btn ${categoryKey === 'secondary' ? 'active' : ''}" onclick="switchCategory('secondary')">Secondary</button>
+                    <button class="tab-btn ${categoryKey === 'kicking' ? 'active' : ''}" onclick="switchCategory('kicking')">Kicking</button>
                 </div>
 
                 <div class="section-header-row">
                     <h2 class="page-title-main">${data.title}</h2>
                     <div class="search-wrapper">
                         <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        <input type="text" class="search-input" placeholder="Search players or teams...">
+                        <input type="text" id="live-table-search" class="search-input" placeholder="Search players or teams..." oninput="filterTableRows(this.value)">
                     </div>
                 </div>
 
@@ -286,7 +388,7 @@
                         </thead>
                         <tbody>
                             ${data.rows.map(row => `
-                                <tr>
+                                <tr style="cursor:pointer;" onclick="loadPlayerProfile('${row[2]}')">
                                     ${row.map((cell, idx) => `<td class="${idx === 3 ? 'highlight-col' : ''}">${cell}</td>`).join('')}
                                 </tr>
                             `).join('')}
@@ -298,46 +400,82 @@
             container.innerHTML = htmlOutput;
         }
 
-        // Sub-page view for the Record Book
+        // Sub-page view layer builder for the Record Book screen routing
         function loadAllTimeStats(e) {
-            e.preventDefault();
+            if(e) e.preventDefault();
+            isRecordBookView = true;
+            renderAllTimeStatsDOM();
+        }
+
+        function changeRecordBookPosition(posCode) {
+            currentRecordBookPos = posCode;
+            renderAllTimeStatsDOM();
+        }
+
+        function renderAllTimeStatsDOM() {
+            const currentData = allTimeLeaderboards[currentRecordBookPos] || allTimeLeaderboards['QB'];
+
             container.innerHTML = `
                 <div class="alltime-hero">
                     <div class="hero-tag">AFL Record Book</div>
                     <h1 class="hero-heading">All-Time Stats</h1>
                     <p class="hero-desc">Every snap since Season 17. Search any player by their Roblox username to open their career profile.</p>
                     <div class="hero-search">
-                        <input type="text" placeholder="Search a Roblox username...">
-                        <button>Search</button>
+                        <input type="text" id="main-username-search" placeholder="Search a Roblox username...">
+                        <button onclick="triggerProfileSearch('main-username-search')">Search</button>
                     </div>
                 </div>
-                <div class="pill-toggle-row"><button class="pill-btn active">All-Time</button><button class="pill-btn">By Season</button></div>
-                <div class="circle-tab-row">
-                    <button class="circle-btn active">QB</button><button class="circle-btn">RB</button><button class="circle-btn">WR</button>
-                    <button class="circle-btn">TE</button><button class="circle-btn">C</button><button class="circle-btn">DE</button>
-                    <button class="circle-btn">LB</button><button class="circle-btn">DB</button><button class="circle-btn">K</button>
+                
+                <div class="pill-toggle-row">
+                    <button class="pill-btn active">All-Time</button>
+                    <button class="pill-btn" onclick="alert('Season filter database view coming soon!')">By Season</button>
                 </div>
+                
+                <div class="circle-tab-row">
+                    ${['QB', 'RB', 'WR', 'TE', 'C', 'DE', 'LB', 'DB', 'K'].map(pos => `
+                        <button class="circle-btn ${currentRecordBookPos === pos ? 'active' : ''}" onclick="changeRecordBookPosition('${pos}')">${pos}</button>
+                    `).join('')}
+                </div>
+                
                 <div class="section-header-row">
                     <div>
-                        <h2 class="page-title-main" style="margin-bottom:0.2rem">quarterback</h2>
-                        <p style="color:var(--text-muted); font-size:0.8rem">All-time leaders • 661 players</p>
+                        <h2 class="page-title-main" style="margin-bottom:0.2rem">${currentData.title}</h2>
+                        <p style="color:var(--text-muted); font-size:0.8rem">All-time leaders • ${currentData.count}</p>
+                    </div>
+                    <div class="search-wrapper">
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <input type="text" class="search-input" placeholder="Filter by player..." oninput="filterTableRows(this.value)">
                     </div>
                 </div>
+                
                 <div class="stat-table-card">
                     <table>
                         <thead class="red-table-header">
-                            <tr><th>#</th><th>PLAYER</th><th>YDS</th><th>ATT</th><th>CMP</th><th>TD</th><th>INT</th></tr>
+                            <tr>${currentData.headers.map(h => `<th>${h}</th>`).join('')}</tr>
                         </thead>
                         <tbody>
-                            <tr><td>1</td><td>hrupt</td><td class="highlight-col">67212</td><td>4952</td><td>2653</td><td>734</td><td>329</td></tr>
-                            <tr><td>2</td><td>Cleaave</td><td class="highlight-col">62983</td><td>4676</td><td>2603</td><td>731</td><td>338</td></tr>
+                            ${currentData.rows.map(row => `
+                                <tr style="cursor:pointer;" onclick="loadPlayerProfile('${row[1]}')">
+                                    <td>${row[0]}</td>
+                                    <td>${row[1]}</td>
+                                    <td class="highlight-col">${row[2]}</td>
+                                    ${row.slice(3).map(cell => `<td>${cell}</td>`).join('')}
+                                </tr>
+                            `).join('')}
                         </tbody>
                     </table>
                 </div>
             `;
+
+            // Binds search key enter event listener to the primary hero search input field
+            document.getElementById('main-username-search').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    triggerProfileSearch('main-username-search');
+                }
+            });
         }
 
-        // Pre-render the layout view immediately when the document window loads
+        // Initialize view states seamlessly on layout startup
         window.onload = function() {
             switchCategory('passing');
         };
