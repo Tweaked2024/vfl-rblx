@@ -13,14 +13,93 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
         
-        nav { background-color: var(--bg-main); padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        /* Navigation Header Base */
+        nav { 
+            background-color: var(--bg-main); 
+            padding: 1.2rem 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border); 
+            position: relative;
+            z-index: 1000;
+        }
         .logo-area { display: flex; align-items: center; gap: 10px; }
         .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
         .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
         .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
-        nav ul { display: flex; list-style: none; gap: 2rem; }
-        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
-        nav ul li a:hover, nav ul li a.active { color: var(--text-main); border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+        
+        /* Navigation Menu Lists */
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav ul li { position: relative !important; display: inline-block; }
+        
+        nav ul li a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s ease;
+        }
+        nav ul li a:hover, nav ul li a.active { 
+            color: var(--text-main); 
+        }
+
+        /* Pure Floating Dropdown Box Design */
+        .dropdown-menu {
+            display: none !important;
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background-color: #ffffff;
+            min-width: 210px;
+            border-radius: 12px;
+            padding: 0.6rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            list-style: none !important;
+            margin-top: 5px;
+            z-index: 99999;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+        }
+
+        /* Displays only on hover state */
+        nav ul li.dropdown:hover .dropdown-menu {
+            display: block !important;
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px);
+        }
+
+        /* Dropdown Item Typography & Link Actions */
+        .dropdown-menu li { width: 100%; display: block; }
+        .dropdown-menu li a {
+            color: #111017 !important;
+            padding: 0.7rem 1.4rem;
+            display: block !important;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: none !important;
+            text-decoration: none;
+            text-align: left;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .dropdown-menu li a:hover { 
+            background-color: #f4f4f6 !important;
+            color: var(--accent) !important; 
+        }
+
+        /* Animates down arrow turn on hover */
+        nav ul li.dropdown:hover .nav-arrow {
+            transform: rotate(180deg);
+        }
+
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
         /* Legacy Centered Layout Container */
@@ -87,14 +166,19 @@
             <li><a href="standings.html">Standings</a></li>
             <li><a href="stats.html">Stats</a></li>
             <li class="dropdown">
-                <a href="#" class="active">Legacy ▾</a>
+                <a href="#">
+                    Legacy
+                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </a>
                 <ul class="dropdown-menu">
                     <li><a href="legacy.html">Legacy</a></li>
                     <li><a href="champions-awards.html">Champions & Awards</a></li>
                     <li><a href="award-tracker.html">Award Tracker</a></li>
                 </ul>
             </li>
-            <li><a href="rulebook.html">Rulebook</a></li>
+            <li><a href="rulebook.html" class="active">Rulebook</a></li>
         </ul>
         <a href="#" class="nav-btn">Join Now!</a>
     </nav>
@@ -122,7 +206,7 @@
                     <strong>Server Settings</strong>
                     <ul class="rule-list">
                         <li>turn off public listing</li>
-                        <li>7v7 - 9v9 league forces are allowed, both teams can run the ball</li>li>
+                        <li>7v7 - 9v9 league forces are allowed, both teams can run the ball</li>
                         <li>set fumbling chances to 1</li>
                         <li>set play clock size to 20</li>
                         <li>set quarter length to 4</li>
@@ -165,8 +249,8 @@
                     <li>If you believe your Quarterback was sacked unfairly by the advantage of lag</li>
                     <li>If you believe the offense had too many blockers during a play</li>
                     <li>Failing to overturn the play will cost your team a timeout</li>
-                <p>If you feel like a challenge is warranted, you must use the following command before the ball is snapped: :challenge</p>
                 </ul>
+                <p style="margin-top: 1rem;">If you feel like a challenge is warranted, you must use the following command before the ball is snapped: <code>:challenge</code></p>
             </div>
         </div>
 
@@ -174,7 +258,7 @@
         <div class="rule-section">
             <div class="rule-badge">
                 <span class="badge-label">section</span>
-                <span class="badge-num">03</span>
+                <span class="badge-num">02</span>
             </div>
             <div class="rule-content">
                 <h2>Blocking</h2>
