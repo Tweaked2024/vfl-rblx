@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VFL Roblox - Playoff Bracket</title>
+    <style>
+        :root {
+            --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
+            --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation Header */
+        nav { background-color: var(--bg-main); padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+
+        /* Content Container Layout */
+        .container { max-width: 1400px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
+        
+        /* Sub-Navigation Toggle Header */
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .page-title { font-size: 2rem; font-weight: 700; text-transform: lowercase; }
+        .view-toggle-group { display: flex; align-items: center; background-color: #16151f; border: 1px solid var(--border); padding: 6px; border-radius: 30px; gap: 4px; }
+        .toggle-item { display: inline-block; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); transition: all 0.2s ease; }
+        .toggle-item:hover { color: var(--text-main); }
+        .toggle-item.active { background-color: var(--accent); color: white; }
+
+        /* Conference Filter Pills */
+        .conf-filters { display: flex; gap: 10px; margin-bottom: 1rem; }
+        .filter-btn { background-color: #16151f; border: 1px solid var(--border); color: var(--text-muted); padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+        .filter-btn.active { background-color: var(--text-main); color: var(--bg-main); border-color: var(--text-main); }
+        
+        .subtitle-notice { font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-bottom: 2.5rem; }
+        .conf-badge-title { background-color: var(--accent); color: white; display: inline-block; padding: 0.3rem 0.8rem; font-size: 0.8rem; font-weight: 700; border-radius: 4px; margin-bottom: 2rem; }
+
+        /* --- Bracket Layout Architecture --- */
+        .bracket-wrapper { display: flex; justify-content: space-between; align-items: stretch; gap: 1.5rem; margin-bottom: 4rem; overflow-x: auto; padding-bottom: 1rem; }
+        .bracket-round { display: flex; flex-direction: column; justify-content: space-around; min-width: 220px; flex: 1; }
+        
+        .round-header { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.5rem; color: var(--text-main); }
+        .round-header span { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); font-size: 0.7rem; }
+        
+        /* Matchup Block Cards */
+        .matchup-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; margin: 1rem 0; overflow: hidden; display: flex; flex-direction: column; }
+        .team-row { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.8rem; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid #232230; }
+        .team-row:last-child { border-bottom: none; }
+        .team-info { display: flex; align-items: center; gap: 10px; }
+        .seed { font-size: 0.75rem; color: var(--text-muted); width: 12px; }
+        .team-name { color: var(--text-main); }
+        .team-score { font-weight: 700; color: var(--text-main); }
+        
+        /* TBD styling placeholder */
+        .tbd-row .team-name { color: var(--text-muted); }
+
+        /* Championship Block Visuals */
+        .championship-container { display: flex; flex-direction: column; align-items: center; margin-top: 2rem; }
+        .champ-title-area { display: flex; align-items: center; gap: 10px; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 1rem; }
+        .champ-title-area span { background: var(--accent); width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+        .champ-box { border: 2px solid var(--accent); border-radius: 8px; background-color: var(--bg-card); width: 340px; overflow: hidden; box-shadow: 0 0 15px rgba(240, 93, 81, 0.15); }
+        .champ-row { display: flex; justify-content: space-between; padding: 0.8rem 1.2rem; font-size: 0.85rem; font-weight: 700; border-bottom: 1px solid #232230; }
+        .champ-row:last-child { border-bottom: none; }
+        .champ-conf-label { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; }
+        .champ-team { color: var(--text-muted); }
+
+        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">
+            <div class="logo-circle">VFL</div>
+            <div class="logo-text">Virtual Football<span>League • Season 7</span></div>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scores.html">Scores</a></li>
+            <li><a href="standings.html" class="active">Standings</a></li>
+            <li><a href="stats.html">Stats</a></li>
+            <li><a href="legacy.html">Legacy</a></li>
+            <li><a href="rulebook.html">Rulebook</a></li>
+        </ul>
+        <a href="#" class="nav-btn">Join Now!</a>
+    </nav>
+
+    <div class="container">
+        
+        <!-- Sub-Navigation Header Setup -->
+        <div class="page-header">
+            <h1 class="page-title">standings</h1>
+            <div class="view-toggle-group">
+                <a href="standings.html" class="toggle-item">Standings</a>
+                <a href="series-tiers.html" class="toggle-item">Series Tiers</a>
+                <a href="playoffs.html" class="toggle-item active">Playoff Bracket</a>
+            </div>
+        </div>
+
+        <div class="conf-filters">
+            <button class="filter-btn active">Both</button>
+            <button class="filter-btn">AFC</button>
+            <button class="filter-btn">NFC</button>
+        </div>
+
+        <p class="subtitle-notice">play-in and wild-card matchups based off current seeding. later rounds fill in as the playoffs progress.</p>
+        
+        <div class="conf-badge-title">AFC</div>
+
+        <!-- Tournament Bracket Flow -->
+        <div class="bracket-wrapper">
+            
+            <!-- Column 1: Play-In -->
+            <div class="bracket-round">
+                <div class="round-header"><span>↻</span> Play-In</div>
+                
+                <div class="matchup-card">
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">7</span> <span class="team-name">KC</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">10</span> <span class="team-name">TEN</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                </div>
+
+                <div class="matchup-card">
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">8</span> <span class="team-name">DEN</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">9</span> <span class="team-name">JAX</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Wild Card -->
+            <div class="bracket-round">
+                <div class="round-header"><span>☆</span> Wild Card</div>
+                
+                <div class="matchup-card">
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">1</span> <span class="team-name">CLE</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                    <div class="team-row tbd-row">
+                        <div class="team-info"><span class="seed">8</span> <span class="team-name">TBD</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                </div>
+
+                <div class="matchup-card">
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">4</span> <span class="team-name">IND</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">5</span> <span class="team-name">BAL</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                </div>
+
+                <div class="matchup-card">
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">2</span> <span class="team-name">BUF</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                    <div class="team-row tbd-row">
+                        <div class="team-info"><span class="seed">7</span> <span class="team-name">TBD</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                </div>
+
+                <div class="matchup-card">
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">3</span> <span class="team-name">MIA</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                    <div class="team-row">
+                        <div class="team-info"><span class="seed">6</span> <span class="team-name">PIT</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Divisional -->
+            <div class="bracket-round">
+                <div class="round-header"><span>🛡️</span> Divisional</div>
+                
+                <div class="matchup-card">
+                    <div class="team-row tbd-row">
+                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                    <div class="team-row tbd-row">
+                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                </div>
+
+                <div class="matchup-card">
+                    <div class="team-row tbd-row">
+                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                    <div class="team-row tbd-row">
+                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 4: Conference Championship -->
+            <div class="bracket-round">
+                <div class="round-header"><span>🔀</span> Conf. Championship</div>
+                
+                <div class="matchup-card">
+                    <div class="team-row tbd-row">
+                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                    <div class="team-row tbd-row">
+                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
+                        <span class="team-score">--</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Grand Finale: Allegiance Bowl -->
+        <div class="championship-container">
+            <div class="champ-title-area">
+                <span>✕</span> Allegiance Bowl
+            </div>
+            <div class="champ-box">
+                <div class="champ-row">
+                    <span class="champ-conf-label">AFC</span>
+                    <span class="champ-team">TBD</span>
+                </div>
+                <div class="champ-row">
+                    <span class="champ-conf-label">NFC</span>
+                    <span class="champ-team">TBD</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>2026 Virtual Football League INC</footer>
+</body>
+</html>
