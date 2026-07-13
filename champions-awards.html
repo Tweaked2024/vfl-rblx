@@ -3,117 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VFL Roblox - Legacy</title>
+    <title>VFL Roblox - Champions & Awards</title>
     <style>
         :root {
             --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
             --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
+            --gold-accent: #d4af37;
             --gold-light: #e0ca9b; --gold-dark: #b89855;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* Navigation Header Base */
-        nav { 
-            background-color: var(--bg-main); 
-            padding: 1.2rem 4%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-bottom: 1px solid var(--border); 
-            position: relative;
-            z-index: 1000;
-        }
+        /* Navigation Header with Dropdown */
+        nav { background-color: var(--bg-main); padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: relative; z-index: 100; }
         .logo-area { display: flex; align-items: center; gap: 10px; }
         .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
         .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
         .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
-        
-        /* Navigation Menu Lists */
         nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
-        nav ul li { position: relative !important; display: inline-block; }
+        nav ul li { position: relative; }
+        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; padding: 0.5rem 0; display: inline-block; }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
         
-        nav ul li a { 
-            color: var(--text-muted); 
-            text-decoration: none; 
-            font-size: 0.85rem; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: color 0.2s ease;
+        /* Legacy Dropdown Specifics */
+        .dropdown:hover .dropdown-menu { display: block; opacity: 1; pointer-events: auto; }
+        .dropdown-menu { 
+            display: none; position: absolute; top: 100%; left: 0; 
+            background-color: var(--bg-card); min-width: 220px; 
+            border: 1px solid var(--border); border-radius: 6px; 
+            padding: 0.5rem 0; box-shadow: 0 8px 16px rgba(0,0,0,0.5); 
         }
-        nav ul li a:hover, nav ul li a.active { 
-            color: var(--text-main); 
+        .dropdown-menu li a { 
+            color: var(--text-muted); padding: 0.6rem 1.2rem; 
+            display: block; font-size: 0.8rem; text-transform: uppercase; width: 100%; box-sizing: border-box;
         }
-
-        /* Pure Floating Dropdown Box Design */
-        .dropdown-menu {
-            display: none !important;
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background-color: #ffffff;
-            min-width: 210px;
-            border-radius: 12px;
-            padding: 0.6rem 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            list-style: none !important;
-            margin-top: 5px;
-            z-index: 99999;
-            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-        }
-
-        /* Displays only on hover state */
-        nav ul li.dropdown:hover .dropdown-menu {
-            display: block !important;
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) translateY(0px);
-        }
-
-        /* Dropdown Item Typography & Link Actions */
-        .dropdown-menu li { width: 100%; display: block; }
-        .dropdown-menu li a {
-            color: #111017 !important;
-            padding: 0.7rem 1.4rem;
-            display: block !important;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: none !important;
-            text-decoration: none;
-            text-align: left;
-            transition: background-color 0.15s ease, color 0.15s ease;
-        }
-        .dropdown-menu li a:hover { 
-            background-color: #f4f4f6 !important;
-            color: var(--accent) !important; 
-        }
-
-        /* Animates down arrow turn on hover */
-        nav ul li.dropdown:hover .nav-arrow {
-            transform: rotate(180deg);
-        }
+        .dropdown-menu li a:hover { background-color: #232230; color: var(--accent); }
 
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
-        /* Page Layout Elements */
-        .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
-        .history-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-bottom: 1.5rem; display: flex; gap: 2rem; align-items: center; }
-        .season-badge { background-color: #242233; border: 2px solid var(--accent); border-radius: 6px; padding: 1rem; text-align: center; min-width: 120px; font-weight: 800; font-size: 1.1rem; }
-        .history-details h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .history-details p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+        /* Content Container Layout */
+        .container { max-width: 1400px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
+        
+        /* Page Header elements */
+        .page-header-top { margin-bottom: 0.5rem; }
+        .page-meta-label { color: var(--accent); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .page-title { font-size: 2.5rem; font-weight: 800; text-transform: capitalize; margin-top: 0.2rem; letter-spacing: -0.5px; }
+        .subtitle-notice { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 600px; line-height: 1.4; }
 
-        /* Sections Dividers */
-        .section-title { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-light); margin: 3.5rem 0 1.5rem 0; display: flex; align-items: center; gap: 15px; }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+        /* Season Selector Pill Box Component */
+        .season-selector-bar { 
+            background-color: #16151f; border: 1px solid var(--border); 
+            padding: 0.8rem 1.2rem; border-radius: 8px; display: flex; 
+            align-items: center; gap: 0.8rem; overflow-x: auto; margin-bottom: 2.5rem; 
+        }
+        .season-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-main); letter-spacing: 0.5px; white-space: nowrap; }
+        .season-pills { display: flex; gap: 6px; }
+        .season-pill { 
+            background-color: var(--bg-card); border: 1px solid var(--border); 
+            color: var(--text-muted); padding: 0.4rem 0.9rem; border-radius: 20px; 
+            font-size: 0.75rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: all 0.2s;
+        }
+        .season-pill:hover { border-color: var(--accent); color: var(--text-main); }
+        .season-pill.active { background-color: var(--accent); color: white; border-color: var(--accent); }
 
-        /* League & Media Panel Grid */
+        /* Split layouts for Championship Teams Section */
+        .champs-grid-split { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+        .champs-panel-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
+        
+        .panel-header-block { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+        .panel-icon-placeholder { width: 36px; height: 36px; background-color: #232230; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .panel-title-details h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
+        .panel-title-details p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-top: 0.1rem; }
+
+        /* Player Grid Roster Node layout tags */
+        .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+        .roster-node { 
+            display: flex; align-items: center; gap: 10px; background-color: #16151f; 
+            border: 1px solid var(--border); padding: 0.5rem 0.8rem; border-radius: 25px; 
+        }
+        .node-avatar-circle { width: 24px; height: 24px; background-color: #2c2a3d; border-radius: 50%; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+        .node-avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .node-name { font-size: 0.8rem; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* Section Separator & Large Big Title Markers */
+        .section-break-title { font-size: 1rem; font-weight: 800; text-transform: uppercase; color: var(--accent); letter-spacing: 0.5px; margin-bottom: 1.5rem; margin-top: 2.5rem; }
+
+        /* Top 3 Major Award Winners Grid block rows */
+        .major-awards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+        .major-award-box { 
+            background-color: var(--bg-card); border: 1px solid var(--border); 
+            border-radius: 8px; padding: 1.5rem; text-align: center; 
+            display: flex; flex-direction: column; align-items: center; 
+        }
+        .award-title-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 1rem; }
+        .award-avatar-big { width: 80px; height: 80px; background-color: #16151f; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 0.8rem; overflow: hidden; }
+        .award-avatar-big img { width: 100%; height: 100%; object-fit: cover; }
+        .award-winner-username { font-size: 1rem; font-weight: 700; color: var(--text-main); }
+
+        /* General Sub-Awards Horizontal Categorization Tiers Setup */
+        .awards-category-container { margin-bottom: 2.5rem; }
+        .category-stripe-header { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; margin-bottom: 1rem; letter-spacing: 0.5px; }
+        .stripe-items-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 1.5rem; }
+        .stripe-item-row { display: flex; justify-content: space-between; align-items: center; background-color: #13121a; padding: 0.4rem 0.6rem; border-radius: 6px; border-left: 3px solid var(--accent); }
+        .award-label-name { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+
+        /* Integrated Elements: League & Media Panel Grid */
         .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
         .award-row { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
         .award-label { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
@@ -121,7 +115,7 @@
         .player-avatar { width: 24px; height: 24px; background: var(--gold-dark); border-radius: 50%; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #111017; }
         .player-name { font-size: 0.85rem; font-weight: 600; color: #e4e3eb; }
 
-        /* All Pro Grid Layouts */
+        /* Integrated Elements: All Pro Grid Layouts */
         .allpro-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; }
         .team-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
         .team-card h2 { font-size: 1.3rem; font-weight: 800; color: var(--gold-light); margin-bottom: 0.2rem; text-transform: uppercase; }
@@ -151,16 +145,11 @@
             <li><a href="standings.html">Standings</a></li>
             <li><a href="stats.html">Stats</a></li>
             <li class="dropdown">
-                <a href="#" class="active">
-                    Legacy
-                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
-                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                </a>
+                <a href="#" class="active">Legacy ▾</a>
                 <ul class="dropdown-menu">
-                    <li><a href="legacy.html">Legacy</a></li>
                     <li><a href="champions-awards.html">Champions & Awards</a></li>
-                    <li><a href="award-tracker.html">Award Tracker</a></li>
+                    <li><a href="hall-of-fame.html">Hall of Fame</a></li>
+                    <li><a href="season-history.html">Season Archives</a></li>
                 </ul>
             </li>
             <li><a href="rulebook.html">Rulebook</a></li>
@@ -169,25 +158,135 @@
     </nav>
 
     <div class="container">
-        <!-- Original History Cards -->
-        <div class="history-card">
-            <div class="season-badge">SEASON 6</div>
-            <div class="history-details">
-                <h3>Championship: Ohio State Takeover</h3>
-                <p>Ohio State capped off a historical undefeated postseason run to secure the championship title in a legendary defensive standoff.</p>
-            </div>
-        </div>
         
-        <div class="history-card">
-            <div class="season-badge">SEASON 5</div>
-            <div class="history-details">
-                <h3>Championship: Georgia Conquest</h3>
-                <p>Georgia took home the trophy after a dramatic game-winning field goal execution during final overtime play sequences.</p>
+        <div class="page-header-top">
+            <span class="page-meta-label">VFL Legacy</span>
+            <h1 class="page-title">Champions & Awards</h1>
+        </div>
+        <p class="subtitle-notice">Every Allegiance Bowl champion roster and every individual award winner in league history. Pick a season to relive its titles and honors.</p>
+        
+        <!-- Season Slider Line panel container -->
+        <div class="season-selector-bar">
+            <span class="season-label">Season</span>
+            <div class="season-pills">
+                <a href="#" class="season-pill active">S34</a>
+                <a href="#" class="season-pill">S33</a>
+                <a href="#" class="season-pill">S32</a>
+                <a href="#" class="season-pill">S31</a>
+                <a href="#" class="season-pill">S30</a>
+                <a href="#" class="season-pill">S29</a>
+                <a href="#" class="season-pill">S28</a>
+                <a href="#" class="season-pill">S27</a>
+                <a href="#" class="season-pill">S26</a>
+                <a href="#" class="season-pill">S25</a>
+                <a href="#" class="season-pill">S24</a>
+                <a href="#" class="season-pill">S23</a>
+                <a href="#" class="season-pill">S22</a>
+                <a href="#" class="season-pill">S21</a>
+                <a href="#" class="season-pill">S20</a>
             </div>
         </div>
 
-        <!-- League & Media Section Added Below -->
-        <div class="section-title">League & Media</div>
+        <!-- Champions Panels Display Grid splits -->
+        <div class="champs-grid-split">
+            
+            <!-- Main Bowl Title Winner Champions -->
+            <div class="champs-panel-card">
+                <div class="panel-header-block">
+                    <div class="panel-icon-placeholder">🏆</div>
+                    <div class="panel-title-details">
+                        <h3>Allegiance Bowl XXXIV Champions</h3>
+                        <p>Season 34 Winner Roster</p>
+                    </div>
+                </div>
+                <div class="roster-grid">
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">sunomura</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">kazotum</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">GameplayManipulator</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">Exdecy</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">iuwm</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">h_aiti</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">exanious</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">jaylenyagami</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">dwuv</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">skorxe</span></div>
+                </div>
+            </div>
+
+            <!-- Conference Runner up block panel -->
+            <div class="champs-panel-card">
+                <div class="panel-header-block">
+                    <div class="panel-icon-placeholder">🥈</div>
+                    <div class="panel-title-details">
+                        <h3>Conference Champions</h3>
+                        <p>Season 34 • Bowl Runner-Up</p>
+                    </div>
+                </div>
+                <div class="roster-grid" style="grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));">
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">7064032</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">Soulbare</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">jaytakeovr</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">Sinnxbles</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">blanna</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">KOISURII</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">iammuttedd</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">fromfloridawithlove</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">reshiram390</span></div>
+                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">blurryhell</span></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section-break-title">Season 34 Award Winners</div>
+
+        <!-- Major Tier 1 Individual MVPs Cards Block Layout Row -->
+        <div class="major-awards-row">
+            <div class="major-award-box">
+                <span class="award-title-tag">Most Valuable Player</span>
+                <div class="award-avatar-big"></div>
+                <span class="award-winner-username">kzpv</span>
+            </div>
+            <div class="major-award-box">
+                <span class="award-title-tag">Offensive Player of the Year</span>
+                <div class="award-avatar-big"></div>
+                <span class="award-winner-username">desvium</span>
+            </div>
+            <div class="major-award-box">
+                <span class="award-title-tag">Defensive Player of the Year</span>
+                <div class="award-avatar-big"></div>
+                <span class="award-winner-username">fakel1l</span>
+            </div>
+        </div>
+
+        <!-- Stripe Grid Item Nodes Category List Block Level 1: Rookies -->
+        <div class="awards-category-container">
+            <div class="category-stripe-header">Rookies of the Year</div>
+            <div class="stripe-items-grid">
+                <div class="stripe-item-row"><span class="award-label-name">Rookie of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">nikowasban</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Offensive Rookie of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">a5lve</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Defensive Rookie of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">lionrind1</span></div></div>
+            </div>
+        </div>
+
+        <!-- Stripe Grid Item Nodes Category List Block Level 2: Positions -->
+        <div class="awards-category-container">
+            <div class="category-stripe-header">Position of the Year</div>
+            <div class="stripe-items-grid">
+                <div class="stripe-item-row"><span class="award-label-name">Quarterback of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">soulbare</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Running Back of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">liarliarliarliarr</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Wide Receiver of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">za0lx</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Tight End of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">onyxcityrouteartist</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Center of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">iammuttedd</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Defensive End of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">darkener</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Linebacker of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">DimingSLC</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Slot Corner of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">vlnrd</span></div></div>
+                <div class="stripe-item-row"><span class="award-label-name">Dime Corner of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">TrickysLegacy</span></div></div>
+            </div>
+        </div>
+
+        <!-- League & Media Section -->
+        <div class="section-break-title">League & Media</div>
         <div class="media-grid">
             <div class="award-row">
                 <div class="award-label">Comeback Player of the Year</div>
@@ -215,8 +314,8 @@
             </div>
         </div>
 
-        <!-- All-Pro Teams Section Added Below -->
-        <div class="section-title">Season 34 All-Pro Teams</div>
+        <!-- All-Pro Teams Section -->
+        <div class="section-break-title">Season 34 All-Pro Teams</div>
         <div class="allpro-wrapper">
             
             <!-- First Team -->
