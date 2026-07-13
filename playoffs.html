@@ -24,7 +24,7 @@
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
         /* Content Container Layout */
-        .container { max-width: 1400px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
+        .container { max-width: 1600px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
         
         /* Sub-Navigation Toggle Header */
         .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
@@ -44,13 +44,13 @@
 
         /* --- Bracket Layout Architecture --- */
         .bracket-wrapper { display: flex; justify-content: space-between; align-items: stretch; gap: 1.5rem; margin-bottom: 4rem; overflow-x: auto; padding-bottom: 1rem; }
-        .bracket-round { display: flex; flex-direction: column; justify-content: space-around; min-width: 220px; flex: 1; }
+        .bracket-round { display: flex; flex-direction: column; justify-content: space-around; min-width: 240px; flex: 1; }
         
         .round-header { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.5rem; color: var(--text-main); }
         .round-header span { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); font-size: 0.7rem; }
         
         /* Matchup Block Cards (Interactive Mode) */
-        .matchup-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; margin: 1rem 0; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease; }
+        .matchup-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; margin: 0.8rem 0; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease; }
         .matchup-card:hover { transform: translateY(-2px); border-color: var(--accent); }
         .team-row { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.8rem; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid #232230; }
         .team-row:last-child { border-bottom: none; }
@@ -62,17 +62,6 @@
         
         /* TBD styling placeholder */
         .tbd-row .team-name { color: var(--text-muted); }
-
-        /* Championship Block Visuals */
-        .championship-container { display: flex; flex-direction: column; align-items: center; margin-top: 2rem; }
-        .champ-title-area { display: flex; align-items: center; gap: 10px; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 1rem; }
-        .champ-title-area span { background: var(--accent); width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; }
-        .champ-box { border: 2px solid var(--accent); border-radius: 8px; background-color: var(--bg-card); width: 340px; overflow: hidden; box-shadow: 0 0 15px rgba(240, 93, 81, 0.15); cursor: pointer; transition: transform 0.2s ease; }
-        .champ-box:hover { transform: scale(1.02); }
-        .champ-row { display: flex; justify-content: space-between; padding: 0.8rem 1.2rem; font-size: 0.85rem; font-weight: 700; border-bottom: 1px solid #232230; }
-        .champ-row:last-child { border-bottom: none; }
-        .champ-conf-label { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; }
-        .champ-team { color: var(--text-muted); }
 
         /* --- Matchup Detail Selector Modal CSS --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
@@ -139,180 +128,96 @@
 
         <p class="subtitle-notice">play-in and wild-card matchups based off current seeding. later rounds fill in as the playoffs progress.</p>
         
-        <div class="conf-badge-title">AFC</div>
+        <div class="conf-badge-title">Tournament Bracket</div>
 
         <!-- Tournament Bracket Flow -->
         <div class="bracket-wrapper">
             
-            <!-- Column 1: 1st Round -->
+            <!-- Column 1: 1st Round (12 Teams = 6 Matchups) -->
             <div class="bracket-round">
-                <div class="round-header"><span>↻</span> 1st Round</div>
+                <div class="round-header"><span>1</span> 1st Round</div>
                 
-                <!-- Added logo asset fields to the component attributes -->
-                <div class="matchup-card" 
-                     data-bowl="Wildcard Play-In Alpha" 
-                     data-bowl-logo="https://via.placeholder.com/150x70/1b1a25/f05d51?text=PLAY-IN"
-                     data-location="Arrowhead Stadium, Kansas City" 
-                     data-t1-seed="7" data-t1-name="KC" data-t1-logo="https://via.placeholder.com/60/red/white?text=KC" data-t1-score="24" 
-                     data-t2-seed="10" data-t2-name="TEN" data-t2-logo="https://via.placeholder.com/60/blue/white?text=TEN" data-t2-score="17" 
-                     data-img="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=600&auto=format&fit=crop&q=60">
-                    <div class="team-row">
-                        <div class="team-info">
-                            <span class="seed">7</span> 
-                            <img src="https://via.placeholder.com/60/red/white?text=KC" class="bracket-logo" alt="KC">
-                            <span class="team-name">KC</span>
-                        </div>
-                        <span class="team-score">24</span>
-                    </div>
-                    <div class="team-row">
-                        <div class="team-info">
-                            <span class="seed">10</span> 
-                            <img src="https://via.placeholder.com/60/blue/white?text=TEN" class="bracket-logo" alt="TEN">
-                            <span class="team-name">TEN</span>
-                        </div>
-                        <span class="team-score">17</span>
-                    </div>
+                <div class="matchup-card" data-bowl="First Round Game 1" data-t1-seed="5" data-t1-name="TEAM A" data-t2-seed="12" data-t2-name="TEAM B">
+                    <div class="team-row"><div class="team-info"><span class="seed">5</span> <span class="team-name">TEAM A</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">12</span> <span class="team-name">TEAM B</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <div class="matchup-card" 
-                     data-bowl="Wildcard Play-In Beta" 
-                     data-bowl-logo="https://via.placeholder.com/150x70/1b1a25/f05d51?text=PLAY-IN"
-                     data-location="Empower Field, Denver" 
-                     data-t1-seed="8" data-t1-name="DEN" data-t1-logo="https://via.placeholder.com/60/orange/blue?text=DEN" data-t1-score="--" 
-                     data-t2-seed="9" data-t2-name="JAX" data-t2-logo="https://via.placeholder.com/60/teal/black?text=JAX" data-t2-score="--">
-                    <div class="team-row">
-                        <div class="team-info">
-                            <span class="seed">8</span> 
-                            <img src="https://via.placeholder.com/60/orange/blue?text=DEN" class="bracket-logo" alt="DEN">
-                            <span class="team-name">DEN</span>
-                        </div>
-                        <span class="team-score">--</span>
-                    </div>
-                    <div class="team-row">
-                        <div class="team-info">
-                            <span class="seed">9</span> 
-                            <img src="https://via.placeholder.com/60/teal/black?text=JAX" class="bracket-logo" alt="JAX">
-                            <span class="team-name">JAX</span>
-                        </div>
-                        <span class="team-score">--</span>
-                    </div>
+                <div class="matchup-card" data-bowl="First Round Game 2" data-t1-seed="8" data-t1-name="TEAM C" data-t2-seed="9" data-t2-name="TEAM D">
+                    <div class="team-row"><div class="team-info"><span class="seed">8</span> <span class="team-name">TEAM C</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">9</span> <span class="team-name">TEAM D</span></div><span class="team-score">--</span></div>
+                </div>
+
+                <div class="matchup-card" data-bowl="First Round Game 3" data-t1-seed="6" data-t1-name="TEAM E" data-t2-seed="11" data-t2-name="TEAM F">
+                    <div class="team-row"><div class="team-info"><span class="seed">6</span> <span class="team-name">TEAM E</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">11</span> <span class="team-name">TEAM F</span></div><span class="team-score">--</span></div>
+                </div>
+
+                <div class="matchup-card" data-bowl="First Round Game 4" data-t1-seed="7" data-t1-name="TEAM G" data-t2-seed="10" data-t2-name="TEAM H">
+                    <div class="team-row"><div class="team-info"><span class="seed">7</span> <span class="team-name">TEAM G</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">10</span> <span class="team-name">TEAM H</span></div><span class="team-score">--</span></div>
+                </div>
+
+                <div class="matchup-card" data-bowl="First Round Game 5" data-t1-seed="3" data-t1-name="TEAM I" data-t2-seed="14" data-t2-name="TEAM J">
+                    <div class="team-row"><div class="team-info"><span class="seed">3</span> <span class="team-name">TEAM I</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">14</span> <span class="team-name">TEAM J</span></div><span class="team-score">--</span></div>
+                </div>
+
+                <div class="matchup-card" data-bowl="First Round Game 6" data-t1-seed="4" data-t1-name="TEAM K" data-t2-seed="13" data-t2-name="TEAM L">
+                    <div class="team-row"><div class="team-info"><span class="seed">4</span> <span class="team-name">TEAM K</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">13</span> <span class="team-name">TEAM L</span></div><span class="team-score">--</span></div>
                 </div>
             </div>
 
-            <!-- Column 2: Quarter Finals -->
+            <!-- Column 2: 2nd Round (8 Teams = 4 Matchups) -->
             <div class="bracket-round">
-                <div class="round-header"><span>☆</span> Quarter Finals</div>
+                <div class="round-header"><span>2</span> 2nd Round</div>
                 
-                <div class="matchup-card" data-bowl="Divisional Classic" data-location="FirstEnergy Stadium, Cleveland" data-t1-seed="1" data-t1-name="CLE" data-t1-logo="https://via.placeholder.com/60/brown/orange?text=CLE" data-t1-score="--" data-t2-seed="8" data-t2-name="TBD" data-t2-score="--">
-                    <div class="team-row">
-                        <div class="team-info"><span class="seed">1</span> <span class="team-name">CLE</span></div>
-                        <span class="team-score">--</span>
-                    </div>
-                    <div class="team-row tbd-row">
-                        <div class="team-info"><span class="seed">8</span> <span class="team-name">TBD</span></div>
-                        <span class="team-score">--</span>
-                    </div>
+                <div class="matchup-card" data-bowl="2nd Round Game 1" data-t1-seed="1" data-t1-name="CLE" data-t2-seed="--" data-t2-name="TBD">
+                    <div class="team-row"><div class="team-info"><span class="seed">1</span> <span class="team-name">CLE</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <div class="matchup-card" data-bowl="Heartland Showdown" data-location="Lucas Oil Stadium, Indianapolis" data-t1-seed="4" data-t1-name="IND" data-t1-logo="https://via.placeholder.com/60/blue/white?text=IND" data-t1-score="--" data-t2-seed="5" data-t2-name="BAL" data-t2-logo="https://via.placeholder.com/60/purple/gold?text=BAL" data-t2-score="--">
-                    <div class="team-row">
-                        <div class="team-info"><span class="seed">4</span> <span class="team-name">IND</span></div>
-                        <span class="team-score">--</span>
-                    </div>
-                    <div class="team-row">
-                        <div class="team-info"><span class="seed">5</span> <span class="team-name">BAL</span></div>
-                        <span class="team-score">--</span>
-                    </div>
+                <div class="matchup-card" data-bowl="2nd Round Game 2" data-t1-seed="4" data-t1-name="IND" data-t2-seed="5" data-t2-name="BAL">
+                    <div class="team-row"><div class="team-info"><span class="seed">4</span> <span class="team-name">IND</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">5</span> <span class="team-name">BAL</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <div class="matchup-card" data-bowl="Empire Bowl" data-location="Highmark Stadium, Buffalo" data-t1-seed="2" data-t1-name="BUF" data-t1-logo="https://via.placeholder.com/60/blue/red?text=BUF" data-t1-score="--" data-t2-seed="7" data-t2-name="TBD" data-t2-score="--">
-                    <div class="team-row">
-                        <div class="team-info"><span class="seed">2</span> <span class="team-name">BUF</span></div>
-                        <span class="team-score">--</span>
-                    </div>
-                    <div class="team-row tbd-row">
-                        <div class="team-info"><span class="seed">7</span> <span class="team-name">TBD</span></div>
-                        <span class="team-score">--</span>
-                    </div>
+                <div class="matchup-card" data-bowl="2nd Round Game 3" data-t1-seed="2" data-t1-name="BUF" data-t2-seed="--" data-t2-name="TBD">
+                    <div class="team-row"><div class="team-info"><span class="seed">2</span> <span class="team-name">BUF</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <div class="matchup-card" data-bowl="Sunshine Special" data-location="Hard Rock Stadium, Miami" data-t1-seed="3" data-t1-name="MIA" data-t1-logo="https://via.placeholder.com/60/teal/orange?text=MIA" data-t1-score="--" data-t2-seed="6" data-t2-name="PIT" data-t2-logo="https://via.placeholder.com/60/black/gold?text=PIT" data-t2-score="--">
-                    <div class="team-row">
-                        <div class="team-info"><span class="seed">3</span> <span class="team-name">MIA</span></div>
-                        <span class="team-score">--</span>
-                    </div>
-                    <div class="team-row">
-                        <div class="team-info"><span class="seed">6</span> <span class="team-name">PIT</span></div>
-                        <span class="team-score">--</span>
-                    </div>
+                <div class="matchup-card" data-bowl="2nd Round Game 4" data-t1-seed="3" data-t1-name="MIA" data-t2-seed="6" data-t2-name="PIT">
+                    <div class="team-row"><div class="team-info"><span class="seed">3</span> <span class="team-name">MIA</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">6</span> <span class="team-name">PIT</span></div><span class="team-score">--</span></div>
                 </div>
             </div>
 
-            <!-- Column 3: Semi-Finals -->
+            <!-- Column 3: 3rd Round (4 Teams = 2 Matchups) -->
             <div class="bracket-round">
-                <div class="round-header"><span>🛡️</span> Semi-Finals</div>
+                <div class="round-header"><span>3</span> 3rd Round</div>
                 
-                <div class="matchup-card" data-bowl="Conference Semi A" data-location="TBD Stadium">
-                    <div class="team-row tbd-row">
-                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
-                        <span class="team-score">--</span>
-                    </div>
-                    <div class="team-row tbd-row">
-                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
-                        <span class="team-score">--</span>
-                    </div>
+                <div class="matchup-card" data-bowl="Semi Final A" data-location="TBD Stadium">
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <div class="matchup-card" data-bowl="Conference Semi B" data-location="TBD Stadium">
-                    <div class="team-row tbd-row">
-                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
-                        <span class="team-score">--</span>
-                    </div>
-                    <div class="team-row tbd-row">
-                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
-                        <span class="team-score">--</span>
-                    </div>
+                <div class="matchup-card" data-bowl="Semi Final B" data-location="TBD Stadium">
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
                 </div>
             </div>
 
-            <!-- Column 4: Conf. Championship -->
+            <!-- Column 4: Natty (2 Teams = 1 Matchup) -->
             <div class="bracket-round">
-                <div class="round-header"><span>🔀</span> Conf. Championship</div>
+                <div class="round-header"><span>★</span> National Championship</div>
                 
-                <div class="matchup-card" data-bowl="AFC Conference Championship" data-bowl-logo="https://via.placeholder.com/150x70/1b1a25/f05d51?text=AFC+CHAMP" data-location="Highest Remaining Seed">
-                    <div class="team-row tbd-row">
-                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
-                        <span class="team-score">--</span>
-                    </div>
-                    <div class="team-row tbd-row">
-                        <div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div>
-                        <span class="team-score">--</span>
-                    </div>
+                <div class="matchup-card" data-bowl="VFL National Championship" data-bowl-logo="https://via.placeholder.com/150x70/1b1a25/f05d51?text=NATIONAL+CHAMPIONSHIP" data-location="SoFi Stadium, Los Angeles">
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD Team 1</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD Team 2</span></div><span class="team-score">--</span></div>
                 </div>
             </div>
 
-        </div>
-
-        <!-- Grand Finale: National Championship -->
-        <div class="championship-container">
-            <div class="champ-title-area">
-                <span>✕</span> National Championship
-            </div>
-            <div class="champ-box" 
-                 data-bowl="VFL National Championship" 
-                 data-bowl-logo="https://via.placeholder.com/150x70/1b1a25/f05d51?text=NATIONAL+CHAMPIONSHIP"
-                 data-location="SoFi Stadium, Los Angeles" 
-                 data-t1-seed="AFC" data-t1-name="AFC Champion" data-t1-logo="https://via.placeholder.com/60/282735/8b8a99?text=AFC" data-t1-score="--" 
-                 data-t2-seed="NFC" data-t2-name="NFC Champion" data-t2-logo="https://via.placeholder.com/60/282735/8b8a99?text=NFC" data-t2-score="--">
-                <div class="champ-row">
-                    <span class="champ-conf-label">AFC</span>
-                    <span class="champ-team">TBD</span>
-                </div>
-                <div class="champ-row">
-                    <span class="champ-conf-label">NFC</span>
-                    <span class="champ-team">TBD</span>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -322,14 +227,12 @@
         <div class="modal-content">
             <button class="close-modal" id="closeBtn">&times;</button>
             
-            <!-- Dynamic Bowl / National Championship Logo Slot -->
             <div class="modal-bowl-logo-area" id="modalBowlLogoFrame"></div>
             
             <div class="modal-bowl-title" id="modalBowl">Bowl Game Title</div>
             <div class="modal-location" id="modalLocation">Stadium Location Info</div>
             
             <div class="modal-score-display">
-                <!-- Team 1 Layout Group -->
                 <div class="modal-team-side">
                     <div class="modal-logo-frame" id="modalT1LogoFrame"></div>
                     <span class="modal-team-seed" id="modalT1Seed">#0</span>
@@ -340,7 +243,6 @@
                 <div class="modal-vs">VS</div>
                 <div class="modal-score-num" id="modalT2Score">0</div>
                 
-                <!-- Team 2 Layout Group -->
                 <div class="modal-team-side">
                     <div class="modal-logo-frame" id="modalT2LogoFrame"></div>
                     <span class="modal-team-seed" id="modalT2Seed">#0</span>
@@ -348,7 +250,6 @@
                 </div>
             </div>
             
-            <!-- Large Event Highlight Banner View Area -->
             <div class="modal-image-container" id="modalImgContainer">
                 <span class="image-placeholder-text">No Game Day Image Available</span>
             </div>
@@ -357,12 +258,10 @@
 
     <footer>2026 Virtual Football League INC</footer>
 
-    <!-- Script Architecture logic for Box Selector -->
     <script>
         const modal = document.getElementById('matchupModal');
         const closeBtn = document.getElementById('closeBtn');
         
-        // Modal DOM Target Elements
         const mBowlLogoFrame = document.getElementById('modalBowlLogoFrame');
         const mBowl = document.getElementById('modalBowl');
         const mLocation = document.getElementById('modalLocation');
@@ -376,10 +275,8 @@
         const mT2Score = document.getElementById('modalT2Score');
         const mImgContainer = document.getElementById('modalImgContainer');
 
-        // Monitor click interactions across matchups
-        document.querySelectorAll('.matchup-card, .champ-box').forEach(card => {
+        document.querySelectorAll('.matchup-card').forEach(card => {
             card.addEventListener('click', () => {
-                // Parse properties out of the elements dataset
                 const bowl = card.getAttribute('data-bowl') || "Scheduled Matchup";
                 const bowlLogo = card.getAttribute('data-bowl-logo');
                 const location = card.getAttribute('data-location') || "Venue Location Pending";
@@ -396,14 +293,12 @@
                 
                 const imgUrl = card.getAttribute('data-img');
 
-                // 1. Render Bowl / Championship Header Logo
                 if (bowlLogo) {
                     mBowlLogoFrame.innerHTML = `<img src="${bowlLogo}" alt="Bowl Logo">`;
                 } else {
                     mBowlLogoFrame.innerHTML = "";
                 }
 
-                // Inject texts descriptions
                 mBowl.textContent = bowl;
                 mLocation.textContent = location;
                 mT1Seed.textContent = t1Seed.includes('FC') ? t1Seed : `Seed ${t1Seed}`;
@@ -413,33 +308,28 @@
                 mT2Name.textContent = t2Name;
                 mT2Score.textContent = t2Score;
 
-                // 2. Render Team Left Side Icon
                 if (t1Logo) {
                     mT1LogoFrame.innerHTML = `<img src="${t1Logo}" alt="${t1Name}">`;
                 } else {
                     mT1LogoFrame.innerHTML = `<div style="width:100%; height:100%; border-radius:50%; background:#232230;"></div>`;
                 }
 
-                // 3. Render Team Right Side Icon
                 if (t2Logo) {
                     mT2LogoFrame.innerHTML = `<img src="${t2Logo}" alt="${t2Name}">`;
                 } else {
                     mT2LogoFrame.innerHTML = `<div style="width:100%; height:100%; border-radius:50%; background:#232230;"></div>`;
                 }
 
-                // 4. Render Main Box Bottom Banner Image Graphic
                 if(imgUrl) {
                     mImgContainer.innerHTML = `<img src="${imgUrl}" alt="${t1Name} vs ${t2Name}">`;
                 } else {
                     mImgContainer.innerHTML = `<span class="image-placeholder-text">No Game Day Image Available</span>`;
                 }
 
-                // Activate display wrapper window class properties
                 modal.classList.add('active');
             });
         });
 
-        // Event hooks to handle closing modal panel screens
         closeBtn.addEventListener('click', () => modal.classList.remove('active'));
         window.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
     </script>
