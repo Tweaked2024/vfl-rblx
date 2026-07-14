@@ -455,185 +455,194 @@
             if(upperName === "FINLEY" || upperName === "FINLEY4K") robloxId = 221991455;
             if(upperName === "HRUPT") robloxId = 55431288;
 
-            // Database containing the exact "Season by Season" historical table data
+            // Database containing the exact "Season by Season" historical table matrix
             const historyDatabase = {
                 "FINLEY4K": {
                     title: "FINLEY4K's Quarterback stats",
                     headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
                     rows: [
-                        ["Season 6", "4105", "350", "203", "39", "12", "15", "20", "5", "85", "74", "32", "12", "350"],
-                        ["Season 5", "18210", "1651", "912", "210", "78", "45", "92", "22", "410", "312", "120", "70", "1651"],
-                        ["Season 4", "19154", "1800", "985", "241", "90", "52", "110", "34", "452", "340", "134", "59", "1800"],
-                        ["Career", "41469", "3801", "2100", "490", "180", "112", "222", "61", "947", "726", "286", "141", "3801"]
+                        ["Career", "41469", "3511", "1912", "445", "165", "121", "241", "90", "1110", "640", "120", "42", "2990"],
+                        ["S5", "21042", "1720", "965", "215", "82", "54", "110", "42", "550", "320", "65", "20", "1420"],
+                        ["S4", "20427", "1791", "947", "230", "83", "67", "131", "48", "560", "320", "55", "22", "1570"]
+                    ]
+                },
+                "FINLEY": {
+                    title: "FINLEY's Quarterback stats",
+                    headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
+                    rows: [
+                        ["Career", "45120", "3801", "2100", "490", "180", "110", "260", "95", "1200", "700", "140", "50", "3200"],
+                        ["S6", "4105", "350", "203", "39", "12", "15", "20", "5", "110", "65", "18", "4", "350"],
+                        ["S5", "21015", "1751", "947", "221", "88", "45", "120", "45", "540", "335", "52", "21", "1450"],
+                        ["S4", "20000", "1700", "950", "230", "80", "50", "120", "45", "550", "300", "70", "25", "1400"]
                     ]
                 },
                 "HRUPT": {
                     title: "hrupt's Quarterback stats",
                     headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
                     rows: [
-                        ["Season 6", "5622", "388", "221", "51", "27", "36", "37", "13", "110", "72", "28", "11", "388"],
-                        ["Season 5", "31200", "2210", "1202", "340", "142", "88", "140", "52", "590", "410", "142", "60", "2210"],
-                        ["Season 4", "30390", "2354", "1230", "343", "160", "94", "152", "48", "612", "404", "150", "64", "2354"],
-                        ["Career", "67212", "4952", "2653", "734", "329", "218", "329", "113", "1312", "886", "320", "135", "4952"]
-                    ]
-                },
-                "DEFAULT": {
-                    title: `${cleanName}'s Career Summary`,
-                    headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SNAP"],
-                    rows: [
-                        ["Season 6", "1250", "110", "65", "12", "4", "110"],
-                        ["Career", "1250", "110", "65", "12", "4", "110"]
+                        ["Career", "67212", "4952", "2653", "734", "329", "186", "380", "142", "1650", "780", "162", "61", "4610"],
+                        ["S6", "5622", "388", "221", "51", "27", "36", "37", "13", "142", "55", "18", "6", "388"],
+                        ["S5", "31590", "2314", "1232", "343", "152", "75", "173", "64", "788", "365", "64", "25", "2122"],
+                        ["S4", "30000", "2250", "1200", "340", "150", "75", "170", "65", "720", "360", "80", "30", "2100"]
                     ]
                 }
             };
 
-            const activeHistory = historyDatabase[upperName] || historyDatabase["DEFAULT"];
-            
-            // Build historical stats table markup
-            let tableHeadersHtml = activeHistory.headers.map(h => `<th>${h}</th>`).join('');
-            let tableRowsHtml = activeHistory.rows.map(row => {
-                const isCareerRow = row[0] === "Career" ? 'class="career-row"' : '';
-                return `<tr ${isCareerRow}>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+            // Dynamic Fallback Generator for player entries not pre-mapped
+            const activeProfileData = historyDatabase[upperName] || {
+                title: `${cleanName}'s Player Stats`,
+                headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SNAP"],
+                rows: [
+                    ["Career", "12450", "1100", "620", "115", "42", "1450"],
+                    ["S6", "4150", "380", "210", "38", "15", "510"],
+                    ["S5", "8300", "720", "410", "77", "27", "940"]
+                ]
+            };
+
+            let tableHeadersHtml = activeProfileData.headers.map(h => `<th>${h}</th>`).join('');
+            let tableRowsHtml = activeProfileData.rows.map(row => {
+                const isCareer = row[0].toLowerCase() === 'career';
+                return `<tr class="${isCareer ? 'career-row' : ''}">${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
             }).join('');
 
-            // Inject Custom Immersive Profile Markup matching your Stylesheet definitions
             container.innerHTML = `
                 <div class="back-link" onclick="goBackFromProfile()">
-                    ⬅ Back to Leaderboard
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back to Leaderboards
                 </div>
-                
+
                 <div class="profile-container-light">
-                    <!-- Profile Header Card -->
+                    <!-- Header Card Component -->
                     <div class="profile-header-card-light">
                         <div class="avatar-circle-light">👤</div>
                         <div class="header-details-light">
                             <h1>${cleanName}</h1>
-                            <p>Roblox ID: ${robloxId}</p>
+                            <p>Roblox Account ID: ${robloxId}</p>
                             <div class="pos-pills-row">
-                                <span class="pos-pill">Quarterback</span>
-                                <span class="pos-pill">All-Star</span>
-                                <span class="pos-pill">Veteran</span>
+                                <span class="pos-pill">QB</span>
+                                <span class="pos-pill">All-Time Book</span>
                             </div>
                         </div>
-                        <button class="trophy-room-btn-light">🏆 Trophy Room</button>
+                        <button class="trophy-room-btn-light">🏆 Showcase Awards</button>
                     </div>
 
-                    <!-- Quick Ranks Box Layout -->
+                    <!-- Rank Quick Badges Row -->
                     <div class="rank-badges-row-light">
                         <div class="rank-quick-card">
-                            <span class="pos-label">All-Time Rank</span>
-                            <span class="rank-value">#${upperName === 'HRUPT' ? '1' : upperName === 'FINLEY' || upperName === 'FINLEY4K' ? '3' : 'TOP 50'}</span>
+                            <span class="pos-label">Passing Yards</span>
+                            <span class="rank-value">#3 All-Time</span>
+                            <div class="rank-quick-box-row">
+                                <div class="stat-box-mini"><div>45K</div><div>YDS</div></div>
+                                <div class="stat-box-mini"><div>Tier</div><div>Gold</div></div>
+                            </div>
                         </div>
-                        <div class="rank-quick-box-row" style="flex: 1;">
-                            <div class="stat-box-mini">
-                                <div>${activeHistory.rows.find(r => r[0] === 'Career')[1]}</div>
-                                <div>TOTAL YARDS</div>
-                            </div>
-                            <div class="stat-box-mini">
-                                <div>${activeHistory.rows.find(r => r[0] === 'Career')[4]}</div>
-                                <div>CAREER TDS</div>
-                            </div>
-                            <div class="stat-box-mini">
-                                <div>${activeHistory.rows.find(r => r[0] === 'Career')[3] || '65'}</div>
-                                <div>COMPLETIONS</div>
+                        <div class="rank-quick-card">
+                            <span class="pos-label">Passing Touchdowns</span>
+                            <span class="rank-value">#2 All-Time</span>
+                            <div class="rank-quick-box-row">
+                                <div class="stat-box-mini"><div>490</div><div>TD</div></div>
+                                <div class="stat-box-mini"><div>Tier</div><div>Gold</div></div>
                             </div>
                         </div>
                     </div>
 
-                    <h2 class="achievements-heading-light">Mastery & Progression</h2>
+                    <h2 class="achievements-heading-light">progression metrics</h2>
 
-                    <!-- Split Grid Component -->
+                    <!-- Mastery Panels Split Grid Layout -->
                     <div class="mastery-split-grid">
                         <div class="archetype-card-light">
                             <div class="lock-icon-wrapper">🔒</div>
-                            <h3>Gunslinger</h3>
-                            <span>Archetype</span>
-                            <p>Unlock deeper tiers by finishing high accuracy passing achievements across official seasons.</p>
+                            <h3>Gunslinger Profile</h3>
+                            <span>Locked Archetype</span>
+                            <p>Achieve a 65%+ Career Completion Rate to unlock this special attribute module.</p>
                         </div>
 
                         <div class="mastery-panel-light">
                             <div class="panel-header-row">
-                                <div>Position Mastery</div>
-                                <div>Progress</div>
+                                <span>Position Specialty</span>
+                                <span>Skill Master Rank</span>
                             </div>
+                            
                             <div class="mastery-progress-item">
                                 <div class="mini-pos-tag qb">QB</div>
-                                <span class="mastery-label-text">Field General</span>
-                                <div class="bar-wrapper-light">
-                                    <div class="bar-fill-light" style="width: 85%;"></div>
-                                </div>
-                                <div class="mastery-score-fraction">85<span>%</span></div>
+                                <div class="mastery-label-text">Field General</div>
+                                <div class="bar-wrapper-light"><div class="bar-fill-light" style="width: 88%;"></div></div>
+                                <div class="mastery-score-fraction">88<span>/100</span></div>
                             </div>
                             <div class="mastery-progress-item">
                                 <div class="mini-pos-tag rb">RB</div>
-                                <span class="mastery-label-text">Elusive Back</span>
-                                <div class="bar-wrapper-light">
-                                    <div class="bar-fill-light" style="width: 25%;"></div>
-                                </div>
-                                <div class="mastery-score-fraction">25<span>%</span></div>
+                                <div class="mastery-label-text">Elusive Back</div>
+                                <div class="bar-wrapper-light"><div class="bar-fill-light" style="width: 35%;"></div></div>
+                                <div class="mastery-score-fraction">35<span>/100</span></div>
                             </div>
                             <div class="mastery-progress-item">
                                 <div class="mini-pos-tag wr">WR</div>
-                                <span class="mastery-label-text">Deep Threat</span>
-                                <div class="bar-wrapper-light">
-                                    <div class="bar-fill-light" style="width: 40%;"></div>
-                                </div>
-                                <div class="mastery-score-fraction">40<span>%</span></div>
+                                <div class="mastery-label-text">Route Technician</div>
+                                <div class="bar-wrapper-light"><div class="bar-fill-light" style="width: 15%;"></div></div>
+                                <div class="mastery-score-fraction">15<span>/100</span></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Milestone Badges Grid Layout -->
+                    <!-- Milestones Badge Grid Section -->
                     <div class="position-achievement-section">
                         <div class="position-section-header">
-                            <div class="position-section-title">Career Badges</div>
-                            <div class="position-section-summary">3 Milestones Earned</div>
+                            <div class="position-section-title">Milestone Badges</div>
+                            <div class="position-section-summary">3 badges earned out of 6</div>
                         </div>
+
                         <div class="badges-grid-layout">
                             <div class="badge-milestone-card">
                                 <div class="badge-tier-indicator-line gold"></div>
                                 <div class="badge-icon-container">🎯</div>
                                 <div class="badge-content-box">
                                     <div class="badge-main-row">
-                                        <span class="badge-title-name">Air Machine</span>
+                                        <div class="badge-title-name">Air Raid Master</div>
                                         <span class="badge-xp-chip">+500 XP</span>
                                     </div>
                                     <div class="badge-tier-status-text gold">Gold Class</div>
-                                    <div class="badge-next-tier-label">Milestone Finished</div>
-                                    <div class="badge-stat-metric-fraction"><span class="maxed">MAX LEVEL</span></div>
+                                    <div class="badge-next-tier-label">Max Tier Reached</div>
+                                    <div class="badge-stat-metric-fraction"><span class="maxed">40,000 / 40,000 Yds</span></div>
                                 </div>
                             </div>
+
                             <div class="badge-milestone-card">
                                 <div class="badge-tier-indicator-line silver"></div>
                                 <div class="badge-icon-container">🏈</div>
                                 <div class="badge-content-box">
                                     <div class="badge-main-row">
-                                        <span class="badge-title-name">Touchdown King</span>
-                                        <span class="badge-xp-chip">+250 XP</span>
+                                        <div class="badge-title-name">Touchdown Machine</div>
+                                        <span class="badge-xp-chip">+350 XP</span>
                                     </div>
                                     <div class="badge-tier-status-text silver">Silver Class</div>
-                                    <div class="badge-next-tier-label">Next Tier: Gold</div>
-                                    <div class="badge-stat-metric-fraction"><span>Progress</span><span>490 / 500</span></div>
+                                    <div class="badge-next-tier-label">Next: Gold at 500 TDs</div>
+                                    <div class="badge-stat-metric-fraction"><span>490 / 500 TDs</span></div>
                                 </div>
                             </div>
+
                             <div class="badge-milestone-card">
                                 <div class="badge-tier-indicator-line bronze"></div>
-                                <div class="badge-icon-container">⚡</div>
+                                <div class="badge-icon-container">⏱️</div>
                                 <div class="badge-content-box">
                                     <div class="badge-main-row">
-                                        <span class="badge-title-name">Iron Snap Count</span>
-                                        <span class="badge-xp-chip">+100 XP</span>
+                                        <div class="badge-title-name">Iron Snap Veteran</div>
+                                        <span class="badge-xp-chip">+150 XP</span>
                                     </div>
                                     <div class="badge-tier-status-text bronze">Bronze Class</div>
-                                    <div class="badge-next-tier-label">Next Tier: Silver</div>
-                                    <div class="badge-stat-metric-fraction"><span>Progress</span><span>3,801 / 5,000</span></div>
+                                    <div class="badge-next-tier-label">Next: Silver at 5,000 Snaps</div>
+                                    <div class="badge-stat-metric-fraction"><span>3,200 / 5,000 Snaps</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Season by Season Historical Tracking Card -->
-                    <h2 class="achievements-heading-light" style="margin-top:2.5rem;">Season by Season Historic Records</h2>
+                    <!-- Comprehensive Historical Data Matrix Box -->
+                    <div class="position-section-header" style="margin-top: 2.5rem; margin-bottom: 0.5rem;">
+                        <div class="position-section-title" style="font-size:1.1rem; text-transform:uppercase;">${activeProfileData.title}</div>
+                    </div>
                     <div class="profile-table-card-light">
                         <table>
                             <thead><tr>${tableHeadersHtml}</tr></thead>
@@ -644,7 +653,7 @@
             `;
         }
 
-        // Initialize view map on load
+        // Initialize App View
         window.onload = () => {
             switchCategory('passing');
         };
