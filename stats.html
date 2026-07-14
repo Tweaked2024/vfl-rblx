@@ -455,216 +455,197 @@
             if(upperName === "FINLEY" || upperName === "FINLEY4K") robloxId = 221991455;
             if(upperName === "HRUPT") robloxId = 55431288;
 
-            // Database containing the exact "Season by Season" historical table from the screenshot
+            // Database containing the exact "Season by Season" historical table data
             const historyDatabase = {
                 "FINLEY4K": {
                     title: "FINLEY4K's Quarterback stats",
                     headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
                     rows: [
-                        ["Career", "41469", "2632", "1617", "503", "130", "150", "195", "60", "752", "815", "599", "620", "2403"],
-                        ["S17", "2564", "177", "105", "26", "12", "4", "10", "3", "47", "46", "7", "5", "158"],
-                        ["S18", "4547", "288", "185", "71", "8", "5", "19", "3", "86", "66", "22", "11", "261"],
-                        ["S19", "4214", "223", "137", "55", "9", "15", "23", "2", "49", "47", "20", "20", "200"],
-                        ["S20", "2078", "146", "96", "25", "3", "16", "12", "4", "65", "55", "15", "11", "126"],
-                        ["S21", "5317", "303", "211", "75", "7", "16", "20", "11", "123", "84", "49", "47", "286"],
-                        ["S22", "1690", "95", "57", "18", "8", "8", "10", "2", "26", "37", "14", "18", "89"],
-                        ["S24", "4383", "287", "180", "52", "21", "22", "19", "7", "112", "124", "97", "90", "261"],
-                        ["S25", "2058", "146", "78", "22", "11", "10", "13", "3", "4", "8", "50", "107", "130"],
-                        ["S26", "3660", "266", "154", "38", "16", "15", "25", "12", "83", "121", "114", "119", "236"],
-                        ["S27", "5343", "327", "190", "71", "15", "7", "21", "7", "115", "111", "132", "108", "293"],
-                        ["S34", "5615", "374", "224", "50", "20", "32", "23", "6", "42", "116", "79", "84", "363"]
+                        ["Season 6", "4105", "350", "203", "39", "12", "15", "20", "5", "85", "74", "32", "12", "350"],
+                        ["Season 5", "18210", "1651", "912", "210", "78", "45", "92", "22", "410", "312", "120", "70", "1651"],
+                        ["Season 4", "19154", "1800", "985", "241", "90", "52", "110", "34", "452", "340", "134", "59", "1800"],
+                        ["Career", "41469", "3801", "2100", "490", "180", "112", "222", "61", "947", "726", "286", "141", "3801"]
                     ]
                 },
-                "FINLEY": {
-                    title: "FINLEY's Quarterback stats",
+                "HRUPT": {
+                    title: "hrupt's Quarterback stats",
                     headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
                     rows: [
-                        ["Career", "41469", "2632", "1617", "503", "130", "150", "195", "60", "752", "815", "599", "620", "2403"],
-                        ["S17", "2564", "177", "105", "26", "12", "4", "10", "3", "47", "46", "7", "5", "158"],
-                        ["S18", "4547", "288", "185", "71", "8", "5", "19", "3", "86", "66", "22", "11", "261"],
-                        ["S19", "4214", "223", "137", "55", "9", "15", "23", "2", "49", "47", "20", "20", "200"],
-                        ["S20", "2078", "146", "96", "25", "3", "16", "12", "4", "65", "55", "15", "11", "126"],
-                        ["S21", "5317", "303", "211", "75", "7", "16", "20", "11", "123", "84", "49", "47", "286"],
-                        ["S22", "1690", "95", "57", "18", "8", "8", "10", "2", "26", "37", "14", "18", "89"],
-                        ["S24", "4383", "287", "180", "52", "21", "22", "19", "7", "112", "124", "97", "90", "261"],
-                        ["S25", "2058", "146", "78", "22", "11", "10", "13", "3", "4", "8", "50", "107", "130"],
-                        ["S26", "3660", "266", "154", "38", "16", "15", "25", "12", "83", "121", "114", "119", "236"],
-                        ["S27", "5343", "327", "190", "71", "15", "7", "21", "7", "115", "111", "132", "108", "293"],
-                        ["S34", "5615", "374", "224", "50", "20", "32", "23", "6", "42", "116", "79", "84", "363"]
+                        ["Season 6", "5622", "388", "221", "51", "27", "36", "37", "13", "110", "72", "28", "11", "388"],
+                        ["Season 5", "31200", "2210", "1202", "340", "142", "88", "140", "52", "590", "410", "142", "60", "2210"],
+                        ["Season 4", "30390", "2354", "1230", "343", "160", "94", "152", "48", "612", "404", "150", "64", "2354"],
+                        ["Career", "67212", "4952", "2653", "734", "329", "218", "329", "113", "1312", "886", "320", "135", "4952"]
+                    ]
+                },
+                "DEFAULT": {
+                    title: `${cleanName}'s Career Summary`,
+                    headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SNAP"],
+                    rows: [
+                        ["Season 6", "1250", "110", "65", "12", "4", "110"],
+                        ["Career", "1250", "110", "65", "12", "4", "110"]
                     ]
                 }
             };
 
-            const masteryTracks = [
-                { class: "qb", label: "QB", name: "Quarterback", progress: "0/3", val: 0 },
-                { class: "rb", label: "RB", name: "Running Back", progress: "0/2", val: 0 },
-                { class: "wr", label: "WR", name: "Wide Receiver", progress: "0/4", val: 0 },
-                { class: "de", label: "DE", name: "Defensive End", progress: "0/3", val: 0 },
-                { class: "db", label: "DB", name: "Defensive Back", progress: "1/3", val: 33 }
-            ];
+            const activeHistory = historyDatabase[upperName] || historyDatabase["DEFAULT"];
+            
+            // Build historical stats table markup
+            let tableHeadersHtml = activeHistory.headers.map(h => `<th>${h}</th>`).join('');
+            let tableRowsHtml = activeHistory.rows.map(row => {
+                const isCareerRow = row[0] === "Career" ? 'class="career-row"' : '';
+                return `<tr ${isCareerRow}>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+            }).join('');
 
-            const achievementGroups = [
-                {
-                    position: "Quarterback",
-                    summary: "0/3 • DIAMOND",
-                    badges: [
-                        { name: "Air Assault", tier: "gold", tierText: "GOLD", xp: "500 XP", next: "DIAMOND", bar: 82, metric1: "41,469 / 50,000 YDS", metric2: "503 / 600 TD", icon: "🏈" },
-                        { name: "Surgeon", tier: "gold", tierText: "GOLD", xp: "500 XP", next: "DIAMOND", bar: 95, metric1: "61% / 60% CMP%", metric2: "1,617 / 2,500 CMP", icon: "🎯" },
-                        { name: "Deep Strike", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 74, metric1: "520 / 700 50+", metric2: "", icon: "💣" }
-                    ]
-                },
-                {
-                    position: "Running Back",
-                    summary: "0/2 • DIAMOND",
-                    badges: [
-                        { name: "Escape Artist", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 54, metric1: "4,093 / 7,500 YDS", metric2: "87 / 75 TD", icon: "🌀" },
-                        { name: "First Down Machine", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 60, metric1: "212 / 350 1ST", metric2: "", icon: "📏" }
-                    ]
-                }
-            ];
-
-            let masteryItemsHtml = masteryTracks.map(track => `
-                <div class="mastery-progress-item">
-                    <div class="mini-pos-tag ${track.class}">${track.label}</div>
-                    <div class="mastery-label-text">${track.name}</div>
-                    <div class="bar-wrapper-light">
-                        <div class="bar-fill-light" style="width: ${track.val}%;"></div>
-                    </div>
-                    <div class="mastery-score-fraction">🔹 ${track.progress}</div>
-                </div>
-            `).join('');
-
-            let groupsHtml = '';
-            achievementGroups.forEach(group => {
-                groupsHtml += `
-                    <div class="position-achievement-section">
-                        <div class="position-section-header">
-                            <h3 class="position-section-title">${group.position}</h3>
-                            <span class="position-section-summary">${group.summary}</span>
-                        </div>
-                        <div class="badges-grid-layout">
-                            ${group.badges.map(b => `
-                                <div class="badge-milestone-card">
-                                    <div class="badge-tier-indicator-line ${b.tier}"></div>
-                                    <div class="badge-icon-container">${b.icon}</div>
-                                    <div class="badge-content-box">
-                                        <div class="badge-main-row">
-                                            <span class="badge-title-name">${b.name}</span>
-                                            <span class="badge-xp-chip">⚡ ${b.xp}</span>
-                                        </div>
-                                        <div class="badge-tier-status-text ${b.tier}">${b.tierText}</div>
-                                        
-                                        <div class="badge-next-tier-label">Next → ${b.next}</div>
-                                        <div class="bar-wrapper-light" style="height: 6px; margin-bottom:0.4rem;">
-                                            <div class="bar-fill-light" style="width: ${b.bar}%;"></div>
-                                        </div>
-                                        
-                                        <div class="badge-stat-metric-fraction">
-                                            <span style="color:#10b981;">${b.metric1}</span>
-                                            <span>${b.metric2}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            });
-
-            // Generates the Season by Season section dynamically if player historical entries exist
-            let seasonHistoryHtml = '';
-            const playerHistory = historyDatabase[upperName];
-            if (playerHistory) {
-                let sHeaders = playerHistory.headers.map(h => `<th>${h}</th>`).join('');
-                let sRows = playerHistory.rows.map(row => {
-                    let isCareer = row[0] === "Career" ? 'class="career-row"' : '';
-                    return `<tr ${isCareer}>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
-                }).join('');
-
-                seasonHistoryHtml = `
-                    <h2 class="achievements-heading-light" style="margin-top: 3rem;">Season by Season</h2>
-                    <h4 style="font-size:0.9rem; color:var(--text-dark); margin-bottom:0.8rem; font-weight:700;">${playerHistory.title}</h4>
-                    <div class="profile-table-card-light">
-                        <table>
-                            <thead><tr>${sHeaders}</tr></thead>
-                            <tbody>${sRows}</tbody>
-                        </table>
-                    </div>
-                `;
-            }
-
+            // Inject Custom Immersive Profile Markup matching your Stylesheet definitions
             container.innerHTML = `
                 <div class="back-link" onclick="goBackFromProfile()">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                    Back to Leaderboards
+                    ⬅ Back to Leaderboard
                 </div>
-
+                
                 <div class="profile-container-light">
-                    <!-- Top Card Panel -->
+                    <!-- Profile Header Card -->
                     <div class="profile-header-card-light">
-                        <div class="avatar-circle-light">🏈</div>
+                        <div class="avatar-circle-light">👤</div>
                         <div class="header-details-light">
                             <h1>${cleanName}</h1>
-                            <p>Roblox ID ${robloxId}</p>
+                            <p>Roblox ID: ${robloxId}</p>
                             <div class="pos-pills-row">
-                                <span class="pos-pill">QB</span>
-                                <span class="pos-pill">RB</span>
-                                <span class="pos-pill">WR</span>
-                                <span class="pos-pill">DE</span>
-                                <span class="pos-pill">DB</span>
-                                <span class="pos-pill">K</span>
+                                <span class="pos-pill">Quarterback</span>
+                                <span class="pos-pill">All-Star</span>
+                                <span class="pos-pill">Veteran</span>
                             </div>
                         </div>
                         <button class="trophy-room-btn-light">🏆 Trophy Room</button>
                     </div>
 
-                    <!-- Kicker Rank Quick Badge Display (From Top of Screenshot) -->
+                    <!-- Quick Ranks Box Layout -->
                     <div class="rank-badges-row-light">
                         <div class="rank-quick-card">
-                            <span class="pos-label">Kicker</span>
-                            <span class="rank-value">#31 all-time</span>
-                            <div class="rank-quick-box-row">
-                                <div class="stat-box-mini">
-                                    <div>91</div>
-                                    <div>M</div>
-                                </div>
-                                <div class="stat-box-mini">
-                                    <div>105</div>
-                                    <div>A</div>
-                                </div>
+                            <span class="pos-label">All-Time Rank</span>
+                            <span class="rank-value">#${upperName === 'HRUPT' ? '1' : upperName === 'FINLEY' || upperName === 'FINLEY4K' ? '3' : 'TOP 50'}</span>
+                        </div>
+                        <div class="rank-quick-box-row" style="flex: 1;">
+                            <div class="stat-box-mini">
+                                <div>${activeHistory.rows.find(r => r[0] === 'Career')[1]}</div>
+                                <div>TOTAL YARDS</div>
+                            </div>
+                            <div class="stat-box-mini">
+                                <div>${activeHistory.rows.find(r => r[0] === 'Career')[4]}</div>
+                                <div>CAREER TDS</div>
+                            </div>
+                            <div class="stat-box-mini">
+                                <div>${activeHistory.rows.find(r => r[0] === 'Career')[3] || '65'}</div>
+                                <div>COMPLETIONS</div>
                             </div>
                         </div>
                     </div>
 
-                    <h2 class="achievements-heading-light">Achievements</h2>
+                    <h2 class="achievements-heading-light">Mastery & Progression</h2>
 
-                    <!-- Mastery Grid & Bars Row -->
+                    <!-- Split Grid Component -->
                     <div class="mastery-split-grid">
                         <div class="archetype-card-light">
                             <div class="lock-icon-wrapper">🔒</div>
-                            <h3>Archetype</h3>
-                            <span>Coming Soon</span>
-                            <p>Your signature play-style, forged from how you dominate the field.</p>
+                            <h3>Gunslinger</h3>
+                            <span>Archetype</span>
+                            <p>Unlock deeper tiers by finishing high accuracy passing achievements across official seasons.</p>
                         </div>
+
                         <div class="mastery-panel-light">
                             <div class="panel-header-row">
-                                <span>Mastery</span>
-                                <span>0/5 Positions Mastered</span>
+                                <div>Position Mastery</div>
+                                <div>Progress</div>
                             </div>
-                            ${masteryItemsHtml}
+                            <div class="mastery-progress-item">
+                                <div class="mini-pos-tag qb">QB</div>
+                                <span class="mastery-label-text">Field General</span>
+                                <div class="bar-wrapper-light">
+                                    <div class="bar-fill-light" style="width: 85%;"></div>
+                                </div>
+                                <div class="mastery-score-fraction">85<span>%</span></div>
+                            </div>
+                            <div class="mastery-progress-item">
+                                <div class="mini-pos-tag rb">RB</div>
+                                <span class="mastery-label-text">Elusive Back</span>
+                                <div class="bar-wrapper-light">
+                                    <div class="bar-fill-light" style="width: 25%;"></div>
+                                </div>
+                                <div class="mastery-score-fraction">25<span>%</span></div>
+                            </div>
+                            <div class="mastery-progress-item">
+                                <div class="mini-pos-tag wr">WR</div>
+                                <span class="mastery-label-text">Deep Threat</span>
+                                <div class="bar-wrapper-light">
+                                    <div class="bar-fill-light" style="width: 40%;"></div>
+                                </div>
+                                <div class="mastery-score-fraction">40<span>%</span></div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Milestone Badge Sections -->
-                    ${groupsHtml}
+                    <!-- Milestone Badges Grid Layout -->
+                    <div class="position-achievement-section">
+                        <div class="position-section-header">
+                            <div class="position-section-title">Career Badges</div>
+                            <div class="position-section-summary">3 Milestones Earned</div>
+                        </div>
+                        <div class="badges-grid-layout">
+                            <div class="badge-milestone-card">
+                                <div class="badge-tier-indicator-line gold"></div>
+                                <div class="badge-icon-container">🎯</div>
+                                <div class="badge-content-box">
+                                    <div class="badge-main-row">
+                                        <span class="badge-title-name">Air Machine</span>
+                                        <span class="badge-xp-chip">+500 XP</span>
+                                    </div>
+                                    <div class="badge-tier-status-text gold">Gold Class</div>
+                                    <div class="badge-next-tier-label">Milestone Finished</div>
+                                    <div class="badge-stat-metric-fraction"><span class="maxed">MAX LEVEL</span></div>
+                                </div>
+                            </div>
+                            <div class="badge-milestone-card">
+                                <div class="badge-tier-indicator-line silver"></div>
+                                <div class="badge-icon-container">🏈</div>
+                                <div class="badge-content-box">
+                                    <div class="badge-main-row">
+                                        <span class="badge-title-name">Touchdown King</span>
+                                        <span class="badge-xp-chip">+250 XP</span>
+                                    </div>
+                                    <div class="badge-tier-status-text silver">Silver Class</div>
+                                    <div class="badge-next-tier-label">Next Tier: Gold</div>
+                                    <div class="badge-stat-metric-fraction"><span>Progress</span><span>490 / 500</span></div>
+                                </div>
+                            </div>
+                            <div class="badge-milestone-card">
+                                <div class="badge-tier-indicator-line bronze"></div>
+                                <div class="badge-icon-container">⚡</div>
+                                <div class="badge-content-box">
+                                    <div class="badge-main-row">
+                                        <span class="badge-title-name">Iron Snap Count</span>
+                                        <span class="badge-xp-chip">+100 XP</span>
+                                    </div>
+                                    <div class="badge-tier-status-text bronze">Bronze Class</div>
+                                    <div class="badge-next-tier-label">Next Tier: Silver</div>
+                                    <div class="badge-stat-metric-fraction"><span>Progress</span><span>3,801 / 5,000</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <!-- Appended Season by Season Table Container -->
-                    ${seasonHistoryHtml}
+                    <!-- Season by Season Historical Tracking Card -->
+                    <h2 class="achievements-heading-light" style="margin-top:2.5rem;">Season by Season Historic Records</h2>
+                    <div class="profile-table-card-light">
+                        <table>
+                            <thead><tr>${tableHeadersHtml}</tr></thead>
+                            <tbody>${tableRowsHtml}</tbody>
+                        </table>
+                    </div>
                 </div>
             `;
         }
 
-        window.onload = function() {
+        // Initialize view map on load
+        window.onload = () => {
             switchCategory('passing');
         };
     </script>
