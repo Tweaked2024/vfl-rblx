@@ -108,7 +108,7 @@
         .pill-btn { background: #1b1a25; border: 1px solid #282735; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
         .pill-btn.active { background: var(--accent); border-color: var(--accent); }
 
-        /* --- IMMERSIVE LIGHT PROFILE STYLES (IMAGE 2) --- */
+        /* --- IMMERSIVE LIGHT PROFILE STYLES --- */
         .back-link { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 1.5rem; cursor: pointer; }
         .profile-container-light { background-color: #f7f7fc; border-radius: 16px; padding: 2rem; color: var(--text-dark); border: 1px solid var(--border-light); }
         
@@ -121,9 +121,19 @@
         .pos-pill { background: rgba(0,0,0,0.15); color: white; font-size: 0.65rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); }
         .trophy-room-btn-light { position: absolute; right: 2rem; bottom: 2rem; background: #fff5d6; color: #735100; border: none; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
+        /* Profile Mini Stat Grid for All-Time Rank Quick Info */
+        .rank-badges-row-light { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+        .rank-quick-card { background: white; border: 1px solid var(--border-light); padding: 0.8rem 1.2rem; border-radius: 10px; display: flex; flex-direction: column; min-width: 110px; }
+        .rank-quick-card span.pos-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted-dark); margin-bottom: 0.2rem; }
+        .rank-quick-card span.rank-value { font-size: 0.85rem; font-weight: 800; color: #e82e2e; margin-bottom: 0.4rem; }
+        .rank-quick-box-row { display: flex; gap: 0.5rem; }
+        .stat-box-mini { border: 1px solid #e4e3eb; background: #fdfdfd; border-radius: 6px; padding: 0.4rem; flex: 1; text-align: center; }
+        .stat-box-mini div:first-child { font-size: 0.95rem; font-weight: 800; color: var(--text-dark); }
+        .stat-box-mini div:last-child { font-size: 0.65rem; font-weight: 700; color: #94a3b8; }
+
         .achievements-heading-light { font-size: 1.3rem; font-weight: 800; border-bottom: 2px solid var(--border-light); padding-bottom: 0.5rem; margin-bottom: 1.5rem; text-transform: capitalize; }
         
-        /* Split Split Layout */
+        /* Split Layout */
         .mastery-split-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 2.5rem; }
         .archetype-card-light { background: var(--card-light); border: 1px solid var(--border-light); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 1.5rem; text-align: center; background: radial-gradient(circle at top, #ffffff 0%, #f4f4f9 100%); }
         .lock-icon-wrapper { width: 50px; height: 50px; border-radius: 50%; background: #e4e3eb; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #a19fb0; margin-bottom: 1rem; }
@@ -142,7 +152,7 @@
         .bar-fill-light { height: 100%; background: var(--accent); border-radius: 4px; }
         .mastery-score-fraction { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 4px; }
 
-        /* Dynamic Badge Progression Groups */
+        /* Badge Progression Groups */
         .position-achievement-section { margin-bottom: 2rem; }
         .position-section-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 0.4rem; margin-bottom: 1rem; }
         .position-section-title { font-size: 0.95rem; font-weight: 800; color: var(--text-dark); text-transform: capitalize; }
@@ -170,6 +180,13 @@
         .badge-next-tier-label { font-size: 0.65rem; font-weight: 700; color: var(--text-muted-dark); text-transform: uppercase; margin-bottom: 0.3rem; }
         .badge-stat-metric-fraction { font-size: 0.75rem; font-weight: 700; color: var(--text-dark); margin-top: 0.5rem; display: flex; justify-content: space-between; }
         .badge-stat-metric-fraction span.maxed { color: #059669; font-weight: 800; }
+
+        /* Season by Season Custom Light Profile Table Styles */
+        .profile-table-card-light { background: white; border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; margin-top: 2rem; }
+        .profile-table-card-light table { width: 100%; border-collapse: collapse; }
+        .profile-table-card-light th { background-color: var(--accent); color: white; font-weight: 700; padding: 0.8rem 0.6rem; font-size: 0.7rem; text-transform: uppercase; text-align: center; }
+        .profile-table-card-light td { padding: 0.7rem 0.6rem; font-size: 0.8rem; color: var(--text-dark); border-bottom: 1px solid #f0eff5; text-align: center; font-weight: 600; }
+        .profile-table-card-light tr.career-row td { background-color: #fee2e2; color: #991b1b; font-weight: 800; }
 
         footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
     </style>
@@ -431,7 +448,6 @@
             }
         }
 
-        // Complete Mastery & Progression Achievement view system loader
         function loadPlayerProfile(username) {
             const cleanName = username.trim();
             const upperName = cleanName.toUpperCase();
@@ -439,7 +455,46 @@
             if(upperName === "FINLEY" || upperName === "FINLEY4K") robloxId = 221991455;
             if(upperName === "HRUPT") robloxId = 55431288;
 
-            // Mastery Structure Data Block
+            // Database containing the exact "Season by Season" historical table from the screenshot
+            const historyDatabase = {
+                "FINLEY4K": {
+                    title: "FINLEY4K's Quarterback stats",
+                    headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
+                    rows: [
+                        ["Career", "41469", "2632", "1617", "503", "130", "150", "195", "60", "752", "815", "599", "620", "2403"],
+                        ["S17", "2564", "177", "105", "26", "12", "4", "10", "3", "47", "46", "7", "5", "158"],
+                        ["S18", "4547", "288", "185", "71", "8", "5", "19", "3", "86", "66", "22", "11", "261"],
+                        ["S19", "4214", "223", "137", "55", "9", "15", "23", "2", "49", "47", "20", "20", "200"],
+                        ["S20", "2078", "146", "96", "25", "3", "16", "12", "4", "65", "55", "15", "11", "126"],
+                        ["S21", "5317", "303", "211", "75", "7", "16", "20", "11", "123", "84", "49", "47", "286"],
+                        ["S22", "1690", "95", "57", "18", "8", "8", "10", "2", "26", "37", "14", "18", "89"],
+                        ["S24", "4383", "287", "180", "52", "21", "22", "19", "7", "112", "124", "97", "90", "261"],
+                        ["S25", "2058", "146", "78", "22", "11", "10", "13", "3", "4", "8", "50", "107", "130"],
+                        ["S26", "3660", "266", "154", "38", "16", "15", "25", "12", "83", "121", "114", "119", "236"],
+                        ["S27", "5343", "327", "190", "71", "15", "7", "21", "7", "115", "111", "132", "108", "293"],
+                        ["S34", "5615", "374", "224", "50", "20", "32", "23", "6", "42", "116", "79", "84", "363"]
+                    ]
+                },
+                "FINLEY": {
+                    title: "FINLEY's Quarterback stats",
+                    headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
+                    rows: [
+                        ["Career", "41469", "2632", "1617", "503", "130", "150", "195", "60", "752", "815", "599", "620", "2403"],
+                        ["S17", "2564", "177", "105", "26", "12", "4", "10", "3", "47", "46", "7", "5", "158"],
+                        ["S18", "4547", "288", "185", "71", "8", "5", "19", "3", "86", "66", "22", "11", "261"],
+                        ["S19", "4214", "223", "137", "55", "9", "15", "23", "2", "49", "47", "20", "20", "200"],
+                        ["S20", "2078", "146", "96", "25", "3", "16", "12", "4", "65", "55", "15", "11", "126"],
+                        ["S21", "5317", "303", "211", "75", "7", "16", "20", "11", "123", "84", "49", "47", "286"],
+                        ["S22", "1690", "95", "57", "18", "8", "8", "10", "2", "26", "37", "14", "18", "89"],
+                        ["S24", "4383", "287", "180", "52", "21", "22", "19", "7", "112", "124", "97", "90", "261"],
+                        ["S25", "2058", "146", "78", "22", "11", "10", "13", "3", "4", "8", "50", "107", "130"],
+                        ["S26", "3660", "266", "154", "38", "16", "15", "25", "12", "83", "121", "114", "119", "236"],
+                        ["S27", "5343", "327", "190", "71", "15", "7", "21", "7", "115", "111", "132", "108", "293"],
+                        ["S34", "5615", "374", "224", "50", "20", "32", "23", "6", "42", "116", "79", "84", "363"]
+                    ]
+                }
+            };
+
             const masteryTracks = [
                 { class: "qb", label: "QB", name: "Quarterback", progress: "0/3", val: 0 },
                 { class: "rb", label: "RB", name: "Running Back", progress: "0/2", val: 0 },
@@ -448,7 +503,6 @@
                 { class: "db", label: "DB", name: "Defensive Back", progress: "1/3", val: 33 }
             ];
 
-            // Progressive Position Achievement Sections
             const achievementGroups = [
                 {
                     position: "Quarterback",
@@ -466,38 +520,9 @@
                         { name: "Escape Artist", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 54, metric1: "4,093 / 7,500 YDS", metric2: "87 / 75 TD", icon: "🌀" },
                         { name: "First Down Machine", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 60, metric1: "212 / 350 1ST", metric2: "", icon: "📏" }
                     ]
-                },
-                {
-                    position: "Wide Receiver",
-                    summary: "0/4 • DIAMOND",
-                    badges: [
-                        { name: "Deep Threat", tier: "locked", tierText: "LOCKED", xp: "100 XP", next: "BRONZE", bar: 10, metric1: "6 / 10 50+", metric2: "31 / 50 CIT", icon: "⚡" },
-                        { name: "YAC Monster", tier: "bronze", tierText: "BRONZE", xp: "100 XP", next: "SILVER", bar: 56, metric1: "284 / 500 YAC", metric2: "", icon: "🏃" },
-                        { name: "Touchdown Machine", tier: "locked", tierText: "LOCKED", xp: "100 XP", next: "BRONZE", bar: 86, metric1: "13 / 15 TD", metric2: "1,620 / 1,500 YDS", icon: "🔥" },
-                        { name: "Chain Mover", tier: "bronze", tierText: "BRONZE", xp: "100 XP", next: "SILVER", bar: 37, metric1: "37 / 100 1ST", metric2: "44 / 100 REC", icon: "⛓️" }
-                    ]
-                },
-                {
-                    position: "Defensive End",
-                    summary: "0/3 • DIAMOND",
-                    badges: [
-                        { name: "Sack Artist", tier: "locked", tierText: "LOCKED", xp: "100 XP", next: "BRONZE", bar: 73, metric1: "11 / 15 SACKS", metric2: "", icon: "🛡️" },
-                        { name: "Edge Nightmare", tier: "locked", tierText: "LOCKED", xp: "100 XP", next: "BRONZE", bar: 10, metric1: "15 / 150 PRS", metric2: "", icon: "☠️" },
-                        { name: "Run Stopper", tier: "bronze", tierText: "BRONZE", xp: "100 XP", next: "SILVER", bar: 94, metric1: "71 / 75 TCK", metric2: "", icon: "🧱" }
-                    ]
-                },
-                {
-                    position: "Defensive Back",
-                    summary: "1/3 • DIAMOND",
-                    badges: [
-                        { name: "Ball Hawk", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 78, metric1: "59 / 75 INT", metric2: "", icon: "🦅" },
-                        { name: "Lockdown", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 91, metric1: "321 / 350 TCK", metric2: "", icon: "🔒" },
-                        { name: "Shutdown", tier: "diamond", tierText: "DIAMOND", xp: "1,000 XP", next: "MAXED OUT", bar: 100, metric1: "★ MAXED OUT", metric2: "", icon: "🚫" }
-                    ]
                 }
             ];
 
-            // Render Mastery panel items
             let masteryItemsHtml = masteryTracks.map(track => `
                 <div class="mastery-progress-item">
                     <div class="mini-pos-tag ${track.class}">${track.label}</div>
@@ -509,7 +534,6 @@
                 </div>
             `).join('');
 
-            // Render position milestones cards
             let groupsHtml = '';
             achievementGroups.forEach(group => {
                 groupsHtml += `
@@ -532,7 +556,7 @@
                                         
                                         <div class="badge-next-tier-label">Next → ${b.next}</div>
                                         <div class="bar-wrapper-light" style="height: 6px; margin-bottom:0.4rem;">
-                                            <div class="bar-fill-light" style="width: ${b.bar}%; background:${b.tier === 'diamond' ? '#0d9488' : ''}"></div>
+                                            <div class="bar-fill-light" style="width: ${b.bar}%;"></div>
                                         </div>
                                         
                                         <div class="badge-stat-metric-fraction">
@@ -546,6 +570,28 @@
                     </div>
                 `;
             });
+
+            // Generates the Season by Season section dynamically if player historical entries exist
+            let seasonHistoryHtml = '';
+            const playerHistory = historyDatabase[upperName];
+            if (playerHistory) {
+                let sHeaders = playerHistory.headers.map(h => `<th>${h}</th>`).join('');
+                let sRows = playerHistory.rows.map(row => {
+                    let isCareer = row[0] === "Career" ? 'class="career-row"' : '';
+                    return `<tr ${isCareer}>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+                }).join('');
+
+                seasonHistoryHtml = `
+                    <h2 class="achievements-heading-light" style="margin-top: 3rem;">Season by Season</h2>
+                    <h4 style="font-size:0.9rem; color:var(--text-dark); margin-bottom:0.8rem; font-weight:700;">${playerHistory.title}</h4>
+                    <div class="profile-table-card-light">
+                        <table>
+                            <thead><tr>${sHeaders}</tr></thead>
+                            <tbody>${sRows}</tbody>
+                        </table>
+                    </div>
+                `;
+            }
 
             container.innerHTML = `
                 <div class="back-link" onclick="goBackFromProfile()">
@@ -572,6 +618,24 @@
                         <button class="trophy-room-btn-light">🏆 Trophy Room</button>
                     </div>
 
+                    <!-- Kicker Rank Quick Badge Display (From Top of Screenshot) -->
+                    <div class="rank-badges-row-light">
+                        <div class="rank-quick-card">
+                            <span class="pos-label">Kicker</span>
+                            <span class="rank-value">#31 all-time</span>
+                            <div class="rank-quick-box-row">
+                                <div class="stat-box-mini">
+                                    <div>91</div>
+                                    <div>M</div>
+                                </div>
+                                <div class="stat-box-mini">
+                                    <div>105</div>
+                                    <div>A</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <h2 class="achievements-heading-light">Achievements</h2>
 
                     <!-- Mastery Grid & Bars Row -->
@@ -593,6 +657,9 @@
 
                     <!-- Milestone Badge Sections -->
                     ${groupsHtml}
+
+                    <!-- Appended Season by Season Table Container -->
+                    ${seasonHistoryHtml}
                 </div>
             `;
         }
