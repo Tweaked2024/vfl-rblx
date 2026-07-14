@@ -10,6 +10,9 @@
     /* --- Core Styling & Dark Theme --- */
     :root {
       --bg-color: #0b0c10;
+      --bg-main: #0b0c10; /* Restored missing variable */
+      --border: #1f212d;   /* Restored missing variable */
+      --accent: #f0544f;   /* Restored missing variable */
       --card-bg: #15161e;
       --card-border: #1f212d;
       --accent-color: #f0544f;
@@ -20,44 +23,98 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+    
+    body { 
+      background-color: var(--bg-main); 
+      color: var(--text-main); 
+      display: flex; 
+      flex-direction: column; 
+      min-height: 100vh; 
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 50px 20px;
+    }
         
-        /* Navigation Header Base */
-        nav { 
-            background-color: var(--bg-main); 
-            padding: 1.2rem 4%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-bottom: 1px solid var(--border); 
-            position: relative;
-            z-index: 1000;
-        }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; }
-        .logo-text { font-size: 0.85rem; font-weight: 700; line-height: 1.2; text-transform: uppercase; }
-        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
-        
-        /* Navigation Menu Lists */
-        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
-        nav ul li { position: relative !important; display: inline-block; }
-        
-        nav ul li a { 
-            color: var(--text-muted); 
-            text-decoration: none; 
-            font-size: 0.85rem; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px;
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: color 0.2s ease;
-        }
-        nav ul li a:hover, nav ul li a.active { 
-            color: var(--text-main); 
-        }
+    /* Navigation Header Base */
+    nav { 
+        background-color: var(--bg-main); 
+        padding: 1.2rem 0; /* Adjusted to fit layout constraints */
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        border-bottom: 1px solid var(--border); 
+        position: relative;
+        z-index: 1000;
+        margin-bottom: 30px;
+    }
+    .logo-area { display: flex; align-items: center; gap: 10px; }
+    .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; color: #fff;}
+    .logo-text { font-size: 0.85rem; font-weight: 700; line-height: 1.2; text-transform: uppercase; }
+    .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
+    
+    /* Navigation Menu Lists */
+    nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+    nav ul li { position: relative !important; display: inline-block; }
+    
+    nav ul li a { 
+        color: var(--text-muted); 
+        text-decoration: none; 
+        font-size: 0.85rem; 
+        font-weight: 600; 
+        text-transform: uppercase; 
+        letter-spacing: 0.5px;
+        padding: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: color 0.2s ease;
+    }
+    nav ul li a:hover, nav ul li a.active { 
+        color: var(--text-main); 
+    }
+
+    /* Dropdown Menus */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      list-style: none;
+      padding: 10px 0;
+      border-radius: 6px;
+      min-width: 180px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    }
+
+    .dropdown-menu li a {
+      padding: 8px 16px;
+      text-transform: none;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .nav-btn {
+      background-color: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+
+    .nav-btn:hover {
+      opacity: 0.9;
+    }
 
     /* --- Header & Season Controls --- */
     header {
@@ -1148,28 +1205,31 @@
 
 </div>
 
-<!-- --- JavaScript Dynamic Switcher --- -->
+<!-- Interactive Tab Switcher Script -->
 <script>
-  document.querySelectorAll('.season-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      // 1. Swap active state on buttons
-      document.querySelectorAll('.season-btn').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.season-btn');
+    const pages = document.querySelectorAll('.season-page');
 
-      // 2. Hide all season layouts
-      document.querySelectorAll('.season-page').forEach(page => {
-        page.classList.remove('active-page');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        buttons.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+
+        // Hide all pages
+        pages.forEach(page => page.classList.remove('active-page'));
+
+        // Show targets page
+        const season = btn.getAttribute('data-season');
+        const targetPage = document.getElementById(`page-${season}`);
+        if (targetPage) {
+          targetPage.classList.add('active-page');
+        }
       });
-
-      // 3. Reveal chosen season
-      const selectedSeason = button.getAttribute('data-season');
-      const activePage = document.getElementById(`page-${selectedSeason}`);
-      if (activePage) {
-        activePage.classList.add('active-page');
-      }
     });
   });
 </script>
-
 </body>
 </html>
