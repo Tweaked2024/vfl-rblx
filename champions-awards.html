@@ -1,388 +1,1118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VFL Roblox - Champions & Awards</title>
-    <style>
-        :root {
-            --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
-            --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
-            --gold-accent: #d4af37;
-            --gold-light: #e0ca9b; --gold-dark: #b89855;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* Navigation Header with Dropdown */
-        nav { background-color: var(--bg-main); padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: relative; z-index: 100; }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-        .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
-        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
-        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
-        nav ul li { position: relative; }
-        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; padding: 0.5rem 0; display: inline-block; }
-        nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
-        
-        /* Legacy Dropdown Specifics */
-        .dropdown:hover .dropdown-menu { display: block; opacity: 1; pointer-events: auto; }
-        .dropdown-menu { 
-            display: none; position: absolute; top: 100%; left: 0; 
-            background-color: var(--bg-card); min-width: 220px; 
-            border: 1px solid var(--border); border-radius: 6px; 
-            padding: 0.5rem 0; box-shadow: 0 8px 16px rgba(0,0,0,0.5); 
-        }
-        .dropdown-menu li a { 
-            color: var(--text-muted); padding: 0.6rem 1.2rem; 
-            display: block; font-size: 0.8rem; text-transform: uppercase; width: 100%; box-sizing: border-box;
-        }
-        .dropdown-menu li a:hover { background-color: #232230; color: var(--accent); }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Champions & Awards</title>
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* --- Core Styling & Dark Theme --- */
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: #15161e;
+      --card-border: #1f212d;
+      --accent-color: #f0544f;
+      --text-main: #ffffff;
+      --text-muted: #8b8e9f;
+      --gold: #f1c40f;
+      --silver: #bdc3c7;
+    }
 
-        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        /* Content Container Layout */
-        .container { max-width: 1400px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
-        
-        /* Page Header elements */
-        .page-header-top { margin-bottom: 0.5rem; }
-        .page-meta-label { color: var(--accent); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-        .page-title { font-size: 2.5rem; font-weight: 800; text-transform: capitalize; margin-top: 0.2rem; letter-spacing: -0.5px; }
-        .subtitle-notice { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 600px; line-height: 1.4; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        /* Season Selector Pill Box Component */
-        .season-selector-bar { 
-            background-color: #16151f; border: 1px solid var(--border); 
-            padding: 0.8rem 1.2rem; border-radius: 8px; display: flex; 
-            align-items: center; gap: 0.8rem; overflow-x: auto; margin-bottom: 2.5rem; 
-        }
-        .season-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-main); letter-spacing: 0.5px; white-space: nowrap; }
-        .season-pills { display: flex; gap: 6px; }
-        .season-pill { 
-            background-color: var(--bg-card); border: 1px solid var(--border); 
-            color: var(--text-muted); padding: 0.4rem 0.9rem; border-radius: 20px; 
-            font-size: 0.75rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: all 0.2s;
-        }
-        .season-pill:hover { border-color: var(--accent); color: var(--text-main); }
-        .season-pill.active { background-color: var(--accent); color: white; border-color: var(--accent); }
+    .container {
+      width: 100%;
+      max-width: 1100px;
+    }
 
-        /* Split layouts for Championship Teams Section */
-        .champs-grid-split { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.5rem; margin-bottom: 3rem; }
-        .champs-panel-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
-        
-        .panel-header-block { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
-        .panel-icon-placeholder { width: 36px; height: 36px; background-color: #232230; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-        .panel-title-details h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
-        .panel-title-details p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-top: 0.1rem; }
+    /* --- Header & Season Controls --- */
+    header {
+      margin-bottom: 25px;
+    }
 
-        /* Player Grid Roster Node layout tags */
-        .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
-        .roster-node { 
-            display: flex; align-items: center; gap: 10px; background-color: #16151f; 
-            border: 1px solid var(--border); padding: 0.5rem 0.8rem; border-radius: 25px; 
-        }
-        .node-avatar-circle { width: 24px; height: 24px; background-color: #2c2a3d; border-radius: 50%; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-        .node-avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .node-name { font-size: 0.8rem; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sub-title {
+      color: var(--accent-color);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
 
-        /* Section Separator & Large Big Title Markers */
-        .section-break-title { font-size: 1rem; font-weight: 800; text-transform: uppercase; color: var(--accent); letter-spacing: 0.5px; margin-bottom: 1.5rem; margin-top: 2.5rem; }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
 
-        /* Top 3 Major Award Winners Grid block rows */
-        .major-awards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
-        .major-award-box { 
-            background-color: var(--bg-card); border: 1px solid var(--border); 
-            border-radius: 8px; padding: 1.5rem; text-align: center; 
-            display: flex; flex-direction: column; align-items: center; 
-        }
-        .award-title-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 1rem; }
-        .award-avatar-big { width: 80px; height: 80px; background-color: #16151f; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 0.8rem; overflow: hidden; }
-        .award-avatar-big img { width: 100%; height: 100%; object-fit: cover; }
-        .award-winner-username { font-size: 1rem; font-weight: 700; color: var(--text-main); }
+    .header-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+    }
 
-        /* General Sub-Awards Horizontal Categorization Tiers Setup */
-        .awards-category-container { margin-bottom: 2.5rem; }
-        .category-stripe-header { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; margin-bottom: 1rem; letter-spacing: 0.5px; }
-        .stripe-items-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 1.5rem; }
-        .stripe-item-row { display: flex; justify-content: space-between; align-items: center; background-color: #13121a; padding: 0.4rem 0.6rem; border-radius: 6px; border-left: 3px solid var(--accent); }
-        .award-label-name { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+    .season-selector-bar {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
 
-        /* Integrated Elements: League & Media Panel Grid */
-        .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .award-row { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-        .award-label { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
-        .player-pill { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 20px; min-width: 130px; }
-        .player-avatar { width: 24px; height: 24px; background: var(--gold-dark); border-radius: 50%; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #111017; }
-        .player-name { font-size: 0.85rem; font-weight: 600; color: #e4e3eb; }
+    .season-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--text-main);
+    }
 
-        /* Integrated Elements: All Pro Grid Layouts */
-        .allpro-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; }
-        .team-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
-        .team-card h2 { font-size: 1.3rem; font-weight: 800; color: var(--gold-light); margin-bottom: 0.2rem; text-transform: uppercase; }
-        .team-card .season-sub { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 1.5rem; }
-        
-        .unit-title { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin: 1rem 0; text-align: center; border-bottom: 1px dashed var(--border); padding-bottom: 0.3rem; }
-        .position-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
-        
-        .field-player { display: flex; flex-direction: column; align-items: center; text-align: center; width: 85px; }
-        .pos-badge { font-size: 0.65rem; font-weight: 700; background: rgba(240, 93, 81, 0.1); border: 1px solid var(--accent); color: var(--accent); padding: 2px 6px; border-radius: 4px; margin-bottom: 0.4rem; }
-        .p-img { width: 38px; height: 38px; background: #242330; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--gold-light); }
-        .p-name { font-size: 0.75rem; font-weight: 600; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+    .season-btn-container {
+      display: flex;
+      gap: 10px;
+    }
 
-        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
-    </style>
+    .season-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .season-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+    }
+
+    .season-btn.active {
+      background-color: var(--accent-color);
+      color: var(--text-main);
+      border-color: var(--accent-color);
+    }
+
+    /* --- Section Headers --- */
+    .section-title {
+      color: var(--accent-color);
+      font-size: 0.85rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin: 35px 0 15px 0;
+    }
+
+    /* --- Champions & Podiums Grid --- */
+    .champions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .champions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .champ-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .champ-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .champ-icon {
+      font-size: 1.5rem;
+    }
+
+    .champ-icon.gold-trophy { color: var(--gold); }
+    .champ-icon.silver-medal { color: var(--silver); }
+
+    .champ-title-text h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .champ-title-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 10px;
+    }
+
+    .roster-tag {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      padding: 8px 12px;
+      border-radius: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* --- Big MVPs Grid --- */
+    .mvp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .mvp-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mvp-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mvp-award-name {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .mvp-avatar {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 2px dashed var(--card-border);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mvp-avatar i {
+      font-size: 2rem;
+      color: var(--text-muted);
+    }
+
+    .mvp-name {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* --- Row Awards (Rookies, Positions, League & Media) --- */
+    .row-awards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    @media (max-width: 900px) {
+      .row-awards-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .row-awards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .row-award-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--accent-color);
+      border-radius: 6px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .media-card {
+      border-left: 3px solid #ffb300; /* Yellow accent for League & Media */
+    }
+
+    .award-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .winner-badge {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .winner-badge i {
+      font-size: 0.75rem;
+      color: var(--accent-color);
+    }
+
+    .media-card .winner-badge i {
+      color: #ffb300;
+    }
+
+    /* --- All-Pro Visual Team Layout --- */
+    .allpro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .allpro-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .allpro-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .allpro-card h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffd700; /* Gold */
+    }
+
+    .allpro-card h3.silver-header {
+      color: #e0e0e0; /* Silver */
+    }
+
+    .allpro-subtitle {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .allpro-unit-title {
+      font-size: 0.7rem;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      margin: 15px 0 10px 0;
+      position: relative;
+    }
+
+    .allpro-unit-title::before, .allpro-unit-title::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 35%;
+      height: 1px;
+      background: repeating-linear-gradient(90deg, var(--card-border), var(--card-border) 4px, transparent 4px, transparent 8px);
+    }
+
+    .allpro-unit-title::before { left: 0; }
+    .allpro-unit-title::after { right: 0; }
+
+    .allpro-unit-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      justify-items: center;
+      margin-bottom: 20px;
+    }
+
+    .player-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    .team-badge-icon {
+      background-color: #311b1b;
+      color: var(--accent-color);
+      font-size: 0.7rem;
+      font-weight: 800;
+      width: 26px;
+      height: 16px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+
+    .player-icon-wrapper {
+      width: 30px;
+      height: 30px;
+      background-color: #212330;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      border: 1px solid var(--card-border);
+    }
+
+    .player-icon-wrapper i {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .player-slot-name {
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: var(--text-main);
+      max-width: 75px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* --- JS Hide/Show Helper --- */
+    .season-page {
+      display: none;
+    }
+    .season-page.active-page {
+      display: block;
+    }
+  </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo-area">
-            <div class="logo-circle">VFL</div>
-            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
-        </div>
-        <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="scores.html">Scores</a></li>
-            <li><a href="standings.html">Standings</a></li>
-            <li><a href="stats.html">Stats</a></li>
-            <li class="dropdown">
-                <a href="#">
-                    Legacy
-                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
-                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="legacy.html">Legacy</a></li>
-                    <li><a href="champions-awards.html">Champions & Awards</a></li>
-                    <li><a href="award-tracker.html">Award Tracker</a></li>
-                </ul>
-            </li>
-            <li><a href="rulebook.html">Rulebook</a></li>
-        </ul>
-        <a href="#" class="nav-btn">Join Now!</a>
-    </nav>
+<div class="container">
 
-    <div class="container">
-        
-        <div class="page-header-top">
-            <span class="page-meta-label">VFL Legacy</span>
-            <h1 class="page-title">Champions & Awards</h1>
-        </div>
-        <p class="subtitle-notice">Every Allegiance Bowl champion roster and every individual award winner in league history. Pick a season to relive its titles and honors.</p>
-        
-        <!-- Season Slider Line panel container -->
-        <div class="season-selector-bar">
-            <span class="season-label">Season</span>
-            <div class="season-pills">
-                <a href="#" class="season-pill active">S5</a>
-                <a href="#" class="season-pill">S4</a>
-                <a href="#" class="season-pill">S3</a>
-                <a href="#" class="season-pill">S22</a>
-                <a href="#" class="season-pill">S2</a>
-                <a href="#" class="season-pill">S1</a>
-            </div>
-        </div>
-
-        <!-- Champions Panels Display Grid splits -->
-        <div class="champs-grid-split">
-            
-            <!-- Main Bowl Title Winner Champions -->
-            <div class="champs-panel-card">
-                <div class="panel-header-block">
-                    <div class="panel-icon-placeholder">🏆</div>
-                    <div class="panel-title-details">
-                        <h3>Virtual Bowl 5 Champions</h3>
-                        <p>Season 5 Winner Roster</p>
-                    </div>
-                </div>
-                <div class="roster-grid">
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">sunomura</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">kazotum</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">GameplayManipulator</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">Exdecy</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">iuwm</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">h_aiti</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">exanious</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">jaylenyagami</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">dwuv</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">skorxe</span></div>
-                </div>
-            </div>
-
-            <!-- Conference Runner up block panel -->
-            <div class="champs-panel-card">
-                <div class="panel-header-block">
-                    <div class="panel-icon-placeholder">🥈</div>
-                    <div class="panel-title-details">
-                        <h3>Semi-Final Champions</h3>
-                        <p>Season 5 • Bowl Runner-Up</p>
-                    </div>
-                </div>
-                <div class="roster-grid" style="grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));">
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">7064032</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">Soulbare</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">jaytakeovr</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">Sinnxbles</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">blanna</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">KOISURII</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">iammuttedd</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">fromfloridawithlove</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">reshiram390</span></div>
-                    <div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">blurryhell</span></div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="section-break-title">Season 5 Award Winners</div>
-
-        <!-- Major Tier 1 Individual MVPs Cards Block Layout Row -->
-        <div class="major-awards-row">
-            <div class="major-award-box">
-                <span class="award-title-tag">Most Valuable Player</span>
-                <div class="award-avatar-big"></div>
-                <span class="award-winner-username">kzpv</span>
-            </div>
-            <div class="major-award-box">
-                <span class="award-title-tag">Offensive Player of the Year</span>
-                <div class="award-avatar-big"></div>
-                <span class="award-winner-username">desvium</span>
-            </div>
-            <div class="major-award-box">
-                <span class="award-title-tag">Defensive Player of the Year</span>
-                <div class="award-avatar-big"></div>
-                <span class="award-winner-username">fakel1l</span>
-            </div>
-        </div>
-
-        <!-- Stripe Grid Item Nodes Category List Block Level 1: Rookies -->
-        <div class="awards-category-container">
-            <div class="category-stripe-header">Rookies of the Year</div>
-            <div class="stripe-items-grid">
-                <div class="stripe-item-row"><span class="award-label-name">Rookie of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">nikowasban</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Offensive Rookie of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">a5lve</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Defensive Rookie of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">lionrind1</span></div></div>
-            </div>
-        </div>
-
-        <!-- Stripe Grid Item Nodes Category List Block Level 2: Positions -->
-        <div class="awards-category-container">
-            <div class="category-stripe-header">Position of the Year</div>
-            <div class="stripe-items-grid">
-                <div class="stripe-item-row"><span class="award-label-name">Quarterback of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">soulbare</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Running Back of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">liarliarliarliarr</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Wide Receiver of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">za0lx</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Tight End of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">onyxcityrouteartist</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Center of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">iammuttedd</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Defensive End of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">darkener</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Linebacker of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">DimingSLC</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Slot Corner of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">vlnrd</span></div></div>
-                <div class="stripe-item-row"><span class="award-label-name">Dime Corner of the Year</span><div class="roster-node"><div class="node-avatar-circle"></div><span class="node-name">TrickysLegacy</span></div></div>
-            </div>
-        </div>
-
-        <!-- League & Media Section -->
-        <div class="section-break-title">League & Media</div>
-        <div class="media-grid">
-            <div class="award-row">
-                <div class="award-label">Comeback Player of the Year</div>
-                <div class="player-pill"><div class="player-avatar">G</div><div class="player-name">g0v</div></div>
-            </div>
-            <div class="award-row">
-                <div class="award-label">Head Coach of the Year</div>
-                <div class="player-pill"><div class="player-avatar">B</div><div class="player-name">bonafidescrub</div></div>
-            </div>
-            <div class="award-row">
-                <div class="award-label">Streamer of the Year</div>
-                <div class="player-pill"><div class="player-avatar">7</div><div class="player-name">727jp</div></div>
-            </div>
-            <div class="award-row">
-                <div class="award-label">Referee of the Year</div>
-                <div class="player-pill"><div class="player-avatar">L</div><div class="player-name">lgetlaned</div></div>
-            </div>
-            <div class="award-row">
-                <div class="award-label">Journalist of the Year</div>
-                <div class="player-pill"><div class="player-avatar">J</div><div class="player-name">JvkeThingz</div></div>
-            </div>
-            <div class="award-row">
-                <div class="award-label">Executive of the Year</div>
-                <div class="player-pill"><div class="player-avatar">R</div><div class="player-name">RWin</div></div>
-            </div>
-        </div>
-
-        <!-- All-Pro Teams Section -->
-        <div class="section-break-title">Season 34 All-Pro Teams</div>
-        <div class="allpro-wrapper">
-            
-            <!-- First Team -->
-            <div class="team-card">
-                <h2>First Team All-Pro</h2>
-                <div class="season-sub">Season 34</div>
-                
-                <div class="unit-title">Defense</div>
-                <div class="position-group">
-                    <div class="field-player"><span class="pos-badge">SCB</span><div class="p-img">👤</div><div class="p-name">vlnrd</div></div>
-                    <div class="field-player"><span class="pos-badge">DCB</span><div class="p-img">👤</div><div class="p-name">TrickysLegacy</div></div>
-                    <div class="field-player"><span class="pos-badge">DCB</span><div class="p-img">👤</div><div class="p-name">Kazooeey</div></div>
-                    <div class="field-player"><span class="pos-badge">LB</span><div class="p-img">👤</div><div class="p-name">fake11l</div></div>
-                    <div class="field-player"><span class="pos-badge">SCB</span><div class="p-img">O</div><div class="p-name">OkiDokiePokey</div></div>
-                    <div class="field-player"><span class="pos-badge">DE</span><div class="p-img">👤</div><div class="p-name">darkener</div></div>
-                    <div class="field-player"><span class="pos-badge">DE</span><div class="p-img">👤</div><div class="p-name">SubwaySuffoc...</div></div>
-                    <div class="field-player"><span class="pos-badge">DE</span><div class="p-img">👤</div><div class="p-name">g0v</div></div>
-                    <div class="field-player"><span class="pos-badge">DCB</span><div class="p-img">👤</div><div class="p-name">JvkeThingz</div></div>
-                </div>
-
-                <div class="unit-title">Offense</div>
-                <div class="position-group">
-                    <div class="field-player"><span class="pos-badge">WR</span><div class="p-img">👤</div><div class="p-name">desvium</div></div>
-                    <div class="field-player"><span class="pos-badge">WR</span><div class="p-img">👤</div><div class="p-name">OnyxCityRout...</div></div>
-                    <div class="field-player"><span class="pos-badge">TE</span><div class="p-img">👤</div><div class="p-name">za0lx</div></div>
-                    <div class="field-player"><span class="pos-badge">WR</span><div class="p-img">👤</div><div class="p-name">shxwnzzz</div></div>
-                    <div class="field-player"><span class="pos-badge">WR</span><div class="p-img">👤</div><div class="p-name">aidanflocks</div></div>
-                    <div class="field-player"><span class="pos-badge">C</span><div class="p-img">I</div><div class="p-name">iammutted</div></div>
-                    <div class="field-player"><span class="pos-badge">C</span><div class="p-img">👤</div><div class="p-name">Sinnxbles</div></div>
-                    <div class="field-player"><span class="pos-badge">RB</span><div class="p-img">👤</div><div class="p-name">TheLordPred</div></div>
-                    <div class="field-player"><span class="pos-badge">QB</span><div class="p-img">👤</div><div class="p-name">kzpv</div></div>
-                    <div class="field-player"><span class="pos-badge">K</span><div class="p-img">🟢</div><div class="p-name">maff0w</div></div>
-                </div>
-            </div>
-
-            <!-- Second Team -->
-            <div class="team-card">
-                <h2>Second Team All-Pro</h2>
-                <div class="season-sub">Season 34</div>
-                
-                <div class="unit-title">Defense</div>
-                <div class="position-group">
-                    <div class="field-player"><span class="pos-badge">SCB</span><div class="p-img">👤</div><div class="p-name">oocarter</div></div>
-                    <div class="field-player"><span class="pos-badge">DCB</span><div class="p-img">👤</div><div class="p-name">VHeadTopzz</div></div>
-                    <div class="field-player"><span class="pos-badge">DCB</span><div class="p-img">👤</div><div class="p-name">blues</div></div>
-                    <div class="field-player"><span class="pos-badge">LB</span><div class="p-img">👤</div><div class="p-name">DimingSLC</div></div>
-                    <div class="field-player"><span class="pos-badge">SCB</span><div class="p-img">👤</div><div class="p-name">xTenoke</div></div>
-                    <div class="field-player"><span class="pos-badge">DE</span><div class="p-img">👤</div><div class="p-name">alcatraz</div></div>
-                    <div class="field-player"><span class="pos-badge">DE</span><div class="p-img">👤</div><div class="p-name">Nugruto</div></div>
-                    <div class="field-player"><span class="pos-badge">DE</span><div class="p-img">L</div><div class="p-name">lionrind12</div></div>
-                    <div class="field-player"><span class="pos-badge">DCB</span><div class="p-img">👤</div><div class="p-name">BigSGTrei</div></div>
-                </div>
-
-                <div class="unit-title">Offense</div>
-                <div class="position-group">
-                    <div class="field-player"><span class="pos-badge">WR</span><div class="p-img">👤</div><div class="p-name">nicesonecodyy</div></div>
-                    <div class="field-player"><span class="pos-badge">WR</span><div class="p-img">👤</div><div class="p-name">pedi</div></div>
-                    <div class="field-player"><span class="pos-badge">TE</span><div class="p-img">👤</div><div class="p-name">exanious</div></div>
-                    <div class="field-player"><span class="pos-badge">WR</span><div class="p-img">👤</div><div class="p-name">4784torranceem</div></div>
-                    <div class="field-player"><span class="pos-badge">WR</span><div class="p-img">👤</div><div class="p-name">onlyrko</div></div>
-                    <div class="field-player"><span class="pos-badge">C</span><div class="p-img">👤</div><div class="p-name">loichendrix</div></div>
-                    <div class="field-player"><span class="pos-badge">C</span><div class="p-img">👤</div><div class="p-name">Weaksided</div></div>
-                    <div class="field-player"><span class="pos-badge">RB</span><div class="p-img">👤</div><div class="p-name">REAPER1KK</div></div>
-                    <div class="field-player"><span class="pos-badge">QB</span><div class="p-img">👤</div><div class="p-name">soulbare</div></div>
-                    <div class="field-player"><span class="pos-badge">K</span><div class="p-img">🔵</div><div class="p-name">sunomura</div></div>
-                </div>
-            </div>
-
-        </div>
+  <!-- Header & Season Selection -->
+  <header>
+    <div class="sub-title">VFL Legacy</div>
+    <h1>Champions & Awards</h1>
+    <p class="header-desc">Every big outcome, award champion roster and honors details hard-earned in the league. History hides our raw talent, trophies and heroes.</p>
+    
+    <div class="season-selector-bar">
+      <span class="season-label">SEASON</span>
+      <div class="season-btn-container">
+        <button class="season-btn active" data-season="s5">S5</button>
+        <button class="season-btn" data-season="s4">S4</button>
+        <button class="season-btn" data-season="s3">S3</button>
+        <button class="season-btn" data-season="s22">S22</button>
+        <button class="season-btn" data-season="s2">S2</button>
+        <button class="season-btn" data-season="s1">S1</button>
+      </div>
     </div>
+  </header>
 
-    <footer>2026 Virtual Football League INC</footer>
+  <!-- ========================================== -->
+  <!-- SEASON 5 PAGE (Active by Default)          -->
+  <!-- ========================================== -->
+  <div id="page-s5" class="season-page active-page">
+    <div class="champions-grid">
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon gold-trophy"><i class="fa-solid fa-trophy"></i></div>
+          <div class="champ-title-text">
+            <h3>Virtual Bowl 5 Champions</h3>
+            <p>Division Champion Trophy</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">nameless</div><div class="roster-tag">burner</div><div class="roster-tag">developer</div><div class="roster-tag">Perry</div><div class="roster-tag">lucas</div><div class="roster-tag">kylo</div><div class="roster-tag">canton</div><div class="roster-tag">Jayden</div><div class="roster-tag">ariz</div><div class="roster-tag">chase</div>
+        </div>
+      </div>
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon silver-medal"><i class="fa-solid fa-medal"></i></div>
+          <div class="champ-title-text">
+            <h3>Semi-Final Champions</h3>
+            <p>Division Runner-up Honors</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">FMDGD</div><div class="roster-tag">Caesar</div><div class="roster-tag">jaydaon</div><div class="roster-tag">Dunkin</div><div class="roster-tag">Marrs</div><div class="roster-tag">M0J0</div><div class="roster-tag">bravos</div><div class="roster-tag">Seby</div><div class="roster-tag">nhl</div><div class="roster-tag">Murph</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">Season 5 Award Winners</div>
+    <div class="mvp-grid">
+      <div class="mvp-card"><div class="mvp-award-name">Most Valuable Player</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">boye</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Offensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">clowney</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Defensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">nhl</div></div>
+    </div>
+    <div class="section-title">Rookies of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> chancer</div></div>
+      <div class="row-award-card"><span class="award-title">Offensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> silva</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> Seniro</div></div>
+    </div>
+    <div class="section-title">Position of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Quarterback of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> outline</div></div>
+      <div class="row-award-card"><span class="award-title">Running Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> Redvelvet</div></div>
+      <div class="row-award-card"><span class="award-title">Wide Receiver of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> rella</div></div>
+      <div class="row-award-card"><span class="award-title">Tight End of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> oggy</div></div>
+      <div class="row-award-card"><span class="award-title">Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> burner</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> nameless</div></div>
+      <div class="row-award-card"><span class="award-title">Linebacker of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> Daring</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> rise</div></div>
+      <div class="row-award-card"><span class="award-title">User of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> legacy</div></div>
+    </div>
+    <div class="section-title">League & Media</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card media-card"><span class="award-title">Comeback Player of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> play</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Head Coach of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> bonafide</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Streamer of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TJ</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Referee of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> fractured</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Journalist of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> Nice</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Executive of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> VFL</div></div>
+    </div>
+    <div class="section-title">Season 5 All-Pro Teams</div>
+    <div class="allpro-grid">
+      <div class="allpro-card">
+        <h3>First Team All-Pro</h3><div class="allpro-subtitle">Season 5</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">LAK</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">rise</div></div>
+          <div class="player-slot"><div class="team-badge-icon">SEA</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">legacy</div></div>
+          <div class="player-slot"><div class="team-badge-icon">DAL</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">bonafide</div></div>
+          <div class="player-slot"><div class="team-badge-icon">GB</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Marrs</div></div>
+          <div class="player-slot"><div class="team-badge-icon">LAK</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">FMDGD</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">PIT</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">clowney</div></div>
+          <div class="player-slot"><div class="team-badge-icon">PIT</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">ariz</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TX</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">rella</div></div>
+          <div class="player-slot"><div class="team-badge-icon">KC</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">canton</div></div>
+          <div class="player-slot"><div class="team-badge-icon">PIT</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">boye</div></div>
+        </div>
+      </div>
+      <div class="allpro-card">
+        <h3 class="silver-header">Second Team All-Pro</h3><div class="allpro-subtitle">Season 5</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">DAL</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">nhl</div></div>
+          <div class="player-slot"><div class="team-badge-icon">LAK</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">bravos</div></div>
+          <div class="player-slot"><div class="team-badge-icon">SEA</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Nice</div></div>
+          <div class="player-slot"><div class="team-badge-icon">GB</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Daring</div></div>
+          <div class="player-slot"><div class="team-badge-icon">LAK</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Perry</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TX</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Seniro</div></div>
+          <div class="player-slot"><div class="team-badge-icon">KC</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Dunkin</div></div>
+          <div class="player-slot"><div class="team-badge-icon">PIT</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">lucas</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TX</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">nameless</div></div>
+          <div class="player-slot"><div class="team-badge-icon">KC</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">M0J0</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SEASON 4 PAGE                              -->
+  <!-- ========================================== -->
+  <div id="page-s4" class="season-page">
+    <div class="champions-grid">
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon gold-trophy"><i class="fa-solid fa-trophy"></i></div>
+          <div class="champ-title-text">
+            <h3>Virtual Bowl 4 Champions</h3>
+            <p>Division Champion Trophy</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon silver-medal"><i class="fa-solid fa-medal"></i></div>
+          <div class="champ-title-text">
+            <h3>Semi-Final Champions</h3>
+            <p>Division Runner-up Honors</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">Season 4 Award Winners</div>
+    <div class="mvp-grid">
+      <div class="mvp-card"><div class="mvp-award-name">Most Valuable Player</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Offensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Defensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+    </div>
+    <div class="section-title">Rookies of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Offensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Position of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Quarterback of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Running Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Wide Receiver of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Tight End of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Linebacker of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">User of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">League & Media</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card media-card"><span class="award-title">Comeback Player of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Head Coach of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Streamer of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Referee of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Journalist of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Executive of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Season 4 All-Pro Teams</div>
+    <div class="allpro-grid">
+      <div class="allpro-card">
+        <h3>First Team All-Pro</h3><div class="allpro-subtitle">Season 4</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+      <div class="allpro-card">
+        <h3 class="silver-header">Second Team All-Pro</h3><div class="allpro-subtitle">Season 4</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SEASON 3 PAGE                              -->
+  <!-- ========================================== -->
+  <div id="page-s3" class="season-page">
+    <div class="champions-grid">
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon gold-trophy"><i class="fa-solid fa-trophy"></i></div>
+          <div class="champ-title-text">
+            <h3>Virtual Bowl 3 Champions</h3>
+            <p>Division Champion Trophy</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon silver-medal"><i class="fa-solid fa-medal"></i></div>
+          <div class="champ-title-text">
+            <h3>Semi-Final Champions</h3>
+            <p>Division Runner-up Honors</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">Season 3 Award Winners</div>
+    <div class="mvp-grid">
+      <div class="mvp-card"><div class="mvp-award-name">Most Valuable Player</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Offensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Defensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+    </div>
+    <div class="section-title">Rookies of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Offensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Position of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Quarterback of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Running Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Wide Receiver of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Tight End of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Linebacker of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">User of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">League & Media</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card media-card"><span class="award-title">Comeback Player of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Head Coach of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Streamer of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Referee of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Journalist of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Executive of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Season 3 All-Pro Teams</div>
+    <div class="allpro-grid">
+      <div class="allpro-card">
+        <h3>First Team All-Pro</h3><div class="allpro-subtitle">Season 3</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+      <div class="allpro-card">
+        <h3 class="silver-header">Second Team All-Pro</h3><div class="allpro-subtitle">Season 3</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SEASON 22 PAGE                             -->
+  <!-- ========================================== -->
+  <div id="page-s22" class="season-page">
+    <div class="champions-grid">
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon gold-trophy"><i class="fa-solid fa-trophy"></i></div>
+          <div class="champ-title-text">
+            <h3>Virtual Bowl 22 Champions</h3>
+            <p>Division Champion Trophy</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon silver-medal"><i class="fa-solid fa-medal"></i></div>
+          <div class="champ-title-text">
+            <h3>Semi-Final Champions</h3>
+            <p>Division Runner-up Honors</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">Season 22 Award Winners</div>
+    <div class="mvp-grid">
+      <div class="mvp-card"><div class="mvp-award-name">Most Valuable Player</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Offensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Defensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+    </div>
+    <div class="section-title">Rookies of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Offensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Position of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Quarterback of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Running Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Wide Receiver of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Tight End of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Linebacker of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">User of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">League & Media</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card media-card"><span class="award-title">Comeback Player of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Head Coach of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Streamer of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Referee of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Journalist of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Executive of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Season 22 All-Pro Teams</div>
+    <div class="allpro-grid">
+      <div class="allpro-card">
+        <h3>First Team All-Pro</h3><div class="allpro-subtitle">Season 22</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+      <div class="allpro-card">
+        <h3 class="silver-header">Second Team All-Pro</h3><div class="allpro-subtitle">Season 22</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SEASON 2 PAGE                              -->
+  <!-- ========================================== -->
+  <div id="page-s2" class="season-page">
+    <div class="champions-grid">
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon gold-trophy"><i class="fa-solid fa-trophy"></i></div>
+          <div class="champ-title-text">
+            <h3>Virtual Bowl 2 Champions</h3>
+            <p>Division Champion Trophy</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon silver-medal"><i class="fa-solid fa-medal"></i></div>
+          <div class="champ-title-text">
+            <h3>Semi-Final Champions</h3>
+            <p>Division Runner-up Honors</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">Season 2 Award Winners</div>
+    <div class="mvp-grid">
+      <div class="mvp-card"><div class="mvp-award-name">Most Valuable Player</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Offensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Defensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+    </div>
+    <div class="section-title">Rookies of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Offensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Position of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Quarterback of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Running Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Wide Receiver of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Tight End of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Linebacker of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">User of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">League & Media</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card media-card"><span class="award-title">Comeback Player of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Head Coach of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Streamer of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Referee of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Journalist of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Executive of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Season 2 All-Pro Teams</div>
+    <div class="allpro-grid">
+      <div class="allpro-card">
+        <h3>First Team All-Pro</h3><div class="allpro-subtitle">Season 2</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+      <div class="allpro-card">
+        <h3 class="silver-header">Second Team All-Pro</h3><div class="allpro-subtitle">Season 2</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SEASON 1 PAGE                              -->
+  <!-- ========================================== -->
+  <div id="page-s1" class="season-page">
+    <div class="champions-grid">
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon gold-trophy"><i class="fa-solid fa-trophy"></i></div>
+          <div class="champ-title-text">
+            <h3>Virtual Bowl 1 Champions</h3>
+            <p>Division Champion Trophy</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+      <div class="champ-card">
+        <div class="champ-header">
+          <div class="champ-icon silver-medal"><i class="fa-solid fa-medal"></i></div>
+          <div class="champ-title-text">
+            <h3>Semi-Final Champions</h3>
+            <p>Division Runner-up Honors</p>
+          </div>
+        </div>
+        <div class="roster-grid">
+          <div class="roster-tag">Player 1</div><div class="roster-tag">Player 2</div><div class="roster-tag">Player 3</div><div class="roster-tag">Player 4</div><div class="roster-tag">Player 5</div><div class="roster-tag">Player 6</div><div class="roster-tag">Player 7</div><div class="roster-tag">Player 8</div><div class="roster-tag">Player 9</div><div class="roster-tag">Player 10</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">Season 1 Award Winners</div>
+    <div class="mvp-grid">
+      <div class="mvp-card"><div class="mvp-award-name">Most Valuable Player</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Offensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+      <div class="mvp-card"><div class="mvp-award-name">Defensive Player of the Year</div><div class="mvp-avatar"><i class="fa-solid fa-user"></i></div><div class="mvp-name">TBD</div></div>
+    </div>
+    <div class="section-title">Rookies of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Offensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Rookie of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Position of the Year</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card"><span class="award-title">Quarterback of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Running Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Wide Receiver of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Tight End of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Lineman of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Linebacker of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">Defensive Back of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+      <div class="row-award-card"><span class="award-title">User of the Year</span><div class="winner-badge"><i class="fa-solid fa-award"></i> TBD</div></div>
+    </div>
+    <div class="section-title">League & Media</div>
+    <div class="row-awards-grid">
+      <div class="row-award-card media-card"><span class="award-title">Comeback Player of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Head Coach of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Streamer of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Referee of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Journalist of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+      <div class="row-award-card media-card"><span class="award-title">Executive of the Year</span><div class="winner-badge"><i class="fa-solid fa-star"></i> TBD</div></div>
+    </div>
+    <div class="section-title">Season 1 All-Pro Teams</div>
+    <div class="allpro-grid">
+      <div class="allpro-card">
+        <h3>First Team All-Pro</h3><div class="allpro-subtitle">Season 1</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+      <div class="allpro-card">
+        <h3 class="silver-header">Second Team All-Pro</h3><div class="allpro-subtitle">Season 1</div>
+        <div class="allpro-unit-title">Offense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shirt"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+        <div class="allpro-unit-title">Defense</div>
+        <div class="allpro-unit-grid">
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 1</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 2</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 3</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 4</div></div>
+          <div class="player-slot"><div class="team-badge-icon">TBD</div><div class="player-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div><div class="player-slot-name">Slot 5</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- --- JavaScript Dynamic Switcher --- -->
+<script>
+  document.querySelectorAll('.season-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      // 1. Swap active state on buttons
+      document.querySelectorAll('.season-btn').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // 2. Hide all season layouts
+      document.querySelectorAll('.season-page').forEach(page => {
+        page.classList.remove('active-page');
+      });
+
+      // 3. Reveal chosen season
+      const selectedSeason = button.getAttribute('data-season');
+      const activePage = document.getElementById(`page-${selectedSeason}`);
+      if (activePage) {
+        activePage.classList.add('active-page');
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
