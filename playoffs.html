@@ -23,7 +23,7 @@
         nav ul li a:hover, nav ul li a.active { color: var(--text-main); border-bottom: 2px solid var(--accent); }
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
-        /* Dropdown Navigation Menu */
+        /* Dropdown Navigation Menu Position Fixes */
         .dropdown { position: relative; }
         .dropdown-menu {
             position: absolute;
@@ -58,18 +58,12 @@
         .toggle-item:hover { color: var(--text-main); }
         .toggle-item.active { background-color: var(--accent); color: white; }
 
-        /* Conference Filter Pills */
-        .conf-filters { display: flex; gap: 10px; margin-bottom: 1.5rem; }
-        .filter-btn { background-color: #16151f; border: 1px solid var(--border); color: var(--text-muted); padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; text-transform: uppercase; }
-        .filter-btn.active { background-color: var(--text-main); color: var(--bg-main); border-color: var(--text-main); }
-        
         .subtitle-notice { font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-bottom: 2.5rem; }
-        .conf-badge-title { background-color: var(--accent); color: white; display: inline-block; padding: 0.3rem 0.8rem; font-size: 0.8rem; font-weight: 700; border-radius: 4px; margin-bottom: 2rem; text-transform: uppercase; }
+        .conf-badge-title { background-color: var(--accent); color: white; display: inline-block; padding: 0.3rem 0.8rem; font-size: 0.8rem; font-weight: 700; border-radius: 4px; margin-bottom: 2rem; }
 
         /* --- Bracket Layout Architecture --- */
-        .conference-section { margin-bottom: 4rem; }
-        .bracket-wrapper { display: flex; justify-content: space-between; align-items: stretch; gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem; }
-        .bracket-round { display: flex; flex-direction: column; justify-content: space-around; min-width: 260px; flex: 1; }
+        .bracket-wrapper { display: flex; justify-content: space-between; align-items: stretch; gap: 1.5rem; margin-bottom: 4rem; overflow-x: auto; padding-bottom: 1rem; }
+        .bracket-round { display: flex; flex-direction: column; justify-content: space-between; min-width: 260px; flex: 1; }
         
         .round-header { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.5rem; color: var(--text-main); }
         .round-header span { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); font-size: 0.7rem; }
@@ -80,16 +74,11 @@
         .team-row { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.8rem; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid #232230; }
         .team-row:last-child { border-bottom: none; }
         .team-info { display: flex; align-items: center; gap: 10px; }
-        .seed { font-size: 0.75rem; color: var(--text-muted); width: 16px; }
+        .seed { font-size: 0.75rem; color: var(--text-muted); width: 14px; }
         .team-name { color: var(--text-main); }
         .team-score { font-weight: 700; color: var(--text-main); }
         
-        /* Center Allegiance Bowl Styling */
-        .allegiance-container { display: flex; flex-direction: column; align-items: center; margin: 4rem 0; text-align: center; }
-        .allegiance-title { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: var(--accent); letter-spacing: 1px; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;}
-        .allegiance-card { width: 100%; max-width: 320px; }
-
-        /* National Championship Card Styling */
+        /* Shiny National Championship / Allegiance Bowl Glowing Effect Layout */
         .championship-card {
             border: 2px solid #e61e32 !important;
             box-shadow: 0 0 20px rgba(230, 30, 50, 0.35);
@@ -99,9 +88,13 @@
             box-shadow: 0 0 30px rgba(230, 30, 50, 0.6) !important;
         }
 
+        /* TBD styling placeholder */
         .tbd-row .team-name { color: var(--text-muted); }
 
-        /* --- Matchup Detail Selector Modal --- */
+        /* Spacers to maintain visual flow alignments */
+        .round-space-half { flex: 1; }
+
+        /* --- Matchup Detail Selector Modal CSS --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-content { background-color: var(--bg-card); border: 1px solid var(--border); width: 90%; max-width: 550px; border-radius: 12px; padding: 2rem; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -170,168 +163,124 @@
             </div>
         </div>
 
-        <div class="conf-filters">
-            <button class="filter-btn active">Both</button>
-            <button class="filter-btn">AFC</button>
-            <button class="filter-btn">NFC</button>
-        </div>
-
-        <p class="subtitle-notice">play-in and wild-card matchups based off current seeding. later rounds fill in as the playoffs progress.</p>
+        <p class="subtitle-notice">1st round and bowl games played. later rounds fill in as the playoffs progress.</p>
         
-        <!-- ================= AFC CONFERENCE SECTION ================= -->
-        <div class="conference-section">
-            <div class="conf-badge-title">AFC</div>
+        <div class="conf-badge-title">Tournament Bracket</div>
 
-            <div class="bracket-wrapper">
-                <!-- Column 1: Play-In -->
-                <div class="bracket-round">
-                    <div class="round-header"><span>🗘</span> Play-In</div>
-                    
-                    <div class="matchup-card" data-bowl="AFC Play-In Game 1" data-t1-seed="7" data-t1-name="KC" data-t2-seed="10" data-t2-name="TEN">
-                        <div class="team-row"><div class="team-info"><span class="seed">7</span> <span class="team-name">KC</span></div><span class="team-score">--</span></div>
-                        <div class="team-row"><div class="team-info"><span class="seed">10</span> <span class="team-name">TEN</span></div><span class="team-score">--</span></div>
-                    </div>
-
-                    <div class="matchup-card" data-bowl="AFC Play-In Game 2" data-t1-seed="8" data-t1-name="DEN" data-t2-seed="9" data-t2-name="JAX">
-                        <div class="team-row"><div class="team-info"><span class="seed">8</span> <span class="team-name">DEN</span></div><span class="team-score">--</span></div>
-                        <div class="team-row"><div class="team-info"><span class="seed">9</span> <span class="team-name">JAX</span></div><span class="team-score">--</span></div>
-                    </div>
+        <!-- Tournament Bracket Flow -->
+        <div class="bracket-wrapper">
+            
+            <!-- Column 1: 1st Round -->
+            <div class="bracket-round">
+                <div class="round-header"><span>1</span> 1st Round</div>
+                
+                <!-- Top Group Matchups -->
+                <div class="matchup-card" data-bowl="First Round Game 1" data-t1-seed="5" data-t1-name="TEAM A" data-t2-seed="12" data-t2-name="TEAM B">
+                    <div class="team-row"><div class="team-info"><span class="seed">5</span> <span class="team-name">TEAM A</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">12</span> <span class="team-name">TEAM B</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <!-- Column 2: Wild Card -->
-                <div class="bracket-round">
-                    <div class="round-header"><span>☆</span> Wild Card</div>
-                    
-                    <div class="matchup-card" data-bowl="AFC Wild Card 1" data-t1-seed="1" data-t1-name="CLE">
-                        <div class="team-row"><div class="team-info"><span class="seed">1</span> <span class="team-name">CLE</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
-
-                    <div class="matchup-card" data-bowl="AFC Wild Card 2" data-t1-seed="4" data-t1-name="IND" data-t2-seed="5" data-t2-name="BAL">
-                        <div class="team-row"><div class="team-info"><span class="seed">4</span> <span class="team-name">IND</span></div><span class="team-score">--</span></div>
-                        <div class="team-row"><div class="team-info"><span class="seed">5</span> <span class="team-name">BAL</span></div><span class="team-score">--</span></div>
-                    </div>
-
-                    <div class="matchup-card" data-bowl="AFC Wild Card 3" data-t1-seed="2" data-t1-name="BUF">
-                        <div class="team-row"><div class="team-info"><span class="seed">2</span> <span class="team-name">BUF</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
-
-                    <div class="matchup-card" data-bowl="AFC Wild Card 4" data-t1-seed="3" data-t1-name="MIA" data-t2-seed="6" data-t2-name="PIT">
-                        <div class="team-row"><div class="team-info"><span class="seed">3</span> <span class="team-name">MIA</span></div><span class="team-score">--</span></div>
-                        <div class="team-row"><div class="team-info"><span class="seed">6</span> <span class="team-name">PIT</span></div><span class="team-score">--</span></div>
-                    </div>
+                <div class="matchup-card" data-bowl="First Round Game 2" data-t1-seed="8" data-t1-name="TEAM C" data-t2-seed="9" data-t2-name="TEAM D">
+                    <div class="team-row"><div class="team-info"><span class="seed">8</span> <span class="team-name">TEAM C</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">9</span> <span class="team-name">TEAM D</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <!-- Column 3: Divisional -->
-                <div class="bracket-round">
-                    <div class="round-header"><span>🛡</span> Divisional</div>
-                    
-                    <div class="matchup-card" data-bowl="AFC Divisional A">
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
-
-                    <div class="matchup-card" data-bowl="AFC Divisional B">
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
+                <div class="matchup-card" data-bowl="First Round Game 3" data-t1-seed="6" data-t1-name="TEAM E" data-t2-seed="11" data-t2-name="TEAM F">
+                    <div class="team-row"><div class="team-info"><span class="seed">6</span> <span class="team-name">TEAM E</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">11</span> <span class="team-name">TEAM F</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <!-- Column 4: Conf. Championship -->
-                <div class="bracket-round">
-                    <div class="round-header"><span>🗘</span> Conf. Championship</div>
-                    
-                    <div class="matchup-card" data-bowl="AFC Championship">
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
+                <!-- Bottom Group Matchups -->
+                <div class="matchup-card" data-bowl="First Round Game 4" data-t1-seed="7" data-t1-name="TEAM G" data-t2-seed="10" data-t2-name="TEAM H">
+                    <div class="team-row"><div class="team-info"><span class="seed">7</span> <span class="team-name">TEAM G</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">10</span> <span class="team-name">TEAM H</span></div><span class="team-score">--</span></div>
+                </div>
+
+                <div class="matchup-card" data-bowl="First Round Game 5" data-t1-seed="3" data-t1-name="TEAM I" data-t2-seed="14" data-t2-name="TEAM J">
+                    <div class="team-row"><div class="team-info"><span class="seed">3</span> <span class="team-name">TEAM I</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">14</span> <span class="team-name">TEAM J</span></div><span class="team-score">--</span></div>
+                </div>
+
+                <div class="matchup-card" data-bowl="First Round Game 6" data-t1-seed="4" data-t1-name="TEAM K" data-t2-seed="13" data-t2-name="TEAM L">
+                    <div class="team-row"><div class="team-info"><span class="seed">4</span> <span class="team-name">TEAM K</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">13</span> <span class="team-name">TEAM L</span></div><span class="team-score">--</span></div>
                 </div>
             </div>
-        </div>
 
-        <!-- ================= CENTER ALLEGIANCE BOWL INTERMISSION ================= -->
-        <div class="allegiance-container">
-            <div class="allegiance-title">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Allegiance Bowl
-            </div>
-            <div class="matchup-card allegiance-card championship-card" data-bowl="Allegiance Bowl" data-location="Championship Venue">
-                <div class="team-row tbd-row"><div class="team-info"><span class="seed">AFC</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                <div class="team-row tbd-row"><div class="team-info"><span class="seed">NFC</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-            </div>
-        </div>
-
-        <!-- ================= NFC CONFERENCE SECTION ================= -->
-        <div class="conference-section">
-            <div class="conf-badge-title" style="background-color: #2b4c7e;">NFC</div>
-
-            <div class="bracket-wrapper">
-                <!-- Column 1: Play-In -->
-                <div class="bracket-round">
-                    <div class="round-header"><span>🗘</span> Play-In</div>
-                    
-                    <div class="matchup-card" data-bowl="NFC Play-In Game 1" data-t1-seed="7" data-t1-name="GB" data-t2-seed="10" data-t2-name="LAR">
-                        <div class="team-row"><div class="team-info"><span class="seed">7</span> <span class="team-name">GB</span></div><span class="team-score">--</span></div>
-                        <div class="team-row"><div class="team-info"><span class="seed">10</span> <span class="team-name">LAR</span></div><span class="team-score">--</span></div>
-                    </div>
-
-                    <div class="matchup-card" data-bowl="NFC Play-In Game 2" data-t1-seed="8" data-t1-name="CHI" data-t2-seed="9" data-t2-name="CAR">
-                        <div class="team-row"><div class="team-info"><span class="seed">8</span> <span class="team-name">CHI</span></div><span class="team-score">--</span></div>
-                        <div class="team-row"><div class="team-info"><span class="seed">9</span> <span class="team-name">CAR</span></div><span class="team-score">--</span></div>
-                    </div>
+            <!-- Column 2: 2nd Round -->
+            <div class="bracket-round">
+                <div class="round-header"><span>2</span> 2nd Round</div>
+                
+                <!-- Top Group -->
+                <div class="matchup-card" data-bowl="2nd Round Game 1" data-t1-seed="1" data-t1-name="CLE" data-t2-seed="--" data-t2-name="TBD">
+                    <div class="team-row"><div class="team-info"><span class="seed">1</span> <span class="team-name">CLE</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <!-- Column 2: Wild Card -->
-                <div class="bracket-round">
-                    <div class="round-header"><span>☆</span> Wild Card</div>
-                    
-                    <div class="matchup-card" data-bowl="NFC Wild Card 1" data-t1-seed="1" data-t1-name="WAS">
-                        <div class="team-row"><div class="team-info"><span class="seed">1</span> <span class="team-name">WAS</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
-
-                    <div class="matchup-card" data-bowl="NFC Wild Card 2" data-t1-seed="4" data-t1-name="ARZ" data-t2-seed="5" data-t2-name="SEA">
-                        <div class="team-row"><div class="team-info"><span class="seed">4</span> <span class="team-name">ARZ</span></div><span class="team-score">--</span></div>
-                        <div class="team-row"><div class="team-info"><span class="seed">5</span> <span class="team-name">SEA</span></div><span class="team-score">--</span></div>
-                    </div>
-
-                    <div class="matchup-card" data-bowl="NFC Wild Card 3" data-t1-seed="2" data-t1-name="NO">
-                        <div class="team-row"><div class="team-info"><span class="seed">2</span> <span class="team-name">NO</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
-
-                    <div class="matchup-card" data-bowl="NFC Wild Card 4" data-t1-seed="3" data-t1-name="DET" data-t2-seed="6" data-t2-name="PHI">
-                        <div class="team-row"><div class="team-info"><span class="seed">3</span> <span class="team-name">DET</span></div><span class="team-score">--</span></div>
-                        <div class="team-row"><div class="team-info"><span class="seed">6</span> <span class="team-name">PHI</span></div><span class="team-score">--</span></div>
-                    </div>
+                <div class="matchup-card" data-bowl="2nd Round Game 2" data-t1-seed="4" data-t1-name="IND" data-t2-seed="5" data-t2-name="BAL">
+                    <div class="team-row"><div class="team-info"><span class="seed">4</span> <span class="team-name">IND</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">5</span> <span class="team-name">BAL</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <!-- Column 3: Divisional -->
-                <div class="bracket-round">
-                    <div class="round-header"><span>🛡</span> Divisional</div>
-                    
-                    <div class="matchup-card" data-bowl="NFC Divisional A">
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
+                <!-- Central layout structural gap -->
+                <div class="round-space-half"></div>
 
-                    <div class="matchup-card" data-bowl="NFC Divisional B">
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
+                <!-- Bottom Group -->
+                <div class="matchup-card" data-bowl="2nd Round Game 3" data-t1-seed="2" data-t1-name="BUF" data-t2-seed="--" data-t2-name="TBD">
+                    <div class="team-row"><div class="team-info"><span class="seed">2</span> <span class="team-name">BUF</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
                 </div>
 
-                <!-- Column 4: Conf. Championship -->
-                <div class="bracket-round">
-                    <div class="round-header"><span>🗘</span> Conf. Championship</div>
-                    
-                    <div class="matchup-card" data-bowl="NFC Championship">
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                        <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
-                    </div>
+                <div class="matchup-card" data-bowl="2nd Round Game 4" data-t1-seed="3" data-t1-name="MIA" data-t2-seed="6" data-t2-name="PIT">
+                    <div class="team-row"><div class="team-info"><span class="seed">3</span> <span class="team-name">MIA</span></div><span class="team-score">--</span></div>
+                    <div class="team-row"><div class="team-info"><span class="seed">6</span> <span class="team-name">PIT</span></div><span class="team-score">--</span></div>
                 </div>
             </div>
+
+            <!-- Column 3: 3rd Round -->
+            <div class="bracket-round">
+                <div class="round-header"><span>3</span> 3rd Round</div>
+                
+                <!-- Top Group Semi -->
+                <div class="matchup-card" data-bowl="Semi Final A" data-location="TBD Stadium">
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
+                </div>
+
+                <!-- Central space layout frame spacer -->
+                <div class="round-space-half"></div>
+
+                <!-- Bottom Group Semi -->
+                <div class="matchup-card" data-bowl="Semi Final B" data-location="TBD Stadium">
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
+                </div>
+            </div>
+
+            <!-- Column 4: Championships -->
+            <div class="bracket-round">
+                <div class="round-header"><span>★</span> Championships</div>
+                
+                <!-- Top Bracket Winner Placeholder / Championship Top Side -->
+                <div class="round-space-half"></div>
+
+                <!-- Center: Allegiance Bowl (Glow styling matches top tiers) -->
+                <div class="matchup-card championship-card" data-bowl="Allegiance Bowl" data-location="Championship Arena">
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">TOP</span> <span class="team-name">ALLEGIANCE BOWL</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">BTM</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
+                </div>
+
+                <div class="round-space-half"></div>
+
+                <!-- Bottom: National Championship (Glow red variant) -->
+                <div class="matchup-card championship-card" data-bowl="VFL National Championship" data-bowl-logo="https://via.placeholder.com/150x70/1b1a25/f05d51?text=NATIONAL+CHAMPIONSHIP" data-location="SoFi Stadium, Los Angeles">
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">NATIONAL CHAMPIONSHIP</span></div><span class="team-score">--</span></div>
+                    <div class="team-row tbd-row"><div class="team-info"><span class="seed">--</span> <span class="team-name">TBD</span></div><span class="team-score">--</span></div>
+                </div>
+                
+                <div class="round-space-half"></div>
+            </div>
+
         </div>
 
     </div>
@@ -413,10 +362,10 @@
 
                 mBowl.textContent = bowl;
                 mLocation.textContent = location;
-                mT1Seed.textContent = t1Seed.includes('FC') || t1Seed === '--' ? t1Seed : `Seed ${t1Seed}`;
+                mT1Seed.textContent = t1Seed.includes('FC') || t1Seed === '--' || t1Seed === 'TOP' ? t1Seed : `Seed ${t1Seed}`;
                 mT1Name.textContent = t1Name;
                 mT1Score.textContent = t1Score;
-                mT2Seed.textContent = t2Seed.includes('FC') || t2Seed === '--' ? t2Seed : `Seed ${t2Seed}`;
+                mT2Seed.textContent = t2Seed.includes('FC') || t2Seed === '--' || t2Seed === 'BTM' ? t2Seed : `Seed ${t2Seed}`;
                 mT2Name.textContent = t2Name;
                 mT2Score.textContent = t2Score;
 
