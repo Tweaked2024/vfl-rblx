@@ -8,7 +8,8 @@
         :root {
             --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
             --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
-            --gold-bg: #271d12; --gold-accent: #e3b047; --shelf-color: #4a321a;
+            --card-light: #fdfdfd; --border-light: #e4e3eb;
+            --text-dark: #1f1e29; --text-muted-dark: #78768a;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
@@ -48,50 +49,17 @@
 
         /* Mega Dropdown Setup */
         .mega-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%; 
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ffffff; 
-            width: 680px;
-            border-radius: 12px; 
-            padding: 1.5rem 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
-            list-style: none !important;
-            z-index: 99999;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+            background-color: #ffffff; width: 680px; border-radius: 12px; padding: 1.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); list-style: none !important; z-index: 99999;
+            grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
         }
-        .mega-dropdown::before {
-            content: '';
-            position: absolute;
-            top: -25px; 
-            left: 0;
-            width: 100%;
-            height: 25px;
-            background: transparent; 
-        }
+        .mega-dropdown::before { content: ''; position: absolute; top: -25px; left: 0; width: 100%; height: 25px; background: transparent; }
         nav ul li.dropdown:hover .mega-dropdown { display: grid; }
 
-        .dropdown-col h4 {
-            color: #b0afb8;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.8rem;
-            font-weight: 700;
-        }
+        .dropdown-col h4 { color: #b0afb8; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem; font-weight: 700; }
         .dropdown-col ul { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; list-style: none; padding: 0; }
-        .dropdown-col ul li a {
-            color: #111017 !important; 
-            padding: 0.3rem 0;
-            display: block !important;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-transform: none !important; 
-            text-decoration: none;
-        }
+        .dropdown-col ul li a { color: #111017 !important; padding: 0.3rem 0; display: block !important; font-size: 0.95rem; font-weight: 600; text-transform: none !important; text-decoration: none; }
         .dropdown-col ul li a:hover { color: var(--accent) !important; }
 
         /* Legacy Dropdown */
@@ -140,60 +108,68 @@
         .pill-btn { background: #1b1a25; border: 1px solid #282735; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
         .pill-btn.active { background: var(--accent); border-color: var(--accent); }
 
-        /* Career Profile View Layout */
+        /* --- IMMERSIVE LIGHT PROFILE STYLES (IMAGE 2) --- */
         .back-link { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 1.5rem; cursor: pointer; }
-        .profile-card { background: linear-gradient(90deg, #1b1a25 0%, #252335 100%); border-radius: 16px; padding: 2.5rem; display: flex; align-items: center; gap: 2rem; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); margin-top: 1rem; position: relative; overflow: hidden; }
-        .avatar-container { width: 110px; height: 110px; border-radius: 50%; background: #282735; border: 4px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 2; }
-        .avatar-placeholder { font-size: 3rem; }
-        .profile-info { z-index: 2; flex-grow: 1; }
-        .profile-title-tag { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-bottom: 0.2rem; }
-        .profile-name { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1; margin-bottom: 0.4rem; }
-        .profile-id { color: var(--text-muted); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; }
-        .trophy-btn { background: var(--gold-accent); color: #4a3200; border: none; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: opacity 0.15s; }
-        .trophy-btn:hover { opacity: 0.9; }
+        .profile-container-light { background-color: #f7f7fc; border-radius: 16px; padding: 2rem; color: var(--text-dark); border: 1px solid var(--border-light); }
+        
+        .profile-header-card-light { background-color: var(--accent); border-radius: 12px; padding: 2rem; display: flex; align-items: center; gap: 1.5rem; color: white; margin-bottom: 2rem; position: relative; }
+        .avatar-circle-light { width: 85px; height: 85px; border-radius: 50%; background: #232230; border: 3px solid rgba(255,255,255,0.2); overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; }
+        .header-details-light h1 { font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 0.3rem; letter-spacing: 0.5px; }
+        .header-details-light p { opacity: 0.85; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.8rem; }
+        
+        .pos-pills-row { display: flex; gap: 0.4rem; }
+        .pos-pill { background: rgba(0,0,0,0.15); color: white; font-size: 0.65rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); }
+        .trophy-room-btn-light { position: absolute; right: 2rem; bottom: 2rem; background: #fff5d6; color: #735100; border: none; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
-        /* Profile Showcase Highlight Metrics Blocks */
-        .profile-metrics-row { display: flex; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
-        .metric-block { background: #13121a; border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.5rem; text-align: center; min-width: 100px; }
-        .metric-value { font-size: 1.4rem; font-weight: 800; color: white; }
-        .metric-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-top: 0.1rem; }
-        .profile-badges-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .badge-pill { background: #271615; border: 1px solid #4a201d; color: #ff8b80; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+        .achievements-heading-light { font-size: 1.3rem; font-weight: 800; border-bottom: 2px solid var(--border-light); padding-bottom: 0.5rem; margin-bottom: 1.5rem; text-transform: capitalize; }
+        
+        /* Split Split Layout */
+        .mastery-split-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+        .archetype-card-light { background: var(--card-light); border: 1px solid var(--border-light); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 1.5rem; text-align: center; background: radial-gradient(circle at top, #ffffff 0%, #f4f4f9 100%); }
+        .lock-icon-wrapper { width: 50px; height: 50px; border-radius: 50%; background: #e4e3eb; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #a19fb0; margin-bottom: 1rem; }
+        .archetype-card-light h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--text-dark); }
+        .archetype-card-light span { font-size: 0.65rem; text-transform: uppercase; font-weight: 800; color: var(--accent); letter-spacing: 1px; margin-bottom: 0.6rem; }
+        .archetype-card-light p { font-size: 0.8rem; color: var(--text-muted-dark); max-width: 200px; line-height: 1.4; }
 
-        /* --- TROPHY ROOM STYLES --- */
-        .trophy-showcase-container { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
-        .trophy-category-card { background: #16151d; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; position: relative; }
-        .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-left: 3px solid var(--gold-accent); padding-left: 10px; }
-        .category-title { font-size: 1.1rem; font-weight: 700; color: white; }
-        .category-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; }
-        .count-badge { background: var(--gold-accent); color: #4a3200; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 10px; text-transform: uppercase; }
+        .mastery-panel-light { background: var(--card-light); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+        .panel-header-row { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted-dark); border-bottom: 1px solid #f0eff5; padding-bottom: 0.5rem; }
         
-        .shelf-row { display: flex; gap: 2rem; padding: 1rem 1.5rem 1.8rem 1.5rem; position: relative; flex-wrap: wrap; background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%); margin-bottom: 0.5rem; }
-        .shelf-row::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: var(--shelf-color); border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); }
+        .mastery-progress-item { display: flex; align-items: center; gap: 1rem; }
+        .mini-pos-tag { width: 32px; height: 24px; background: #e82e2e; color: white; border-radius: 4px; font-size: 0.7rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+        .mini-pos-tag.rb { background: #e8642e; } .mini-pos-tag.wr { background: #e8a62e; } .mini-pos-tag.de { background: #29ad61; } .mini-pos-tag.db { background: #2983ad; }
+        .mastery-label-text { font-size: 0.85rem; font-weight: 700; width: 110px; color: var(--text-dark); }
+        .bar-wrapper-light { flex: 1; height: 8px; background: #e4e3eb; border-radius: 4px; overflow: hidden; position: relative; }
+        .bar-fill-light { height: 100%; background: var(--accent); border-radius: 4px; }
+        .mastery-score-fraction { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 4px; }
+
+        /* Dynamic Badge Progression Groups */
+        .position-achievement-section { margin-bottom: 2rem; }
+        .position-section-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 0.4rem; margin-bottom: 1rem; }
+        .position-section-title { font-size: 0.95rem; font-weight: 800; color: var(--text-dark); text-transform: capitalize; }
+        .position-section-summary { font-size: 0.75rem; font-weight: 700; color: var(--text-muted-dark); }
+
+        .badges-grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .badge-milestone-card { background: var(--card-light); border: 1px solid var(--border-light); border-radius: 10px; padding: 1.2rem; display: flex; gap: 1rem; position: relative; }
+        .badge-tier-indicator-line { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #cbd4e1; border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+        .badge-tier-indicator-line.gold { background: #fcae1e; }
+        .badge-tier-indicator-line.silver { background: #94a3b8; }
+        .badge-tier-indicator-line.bronze { background: #cd7f32; }
         
-        /* Trophy Slots and CSS Custom Tooltips */
-        .trophy-slot { position: relative; display: flex; flex-direction: column; align-items: center; width: 80px; cursor: pointer; }
-        .trophy-img-wrapper { width: 60px; height: 75px; display: flex; align-items: center; justify-content: center; position: relative; transition: transform 0.2s; }
-        .trophy-img-wrapper span { font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(227, 176, 71, 0.1)); }
-        .trophy-slot:hover .trophy-img-wrapper { transform: translateY(-5px); }
-        .trophy-slot:hover .trophy-img-wrapper span { filter: drop-shadow(0 0 15px rgba(227, 176, 71, 0.4)); }
+        .badge-icon-container { width: 44px; height: 44px; border-radius: 50%; background: #f1f5f9; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800; flex-shrink: 0; }
+        .badge-content-box { flex: 1; display: flex; flex-direction: column; }
         
-        .trophy-label-badge { background: #30261a; border: 1px solid #544127; color: var(--gold-accent); font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.4rem; border-radius: 4px; text-align: center; width: 100%; margin-top: 0.6rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .badge-main-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.2rem; }
+        .badge-title-name { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); }
+        .badge-xp-chip { background: #fef3c7; color: #d97706; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 4px; display: inline-flex; align-items: center; gap: 2px; }
         
-        /* Interactive CSS Tooltip Engine */
-        .trophy-tooltip {
-            position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%) translateY(10px);
-            background: #0d0c10; border: 1px solid #38342a; width: 160px; border-radius: 8px; padding: 0.8rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.7); opacity: 0; pointer-events: none;
-            z-index: 100; display: flex; flex-direction: column; gap: 4px; text-align: center;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-        .trophy-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: #0d0c10; }
-        .trophy-slot:hover .trophy-tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
-        
-        .tip-title { font-size: 0.8rem; font-weight: 700; color: white; }
-        .tip-season { font-size: 0.7rem; color: var(--text-muted); }
-        .tip-xp { background: #3b2d15; color: #ffc454; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 4px; margin-top: 4px; align-self: center; display: inline-flex; align-items: center; gap: 3px; }
+        .badge-tier-status-text { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.5px; margin-bottom: 0.6rem; }
+        .badge-tier-status-text.gold { color: #d97706; }
+        .badge-tier-status-text.silver { color: #64748b; }
+        .badge-tier-status-text.bronze { color: #b45309; }
+
+        .badge-next-tier-label { font-size: 0.65rem; font-weight: 700; color: var(--text-muted-dark); text-transform: uppercase; margin-bottom: 0.3rem; }
+        .badge-stat-metric-fraction { font-size: 0.75rem; font-weight: 700; color: var(--text-dark); margin-top: 0.5rem; display: flex; justify-content: space-between; }
+        .badge-stat-metric-fraction span.maxed { color: #059669; font-weight: 800; }
 
         footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
     </style>
@@ -328,17 +304,14 @@
             K: { title: "kicker", count: "98 players", headers: ["#", "PLAYER", "FGM", "LNG"], rows: [["1", "LegPower", "210", "63"]] }
         };
 
-        // Standard Season Category view routing loader 
         function switchCategory(category, event) {
             if (event) event.preventDefault();
             isRecordBookView = false;
             currentCategoryGlobal = category;
             
             document.getElementById('stats-nav-link').classList.add('active');
-            
             const data = statsDatabase[category] || statsDatabase['passing'];
             
-            // Generate standard seasonal navigation chips sub-row inside layout
             let tabsHtml = '<div class="sub-nav-tabs">';
             for (let key in statsDatabase) {
                 const activeClass = key === category ? 'active' : '';
@@ -349,7 +322,6 @@
             let tableHeaders = data.headers.map(h => `<th>${h}</th>`).join('');
             let tableRows = data.rows.map(row => {
                 return `<tr>${row.map((cell, idx) => {
-                    // Turn player names into clickable layout hooks to their profile card
                     if (idx === 2) {
                         return `<td class="highlight-col" style="cursor:pointer; color:var(--accent);" onclick="loadPlayerProfile('${cell}')">${cell}</td>`;
                     }
@@ -375,12 +347,10 @@
             `;
         }
 
-        // Live filtration hook inside active table layouts
         function filterCurrentTable() {
             const query = document.getElementById('table-filter').value.toLowerCase();
             const rows = document.querySelectorAll('#stat-table-body tr');
             rows.forEach(row => {
-                // Check name column (idx 2 for regular stats, idx 1 for record book)
                 const nameCell = row.cells[isRecordBookView ? 1 : 2];
                 if (nameCell) {
                     const txt = nameCell.textContent.toLowerCase();
@@ -389,12 +359,10 @@
             });
         }
 
-        // Standard Record Book Layout routing loader
         function loadAllTimeStats(event) {
             if (event) event.preventDefault();
             isRecordBookView = true;
             
-            // Build the positions selector layout row
             let positionsHtml = '<div class="pill-toggle-row">';
             for (let key in allTimeLeaderboards) {
                 const activeClass = key === currentRecordBookPos ? 'active' : '';
@@ -463,65 +431,114 @@
             }
         }
 
-        // Renders the profile summary view layer card and interactive trophy showcase shelves
+        // Complete Mastery & Progression Achievement view system loader
         function loadPlayerProfile(username) {
             const cleanName = username.trim();
             const upperName = cleanName.toUpperCase();
-            let robloxId = Math.floor(100000 + Math.random() * 900000);
-            if(upperName === "FINLEY" || upperName === "FINLEY4K") robloxId = 207157;
-            if(upperName === "HRUPT") robloxId = 554312;
+            let robloxId = Math.floor(10000000 + Math.random() * 90000000);
+            if(upperName === "FINLEY" || upperName === "FINLEY4K") robloxId = 221991455;
+            if(upperName === "HRUPT") robloxId = 55431288;
 
-            // Mock Data Generator for the dynamic Trophy Showcase shelves
-            const trophyData = [
+            // Mastery Structure Data Block
+            const masteryTracks = [
+                { class: "qb", label: "QB", name: "Quarterback", progress: "0/3", val: 0 },
+                { class: "rb", label: "RB", name: "Running Back", progress: "0/2", val: 0 },
+                { class: "wr", label: "WR", name: "Wide Receiver", progress: "0/4", val: 0 },
+                { class: "de", label: "DE", name: "Defensive End", progress: "0/3", val: 0 },
+                { class: "db", label: "DB", name: "Defensive Back", progress: "1/3", val: 33 }
+            ];
+
+            // Progressive Position Achievement Sections
+            const achievementGroups = [
                 {
-                    category: "Championships",
-                    subtitle: "League titles won on the grandest stage",
-                    count: "6 Wins",
-                    items: [
-                        { label: "Allegiance Bowl", title: "Allegiance Bowl VI Champion", season: "Season 6", xp: "2500 XP", icon: "🏆" },
-                        { label: "Allegiance Bowl", title: "Allegiance Bowl V Champion", season: "Season 5", xp: "2500 XP", icon: "🏆" },
-                        { label: "Allegiance Bowl", title: "Allegiance Bowl IV Champion", season: "Season 4", xp: "2500 XP", icon: "🏆" },
-                        { label: "Conference Title", title: "NFC Champion Ring", season: "Season 6", xp: "1000 XP", icon: "💍" },
-                        { label: "Conference Title", title: "NFC Champion Ring", season: "Season 5", xp: "1000 XP", icon: "💍" },
-                        { label: "Conference Title", title: "NFC Champion Ring", season: "Season 4", xp: "1000 XP", icon: "💍" }
+                    position: "Quarterback",
+                    summary: "0/3 • DIAMOND",
+                    badges: [
+                        { name: "Air Assault", tier: "gold", tierText: "GOLD", xp: "500 XP", next: "DIAMOND", bar: 82, metric1: "41,469 / 50,000 YDS", metric2: "503 / 600 TD", icon: "🏈" },
+                        { name: "Surgeon", tier: "gold", tierText: "GOLD", xp: "500 XP", next: "DIAMOND", bar: 95, metric1: "61% / 60% CMP%", metric2: "1,617 / 2,500 CMP", icon: "🎯" },
+                        { name: "Deep Strike", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 74, metric1: "520 / 700 50+", metric2: "", icon: "💣" }
                     ]
                 },
                 {
-                    category: "Individual Honors",
-                    subtitle: "Seasonal awards and performance accolades",
-                    count: "4 Awards",
-                    items: [
-                        { label: "League MVP", title: "Regular Season MVP", season: "Season 5", xp: "3000 XP", icon: "👑" },
-                        { label: "All-VFL First Team", title: "All-VFL Offensive Team", season: "Season 6", xp: "1500 XP", icon: "⭐" },
-                        { label: "All-VFL First Team", title: "All-VFL Offensive Team", season: "Season 5", xp: "1500 XP", icon: "⭐" },
-                        { label: "OPOTY", title: "Offensive Player of the Year", season: "Season 4", xp: "2000 XP", icon: "🔥" }
+                    position: "Running Back",
+                    summary: "0/2 • DIAMOND",
+                    badges: [
+                        { name: "Escape Artist", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 54, metric1: "4,093 / 7,500 YDS", metric2: "87 / 75 TD", icon: "🌀" },
+                        { name: "First Down Machine", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 60, metric1: "212 / 350 1ST", metric2: "", icon: "📏" }
+                    ]
+                },
+                {
+                    position: "Wide Receiver",
+                    summary: "0/4 • DIAMOND",
+                    badges: [
+                        { name: "Deep Threat", tier: "locked", tierText: "LOCKED", xp: "100 XP", next: "BRONZE", bar: 10, metric1: "6 / 10 50+", metric2: "31 / 50 CIT", icon: "⚡" },
+                        { name: "YAC Monster", tier: "bronze", tierText: "BRONZE", xp: "100 XP", next: "SILVER", bar: 56, metric1: "284 / 500 YAC", metric2: "", icon: "🏃" },
+                        { name: "Touchdown Machine", tier: "locked", tierText: "LOCKED", xp: "100 XP", next: "BRONZE", bar: 86, metric1: "13 / 15 TD", metric2: "1,620 / 1,500 YDS", icon: "🔥" },
+                        { name: "Chain Mover", tier: "bronze", tierText: "BRONZE", xp: "100 XP", next: "SILVER", bar: 37, metric1: "37 / 100 1ST", metric2: "44 / 100 REC", icon: "⛓️" }
+                    ]
+                },
+                {
+                    position: "Defensive End",
+                    summary: "0/3 • DIAMOND",
+                    badges: [
+                        { name: "Sack Artist", tier: "locked", tierText: "LOCKED", xp: "100 XP", next: "BRONZE", bar: 73, metric1: "11 / 15 SACKS", metric2: "", icon: "🛡️" },
+                        { name: "Edge Nightmare", tier: "locked", tierText: "LOCKED", xp: "100 XP", next: "BRONZE", bar: 10, metric1: "15 / 150 PRS", metric2: "", icon: "☠️" },
+                        { name: "Run Stopper", tier: "bronze", tierText: "BRONZE", xp: "100 XP", next: "SILVER", bar: 94, metric1: "71 / 75 TCK", metric2: "", icon: "🧱" }
+                    ]
+                },
+                {
+                    position: "Defensive Back",
+                    summary: "1/3 • DIAMOND",
+                    badges: [
+                        { name: "Ball Hawk", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 78, metric1: "59 / 75 INT", metric2: "", icon: "🦅" },
+                        { name: "Lockdown", tier: "silver", tierText: "SILVER", xp: "250 XP", next: "GOLD", bar: 91, metric1: "321 / 350 TCK", metric2: "", icon: "🔒" },
+                        { name: "Shutdown", tier: "diamond", tierText: "DIAMOND", xp: "1,000 XP", next: "MAXED OUT", bar: 100, metric1: "★ MAXED OUT", metric2: "", icon: "🚫" }
                     ]
                 }
             ];
 
-            // Render shelves into HTML structure using functional template string interpolation maps
-            let showcaseHtml = '<div class="trophy-showcase-container">';
-            trophyData.forEach(cat => {
-                showcaseHtml += `
-                    <div class="trophy-category-card">
-                        <div class="category-header">
-                            <div>
-                                <h3 class="category-title">${cat.category}</h3>
-                                <p class="category-subtitle">${cat.subtitle}</p>
-                            </div>
-                            <span class="count-badge">${cat.count}</span>
+            // Render Mastery panel items
+            let masteryItemsHtml = masteryTracks.map(track => `
+                <div class="mastery-progress-item">
+                    <div class="mini-pos-tag ${track.class}">${track.label}</div>
+                    <div class="mastery-label-text">${track.name}</div>
+                    <div class="bar-wrapper-light">
+                        <div class="bar-fill-light" style="width: ${track.val}%;"></div>
+                    </div>
+                    <div class="mastery-score-fraction">🔹 ${track.progress}</div>
+                </div>
+            `).join('');
+
+            // Render position milestones cards
+            let groupsHtml = '';
+            achievementGroups.forEach(group => {
+                groupsHtml += `
+                    <div class="position-achievement-section">
+                        <div class="position-section-header">
+                            <h3 class="position-section-title">${group.position}</h3>
+                            <span class="position-section-summary">${group.summary}</span>
                         </div>
-                        <div class="shelf-row">
-                            ${cat.items.map(item => `
-                                <div class="trophy-slot">
-                                    <div class="trophy-img-wrapper">
-                                        <span>${item.icon}</span>
-                                    </div>
-                                    <div class="trophy-label-badge">${item.label}</div>
-                                    <div class="trophy-tooltip">
-                                        <div class="tip-title">${item.title}</div>
-                                        <div class="tip-season">${item.season}</div>
-                                        <div class="tip-xp">✨ ${item.xp}</div>
+                        <div class="badges-grid-layout">
+                            ${group.badges.map(b => `
+                                <div class="badge-milestone-card">
+                                    <div class="badge-tier-indicator-line ${b.tier}"></div>
+                                    <div class="badge-icon-container">${b.icon}</div>
+                                    <div class="badge-content-box">
+                                        <div class="badge-main-row">
+                                            <span class="badge-title-name">${b.name}</span>
+                                            <span class="badge-xp-chip">⚡ ${b.xp}</span>
+                                        </div>
+                                        <div class="badge-tier-status-text ${b.tier}">${b.tierText}</div>
+                                        
+                                        <div class="badge-next-tier-label">Next → ${b.next}</div>
+                                        <div class="bar-wrapper-light" style="height: 6px; margin-bottom:0.4rem;">
+                                            <div class="bar-fill-light" style="width: ${b.bar}%; background:${b.tier === 'diamond' ? '#0d9488' : ''}"></div>
+                                        </div>
+                                        
+                                        <div class="badge-stat-metric-fraction">
+                                            <span style="color:#10b981;">${b.metric1}</span>
+                                            <span>${b.metric2}</span>
+                                        </div>
                                     </div>
                                 </div>
                             `).join('')}
@@ -529,58 +546,57 @@
                     </div>
                 `;
             });
-            showcaseHtml += '</div>';
 
             container.innerHTML = `
                 <div class="back-link" onclick="goBackFromProfile()">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                     Back to Leaderboards
                 </div>
-                
-                <div class="hero-search" style="margin-bottom: 2rem; max-width: 420px;">
-                    <input type="text" id="profile-lookup-input" placeholder="Look up another player..." value="${cleanName}">
-                    <button onclick="triggerProfileSearch('profile-lookup-input')">Search</button>
-                </div>
 
-                <div class="profile-card">
-                    <div class="avatar-container">
-                        <span class="avatar-placeholder">👤</span>
-                    </div>
-                    <div class="profile-info">
-                        <div class="profile-title-tag">Trophy Room</div>
-                        <h1 class="profile-name">${cleanName}</h1>
-                        <p class="profile-id">Roblox ID ${robloxId}</p>
-                        
-                        <div class="profile-metrics-row">
-                            <div class="metric-block">
-                                <div class="metric-value">38</div>
-                                <div class="metric-label">Trophies</div>
-                            </div>
-                            <div class="metric-block">
-                                <div class="metric-value">6</div>
-                                <div class="metric-label">Championships</div>
-                            </div>
-                            <div class="metric-block">
-                                <div class="metric-value">4</div>
-                                <div class="metric-label">Honors</div>
-                            </div>
-                            <div class="metric-block">
-                                <div class="metric-value" style="color:var(--gold-accent)">17,250</div>
-                                <div class="metric-label">Trophy XP</div>
+                <div class="profile-container-light">
+                    <!-- Top Card Panel -->
+                    <div class="profile-header-card-light">
+                        <div class="avatar-circle-light">🏈</div>
+                        <div class="header-details-light">
+                            <h1>${cleanName}</h1>
+                            <p>Roblox ID ${robloxId}</p>
+                            <div class="pos-pills-row">
+                                <span class="pos-pill">QB</span>
+                                <span class="pos-pill">RB</span>
+                                <span class="pos-pill">WR</span>
+                                <span class="pos-pill">DE</span>
+                                <span class="pos-pill">DB</span>
+                                <span class="pos-pill">K</span>
                             </div>
                         </div>
+                        <button class="trophy-room-btn-light">🏆 Trophy Room</button>
+                    </div>
 
-                        <div class="profile-badges-row">
-                            <div class="badge-pill">💍 6× Allegiance Bowl Champion</div>
+                    <h2 class="achievements-heading-light">Achievements</h2>
+
+                    <!-- Mastery Grid & Bars Row -->
+                    <div class="mastery-split-grid">
+                        <div class="archetype-card-light">
+                            <div class="lock-icon-wrapper">🔒</div>
+                            <h3>Archetype</h3>
+                            <span>Coming Soon</span>
+                            <p>Your signature play-style, forged from how you dominate the field.</p>
+                        </div>
+                        <div class="mastery-panel-light">
+                            <div class="panel-header-row">
+                                <span>Mastery</span>
+                                <span>0/5 Positions Mastered</span>
+                            </div>
+                            ${masteryItemsHtml}
                         </div>
                     </div>
-                </div>
 
-                ${showcaseHtml}
+                    <!-- Milestone Badge Sections -->
+                    ${groupsHtml}
+                </div>
             `;
         }
 
-        // Initialize application on default entry route view layout context map rule
         window.onload = function() {
             switchCategory('passing');
         };
