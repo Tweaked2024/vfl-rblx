@@ -112,7 +112,15 @@
         .back-link { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 1.5rem; cursor: pointer; }
         .profile-container-light { background-color: #f7f7fc; border-radius: 16px; padding: 2rem; color: var(--text-dark); border: 1px solid var(--border-light); }
         
-        .profile-header-card-light { background-color: var(--accent); border-radius: 12px; padding: 2rem; display: flex; align-items: center; gap: 1.5rem; color: white; margin-bottom: 2rem; position: relative; }
+        .profile-header-card-light {
+            position: relative; /* Required for the button to anchor correctly */
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #ff6b6b; /* Or whatever your orange color is */
+            padding: 2rem;
+            border-radius: 12px;
+        }
         .avatar-circle-light { width: 85px; height: 85px; border-radius: 50%; background: #232230; border: 3px solid rgba(255,255,255,0.2); overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; }
         .header-details-light h1 { font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 0.3rem; letter-spacing: 0.5px; }
         .header-details-light p { opacity: 0.85; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.8rem; }
@@ -1479,6 +1487,10 @@
                             <div class="pos-pills-row">
                                 <span class="pos-pill">PRO ATHLETE</span>
                             </div>
+                            <!-- Button added here -->
+                            <button class="trophy-room-btn-light" onclick="window.location.href='trophy.html?player=${encodeURIComponent(cleanName)}'">
+                                🏆 Showcase Awards
+                            </button>
                         </div>
                     </div>
                     <div class="achievements-heading-light">Career Summary</div>
