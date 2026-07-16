@@ -1493,9 +1493,26 @@
             };
 
             let tableHeadersHtml = activeProfileData.headers.map(h => `<th>${h}</th>`).join('');
+
+            // 1. Find the exact column index where the Player names live
+            const playerColumnIndex = activeProfileData.headers.findIndex(h => h.toLowerCase() === 'player');
+
             let tableRowsHtml = activeProfileData.rows.map(row => {
                 const isCareer = row[0].toLowerCase() === 'career';
-                return `<tr class="${isCareer ? 'career-row' : ''}">${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+                
+                // 2. Map over each cell in the row
+                const mappedCells = row.map((cell, index) => {
+                    // Only wrap in a link if:
+                    // - It's the "Player" column
+                    // - It's not the "Career" summary row at the bottom
+                    if (index === playerColumnIndex && !isCareer) {
+                        return `<td><a href="trophy.html?player=${encodeURIComponent(cell)}" class="player-link">${cell}</a></td>`;
+                    }
+                    // Otherwise, keep it as a normal cell
+                    return `<td>${cell}</td>`;
+                }).join('');
+
+                return `<tr class="${isCareer ? 'career-row' : ''}">${mappedCells}</tr>`;
             }).join('');
 
             container.innerHTML = `
