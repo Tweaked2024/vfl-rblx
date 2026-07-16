@@ -105,8 +105,8 @@
 
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
-        /* Content Container Layout */
-        .container { max-width: 1400px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
+        /* Content Container Layout (Max-width restricted for a single centered column) */
+        .container { max-width: 900px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
         
         /* Sub-Navigation Toggle Header */
         .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
@@ -116,16 +116,34 @@
         .toggle-item:hover { color: var(--text-main); }
         .toggle-item.active { background-color: var(--accent); color: white; }
         
-        .standings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); gap: 2rem; }
+        /* Single Column Grid centering the AFC Card */
+        .standings-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
         
         /* Conference Card Base Layout */
-        .conf-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .conf-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
         
-        /* Red and Blue header paths to mirror AFC/NFC overall styles */
-        .conf-header.afc { background: linear-gradient(90deg, #cf102d, #6e000f); }
-        .conf-header.nfc { background: linear-gradient(90deg, #004b87, #00284f); }
-        
-        .badge-placeholder { background: rgba(255,255,255,0.1); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 800; }
+        /* Red stylized header matching the second image precisely */
+        .conf-header.afc { 
+            background: #cf102d; 
+            padding: 1.5rem 1.8rem; 
+            display: flex; 
+            align-items: baseline; 
+            gap: 12px; 
+        }
+        .conf-header.afc h2 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+        .conf-header.afc span {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
         
         table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
         th, td { padding: 0.8rem 1rem; }
@@ -135,6 +153,19 @@
         
         /* Highlight Team Style */
         .active-row td { color: var(--text-main); }
+
+        /* Aligning Team Logos nicely with the text */
+        .team-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+        .team-logo {
+            width: auto;
+            height: 24px; /* Matches the standard aspect ratio height for clean list display */
+            object-fit: contain;
+        }
 
         /* Power Rankings Tier Headings */
         .tier-row td {
@@ -237,9 +268,12 @@
 
         <div class="standings-grid">
             
-            <!-- AFC BLOCK -->
+            <!-- AFC BLOCK (NOW ALONE & STYLIZED ACCORDING TO IMAGE 2) -->
             <div class="conf-card">
-                <div class="conf-header afc"><div class="badge-placeholder">AFC</div> Overall Standings</div>
+                <div class="conf-header afc">
+                    <h2>AFC</h2>
+                    <span>Overall Standings</span>
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -259,16 +293,26 @@
                         </tr>
                         <tr class="active-row">
                             <td><span class="rank-circle rank-top4-bg">1</span></td>
-                            <td>Dolphins</td>
+                            <td>
+                                <div class="team-cell">
+                                    <img src="images/dolphins.png" alt="" class="team-logo">
+                                    Dolphins
+                                </div>
+                            </td>
                             <td>10</td>
                             <td>1</td>
                             <td>0</td>
                             <td>+181</td>
                             <td>0.00</td>
                         </tr>
-                        <tr>
+                        <tr class="active-row">
                             <td><span class="rank-circle rank-top4-bg">2</span></td>
-                            <td>Bills</td>
+                            <td>
+                                <div class="team-cell">
+                                    <img src="images/bills.png" alt="" class="team-logo">
+                                    Bills
+                                </div>
+                            </td>
                             <td>8</td>
                             <td>3</td>
                             <td>0</td>
@@ -280,18 +324,28 @@
                         <tr class="tier-row">
                             <td colspan="7" class="tier-wildcard">Wildcard (5-10)</td>
                         </tr>
-                        <tr>
+                        <tr class="active-row">
                             <td><span class="rank-circle rank-wildcard-bg">5</span></td>
-                            <td>Raiders</td>
+                            <td>
+                                <div class="team-cell">
+                                    <img src="images/raiders.png" alt="" class="team-logo">
+                                    Raiders
+                                </div>
+                            </td>
                             <td>7</td>
                             <td>4</td>
                             <td>0</td>
                             <td>+32</td>
                             <td>0.00</td>
                         </tr>
-                        <tr>
+                        <tr class="active-row">
                             <td><span class="rank-circle rank-wildcard-bg">6</span></td>
-                            <td>Chargers</td>
+                            <td>
+                                <div class="team-cell">
+                                    <img src="images/chargers.png" alt="" class="team-logo">
+                                    Chargers
+                                </div>
+                            </td>
                             <td>6</td>
                             <td>5</td>
                             <td>0</td>
@@ -303,92 +357,18 @@
                         <tr class="tier-row">
                             <td colspan="7" class="tier-hunt">In the Hunt</td>
                         </tr>
-                        <tr>
+                        <tr class="active-row">
                             <td><span class="rank-circle rank-hunt-bg">11</span></td>
-                            <td>Steelers</td>
+                            <td>
+                                <div class="team-cell">
+                                    <img src="images/steelers.png" alt="" class="team-logo">
+                                    Steelers
+                                </div>
+                            </td>
                             <td>4</td>
                             <td>7</td>
                             <td>0</td>
                             <td>-45</td>
-                            <td>0.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- NFC BLOCK -->
-            <div class="conf-card">
-                <div class="conf-header nfc"><div class="badge-placeholder">NFC</div> Overall Standings</div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 50px;">#</th>
-                            <th>TEAM</th>
-                            <th>W</th>
-                            <th>L</th>
-                            <th>TP</th>
-                            <th>PD</th>
-                            <th>SOS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Top 4 -->
-                        <tr class="tier-row">
-                            <td colspan="7" class="tier-top4">Top 4</td>
-                        </tr>
-                        <tr class="active-row">
-                            <td><span class="rank-circle rank-top4-bg">1</span></td>
-                            <td>Cowboys</td>
-                            <td>10</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>+212</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-circle rank-top4-bg">2</span></td>
-                            <td>Giants</td>
-                            <td>8</td>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>+62</td>
-                            <td>0.00</td>
-                        </tr>
-
-                        <!-- Wildcard -->
-                        <tr class="tier-row">
-                            <td colspan="7" class="tier-wildcard">Wildcard (5-10)</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-circle rank-wildcard-bg">5</span></td>
-                            <td>Seahawks</td>
-                            <td>7</td>
-                            <td>4</td>
-                            <td>0</td>
-                            <td>+40</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-circle rank-wildcard-bg">6</span></td>
-                            <td>Cardinals</td>
-                            <td>6</td>
-                            <td>5</td>
-                            <td>0</td>
-                            <td>-10</td>
-                            <td>0.00</td>
-                        </tr>
-
-                        <!-- In the Hunt -->
-                        <tr class="tier-row">
-                            <td colspan="7" class="tier-hunt">In the Hunt</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-circle rank-hunt-bg">11</span></td>
-                            <td>Packers</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>0</td>
-                            <td>-18</td>
                             <td>0.00</td>
                         </tr>
                     </tbody>
