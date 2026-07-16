@@ -122,13 +122,20 @@
         /* Conference Card Base Layout */
         .conf-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
         
-        /* Red stylized header matching the second image precisely */
+        /* Update this existing style to ensure vertical alignment is centered */
         .conf-header.afc { 
             background: #cf102d; 
-            padding: 1.5rem 1.8rem; 
+            padding: 1.2rem 1.8rem; 
             display: flex; 
-            align-items: baseline; 
-            gap: 12px; 
+            align-items: center;  /* Centers logo and text vertically */
+            gap: 14px;            /* Adds a clean space between the logo and the "AFC" text */
+        }
+
+        /* Add this new style for the logo sizing */
+        .conf-logo {
+            height: 32px;         /* Adjust this height to make your logo bigger or smaller */
+            width: auto;          /* Maintains the aspect ratio of your image */
+            object-fit: contain;
         }
         .conf-header.afc h2 {
             font-size: 1.6rem;
@@ -271,8 +278,9 @@
             <!-- AFC BLOCK (NOW ALONE & STYLIZED ACCORDING TO IMAGE 2) -->
             <div class="conf-card">
                 <div class="conf-header afc">
+                    <img src="images/vfl-logo.png" alt="VFL Logo" class="league-logo">
                     <h2>AFC</h2>
-                    <span>Overall Standings</span>
+                    <span>Power Rankings</span>
                 </div>
                 <table>
                     <thead>
