@@ -6,23 +6,22 @@
     <title>Trophy Room</title>
     <style>
         :root {
-            --bg-deep: #110f0e;
-            --card-bg: #1e1b1a;
-            --gold-text: #f1d2b5;
-            --gold-border: #3d352e;
+            --bg-body: #111017;
+            --card-bg: #1a191f;
+            --text-main: #ffffff;
             --accent-red: #ff6b6b;
+            --gold-text: #d4af37;
         }
 
-        body { background-color: var(--bg-deep); color: #ffffff; font-family: 'Segoe UI', sans-serif; margin: 0; }
+        body { background-color: var(--bg-body); color: var(--text-main); font-family: 'Segoe UI', sans-serif; margin: 0; }
 
-        /* VFL Navbar */
+        /* Navigation - Matches Reference */
         .navbar {
             background-color: #111017;
             padding: 1rem 4%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--gold-border);
         }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-circle { width: 35px; height: 35px; background: var(--accent-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.7rem; }
@@ -33,30 +32,19 @@
         .nav-links a { color: #ffffff; text-decoration: none; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
         .join-btn { background: var(--accent-red); color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-size: 0.75rem; font-weight: 700; }
 
-        /* Container */
+        /* Page Layout */
         .page-container { max-width: 1000px; margin: 2rem auto; padding: 0 20px; }
-        .header-card { background: #fff; border-radius: 16px; padding: 2rem; text-align: center; margin-bottom: 2rem; color: #111; }
+        .header-card { background: #ffffff; border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 2rem; color: #111; }
         .player-name { font-size: 2.5rem; font-weight: 900; margin: 0.5rem 0; text-transform: uppercase; }
 
-        /* Trophy Styling */
-        .trophy-case-section { background: var(--card-bg); border: 1px solid var(--gold-border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
-        .section-title { color: var(--gold-text); font-size: 1.2rem; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase; border-bottom: 1px solid var(--gold-border); padding-bottom: 10px; }
+        /* Section Styling - Matching Background */
+        .trophy-case-section { background: var(--card-bg); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; }
+        .section-title { color: #d4af37; font-size: 0.9rem; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; }
         
         .trophy-grid { display: flex; flex-wrap: wrap; gap: 30px; }
-        .trophy-container { position: relative; cursor: pointer; text-align: center; width: 100px; }
-        .trophy-main-img { width: 80px; height: 80px; transition: transform 0.2s; }
-        .trophy-container:hover .trophy-main-img { transform: scale(1.1); }
-        .trophy-tag { background: var(--gold-border); color: var(--gold-text); font-size: 0.65rem; font-weight: 700; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; margin-top: 10px; display: inline-block; }
-
-        /* Tooltip */
-        .trophy-tooltip {
-            display: none; position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
-            background: #1a1716; border: 1px solid var(--gold-border); padding: 1.5rem; border-radius: 12px;
-            width: 200px; text-align: center; z-index: 100; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-        .trophy-container:hover .trophy-tooltip { display: block; }
-        .tooltip-img { width: 80px; margin-bottom: 10px; }
-        .xp-badge { background: #e6b97e; color: #1a1716; padding: 5px 10px; border-radius: 20px; font-weight: 800; display: inline-block; margin-top: 10px; font-size: 0.8rem; }
+        .trophy-container { position: relative; text-align: center; width: 80px; }
+        .trophy-main-img { width: 60px; height: 60px; }
+        .trophy-tag { background: #333; color: #ddd; font-size: 0.6rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; margin-top: 8px; display: inline-block; }
     </style>
 </head>
 <body>
@@ -67,19 +55,19 @@
             <div class="logo-text">VIRTUAL FOOTBALL <span>LEAGUE • SEASON 6</span></div>
         </div>
         <div class="nav-links">
-            <a href="index.html">HOME</a>
-            <a href="scores.html">SCORES</a>
-            <a href="standings.html">STANDINGS</a>
-            <a href="stats.html" style="color:var(--accent-red)">STATS</a>
+            <a href="#">HOME</a>
+            <a href="#">SCORES</a>
+            <a href="#">STANDINGS</a>
+            <a href="#" style="color:var(--accent-red)">STATS</a>
             <a href="#">LEGACY ▾</a>
-            <a href="rulebook.html">RULEBOOK</a>
+            <a href="#">RULEBOOK</a>
         </div>
         <a href="#" class="join-btn">Join Now!</a>
     </nav>
 
     <div class="page-container">
         <div class="header-card">
-            <div style="color: var(--accent-red); font-size: 0.7rem; font-weight: 800; letter-spacing: 2px;">TROPHY ROOM</div>
+            <div style="color: var(--accent-red); font-size: 0.6rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">Trophy Room</div>
             <h1 id="display-name" class="player-name">LOADING...</h1>
         </div>
 
@@ -87,14 +75,8 @@
             <h2 class="section-title">Championships & Awards</h2>
             <div class="trophy-grid">
                 <div class="trophy-container">
-                    <img src="trophy-image.png" class="trophy-main-img" alt="Trophy">
+                    <img src="trophy.png" class="trophy-main-img" alt="Trophy">
                     <div class="trophy-tag">CHAMPION</div>
-                    <div class="trophy-tooltip">
-                        <img src="trophy-image.png" class="tooltip-img" alt="Trophy">
-                        <h3 style="color:white; margin:0;">Allegiance Bowl X</h3>
-                        <p style="color:#888; font-size:0.8rem;">Season 26 Champion</p>
-                        <div class="xp-badge">⚡ 1,000 XP</div>
-                    </div>
                 </div>
             </div>
         </div>
