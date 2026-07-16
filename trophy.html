@@ -15,27 +15,34 @@
 
         body { background-color: var(--bg-deep); color: #ffffff; font-family: 'Segoe UI', sans-serif; margin: 0; }
 
-        /* Navbar */
         nav { background-color: #000; padding: 1.2rem 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gold-border); }
         .nav-logo { font-weight: 900; color: white; text-decoration: none; font-size: 1.2rem; }
         .nav-links a { color: #888; text-decoration: none; margin-left: 1.5rem; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
 
-        /* Container */
         .page-container { max-width: 1000px; margin: 2rem auto; padding: 0 20px; }
-
-        /* Header Card */
         .header-card { background: #fff; border-radius: 16px; padding: 2rem; text-align: center; margin-bottom: 2rem; color: #111; }
         .player-name { font-size: 2.5rem; font-weight: 900; margin: 0.5rem 0; text-transform: uppercase; }
 
-        /* Section Layout */
         .trophy-case-section { background: var(--card-bg); border: 1px solid var(--gold-border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
         .section-title { color: var(--gold-text); font-size: 1.2rem; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase; border-bottom: 1px solid var(--gold-border); padding-bottom: 10px; }
 
-        /* Trophy Grid */
-        .trophy-grid { display: flex; flex-wrap: wrap; gap: 20px; }
-        .trophy-box { text-align: center; width: 100px; }
-        .trophy-image { width: 80px; height: 80px; background: #2a2523; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
-        .trophy-tag { background: var(--gold-border); color: var(--gold-text); font-size: 0.65rem; font-weight: 700; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; }
+        /* Trophy Hover Logic */
+        .trophy-grid { display: flex; flex-wrap: wrap; gap: 30px; }
+        .trophy-container { position: relative; cursor: pointer; text-align: center; width: 100px; }
+        .trophy-main-img { width: 80px; height: 80px; transition: transform 0.2s; }
+        .trophy-container:hover .trophy-main-img { transform: scale(1.1); }
+        
+        .trophy-tag { background: var(--gold-border); color: var(--gold-text); font-size: 0.65rem; font-weight: 700; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; margin-top: 10px; display: inline-block; }
+
+        /* Tooltip */
+        .trophy-tooltip {
+            display: none; position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+            background: #1a1716; border: 1px solid var(--gold-border); padding: 1.5rem; border-radius: 12px;
+            width: 200px; text-align: center; z-index: 100; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .trophy-container:hover .trophy-tooltip { display: block; }
+        .tooltip-img { width: 80px; margin-bottom: 10px; }
+        .xp-badge { background: #e6b97e; color: #1a1716; padding: 5px 10px; border-radius: 20px; font-weight: 800; display: inline-block; margin-top: 10px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -55,22 +62,22 @@
             <h1 id="display-name" class="player-name">LOADING...</h1>
         </div>
 
-        <!-- Section Template -->
         <div class="trophy-case-section">
             <h2 class="section-title">Championships & Awards</h2>
             <div class="trophy-grid">
-                <div class="trophy-box">
-                    <div class="trophy-image">🏆</div>
+                
+                <!-- Trophy Item -->
+                <div class="trophy-container">
+                    <img src="path-to-trophy.png" class="trophy-main-img" alt="Trophy">
                     <div class="trophy-tag">CHAMPION</div>
+                    <div class="trophy-tooltip">
+                        <img src="path-to-trophy.png" class="tooltip-img" alt="Trophy">
+                        <h3 style="color:white; margin:0;">Allegiance Bowl X</h3>
+                        <p style="color:#888; font-size:0.8rem;">Season 26 Champion</p>
+                        <div class="xp-badge">⚡ 1,000 XP</div>
+                    </div>
                 </div>
-                <div class="trophy-box">
-                    <div class="trophy-image">⭐</div>
-                    <div class="trophy-tag">MVP</div>
-                </div>
-                <div class="trophy-box">
-                    <div class="trophy-image">🎯</div>
-                    <div class="trophy-tag">SHARPSHOOTER</div>
-                </div>
+
             </div>
         </div>
     </div>
