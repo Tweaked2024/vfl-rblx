@@ -48,14 +48,70 @@
 <body>
 
     <nav>
-        <a href="index.html" class="nav-logo">TWEAKED TV</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="stats.html" class="active">Stats</a>
-            <a href="appeals.html">Ban Appeals</a>
+        <div class="logo-area">
+            <div class="logo-circle">VFL</div>
+            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
         </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scores.html">Scores</a></li>
+            <li><a href="standings.html" class="active">Standings</a></li>
+            <li class="dropdown">
+                <a href="#" class="active" id="stats-nav-link" onclick="switchCategory('passing', event)">
+                    Stats
+                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </a>
+                <div class="mega-dropdown">
+                    <div class="dropdown-col">
+                        <h4>Offense</h4>
+                        <ul>
+                            <li><a href="#" onclick="switchCategory('passing', event)">Quarterbacks</a></li>
+                            <li><a href="#" onclick="switchCategory('rushing', event)">Running Backs</a></li>
+                            <li><a href="#" onclick="switchCategory('receiving', event)">Wide Receivers</a></li>
+                            <li><a href="#" onclick="switchCategory('tightends', event)">Tight Ends</a></li>
+                            <li><a href="#" onclick="switchCategory('center', event)">Centers</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-col">
+                        <h4>Defense</h4>
+                        <ul>
+                            <li><a href="#" onclick="switchCategory('defensiveends', event)">Defensive Ends</a></li>
+                            <li><a href="#" onclick="switchCategory('linebackers', event)">Linebackers</a></li>
+                            <li><a href="#" onclick="switchCategory('secondary', event)">Defensive Backs</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-col">
+                        <h4>Special Teams</h4>
+                        <ul style="margin-bottom: 1.5rem;">
+                            <li><a href="#" onclick="switchCategory('kicking', event)">Kickers</a></li>
+                        </ul>
+                        <h4>Record Book</h4>
+                        <ul>
+                            <li><a href="#" onclick="loadAllTimeStats(event)">All-Time Stats</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="dropdown-legacy">
+                <a href="#">
+                    Legacy
+                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </a>
+                <ul class="legacy-dropdown">
+                    <li><a href="legacy.html">Legacy</a></li>
+                    <li><a href="champions-awards.html">Champions & Awards</a></li>
+                    <li><a href="award-tracker.html">Award Tracker</a></li>
+                </ul>
+            </li>
+            <li><a href="rulebook.html">Rulebook</a></li>
+        </ul>
+        <a href="#" class="nav-btn">Join Now!</a>
     </nav>
-
+    
     <div class="page-container">
         <div class="header-card">
             <div style="color: var(--accent-red); font-size: 0.7rem; font-weight: 800; letter-spacing: 2px;">TROPHY ROOM</div>
