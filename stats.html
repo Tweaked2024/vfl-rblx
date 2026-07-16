@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VFL Roblox - Stats</title>
+    <title>VFL Trophy Room</title>
     <style>
+        /* ==========================================
+           1. ROOT VARIABLES & GLOBAL STYLES
+           ========================================== */
         :root {
-            --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
-            --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
-            --card-light: #fdfdfd; --border-light: #e4e3eb;
-            --text-dark: #1f1e29; --text-muted-dark: #78768a;
+            /* These match your main site styles */
+            --bg-main: #111017;
+            --bg-card: #1b1a25;
+            --border: #282735;
+            --text-main: #ffffff;
+            --text-muted: #b0afb8;
+            --accent: #f05d51; /* Your primary theme color */
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-main); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
         
-        /* Navigation Header */
+        /* ==========================================
+           2. NAVIGATION HEADER (Exact Match)
+           ========================================== */
         nav { 
             background-color: var(--bg-main); 
             padding: 1.2rem 4%; 
@@ -26,11 +43,11 @@
             z-index: 1000;
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; }
         .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
         .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
         
-        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; margin: 0; padding: 0; }
         nav ul li { position: relative !important; display: inline-block; }
         
         nav ul li a { 
@@ -73,126 +90,134 @@
         nav ul li.dropdown:hover .nav-arrow, nav ul li.dropdown-legacy:hover .nav-arrow { transform: rotate(180deg); }
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
-        /* Layout Main Containers */
-        .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
-        
-        /* Sub-navigation Category Tabs Styles */
-        .sub-nav-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
-        .tab-btn { background: #1b1a25; color: white; border: 1px solid #282735; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; transition: background 0.15s; }
-        .tab-btn:hover { background: #232230; }
-        .tab-btn.active { background: var(--accent); border-color: var(--accent); }
-        
-        .section-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .page-title-main { font-size: 1.8rem; font-weight: 700; color: white; text-transform: lowercase; }
-        .search-wrapper { position: relative; width: 320px; }
-        .search-input { width: 100%; background: #1b1a25; border: 1px solid #282735; padding: 0.6rem 1rem 0.6rem 2.2rem; border-radius: 8px; color: white; font-size: 0.85rem; }
-        .search-icon { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; }
-        
-        /* Table Styles */
-        .stat-table-card { background: #1b1a25; border-radius: 8px; overflow: hidden; border: 1px solid #282735; }
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th, td { padding: 0.75rem 1rem; font-size: 0.85rem; }
-        .red-table-header th { background-color: var(--accent); color: white; font-weight: 700; padding: 0.9rem 1rem; border: none; text-transform: uppercase; font-size: 0.75rem; }
-        td { color: var(--text-main); border-bottom: 1px solid #232230; }
-        .highlight-col { background-color: rgba(240, 93, 81, 0.05); font-weight: 700; }
+        /* ==========================================
+           3. TROPHY CONTAINER & CARDS
+           ========================================== */
+        .container { 
+            max-width: 1200px; 
+            margin: 3rem auto; 
+            padding: 0 2rem; 
+            width: 100%; 
+            box-sizing: border-box;
+            flex: 1; 
+        }
 
-        /* All-Time Dashboard Layout */
-        .alltime-hero { background: linear-gradient(135deg, #401012 0%, #111017 60%); padding: 3.5rem 2rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid #3d1b1d; }
-        .hero-tag { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-bottom: 0.5rem; }
-        .hero-heading { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; }
-        .hero-desc { color: var(--text-muted); font-size: 0.9rem; max-width: 500px; margin-bottom: 1.5rem; line-height: 1.5; }
-        .hero-search { display: flex; gap: 0.5rem; max-width: 500px; }
-        .hero-search input { flex: 1; background: white; border: none; padding: 0.8rem 1.2rem; border-radius: 25px; color: #111017; font-size: 0.9rem; }
-        .hero-search button { background: var(--accent); border: none; color: white; padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 700; cursor: pointer; }
-        .pill-toggle-row { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .pill-btn { background: #1b1a25; border: 1px solid #282735; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
-        .pill-btn.active { background: var(--accent); border-color: var(--accent); }
+        .back-link { 
+            color: var(--accent); 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 5px; 
+            margin-bottom: 1.5rem; 
+            cursor: pointer; 
+            background: none;
+            border: none;
+            padding: 0;
+        }
 
-        /* --- IMMERSIVE LIGHT PROFILE STYLES --- */
-        .back-link { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 1.5rem; cursor: pointer; }
-        .profile-container-light { background-color: #f7f7fc; border-radius: 16px; padding: 2rem; color: var(--text-dark); border: 1px solid var(--border-light); }
-        
-        .profile-header-card-light { background-color: var(--accent); border-radius: 12px; padding: 2rem; display: flex; align-items: center; gap: 1.5rem; color: white; margin-bottom: 2rem; position: relative; }
-        .avatar-circle-light { width: 85px; height: 85px; border-radius: 50%; background: #232230; border: 3px solid rgba(255,255,255,0.2); overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; }
-        .header-details-light h1 { font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 0.3rem; letter-spacing: 0.5px; }
-        .header-details-light p { opacity: 0.85; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.8rem; }
-        
-        .pos-pills-row { display: flex; gap: 0.4rem; }
-        .pos-pill { background: rgba(0,0,0,0.15); color: white; font-size: 0.65rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); }
-        .trophy-room-btn-light { position: absolute; right: 2rem; bottom: 2rem; background: #fff5d6; color: #735100; border: none; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* Hero banner layout matching the All-Time style */
+        .trophy-hero { 
+            background: linear-gradient(135deg, #401012 0%, #111017 60%); 
+            padding: 3rem 2.5rem; 
+            border-radius: 12px; 
+            margin-bottom: 2rem; 
+            border: 1px solid #3d1b1d; 
+            position: relative;
+        }
+        .hero-tag { 
+            color: var(--accent); 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            margin-bottom: 0.5rem; 
+        }
+        .hero-heading { 
+            font-size: 2.8rem; 
+            font-weight: 800; 
+            margin: 0;
+            text-transform: capitalize;
+        }
 
-        /* Profile Mini Stat Grid for All-Time Rank Quick Info */
-        .rank-badges-row-light { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
-        .rank-quick-card { background: white; border: 1px solid var(--border-light); padding: 0.8rem 1.2rem; border-radius: 10px; display: flex; flex-direction: column; min-width: 110px; }
-        .rank-quick-card span.pos-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted-dark); margin-bottom: 0.2rem; }
-        .rank-quick-card span.rank-value { font-size: 0.85rem; font-weight: 800; color: #e82e2e; margin-bottom: 0.4rem; }
-        .rank-quick-box-row { display: flex; gap: 0.5rem; }
-        .stat-box-mini { border: 1px solid #e4e3eb; background: #fdfdfd; border-radius: 6px; padding: 0.4rem; flex: 1; text-align: center; }
-        .stat-box-mini div:first-child { font-size: 0.95rem; font-weight: 800; color: var(--text-dark); }
-        .stat-box-mini div:last-child { font-size: 0.65rem; font-weight: 700; color: #94a3b8; }
+        /* Showcase Shelf */
+        .trophy-case-card { 
+            background: var(--bg-card); 
+            border-radius: 12px; 
+            padding: 2rem; 
+            border: 1px solid var(--border); 
+        }
+        .case-header {
+            font-size: 1.3rem; 
+            font-weight: 800; 
+            border-bottom: 2px solid var(--border); 
+            padding-bottom: 0.5rem; 
+            margin-bottom: 1.5rem; 
+            text-transform: capitalize;
+        }
 
-        .achievements-heading-light { font-size: 1.3rem; font-weight: 800; border-bottom: 2px solid var(--border-light); padding-bottom: 0.5rem; margin-bottom: 1.5rem; text-transform: capitalize; }
-        
-        /* Split Layout */
-        .mastery-split-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 2.5rem; }
-        .archetype-card-light { background: var(--card-light); border: 1px solid var(--border-light); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 1.5rem; text-align: center; background: radial-gradient(circle at top, #ffffff 0%, #f4f4f9 100%); }
-        .lock-icon-wrapper { width: 50px; height: 50px; border-radius: 50%; background: #e4e3eb; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #a19fb0; margin-bottom: 1rem; }
-        .archetype-card-light h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--text-dark); }
-        .archetype-card-light span { font-size: 0.65rem; text-transform: uppercase; font-weight: 800; color: var(--accent); letter-spacing: 1px; margin-bottom: 0.6rem; }
-        .archetype-card-light p { font-size: 0.8rem; color: var(--text-muted-dark); max-width: 200px; line-height: 1.4; }
+        .trophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
 
-        .mastery-panel-light { background: var(--card-light); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
-        .panel-header-row { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted-dark); border-bottom: 1px solid #f0eff5; padding-bottom: 0.5rem; }
-        
-        .mastery-progress-item { display: flex; align-items: center; gap: 1rem; }
-        .mini-pos-tag { width: 32px; height: 24px; background: #e82e2e; color: white; border-radius: 4px; font-size: 0.7rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
-        .mini-pos-tag.rb { background: #e8642e; } .mini-pos-tag.wr { background: #e8a62e; } .mini-pos-tag.de { background: #29ad61; } .mini-pos-tag.db { background: #2983ad; }
-        .mastery-label-text { font-size: 0.85rem; font-weight: 700; width: 110px; color: var(--text-dark); }
-        .bar-wrapper-light { flex: 1; height: 8px; background: #e4e3eb; border-radius: 4px; overflow: hidden; position: relative; }
-        .bar-fill-light { height: 100%; background: var(--accent); border-radius: 4px; }
-        .mastery-score-fraction { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 4px; }
+        .trophy-item {
+            background: #111017;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .trophy-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
 
-        /* Badge Progression Groups */
-        .position-achievement-section { margin-bottom: 2rem; }
-        .position-section-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 0.4rem; margin-bottom: 1rem; }
-        .position-section-title { font-size: 0.95rem; font-weight: 800; color: var(--text-dark); text-transform: capitalize; }
-        .position-section-summary { font-size: 0.75rem; font-weight: 700; color: var(--text-muted-dark); }
+        .trophy-emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+        }
 
-        .badges-grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
-        .badge-milestone-card { background: var(--card-light); border: 1px solid var(--border-light); border-radius: 10px; padding: 1.2rem; display: flex; gap: 1rem; position: relative; }
-        .badge-tier-indicator-line { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #cbd4e1; border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
-        .badge-tier-indicator-line.gold { background: #fcae1e; }
-        .badge-tier-indicator-line.silver { background: #94a3b8; }
-        .badge-tier-indicator-line.bronze { background: #cd7f32; }
-        
-        .badge-icon-container { width: 44px; height: 44px; border-radius: 50%; background: #f1f5f9; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800; flex-shrink: 0; }
-        .badge-content-box { flex: 1; display: flex; flex-direction: column; }
-        
-        .badge-main-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.2rem; }
-        .badge-title-name { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); }
-        .badge-xp-chip { background: #fef3c7; color: #d97706; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 4px; display: inline-flex; align-items: center; gap: 2px; }
-        
-        .badge-tier-status-text { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.5px; margin-bottom: 0.6rem; }
-        .badge-tier-status-text.gold { color: #d97706; }
-        .badge-tier-status-text.silver { color: #64748b; }
-        .badge-tier-status-text.bronze { color: #b45309; }
+        .trophy-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
 
-        .badge-next-tier-label { font-size: 0.65rem; font-weight: 700; color: var(--text-muted-dark); text-transform: uppercase; margin-bottom: 0.3rem; }
-        .badge-stat-metric-fraction { font-size: 0.75rem; font-weight: 700; color: var(--text-dark); margin-top: 0.5rem; display: flex; justify-content: space-between; }
-        .badge-stat-metric-fraction span.maxed { color: #059669; font-weight: 800; }
+        .trophy-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+        }
 
-        /* Season by Season Custom Light Profile Table Styles */
-        .profile-table-card-light { background: white; border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; margin-top: 2rem; }
-        .profile-table-card-light table { width: 100%; border-collapse: collapse; }
-        .profile-table-card-light th { background-color: var(--accent); color: white; font-weight: 700; padding: 0.8rem 0.6rem; font-size: 0.7rem; text-transform: uppercase; text-align: center; }
-        .profile-table-card-light td { padding: 0.7rem 0.6rem; font-size: 0.8rem; color: var(--text-dark); border-bottom: 1px solid #f0eff5; text-align: center; font-weight: 600; }
-        .profile-table-card-light tr.career-row td { background-color: #fee2e2; color: #991b1b; font-weight: 800; }
-
-        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer { 
+            background-color: #1a1922; 
+            color: var(--text-muted); 
+            padding: 1.5rem 4%; 
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            border-top: 1px solid var(--border); 
+            margin-top: auto; 
+        }
     </style>
 </head>
 <body>
 
+    <!-- ==========================================
+         NAVIGATION HEADER (Fully Native)
+         ========================================== -->
     <nav>
         <div class="logo-area">
             <div class="logo-circle">VFL</div>
@@ -201,9 +226,9 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="scores.html">Scores</a></li>
-            <li><a href="standings.html" class="active">Standings</a></li>
+            <li><a href="standings.html">Standings</a></li>
             <li class="dropdown">
-                <a href="#" class="active" id="stats-nav-link" onclick="switchCategory('passing', event)">
+                <a href="#" class="active" id="stats-nav-link">
                     Stats
                     <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
                         <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
@@ -213,29 +238,29 @@
                     <div class="dropdown-col">
                         <h4>Offense</h4>
                         <ul>
-                            <li><a href="#" onclick="switchCategory('passing', event)">Quarterbacks</a></li>
-                            <li><a href="#" onclick="switchCategory('rushing', event)">Running Backs</a></li>
-                            <li><a href="#" onclick="switchCategory('receiving', event)">Wide Receivers</a></li>
-                            <li><a href="#" onclick="switchCategory('tightends', event)">Tight Ends</a></li>
-                            <li><a href="#" onclick="switchCategory('center', event)">Centers</a></li>
+                            <li><a href="stats.html">Quarterbacks</a></li>
+                            <li><a href="stats.html">Running Backs</a></li>
+                            <li><a href="stats.html">Wide Receivers</a></li>
+                            <li><a href="stats.html">Tight Ends</a></li>
+                            <li><a href="stats.html">Centers</a></li>
                         </ul>
                     </div>
                     <div class="dropdown-col">
                         <h4>Defense</h4>
                         <ul>
-                            <li><a href="#" onclick="switchCategory('defensiveends', event)">Defensive Ends</a></li>
-                            <li><a href="#" onclick="switchCategory('linebackers', event)">Linebackers</a></li>
-                            <li><a href="#" onclick="switchCategory('secondary', event)">Defensive Backs</a></li>
+                            <li><a href="stats.html">Defensive Ends</a></li>
+                            <li><a href="stats.html">Linebackers</a></li>
+                            <li><a href="stats.html">Defensive Backs</a></li>
                         </ul>
                     </div>
                     <div class="dropdown-col">
                         <h4>Special Teams</h4>
                         <ul style="margin-bottom: 1.5rem;">
-                            <li><a href="#" onclick="switchCategory('kicking', event)">Kickers</a></li>
+                            <li><a href="stats.html">Kickers</a></li>
                         </ul>
                         <h4>Record Book</h4>
                         <ul>
-                            <li><a href="#" onclick="loadAllTimeStats(event)">All-Time Stats</a></li>
+                            <li><a href="stats.html">All-Time Stats</a></li>
                         </ul>
                     </div>
                 </div>
@@ -258,1415 +283,85 @@
         <a href="#" class="nav-btn">Join Now!</a>
     </nav>
 
-    <div class="container" id="view-container">
-        <!-- Dynamic views map here -->
+    <!-- ==========================================
+         MAIN LAYOUT CONTAINER
+         ========================================== -->
+    <div class="container">
+        
+        <!-- Back Link -->
+        <a href="javascript:history.back()" class="back-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            back to leaderboard
+        </a>
+
+        <!-- Showcase Hero Banner -->
+        <div class="trophy-hero">
+            <div class="hero-tag">VFL Achievement Room</div>
+            <h1 class="hero-heading" id="player-title">LOADING...</h1>
+        </div>
+
+        <!-- Trophy Shelf Grid Card -->
+        <div class="trophy-case-card">
+            <div class="case-header">Showcase Case</div>
+            <div class="trophy-grid">
+                
+                <!-- Trophy 1 -->
+                <div class="trophy-item">
+                    <span class="trophy-emoji">🏆</span>
+                    <div class="trophy-title" style="color: #ffd700;">VFL CHAMPION</div>
+                    <p class="trophy-desc">Won a league championship title.</p>
+                </div>
+
+                <!-- Trophy 2 -->
+                <div class="trophy-item">
+                    <span class="trophy-emoji">⭐</span>
+                    <div class="trophy-title" style="color: #f05d51;">LEAGUE MVP</div>
+                    <p class="trophy-desc">Awarded the Most Valuable Player award.</p>
+                </div>
+
+                <!-- Trophy 3 -->
+                <div class="trophy-item">
+                    <span class="trophy-emoji">🏅</span>
+                    <div class="trophy-title" style="color: #c0c0c0;">PRO BOWL</div>
+                    <p class="trophy-desc">Selected to the VFL Season All-Star roster.</p>
+                </div>
+
+                <!-- Trophy 4 -->
+                <div class="trophy-item">
+                    <span class="trophy-emoji">⚡</span>
+                    <div class="trophy-title" style="color: #a855f7;">OPOY</div>
+                    <p class="trophy-desc">Offensive Player of the Year award winner.</p>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
-    <footer>2026 Virtual Football League INC</footer>
+    <!-- ==========================================
+         FOOTER
+         ========================================== -->
+    <footer>
+        © 2026 Virtual Football League • Season 6
+    </footer>
 
+    <!-- ==========================================
+         DYNAMIC DATA PROCESSOR
+         ========================================== -->
     <script>
-        const container = document.getElementById('view-container');
-        let currentCategoryGlobal = 'passing';
-        let isRecordBookView = false;
-        let currentRecordBookPos = 'QB';
+        // Grab 'player' from URL parameters (?player=L1GHTWORKS)
+        const urlParams = new URLSearchParams(window.location.search);
+        const player = urlParams.get('player');
 
-        const statsDatabase = {
-            passing: {
-                title: "passing stats",
-                headers: ["#", "TM", "PLAYER", "PTS", "YDS", "C %", "TD", "INT", "SCK", "3RD", "4TH", "SNAP"],
-                rows: [
-                  ["1", "BIR", "L1GHTWORKS", "192", "2468", "56.00%", "32.0", "12.0", "4.0", "9.0", "1.0", "133.0"],
-                  ["2", "—", "reedtheg0at", "132", "1835", "42.2%", "22", "11", "1", "14", "2", "110"],
-                  ["3", "—", "tt_aidendimes", "102", "1644.0", "57.58%", "17.0", "9.0", "7.0", "6.0", "1.0", "94.0"],
-                  ["4", "—", "T4MPAS", "102", "1129.0", "52.54%", "17.0", "4.0", "2.0", "1.0", "3.0", "53.0"],
-                  ["5", "—", "TBYellowDragon", "96", "1428.0", "42.58%", "16.0", "25.0", "6.0", "5.0", "5.0", "151.0"],
-                  ["6", "—", "jaxversi", "78", "1366.0", "45.87%", "13.0", "12.0", "8.0", "8.0", "5.0", "104.0"],
-                  ["7", "—", "Dimeveil", "66", "824.0", "55.56%", "11.0", "4.0", "1.0", "2.0", "2.0", "41.0"],
-                  ["8", "—", "myusernameis_", "54", "640.0", "39.02%", "9.0", "6.0", "5.0", "2.0", "1.0", "37.0"],
-                  ["9", "—", "Eliback000", "48", "1117.0", "48.86%", "8.0", "14.0", "13.0", "10.0", "0.0", "85.0"],
-                  ["10", "—", "V1xsv", "42", "522.0", "51.22%", "7.0", "2.0", "0.0", "2.0", "0.0", "35.0"],
-                  ["11", "—", "jetlink", "42", "307.0", "57.89%", "7.0", "1.0", "1.0", "1.0", "0.0", "17.0"],
-                  ["12", "—", "YXOAA", "36", "430.0", "62.07%", "6.0", "1.0", "1.0", "1.0", "1.0", "25.0"],
-                  ["13", "—", "SantaBarbaraCo", "36", "269.0", "50.00%", "6.0", "1.0", "1.0", "2.0", "0.0", "12.0"],
-                  ["14", "—", "9FE3T", "36", "408.0", "46.67%", "6.0", "2.0", "3.0", "0.0", "1.0", "27.0"],
-                  ["15", "—", "TrofvbvvZx", "30", "369.0", "42.86%", "5.0", "5.0", "1.0", "0.0", "1.0", "26.0"],
-                  ["16", "—", "nyanthepro111", "30", "766.0", "39.34%", "5.0", "20.0", "7.0", "0.0", "1.0", "59.0"],
-                  ["17", "—", "JAYSBCKUP41", "30", "457.0", "61.54%", "5.0", "3.0", "3.0", "4.0", "0.0", "26.0"],
-                  ["18", "—", "Gregmvpikon", "30", "605.0", "55.00%", "5.0", "6.0", "6.0", "3.0", "0.0", "40.0"],
-                  ["19", "—", "carp9063", "30", "297.0", "64.29%", "5.0", "1.0", "1.0", "0.0", "0.0", "14.0"],
-                  ["20", "—", "YTdubbyboy12", "24", "268.0", "66.67%", "4.0", "1.0", "0.0", "0.0", "1.0", "7.0"],
-                  ["21", "—", "liarliarliarliarr", "24", "219.0", "46.15%", "4.0", "0.0", "0.0", "1.0", "2.0", "10.0"],
-                  ["22", "—", "Hxndred100", "24", "523.0", "50.00%", "4.0", "4.0", "4.0", "2.0", "1.0", "28.0"],
-                  ["23", "—", "heianaye", "24", "445.0", "66.67%", "4.0", "3.0", "0.0", "2.0", "1.0", "22.0"],
-                  ["24", "—", "AJFitted", "24", "374.0", "50.00%", "4.0", "6.0", "3.0", "1.0", "0.0", "25.0"],
-                  ["25", "—", "rxlatxvealt", "18", "295.0", "42.31%", "3.0", "7.0", "1.0", "0.0", "0.0", "26.0"],
-                  ["26", "—", "kingcooie", "18", "272.0", "39.13%", "3.0", "3.0", "4.0", "1.0", "2.0", "21.0"],
-                  ["27", "—", "fleased", "18", "298.0", "44.44%", "3.0", "4.0", "0.0", "1.0", "0.0", "24.0"],
-                  ["28", "—", "cam20891", "18", "256.0", "47.62%", "3.0", "3.0", "0.0", "2.0", "0.0", "19.0"],
-                  ["29", "—", "bxk5", "18", "224.0", "50.00%", "3.0", "1.0", "1.0", "0.0", "1.0", "13.0"],
-                  ["30", "—", "Ballwork", "18", "358.0", "53.57%", "3.0", "4.0", "5.0", "0.0", "0.0", "27.0"],
-                  ["31", "—", "Z_09523", "12", "325.0", "40.91%", "2.0", "5.0", "2.0", "5.0", "1.0", "40.0"],
-                  ["32", "—", "Watashi_Vinto", "12", "150.0", "71.43%", "2.0", "1.0", "0.0", "0.0", "0.0", "7.0"],
-                  ["33", "—", "Reag5n", "12", "216.0", "33.33%", "2.0", "3.0", "2.0", "1.0", "1.0", "18.0"],
-                  ["34", "—", "Kexiua_13", "12", "239.0", "57.14%", "2.0", "3.0", "1.0", "0.0", "0.0", "15.0"],
-                  ["35", "—", "g0dgotdjay", "12", "85.0", "42.86%", "2.0", "1.0", "4.0", "0.0", "1.0", "7.0"],
-                  ["36", "—", "199b", "12", "99.0", "25.00%", "2.0", "1.0", "0.0", "1.0", "0.0", "9.0"],
-                  ["37", "—", "ziverrs", "6", "91.0", "25.00%", "1.0", "1.0", "2.0", "0.0", "0.0", "5.0"],
-                  ["38", "—", "TT_vowel", "6", "68.0", "71.43%", "1.0", "1.0", "0.0", "0.0", "0.0", "7.0"],
-                  ["39", "—", "soccergavin123", "6", "45.0", "100.00%", "1.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["40", "—", "Hawko", "6", "79.0", "50.00%", "1.0", "1.0", "1.0", "1.0", "0.0", "5.0"],
-                  ["41", "—", "goyboysag505", "6", "61.0", "100.00%", "1.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["42", "—", "darkfitted", "6", "318.0", "46.51%", "1.0", "9.0", "5.0", "2.0", "3.0", "45.0"],
-                  ["43", "—", "arkvoid1", "6", "65.0", "100.00%", "1.0", "0.0", "1.0", "0.0", "0.0", "1.0"],
-                  ["44", "—", "305Jewww", "6", "191.0", "47.37%", "1.0", "2.0", "3.0", "2.0", "0.0", "18.0"],
-                  ["45", "—", "yurpzl", "0.0", "0.0", "0.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["46", "—", "xorevacc", "0.0", "82.0", "57.14%", "0.0", "0.0", "1.0", "0.0", "0.0", "7.0"],
-                  ["47", "—", "wsppeople6967", "0.0", "0.0", "0.00%", "0.0", "0.0", "1.0", "0.0", "0.0", "0.0"],
-                  ["48", "—", "Ur1zma", "0.0", "14.0", "100.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["49", "—", "unspokan", "0.0", "0.0", "0.00%", "0.0", "3.0", "1.0", "0.0", "0.0", "6.0"],
-                  ["50", "—", "uhhsolzff2", "0.0", "0.0", "0.00%", "0.0", "1.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["51", "—", "thtmoss", "0.0", "0.0", "0.00%", "0.0", "1.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["52", "—", "The_ChampionATT", "0.0", "0.0", "0.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                  ["53", "—", "Stayquiet111", "0.0", "0.0", "0.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["54", "—", "Sp1lnx", "0.0", "48.0", "100.00%", "0.0", "0.0", "0.0", "0.0", "1.0", "1.0"],
-                  ["55", "—", "SireBobby", "0.0", "0.0", "0.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["56", "—", "Sdsharkbait61999", "0.0", "0.0", "0.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["57", "—", "roblox_user_1610061131", "0.0", "33.0", "100.00%", "0.0", "0.0", "0.0", "0.0", "1.0", "1.0"],
-                  ["58", "—", "ravensjj2014", "0.0", "0.0", "0.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                  ["59", "—", "M1SSTH30LDDAYS5", "0.0", "221.0", "68.75%", "0.0", "0.0", "0.0", "0.0", "0.0", "16.0"],
-                  ["60", "—", "JamesTheUnc18", "0.0", "0.0", "0.00%", "0.0", "1.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["61", "—", "irqz", "0.0", "42.0", "100.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["62", "—", "lpqzfits", "0.0", "160.0", "60.00%", "0.0", "1.0", "2.0", "0.0", "0.0", "4.0"],
-                  ["63", "—", "i9ut", "0.0", "16.0", "100.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["64", "—", "gaminrobot2", "0.0", "118.0", "27.78%", "0.0", "6.0", "1.0", "0.0", "0.0", "17.0"],
-                  ["65", "—", "freesh3ds", "0.0", "0.0", "0.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                  ["66", "—", "Dxsired_uf2", "0.0", "39.0", "20.00%", "0.0", "0.0", "1.0", "0.0", "1.0", "2.0"],
-                  ["67", "—", "Donalduhhhh", "0.0", "42.0", "25.00%", "0.0", "2.0", "0.0", "0.0", "1.0", "5.0"],
-                  ["68", "—", "Broken7Bricks7", "0.0", "0.0", "0.00%", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                  ["69", "—", "bpanther906", "0.0", "0.0", "0.00%", "0.0", "1.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["70", "—", "BillyArmyFree", "0.0", "0.0", "0.00%", "0.0", "0.0", "1.0", "0.0", "0.0", "0.0"],
-                  ["71", "—", "AlienZ873", "0.0", "0.0", "0.00%", "0.0", "1.0", "0.0", "0.0", "0.0", "1.0"],
-                  ["72", "—", "abkxg", "0.0", "0.0", "0.00%", "0.0", "0.0", "1.0", "0.0", "0.0", "0.0"]
-
-                ]
-            },
-            rushing: {
-                title: "rushing stats",
-                headers: ["#", "TM", "PLAYER", "PTS", "YDS", "AVG", "TD", "FUM", "LNG", "20+", "SNAP"],
-                rows: [
-                    ["1", "", "tt_aidendimes", "30", "89.0", "5.2", "5.0", "0.0", "7.0", "1.0", "9.0"],
-                    ["2", "", "Eliback000", "24", "168.0", "7.3", "4.0", "0.0", "12.0", "3.0", "21.0"],
-                    ["3", "", "arkvoid1", "24", "20.0", "5.0", "4.0", "0.0", "4.0", "2.0", "4.0"],
-                    ["4", "", "nyanthepro111", "18", "30.0", "4.3", "3.0", "1.0", "4.0", "1.0", "7.0"],
-                    ["5", "", "L1GHTWORKS", "18", "69.0", "6.3", "3.0", "0.0", "6.0", "1.0", "11.0"],
-                    ["6", "", "jaxversi", "18", "120.0", "9.2", "3.0", "0.0", "10.0", "4.0", "11.0"],
-                    ["7", "", "Dimeveil", "18", "112.0", "10.2", "3.0", "0.0", "4.0", "1.0", "8.0"],
-                    ["8", "", "reedtheg0at", "12", "54", "6.0", "2", "0", "5", "1", "10"],
-                    ["9", "", "M1SSTH30LDDAYS5", "12", "21.0", "3.5", "2.0", "0.0", "3.0", "2.0", "6.0"],
-                    ["10", "", "Hxndred100", "12", "21.0", "7.0", "2.0", "0.0", "2.0", "0.0", "3.0"],
-                    ["11", "", "Z_09523", "6", "34.0", "5.7", "1.0", "0.0", "3.0", "0.0", "6.0"],
-                    ["12", "", "YXOAA", "6", "88.0", "8.8", "1.0", "0.0", "4.0", "1.0", "7.0"],
-                    ["13", "", "V1xsv", "6", "114.0", "11.4", "1.0", "0.0", "7.0", "1.0", "10.0"],
-                    ["14", "", "Ur1zma", "6", "25.0", "12.5", "1.0", "0.0", "2.0", "0.0", "2.0"],
-                    ["15", "", "SantaBarbaraCo", "6", "89.0", "6.8", "1.0", "0.0", "3.0", "1.0", "12.0"],
-                    ["16", "", "rxlatxvealt", "6", "44.0", "6.3", "1.0", "0.0", "4.0", "1.0", "7.0"],
-                    ["17", "", "lpqzfits", "6", "5.0", "2.5", "1.0", "0.0", "1.0", "0.0", "2.0"],
-                    ["18", "", "heianaye", "6", "14.0", "7.0", "1.0", "0.0", "1.0", "0.0", "2.0"],
-                    ["19", "", "305Jewww", "6", "77.0", "9.6", "1.0", "0.0", "3.0", "0.0", "8.0"],
-                    ["20", "", "vBOBBYv", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["21", "", "unspokan", "12.0", "12.0", "12.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                    ["22", "", "TT_vowel", "8.0", "4.0", "4.0", "0.0", "0.0", "0.0", "0.0", "2.0"],
-                    ["23", "", "TrofvbvvZx", "74.0", "9.2", "9.2", "0.0", "0.0", "2.0", "1.0", "8.0"],
-                    ["24", "", "TBYellowDragon", "181.0", "7.9", "7.9", "0.0", "0.0", "11.0", "9.0", "23.0"],
-                    ["25", "", "T4MPAS", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["26", "", "Reag5n", "18.0", "4.5", "4.5", "0.0", "0.0", "0.0", "0.0", "3.0"],
-                    ["27", "", "myusernameis_bacony", "62.0", "8.9", "8.9", "0.0", "0.0", "3.0", "1.0", "5.0"],
-                    ["28", "", "kingcooie", "11.0", "5.5", "5.5", "0.0", "0.0", "1.0", "0.0", "2.0"],
-                    ["29", "", "Kexiua_13", "40.0", "10.0", "10.0", "0.0", "0.0", "1.0", "0.0", "4.0"],
-                    ["30", "", "Kaiden982011", "7.0", "0.0", "0.0", "0.0", "0.0", "1.0", "1.0", "1.0"],
-                    ["31", "", "jetlink", "103.0", "25.8", "25.8", "0.0", "0.0", "3.0", "0.0", "4.0"],
-                    ["32", "", "JAYSBCKUP41", "120.0", "6.7", "6.7", "0.0", "1.0", "4.0", "2.0", "15.0"],
-                    ["33", "", "jakex963", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["34", "", "irznq", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["35", "", "irqz", "13.0", "13.0", "13.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                    ["36", "", "IhyElise", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["37", "", "Hawko", "9.0", "9.0", "9.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                    ["38", "", "Gregmvpikon", "130.0", "26.0", "26.0", "0.0", "0.0", "4.0", "0.0", "5.0"],
-                    ["39", "", "g0dgotdjay", "26.0", "6.5", "6.5", "0.0", "0.0", "0.0", "0.0", "4.0"],
-                    ["40", "", "fleased", "46.0", "9.2", "9.2", "0.0", "0.0", "1.0", "0.0", "4.0"],
-                    ["41", "", "FBathlete88", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["42", "", "Donalduhhhh", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["43", "", "darkfitted", "31.0", "6.2", "6.2", "0.0", "0.0", "1.0", "1.0", "5.0"],
-                    ["44", "", "Damm_st5r", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["45", "", "carp9063", "13.0", "6.5", "6.5", "0.0", "1.0", "0.0", "0.0", "2.0"],
-                    ["46", "", "cam20891", "56.0", "7.0", "7.0", "0.0", "0.0", "2.0", "0.0", "7.0"],
-                    ["47", "", "Broken7Bricks7", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["48", "", "blues", "3.0", "3.0", "3.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                    ["49", "", "BillyArmyFree", "7.0", "7.0", "7.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                    ["50", "", "Ballwork", "16.0", "5.3", "5.3", "0.0", "0.0", "1.0", "0.0", "3.0"],
-                    ["51", "", "AJfitted", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["52", "", "abkxg", "2.0", "2.0", "2.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                    ["53", "", "9FE3T", "9.0", "4.5", "4.5", "0.0", "0.0", "0.0", "0.0", "1.0"]
-                ]
-            },
-            receiving: {
-                title: "receiving stats",
-                headers: ["#", "TM", "PLAYER", "PTS", "YDS", "REC", "AVG", "TD", "DRP", "YAC", "SNAP"],
-                rows: [
-                    ["1", "", "Kexiua_13", "90", "1227.0", "37.0", "33.2", "15.0", "4.0", "206.0", "147.0"],
-                    ["2", "", "kpoopmj", "78", "753.0", "19.0", "39.6", "13.0", "3.0", "61.0", "221.0"],
-                    ["3", "", "IsoReceiver", "66", "788.0", "18.0", "43.8", "11.0", "0.0", "112.0", "39.0"],
-                    ["4", "", "Vexxyyyyyyyy", "60", "466.0", "16.0", "29.1", "10.0", "0.0", "31.0", "94.0"],
-                    ["5", "", "wsppeople6967", "42", "368.0", "20.0", "18.4", "7.0", "3.0", "85.0", "128.0"],
-                    ["6", "", "5STARR_FLYX", "42", "431.0", "9.0", "47.9", "7.0", "1.0", "9.0", "220.0"],
-                    ["7", "", "yurpzl", "36", "519.0", "14.0", "37.1", "6.0", "4.0", "48.0", "119.0"],
-                    ["8", "", "thtmoss", "36", "439.0", "11.0", "39.9", "6.0", "3.0", "90.0", "112.0"],
-                    ["9", "", "LuOj26", "36", "226.0", "6.0", "37.7", "6.0", "1.0", "2.0", "26.0"],
-                    ["10", "", "199b", "36", "485.0", "15.0", "32.3", "6.0", "1.0", "37.0", "145.0"],
-                    ["11", "", "kohstacks", "30", "310.0", "9.0", "34.4", "5.0", "3.0", "38.0", "63.0"],
-                    ["12", "", "Stayquiet111", "24", "703.0", "25.0", "28.1", "4.0", "6.0", "202.0", "113.0"],
-                    ["13", "", "Sp1lnx", "24", "757.0", "22.0", "34.4", "4.0", "2.0", "113.0", "82.0"],
-                    ["14", "", "imcq", "24", "128.0", "5.0", "25.6", "4.0", "1.0", "9.0", "16.0"],
-                    ["15", "", "coolia", "24", "340.0", "8.0", "42.5", "4.0", "4.0", "40.0", "58.0"],
-                    ["16", "", "9FE3T", "24", "213.0", "6.0", "35.5", "4.0", "2.0", "61.0", "43.0"],
-                    ["17", "", "1xblz", "24", "439.0", "10.0", "43.9", "4.0", "0.0", "22.0", "78.0"],
-                    ["18", "", "ziverrs", "18", "219.0", "5.0", "43.8", "3.0", "0.0", "13.0", "57.0"],
-                    ["19", "", "sonicyoshipowe", "18", "142.0", "7.0", "20.3", "3.0", "0.0", "48.0", "77.0"],
-                    ["20", "", "Poloboy225", "18", "116.0", "4.0", "29.0", "3.0", "1.0", "1.0", "77.0"],
-                    ["21", "", "Noidontsip", "18", "158.0", "4.0", "39.5", "3.0", "0.0", "0.0", "33.0"],
-                    ["22", "", "JvkeThingz", "18", "92.0", "3.0", "30.7", "3.0", "1.0", "0.0", "17.0"],
-                    ["23", "", "JajJajit", "18", "223.0", "4.0", "55.8", "3.0", "0.0", "16.0", "24.0"],
-                    ["24", "", "imaFreeballer", "18", "491.0", "17.0", "28.9", "3.0", "2.0", "50.0", "215.0"],
-                    ["25", "", "Hurricane7812", "18", "197.0", "7.0", "28.1", "3.0", "2.0", "39.0", "79.0"],
-                    ["26", "", "fearthestarz", "18", "216.0", "8.0", "27.0", "3.0", "1.0", "17.0", "79.0"],
-                    ["27", "", "cfbx", "18", "135.0", "7.0", "19.3", "3.0", "1.0", "22.0", "53.0"],
-                    ["28", "", "Yecipe", "12", "81.0", "2.0", "40.5", "2.0", "1.0", "0.0", "20.0"],
-                    ["29", "", "xxdamien09xx", "12", "123.0", "5.0", "24.6", "2.0", "3.0", "6.0", "95.0"],
-                    ["30", "", "xorevacc", "12", "429.0", "12.0", "35.8", "2.0", "3.0", "18.0", "113.0"],
-                    ["31", "", "Tuxnover", "12", "115.0", "3.0", "38.3", "2.0", "0.0", "35.0", "30.0"],
-                    ["32", "", "trey_25z", "12", "103.0", "4.0", "25.8", "2.0", "1.0", "17.0", "159.0"],
-                    ["33", "", "Tinky759", "12", "152.0", "4.0", "38.0", "2.0", "0.0", "16.0", "75.0"],
-                    ["34", "", "rykerools", "12", "65.0", "2.0", "32.5", "2.0", "0.0", "11.0", "41.0"],
-                    ["35", "", "riccch33_44jrs", "12", "124.0", "3.0", "41.3", "2.0", "0.0", "2.0", "26.0"],
-                    ["36", "", "q5jsp", "12", "81.0", "3.0", "27.0", "2.0", "0.0", "34.0", "44.0"],
-                    ["37", "", "outpeering", "12", "88.0", "3.0", "29.3", "2.0", "0.0", "4.0", "33.0"],
-                    ["38", "", "kznf", "12", "106.0", "4.0", "26.5", "2.0", "0.0", "29.0", "50.0"],
-                    ["39", "", "condrins", "12", "137.0", "3.0", "45.7", "2.0", "0.0", "41.0", "81.0"],
-                    ["40", "", "JoyFarmer3", "12", "328.0", "8.0", "41.0", "2.0", "1.0", "21.0", "44.0"],
-                    ["41", "", "Jiukux", "12", "284.0", "6.0", "47.3", "2.0", "0.0", "27.0", "26.0"],
-                    ["42", "", "irwps", "12", "77.0", "4.0", "19.3", "2.0", "1.0", "2.0", "32.0"],
-                    ["43", "", "i9ut", "12", "197.0", "8.0", "24.6", "2.0", "0.0", "55.0", "62.0"],
-                    ["44", "", "GloriousElement", "12", "61.0", "3.0", "20.3", "2.0", "0.0", "12.0", "14.0"],
-                    ["45", "", "cytsil", "12", "23.0", "2.0", "11.5", "2.0", "0.0", "2.0", "21.0"],
-                    ["46", "", "cq2Ny", "12", "55.0", "3.0", "18.3", "2.0", "1.0", "0.0", "53.0"],
-                    ["47", "", "chromedbyfoott", "12", "42.0", "2.0", "21.0", "2.0", "0.0", "0.0", "19.0"],
-                    ["48", "", "casperpants22", "12", "199.0", "4.0", "49.8", "2.0", "1.0", "10.0", "32.0"],
-                    ["49", "", "Broken7Bricks7", "12", "159.0", "9.0", "17.7", "2.0", "0.0", "43.0", "146.0"],
-                    ["50", "", "bpanther906", "12", "171.0", "7.0", "24.4", "2.0", "0.0", "22.0", "95.0"],
-                    ["51", "", "Ballwork", "12", "212.0", "5.0", "42.4", "2.0", "3.0", "25.0", "68.0"],
-                    ["52", "", "asukuxz", "12", "368.0", "9.0", "40.9", "2.0", "4.0", "40.0", "77.0"],
-                    ["53", "", "AJfitted", "12", "153.0", "6.0", "25.5", "2.0", "0.0", "7.0", "44.0"],
-                    ["54", "", "6xkzo", "12", "203.0", "6.0", "33.8", "2.0", "1.0", "49.0", "44.0"],
-                    ["55", "", "4crmr", "12", "120.0", "3.0", "40.0", "2.0", "0.0", "1.0", "29.0"],
-                    ["56", "", "3fnr", "12", "98.0", "4.0", "24.5", "2.0", "0.0", "3.0", "16.0"],
-                    ["57", "", "zaffOw", "6", "76.0", "4.0", "19.0", "1.0", "0.0", "10.0", "26.0"],
-                    ["58", "", "z0rvp", "6", "187.0", "7.0", "26.7", "1.0", "2.0", "108.0", "64.0"],
-                    ["59", "", "YTdubbyboy12", "6", "126.0", "6.0", "21.0", "1.0", "0.0", "13.0", "99.0"],
-                    ["60", "", "Yk_djmyduo62", "6", "38.0", "3.0", "12.7", "1.0", "0.0", "0.0", "36.0"],
-                    ["61", "", "xansuii", "6", "137.0", "3.0", "45.7", "1.0", "0.0", "13.0", "34.0"],
-                    ["62", "", "whitejames", "6", "41.0", "1.0", "41.0", "1.0", "0.0", "0.0", "39.0"],
-                    ["63", "", "vayden012", "6", "81.0", "2.0", "40.5", "1.0", "0.0", "4.0", "32.0"],
-                    ["64", "", "uhhsolzff2", "6", "208.0", "5.0", "41.6", "1.0", "0.0", "10.0", "72.0"],
-                    ["65", "", "TT_vowel", "6", "111.0", "3.0", "37.0", "1.0", "1.0", "25.0", "23.0"],
-                    ["66", "", "TMA2", "6", "93.0", "3.0", "31.0", "1.0", "0.0", "13.0", "28.0"],
-                    ["67", "", "SpideyM_2024", "6", "75.0", "1.0", "75.0", "1.0", "0.0", "53.0", "79.0"],
-                    ["68", "", "soartothestarz", "6", "111.0", "4.0", "27.8", "1.0", "0.0", "33.0", "77.0"],
-                    ["69", "", "sleekthemeat", "6", "115.0", "5.0", "23.0", "1.0", "0.0", "5.0", "71.0"],
-                    ["70", "", "sacramentocoyd", "6", "47.0", "1.0", "47.0", "1.0", "0.0", "0.0", "19.0"],
-                    ["71", "", "peacentragedy", "6", "43.0", "2.0", "21.5", "1.0", "0.0", "1.0", "34.0"],
-                    ["72", "", "PandaGamer_39", "6", "104.0", "3.0", "34.7", "1.0", "1.0", "4.0", "18.0"],
-                    ["73", "", "orqas4k", "6", "72.0", "3.0", "24.0", "1.0", "0.0", "12.0", "32.0"],
-                    ["74", "", "Nvrhealme", "6", "93.0", "2.0", "46.5", "1.0", "0.0", "0.0", "55.0"],
-                    ["75", "", "Notmadrussianr", "6", "13.0", "1.0", "13.0", "1.0", "0.0", "6.0", "33.0"],
-                    ["76", "", "NervousHeartt", "6", "97.0", "7.0", "13.9", "1.0", "0.0", "44.0", "44.0"],
-                    ["77", "", "LawkUp", "6", "76.0", "3.0", "25.3", "1.0", "0.0", "8.0", "23.0"],
-                    ["78", "", "L0rd_maf", "6", "28.0", "2.0", "14.0", "1.0", "0.0", "0.0", "12.0"],
-                    ["79", "", "KeebsCam", "6", "43.0", "2.0", "21.5", "1.0", "0.0", "7.0", "32.0"],
-                    ["80", "", "Kazooeyy", "6", "115.0", "4.0", "28.8", "1.0", "1.0", "4.0", "17.0"],
-                    ["81", "", "iyxt", "6", "118.0", "4.0", "29.5", "1.0", "0.0", "9.0", "33.0"],
-                    ["82", "", "irznq", "6", "165.0", "6.0", "27.5", "1.0", "0.0", "50.0", "79.0"],
-                    ["83", "", "looooop224", "6", "88.0", "6.0", "14.7", "1.0", "2.0", "47.0", "126.0"],
-                    ["84", "", "lhyzpnk", "6", "104.0", "2.0", "52.0", "1.0", "1.0", "0.0", "32.0"],
-                    ["85", "", "helloo78", "6", "52.0", "3.0", "17.3", "1.0", "1.0", "31.0", "42.0"],
-                    ["86", "", "gxpk", "6", "163.0", "4.0", "40.8", "1.0", "0.0", "0.0", "32.0"],
-                    ["87", "", "eagles1418", "6", "223.0", "11.0", "20.3", "1.0", "4.0", "50.0", "124.0"],
-                    ["88", "", "DraxcFitz", "6", "62.0", "4.0", "15.5", "1.0", "1.0", "17.0", "45.0"],
-                    ["89", "", "CxQzF1tS", "6", "33.0", "3.0", "11.0", "1.0", "0.0", "10.0", "28.0"],
-                    ["90", "", "Coolpena10", "6", "155.0", "4.0", "38.8", "1.0", "1.0", "27.0", "55.0"],
-                    ["91", "", "chriscodpro_2", "6", "91.0", "5.0", "18.2", "1.0", "0.0", "0.0", "77.0"],
-                    ["92", "", "c1btw", "6", "57.0", "2.0", "28.5", "1.0", "0.0", "3.0", "34.0"],
-                    ["93", "", "boostmadeloll", "6", "75.0", "1.0", "75.0", "1.0", "0.0", "0.0", "33.0"],
-                    ["94", "", "blues", "6", "81.0", "1.0", "81.0", "1.0", "0.0", "0.0", "15.0"],
-                    ["95", "", "AlienZ873", "6", "62.0", "1.0", "62.0", "1.0", "0.0", "49.0", "70.0"],
-                    ["96", "", "abkxg", "6", "43.0", "2.0", "21.5", "1.0", "0.0", "4.0", "23.0"],
-                    ["97", "", "91monk", "6", "24.0", "1.0", "24.0", "1.0", "0.0", "0.0", "47.0"],
-                    ["98", "", "305Jewww", "6", "86.0", "3.0", "28.7", "1.0", "0.0", "0.0", "13.0"],
-                    ["99", "", "YXOAA", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "2.0"],
-                    ["100", "", "Ywze0", "0", "31.0", "1.0", "31.0", "0.0", "0.0", "13.0", "29.0"],
-                    ["101", "", "yamil15537", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "32.0"],
-                    ["102", "", "xzVinto", "0", "153.0", "7.0", "21.9", "0.0", "1.0", "18.0", "56.0"],
-                    ["103", "", "WZayZay6", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "11.0"],
-                    ["104", "", "williamreinke", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "44.0"],
-                    ["105", "", "viking2654", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "29.0"],
-                    ["106", "", "VileOne", "0", "43.0", "1.0", "43.0", "0.0", "0.0", "0.0", "18.0"],
-                    ["107", "", "V1xsv", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"],
-                    ["108", "", "Ur1zma", "0", "19.0", "2.0", "9.5", "0.0", "0.0", "12.0", "16.0"],
-                    ["109", "", "tt_aidendimes", "0", "101.0", "2.0", "50.5", "0.0", "0.0", "1.0", "21.0"],
-                    ["110", "", "TrofvbvvZx", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "3.0"],
-                    ["111", "", "TO_LITJAYYy", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "42.0"],
-                    ["112", "", "Theking574836", "0", "22.0", "2.0", "11.0", "0.0", "0.0", "8.0", "26.0"],
-                    ["113", "", "The_ChampionATT", "0", "29.0", "2.0", "14.5", "0.0", "0.0", "13.0", "31.0"],
-                    ["114", "", "Tghggfdcvvcdf", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "90.0"],
-                    ["115", "", "TBYellowDragon", "0", "39.0", "1.0", "39.0", "0.0", "0.0", "13.0", "7.0"],
-                    ["116", "", "tbh_stars", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "33.0"],
-                    ["117", "", "T4MPAS", "0", "8.0", "2.0", "4.0", "0.0", "0.0", "1.0", "3.0"],
-                    ["118", "", "Sxqrafice", "0", "15.0", "2.0", "7.5", "0.0", "1.0", "14.0", "58.0"],
-                    ["119", "", "Supermankid7768", "0", "46.0", "1.0", "46.0", "0.0", "0.0", "0.0", "32.0"],
-                    ["120", "", "Stevenmoney19", "0", "44.0", "4.0", "11.0", "0.0", "0.0", "44.0", "50.0"],
-                    ["121", "", "solosh3ds", "0", "1.0", "1.0", "1.0", "0.0", "0.0", "2.0", "32.0"],
-                    ["122", "", "solarbihh", "0", "27.0", "1.0", "27.0", "0.0", "0.0", "0.0", "10.0"],
-                    ["123", "", "soccergavin1234", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "74.0"],
-                    ["124", "", "SlythX_x", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "75.0"],
-                    ["125", "", "Samfiretruck5", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "35.0"],
-                    ["126", "", "Robuy_6677", "0", "53.0", "5.0", "10.6", "0.0", "0.0", "12.0", "50.0"],
-                    ["127", "", "roblox_user_1610061131", "0", "63.0", "3.0", "21.0", "0.0", "0.0", "19.0", "49.0"],
-                    ["128", "", "Rid3rH3roLight2023", "0", "19.0", "1.0", "19.0", "0.0", "0.0", "17.0", "10.0"],
-                    ["129", "", "reckkon", "0", "22.0", "2.0", "11.0", "0.0", "0.0", "4.0", "43.0"],
-                    ["130", "", "Reag5n", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                    ["131", "", "ravensjj2014", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "55.0"],
-                    ["132", "", "pizzaci2", "0", "22.0", "2.0", "11.0", "0.0", "0.0", "4.0", "33.0"],
-                    ["133", "", "Phantomtax732", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "11.0"],
-                    ["134", "", "oet3", "0", "46.0", "1.0", "46.0", "0.0", "0.0", "37.0", "16.0"],
-                    ["135", "", "Nemoup234", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "65.0"],
-                    ["136", "", "NameYourTop5", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "77.0"],
-                    ["137", "", "myusernameis_bacony", "0", "5.0", "1.0", "5.0", "0.0", "0.0", "0.0", "7.0"],
-                    ["138", "", "Mynia3458", "0", "32.0", "2.0", "16.0", "0.0", "0.0", "20.0", "64.0"],
-                    ["139", "", "Myles_Ford7", "0", "13.0", "1.0", "13.0", "0.0", "0.0", "6.0", "31.0"],
-                    ["140", "", "Mrmahnoob", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "44.0"],
-                    ["141", "", "mgqu", "0", "40.0", "1.0", "40.0", "0.0", "0.0", "4.0", "16.0"],
-                    ["142", "", "Mathlacey", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "45.0"],
-                    ["143", "", "lqrk", "0", "12.0", "1.0", "12.0", "0.0", "0.0", "12.0", "33.0"],
-                    ["144", "", "L1GHTWORKS", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "7.0"],
-                    ["145", "", "king2exclus1ve", "0", "47.0", "2.0", "23.5", "0.0", "0.0", "36.0", "47.0"],
-                    ["146", "", "Kay_togood1", "0", "61.0", "1.0", "61.0", "0.0", "0.0", "0.0", "28.0"],
-                    ["147", "", "Jxn3rt", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "7.0"],
-                    ["148", "", "Justin_Jefferson2425", "0", "129.0", "6.0", "21.5", "0.0", "0.0", "39.0", "32.0"],
-                    ["149", "", "JoziaSr", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "16.0"],
-                    ["150", "", "Jordanthegoat208", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "140.0"],
-                    ["151", "", "JoJoIceGod", "0", "13.0", "1.0", "13.0", "0.0", "0.0", "8.0", "45.0"],
-                    ["152", "", "Jix66gz", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "38.0"],
-                    ["153", "", "Jcfrom1300", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "28.0"],
-                    ["154", "", "Jaziergaming2", "0", "38.0", "2.0", "19.0", "0.0", "0.0", "11.0", "28.0"],
-                    ["155", "", "jaxversi", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "5.0"],
-                    ["156", "", "jakex963", "0", "91.0", "3.0", "30.3", "0.0", "0.0", "34.0", "60.0"],
-                    ["157", "", "Jacobjaguar10", "0", "72.0", "4.0", "18.0", "0.0", "0.0", "0.0", "60.0"],
-                    ["158", "", "j2rwr", "0", "44.0", "1.0", "44.0", "0.0", "0.0", "2.0", "20.0"],
-                    ["159", "", "irqz", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "32.0"],
-                    ["160", "", "lpqzfits", "0", "74.0", "2.0", "37.0", "0.0", "0.0", "0.0", "21.0"],
-                    ["161", "", "ImposterpopKill", "0", "7.0", "1.0", "7.0", "0.0", "0.0", "6.0", "13.0"],
-                    ["162", "", "Ihyfox", "0", "86.0", "2.0", "43.0", "0.0", "0.0", "0.0", "58.0"],
-                    ["163", "", "IhyElise", "0", "49.0", "4.0", "12.3", "0.0", "0.0", "40.0", "41.0"],
-                    ["164", "", "Idkevan68", "0", "42.0", "1.0", "42.0", "0.0", "1.0", "2.0", "11.0"],
-                    ["165", "", "IcEeY_str", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "32.0"],
-                    ["166", "", "iamninjahype9", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "27.0"],
-                    ["167", "", "heianaye", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "1.0"],
-                    ["168", "", "Hawko", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "11.0"],
-                    ["169", "", "Gregmvpikon", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "14.0"],
-                    ["170", "", "goyboysag505", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "25.0"],
-                    ["171", "", "Fw_Grayson1", "0", "29.0", "1.0", "29.0", "0.0", "0.0", "3.0", "46.0"],
-                    ["172", "", "freesh3ds", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "71.0"],
-                    ["173", "", "Folk6781", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "16.0"],
-                    ["174", "", "fmjmvamm", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "49.0"],
-                    ["175", "", "fleased", "0", "30.0", "2.0", "15.0", "0.0", "0.0", "23.0", "4.0"],
-                    ["176", "", "FBathlete88", "0", "35.0", "3.0", "11.7", "0.0", "0.0", "25.0", "28.0"],
-                    ["177", "", "f0rebear", "0", "16.0", "1.0", "16.0", "0.0", "0.0", "7.0", "16.0"],
-                    ["178", "", "Esxrusm", "0", "4.0", "1.0", "4.0", "0.0", "0.0", "3.0", "20.0"],
-                    ["179", "", "Eliback000", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "11.0"],
-                    ["180", "", "Easyboi_7", "0", "16.0", "6.0", "2.7", "0.0", "0.0", "10.0", "90.0"],
-                    ["181", "", "Dripydawggg", "0", "144.0", "3.0", "48.0", "0.0", "0.0", "7.0", "16.0"],
-                    ["182", "", "Drewdulph", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "17.0"],
-                    ["183", "", "Donalduhhhh", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "7.0"],
-                    ["184", "", "Dimeveil", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "9.0"],
-                    ["185", "", "dearellax", "0", "140.0", "10.0", "14.0", "0.0", "0.0", "91.0", "124.0"],
-                    ["186", "", "Damm_st5r", "0", "168.0", "10.0", "16.8", "0.0", "2.0", "89.0", "45.0"],
-                    ["187", "", "Damarionpritchett", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "11.0"],
-                    ["188", "", "da1n0nlyn1g", "0", "47.0", "1.0", "47.0", "0.0", "0.0", "6.0", "77.0"],
-                    ["189", "", "clem00872", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "24.0"],
-                    ["190", "", "Christheoggost", "0", "14.0", "2.0", "7.0", "0.0", "0.0", "0.0", "53.0"],
-                    ["191", "", "chr0medbyflo", "0", "40.0", "1.0", "40.0", "0.0", "0.0", "0.0", "24.0"],
-                    ["192", "", "chinaawtw", "0", "17.0", "1.0", "17.0", "0.0", "0.0", "0.0", "24.0"],
-                    ["193", "", "CHANEBRACKER", "0", "84.0", "4.0", "21.0", "0.0", "0.0", "2.0", "56.0"],
-                    ["194", "", "Carsondowler", "0", "17.0", "1.0", "17.0", "0.0", "0.0", "0.0", "28.0"],
-                    ["195", "", "bxk5", "0", "53.0", "2.0", "26.5", "0.0", "0.0", "11.0", "16.0"],
-                    ["196", "", "Buddyandrelle", "0", "89.0", "11.0", "8.1", "0.0", "0.0", "56.0", "139.0"],
-                    ["197", "", "bubbaT887", "0", "15.0", "2.0", "7.5", "0.0", "1.0", "11.0", "19.0"],
-                    ["198", "", "bontilink", "0", "28.0", "1.0", "28.0", "0.0", "0.0", "24.0", "20.0"],
-                    ["199", "", "Blue_wolf12421", "0", "10.0", "1.0", "10.0", "0.0", "0.0", "0.0", "9.0"],
-                    ["200", "", "Bkthegoat1008", "0", "76.0", "2.0", "38.0", "0.0", "1.0", "17.0", "19.0"],
-                    ["201", "", "BillyArmyFree", "0", "53.0", "1.0", "53.0", "0.0", "0.0", "4.0", "27.0"],
-                    ["202", "", "BiggiesEra", "0", "164.0", "4.0", "41.0", "0.0", "0.0", "33.0", "59.0"],
-                    ["203", "", "BGWClix", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "18.0"],
-                    ["204", "", "arkvoid1", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "161.0"],
-                    ["205", "", "Altbanxishck", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "37.0"],
-                    ["206", "", "AJGONESUPERThe2nd", "0", "68.0", "3.0", "22.7", "0.0", "0.0", "5.0", "31.0"],
-                    ["207", "", "956LP", "0", "6.0", "1.0", "6.0", "0.0", "0.0", "7.0", "7.0"],
-                    ["208", "", "7lqkz", "0", "13.0", "1.0", "13.0", "0.0", "0.0", "10.0", "53.0"],
-                    ["209", "", "4soloz", "0", "63.0", "2.0", "31.5", "0.0", "1.0", "15.0", "26.0"],
-                    ["210", "", "3B_1FNN0", "0", "25.0", "1.0", "25.0", "0.0", "0.0", "0.0", "38.0"],
-                    ["211", "", "2nqlz", "0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "57.0"],
-                    ["212", "", "2addyPinker", "0", "25.0", "1.0", "25.0", "0.0", "0.0", "0.0", "8.0"]
-                ]
-            },
-            tightends: { 
-                title: "tight end stats", 
-                headers: ["#", "TM", "PLAYER", "YDS", "REC", "TD"], 
-                rows: [
-                    ["1", "", "Australian_Sp1", "99", "6", "2"],
-                    ["2", "", "Sxylo_alt", "109", "5", "1"],
-                    ["3", "", "Casas0551", "75", "1", "1"],
-                    ["4", "", "1k9mm", "6", "1", "1"],
-                    ["5", "", "weak4love", "13", "2", "0"],
-                    ["6", "", "vB0BBYv", "192", "6", "0"],
-                    ["7", "", "uriahcasados55", "65", "4", "0"],
-                    ["8", "", "Sdsharkbait61999", "0", "0", "0"],
-                    ["9", "", "nyanthepro111", "20", "1", "0"],
-                    ["10", "", "KindAmazingBrennan", "33", "3", "0"],
-                    ["11", "", "JamesTheUnc18", "40", "2", "0"],
-                    ["12", "", "hxndred100", "14", "1", "0"],
-                    ["13", "", "Dxsired_uf2", "78", "3", "0"],
-                    ["14", "", "Ajsocraxyxx", "23", "3", "0"],
-                    ["15", "", "2BLQX", "10", "1", "0"],
-                    ["16", "", "Draxcfits", "0", "0", "0"],
-                    ["17", "", "Honeybun44442", "0", "0", "0"],
-                    ["18", "", "Robertbobk", "0", "0", "0"],
-                    ["19", "", "amereon7771", "0", "0", "0"]
-                ] 
-            },
-            center: { 
-                title: "center stats", 
-                headers: ["#", "TM", "PLAYER", "PANCAKES", "SACKS ALLOWED"], 
-                rows: [
-                    ["1", "WIN", "Long_Ship", "6", "1"],
-                    ["1", "ATL", "nyanthepro111", "23", "1"],
-                    ["2", "PIT", "KindAmazingBrennan", "57", "1"],
-                    ["3", "PIT", "Dxsired_uf2", "50", "1"],
-                    ["4", "PIT", "wild7k", "26", "1"],
-                    ["5", "PIT", "OB1113", "26", "1"],
-                    ["6", "COL", "williamreinke", "6", "1"],
-                    ["7", "COL", "lark", "6", "1"],
-                    ["8", "MIN", "arkvoid1", "74", "5"],
-                    ["9", "WIN", "gavinjalt", "6", "1"],
-                    ["10", "MIN", "JamesTheUnc18", "64", "3"],
-                    ["11", "GRE", "Nemoup234", "35", "2"],
-                    ["12", "GRE", "MoGrant46", "35", "2"],
-                    ["13", "ATL", "ImDucKingHot", "9", "1"],
-                    ["14", "DAL", "TheBrianRotDude", "24", "2"],
-                    ["15", "DAL", "hdjwheswj", "15", "3"],
-                    ["16", "DAL", "Kaiden982011", "15", "3"],
-                    ["17", "DAL", "jordanthegoat208", "56", "6"],
-                    ["18", "WIN", "king2exclus1ve", "34", "4"],
-                    ["19", "FRB", "roblox_user_1610061131", "18", "5"],
-                    ["20", "LAT", "ilovepokeguy52", "6", "3"],
-                    ["21", "LAT", "childsins", "24", "3"],
-                    ["22", "LAT", "Kryptonltte", "34", "4"],
-                    ["23", "RUS", "fleased", "10", "3"],
-                    ["24", "RUS", "Dinokingleoboy", "7", "0"],
-                    ["25", "RUS", "ravensjj2014", "1", "0"],
-                    ["26", "PIT", "kingcooie", "5", "0"],
-                    ["26", "PIT", "sigm_stats", "3", "0"],
-                    ["26", "PIT", "Buddyandrelle", "3", "0"],
-                    ["27", "BAL", "bontiling", "6", "1"],
-                    ["27", "BAL", "shinjewstu", "3", "1"]
-                ] 
-            },
-            defensiveends: { 
-                title: "defensive end stats", 
-                headers: ["#", "TM", "PLAYER", "TACKLES", "SACKS", "FF"], 
-                rows: [
-                    ["1", "VIK", "viking2654", "20", "14", "1"],
-                    ["2", "MIN", "JamesTheUnc18", "11", "53", "0"],
-                    ["3", "TB", "T4MPAS", "6", "92", "0"],
-                    ["4", "ATL", "nyanthepro111", "11", "32", "3"],
-                    ["5", "WIN", "gavinjalt", "7", "66", "0"],
-                    ["6", "MIN", "arkvoid1", "10", "23", "0"],
-                    ["7", "COL", "yurpzl", "12", "94", "0"],
-                    ["8", "HOU", "toh_atm", "4", "46", "0"],
-                    ["9", "Sxy", "Sxylo_alt", "6", "41", "0"],
-                    ["10", "Sly", "SlythX_x", "6", "23", "0"],
-                    ["11", "REE", "reed42556", "6", "46", "0"],
-                    ["12", "LAT", "Kryptonltte", "3", "70", "0"],
-                    ["13", "JZY", "jzyr", "3", "47", "0"],
-                    ["14", "ATL", "ImDucKingHot", "3", "66", "0"],
-                    ["15", "RUS", "fIeased", "4", "29", "0"],
-                    ["16", "DEC", "decidemapain", "4", "31", "0"],
-                    ["17", "CRU", "crushingego", "3", "47", "0"],
-                    ["18", "7LQ", "7lqkz", "4", "58", "0"],
-                    ["19", "Z0R", "z0rvp", "12", "14", "0"],
-                    ["20", "TB", "TBYellowDragon", "7", "26", "2"],
-                    ["21", "SOC", "soccergavin1234", "3", "21", "0"],
-                    ["22", "BAL", "shinjewstu", "9", "51", "0"],
-                    ["23", "SAM", "Samfiretruck52", "3", "19", "0"],
-                    ["24", "PIZ", "pizzaci2", "4", "30", "0"],
-                    ["25", "NYT", "NameYourTop5", "3", "48", "0"],
-                    ["26", "MIS", "M1SSTH30LDDAYSS", "3", "25", "0"],
-                    ["27", "LQR", "lqrk", "2", "36", "0"],
-                    ["28", "LAU", "Laurentheegoatt23", "3", "10", "0"],
-                    ["29", "KEX", "Kexiua_13", "35", "4", "1"],
-                    ["30", "DAL", "Jordanthegoat208", "7", "25", "0"],
-                    ["31", "IRZ", "irznq", "10", "9", "0"],
-                    ["32", "FRE", "freesh3ds", "2", "49", "0"],
-                    ["33", "BIG", "BiggiesEra", "3", "25", "0"],
-                    ["34", "ZIV", "ziverrs", "9", "8", "0"],
-                    ["35", "Z_0", "Z_095231", "2", "15", "0"],
-                    ["36", "YTD", "YTdubbyboy12", "18", "11", "0"],
-                    ["37", "COL", "williamreinke", "1", "2", "0"],
-                    ["38", "V1X", "V1xsv1", "3", "1", "0"],
-                    ["39", "TIN", "Tinky759", "2", "21", "0"],
-                    ["40", "SON", "sonicyoshipower", "1", "13", "0"],
-                    ["41", "SBC", "SantaBarbaraCougars", "3", "1", "0"],
-                    ["42", "RXL", "rxlatxvealt", "4", "32", "0"],
-                    ["43", "FRB", "roblox_user_1610061131", "1", "7", "0"],
-                    ["44", "MYU", "myusernameis_baconyt", "9", "1", "0"],
-                    ["45", "MRM", "Mrmahnoob", "2", "11", "0"],
-                    ["46", "MIS", "MissinCova", "1", "17", "0"],
-                    ["47", "LAW", "LawkUp", "1", "1", "0"],
-                    ["48", "WIN", "king2exclus1ve", "4", "14", "0"],
-                    ["49", "IOO", "Iooooop224", "3", "12", "0"],
-                    ["50", "LAT", "ilovepokeguy52", "1", "29", "0"],
-                    ["51", "IHY", "IhyElise", "1", "11", "0"],
-                    ["52", "IAM", "iamninjahype9", "1", "19", "0"],
-                    ["53", "FRI", "FrizzyXD7", "1", "20", "0"],
-                    ["54", "FMJ", "fmjmvamm", "2", "15", "0"],
-                    ["55", "DAM", "Damarionpritchett", "1", "10", "0"],
-                    ["56", "CAM", "cam20891", "3", "4", "0"],
-                    ["57", "BXK", "bxk51", "4", "5", "0"],
-                    ["58", "BAL", "bontilink", "1", "4", "0"],
-                    ["59", "AUS", "Australian_Sp1der", "12", "14", "1"],
-                    ["60", "AJG", "AJGONESUPERThe2nd", "6", "10", "1"],
-                    ["61", "91M", "91monk", "2", "18", "0"],
-                    ["62", "1XB", "1xblz", "7", "14", "0"],
-                    ["63", "PIT", "0B1113", "3", "10", "0"],
-                    ["64", "ZAF", "zaffOw", "0", "0", "0"],
-                    ["65", "YX0", "YX0AA", "1", "0", "0"],
-                    ["66", "YWZ", "Ywze0", "4", "0", "0"],
-                    ["67", "YKD", "Yk_djmyduo62", "1", "0", "0"],
-                    ["68", "YEC", "Yecipe", "1", "0", "0"],
-                    ["69", "YAM", "yamil15537", "4", "0", "0"],
-                    ["70", "XZV", "xzVinto", "3", "0", "0"],
-                    ["71", "XXD", "xxdamien09xx", "3", "0", "0"],
-                    ["72", "XOR", "xorevacc", "7", "0", "1"],
-                    ["73", "XAN", "xansuii", "0", "0", "0"],
-                    ["74", "WZA", "WZayZay6", "1", "0", "0"],
-                    ["75", "WSP", "wsppeople6967", "7", "0", "2"],
-                    ["76", "PIT", "wild7k", "7", "0", "0"],
-                    ["77", "WHI", "whitejames", "3", "0", "0"],
-                    ["78", "WEA", "weak4love", "3", "0", "0"],
-                    ["79", "WAT", "Watashi_Vinto", "0", "0", "0"],
-                    ["80", "VII", "ViIeOne", "1", "0", "0"],
-                    ["81", "VEX", "Vexxyyyyyyyy", "7", "0", "0"],
-                    ["82", "VBO", "vB0BBYv", "9", "0", "0"],
-                    ["83", "VAY", "vayden012", "4", "0", "0"],
-                    ["84", "URI", "uriahcasados55", "2", "0", "0"],
-                    ["85", "UR1", "Ur1zma", "1", "0", "0"],
-                    ["86", "UNS", "unspokan", "2", "0", "0"],
-                    ["87", "UHH", "uhhsoIzff2", "3", "0", "0"],
-                    ["88", "TUX", "Tuxnover", "3", "0", "0"],
-                    ["89", "TTV", "TT_vowel", "1", "0", "0"],
-                    ["90", "TTA", "tt_aidendimes", "12", "0", "0"],
-                    ["91", "TRO", "TrofvbvvZx", "2", "0", "0"],
-                    ["92", "TRE", "trey_25z", "14", "0", "0"],
-                    ["93", "TOL", "TO_LITJAYYy", "0", "0", "0"],
-                    ["94", "TMA", "TMA2", "6", "0", "1"],
-                    ["95", "THT", "thtmoss", "11", "0", "0"],
-                    ["96", "THE", "Theking574836", "1", "0", "0"],
-                    ["97", "DAL", "TheBrainRotDude", "4", "0", "0"],
-                    ["98", "THE", "The_ChampionATT", "0", "0", "0"],
-                    ["99", "TGH", "Tghggfdcvvcdf", "6", "0", "0"],
-                    ["100", "TBH", "tbh_stars", "1", "0", "0"],
-                    ["101", "TAK", "Takeovreece", "1", "0", "0"],
-                    ["102", "SYB", "sybye", "0", "0", "0"],
-                    ["103", "SXQ", "Sxqrafice", "4", "0", "0"],
-                    ["104", "SWE", "sweetboost0", "2", "0", "0"],
-                    ["105", "SUP", "Supermankid7768", "1", "0", "0"],
-                    ["106", "STE", "Stevenmoney19", "4", "0", "0"],
-                    ["107", "STA", "Stayquiet111", "11", "0", "0"],
-                    ["108", "SPI", "SpideyM_2024", "6", "0", "0"],
-                    ["109", "SP1", "Sp1lnx", "9", "0", "0"],
-                    ["110", "SOL", "solosh3ds", "2", "0", "0"],
-                    ["111", "SOL", "solarbihh", "1", "0", "0"],
-                    ["112", "SOA", "soartothestarz", "3", "0", "0"],
-                    ["113", "SLE", "sleekthemeat", "4", "0", "0"],
-                    ["114", "SIR", "SireBobby", "1", "0", "0"],
-                    ["115", "PIT", "sigma_stats", "0", "0", "0"],
-                    ["116", "SHA", "sharxpnes", "1", "0", "0"],
-                    ["117", "SHA", "Shadow_phoenixYT123", "1", "0", "0"],
-                    ["118", "SDS", "Sdsharkbait61999", "4", "0", "0"],
-                    ["119", "SAC", "sacromentocoyotess", "0", "0", "0"],
-                    ["120", "RYK", "rykerools", "2", "0", "0"],
-                    ["121", "ROB", "Robuy_6677", "4", "0", "0"],
-                    ["122", "ROB", "Robertbobk", "1", "0", "0"],
-                    ["123", "RIC", "riccch33_44jrss", "5", "0", "0"],
-                    ["124", "REE", "reedtheg0at", "1", "0", "0"],
-                    ["125", "REC", "reckkon", "1", "0", "0"],
-                    ["126", "REA", "Reag5n", "2", "0", "0"],
-                    ["127", "RUS", "ravensjj2014", "6", "0", "0"],
-                    ["128", "Q5J", "q5jsp", "4", "0", "0"],
-                    ["129", "POL", "Poloboy225", "2", "0", "0"],
-                    ["130", "PHA", "Phantomtax732", "0", "0", "0"],
-                    ["131", "PEA", "peacentragedy", "1", "0", "0"],
-                    ["132", "PAN", "PandaGamer_3900", "4", "0", "0"],
-                    ["133", "OUT", "outpeering", "3", "0", "0"],
-                    ["134", "OTF", "OTF_Tyler15", "0", "0", "0"],
-                    ["135", "ORQ", "orqas4k", "2", "0", "1"],
-                    ["136", "OET", "oet30", "0", "0", "0"],
-                    ["137", "NVR", "Nvrhealme", "4", "0", "0"],
-                    ["138", "NOT", "Notmadrussiannoob", "3", "0", "0"],
-                    ["139", "NOI", "Noidontsip", "3", "0", "0"],
-                    ["140", "NER", "NervousHeartt", "4", "0", "0"],
-                    ["141", "GRE", "Nemoup234", "1", "0", "0"],
-                    ["142", "NAT", "Nater_ult", "0", "0", "0"],
-                    ["143", "MYN", "Mynia3458", "4", "0", "0"],
-                    ["144", "MYL", "Myles_Ford7", "1", "0", "0"],
-                    ["145", "MR_", "Mr_MackWhosack", "1", "0", "0"],
-                    ["146", "GRE", "MoGrant46", "3", "0", "0"],
-                    ["147", "MGQ", "mgqu", "1", "0", "0"],
-                    ["148", "MAT", "Mathlacey", "4", "0", "0"],
-                    ["149", "MAA", "maakaakaikaiakk", "0", "0", "0"],
-                    ["150", "LUO", "LuOj26", "4", "0", "0"],
-                    ["151", "WIN", "Long_Ship", "0", "0", "0"],
-                    ["152", "L1G", "L1GHTWORKS", "6", "0", "0"],
-                    ["153", "KZN", "kznf", "6", "0", "0"],
-                    ["154", "KZB", "kzbh", "0", "0", "0"],
-                    ["155", "KPO", "kpoopmj", "36", "0", "0"],
-                    ["156", "KOH", "kohstacks", "2", "0", "0"],
-                    ["157", "CON", "condrins", "3", "0", "0"],
-                    ["158", "PIT", "kingcooie", "1", "0", "0"],
-                    ["159", "PIT", "KindAmazingBrennan", "22", "0", "0"],
-                    ["160", "KEE", "KeebsCam", "2", "0", "0"],
-                    ["161", "KAZ", "Kazooeyy", "1", "0", "0"],
-                    ["162", "KAY", "Kay_togood10", "5", "0", "0"],
-                    ["163", "KAL", "kalensavage316", "2", "0", "0"],
-                    ["164", "DAL", "Kaiden982011", "4", "0", "0"],
-                    ["165", "JVK", "JvkeThingz", "1", "0", "0"],
-                    ["166", "JUS", "Justin_Jefferson2425", "1", "0", "0"],
-                    ["167", "JOZ", "JoziaSr", "1", "0", "0"],
-                    ["168", "JOY", "JoyFarmer3", "5", "0", "0"],
-                    ["169", "JOJ", "JoJoIceGod", "0", "0", "0"],
-                    ["170", "JOE", "joey2viralss", "0", "0", "0"],
-                    ["171", "JIX", "Jix66gz", "3", "0", "0"],
-                    ["172", "JIU", "Jiukux", "4", "0", "0"],
-                    ["173", "JET", "jetlink", "1", "0", "0"],
-                    ["174", "JCF", "Jcfrom1300", "0", "0", "0"],
-                    ["175", "JAZ", "Jaziergaming2", "2", "0", "0"],
-                    ["176", "JAY", "JAYSBCKUP41", "5", "0", "0"],
-                    ["177", "JAX", "jaxversi", "5", "0", "0"],
-                    ["178", "JAK", "jakex963", "5", "0", "0"],
-                    ["179", "JAJ", "JajJajit", "0", "0", "0"],
-                    ["180", "JAC", "Jacobjaguar100", "2", "0", "0"],
-                    ["181", "J2R", "j2rwr", "3", "0", "0"],
-                    ["182", "IYX", "iyxt", "0", "0", "0"],
-                    ["183", "IVQ", "ivqr", "0", "0", "0"],
-                    ["184", "ISO", "IsoReceiver", "16", "0", "0"],
-                    ["185", "IRW", "irwps", "2", "0", "0"],
-                    ["186", "IRQ", "irqz", "2", "0", "0"],
-                    ["187", "IPQ", "Ipqzfits", "4", "0", "0"],
-                    ["188", "IMP", "ImposterpopKill", "1", "0", "0"],
-                    ["189", "IMA", "imaFreeballer", "12", "0", "0"],
-                    ["190", "IIA", "IiarIiarliarliarr", "0", "0", "0"],
-                    ["191", "IHY", "Ihyzpnk", "1", "0", "0"],
-                    ["192", "IHY", "Ihyfox", "2", "0", "0"],
-                    ["193", "IDK", "Idkevan68", "0", "0", "0"],
-                    ["194", "ICE", "IcEeY_str", "5", "0", "2"],
-                    ["195", "I9U", "i9ut", "2", "0", "0"],
-                    ["196", "HXN", "Hxndred100", "3", "0", "0"],
-                    ["197", "HUR", "Hurricane78123", "2", "0", "0"],
-                    ["198", "HON", "Honeybun44442", "0", "0", "0"],
-                    ["199", "HEL", "helloo78", "3", "0", "1"],
-                    ["200", "HEI", "heianaye", "3", "0", "0"],
-                    ["201", "DAL", "hdjwhesjwj", "1", "0", "0"],
-                    ["202", "HAW", "Hawko", "1", "0", "0"],
-                    ["203", "GXP", "gxpk", "1", "0", "0"],
-                    ["204", "GRE", "Gregmvpikon", "2", "0", "0"],
-                    ["205", "GR1", "GR1M125", "0", "0", "0"],
-                    ["206", "GOY", "goyboysag5050", "3", "0", "0"],
-                    ["207", "GOT", "gotskills231", "0", "0", "0"],
-                    ["208", "GLO", "GloriousElements", "0", "0", "0"],
-                    ["209", "GEO", "geozifyy", "0", "0", "0"],
-                    ["210", "GAM", "gaminrobot2", "1", "0", "0"],
-                    ["211", "G1R", "G1RB2", "1", "0", "0"],
-                    ["212", "G0D", "g0dgotdjay", "2", "0", "0"],
-                    ["213", "FW_", "Fw_Grayson1", "3", "0", "0"],
-                    ["214", "FEA", "fearthestarz", "8", "0", "0"],
-                    ["215", "FBA", "FBathlete88", "1", "0", "0"],
-                    ["216", "F0R", "f0rebear", "4", "0", "0"],
-                    ["217", "ESX", "Esxrusm", "1", "0", "0"],
-                    ["218", "ELI", "Eliback000", "15", "0", "0"],
-                    ["219", "EAS", "Easyboi_7", "4", "0", "0"],
-                    ["220", "EAG", "eagles1418", "7", "0", "0"],
-                    ["221", "PIT", "Dxsired_uf2", "16", "0", "0"],
-                    ["222", "DRI", "Dripydawggg", "1", "0", "0"],
-                    ["223", "DRE", "Drewdulph", "1", "0", "0"],
-                    ["224", "DRA", "DraxcFitz", "1", "0", "0"],
-                    ["225", "DON", "Donalduhhhh", "2", "0", "0"],
-                    ["226", "RUS", "Dinokingleoboy", "1", "0", "0"],
-                    ["227", "DIM", "Dimeveil", "7", "0", "0"],
-                    ["228", "DEA", "dearellax", "9", "0", "0"],
-                    ["229", "DAR", "darkfitted", "3", "0", "0"],
-                    ["230", "DAM", "Damm_st5r", "2", "0", "0"],
-                    ["231", "DA1", "da1n0nlyn1g", "2", "0", "0"],
-                    ["232", "CYT", "cytsil", "2", "0", "0"],
-                    ["233", "CXQ", "CxQzF1tS", "1", "0", "0"],
-                    ["234", "CQ2", "cq2Ny", "1", "0", "1"],
-                    ["235", "COO", "Coolpena10", "1", "0", "0"],
-                    ["236", "COO", "coolia", "6", "0", "0"],
-                    ["237", "CLE", "clem00872", "0", "0", "0"],
-                    ["238", "CHR", "chromedbyfootball51", "2", "0", "0"],
-                    ["239", "CHR", "Christheoggost", "1", "0", "0"],
-                    ["240", "CHR", "chriscodpro_2", "7", "0", "1"],
-                    ["241", "CHR", "chr0medbyflo", "3", "0", "0"],
-                    ["242", "LAT", "chlidsins", "1", "0", "0"],
-                    ["243", "CHI", "chinaawtw", "6", "0", "1"],
-                    ["244", "CHA", "CHANEBRACKER", "7", "0", "0"],
-                    ["245", "CFB", "cfbx", "7", "0", "0"],
-                    ["246", "CAS", "casperpants22", "3", "0", "1"],
-                    ["247", "CAS", "Casas0551", "2", "0", "1"],
-                    ["248", "CAR", "Carsondowler", "1", "0", "0"],
-                    ["249", "CAR", "carp9063", "0", "0", "0"],
-                    ["250", "C1B", "c1btw", "1", "0", "0"],
-                    ["251", "PIT", "Buddyandrelle", "2", "0", "0"],
-                    ["252", "BUB", "bubbaT887", "0", "0", "0"],
-                    ["253", "BRO", "Broken7Bricks7", "15", "0", "0"],
-                    ["254", "BPA", "bpanther906", "6", "0", "1"],
-                    ["255", "BOO", "Boosttech_Grav", "0", "0", "0"],
-                    ["256", "BOO", "boostmadeloll", "4", "0", "1"],
-                    ["257", "BLU", "blues", "1", "0", "0"],
-                    ["258", "BLU", "Blue_wolf12421", "0", "0", "0"],
-                    ["259", "BKT", "Bkthegoat1008", "2", "0", "0"],
-                    ["260", "BIL", "BillyArmyFree", "2", "0", "0"],
-                    ["261", "BGW", "BGWClix", "1", "0", "0"],
-                    ["262", "BET", "betrayedalt8", "2", "0", "0"],
-                    ["263", "BAL", "BalIwork", "8", "0", "0"],
-                    ["264", "ASU", "asukuxz", "0", "0", "0"],
-                    ["265", "ALT", "Altbanxishck", "1", "0", "0"],
-                    ["266", "ALI", "AlienZ873", "2", "0", "2"],
-                    ["267", "AJS", "Ajsocraxyxx", "7", "0", "0"],
-                    ["268", "AJF", "AJFitted", "7", "0", "0"],
-                    ["269", "AIX", "aixuree", "0", "0", "0"],
-                    ["270", "ABK", "abkxg", "4", "0", "0"],
-                    ["271", "9FE", "9FE3T", "7", "0", "0"],
-                    ["272", "956", "956LP", "0", "0", "0"],
-                    ["273", "6XK", "6xkzo", "3", "0", "2"],
-                    ["274", "5ST", "5STARR_FLYX", "8", "0", "0"],
-                    ["275", "4SO", "4soloz", "3", "0", "0"],
-                    ["276", "4CR", "4crmr", "3", "0", "0"],
-                    ["277", "3FN", "3fnr", "2", "0", "0"],
-                    ["278", "3B_", "3B_1FNN0", "0", "0", "0"],
-                    ["279", "305", "305Jewww", "6", "0", "0"],
-                    ["280", "2NQ", "2nqlz", "0", "0", "0"],
-                    ["281", "2BL", "2BLQX", "1", "0", "0"],
-                    ["282", "2AD", "2addyPinker", "0", "0", "0"],
-                    ["283", "1K9", "1k9mm", "2", "0", "1"],
-                    ["284", "199", "199b", "12", "0", "0"]
-                ] 
-            },
-            linebackers: {
-                title: "linebacker stats",
-                headers: ["#", "TM", "PLAYER", "TACKLES", "INT", "TD"],
-                rows: [
-                    ["1", "TM", "goyboysag505", "3", "3", "0"],
-                    ["2", "TM", "KindAmazingBrennan", "22", "2", "0"],
-                    ["3", "TM", "Drewdulph", "1", "2", "0"],
-                    ["4", "TM", "cfbx", "7", "2", "0"],
-                    ["5", "TM", "Ajsocraxyxx", "7", "2", "0"],
-                    ["6", "TM", "Nvrhealme", "4", "1", "0"],
-                    ["7", "TM", "Kexiua_13", "35", "1", "0"],
-                    ["8", "TM", "Mathlacey", "4", "0", "0"],
-                    ["9", "TM", "Honeybun44442", "0", "0", "0"],
-                    ["10", "TM", "Eliback000", "15", "0", "0"],
-                    ["11", "TM", "darkfitted", "3", "0", "0"]
-                ]
-            },
-            defensiveback: {
-                title: "defensive back stats",
-                headers: ["#", "TM", "PLAYER", "INT", "PD", "TACKLES"],
-                rows: [
-                    ["1", "TM", "imaFreeballer", "12", "0", "12"],
-                    ["2", "TM", "IsoReceiver", "9", "0", "16"],
-                    ["3", "TM", "STARR_FLYX", "8", "0", "8"],
-                    ["4", "TM", "199b", "7", "0", "19"],
-                    ["5", "TM", "z0rvp", "6", "0", "12"],
-                    ["6", "TM", "wsppeople696765", "5", "0", "12"],
-                    ["7", "TM", "kpoopmj", "5", "0", "36"],
-                    ["8", "TM", "jaxversi", "5", "0", "5"],
-                    ["9", "TM", "Dxsired_uf", "5", "0", "16"],
-                    ["10", "TM", "yurpzl", "4", "0", "12"],
-                    ["11", "TM", "Sp1lnx", "4", "0", "9"],
-                    ["12", "TM", "L1GHTWORKS12", "4", "0", "6"],
-                    ["13", "TM", "coolia", "4", "0", "6"],
-                    ["14", "TM", "Broken7Bricks76", "4", "0", "15"],
-                    ["15", "TM", "Vexxyyyyyyyy", "3", "0", "7"],
-                    ["16", "TM", "uhhsoIzff2", "3", "0", "3"],
-                    ["17", "TM", "trey_25z", "3", "0", "14"],
-                    ["18", "TM", "Supermankid7768", "3", "0", "1"],
-                    ["19", "TM", "kohstacks", "3", "0", "2"],
-                    ["20", "TM", "condrins", "3", "0", "3"],
-                    ["21", "TM", "Jiukux", "3", "0", "4"],
-                    ["22", "TM", "1k9mm", "3", "0", "2"],
-                    ["23", "TM", "Ywze0", "2", "0", "4"],
-                    ["24", "TM", "xorevacc", "2", "0", "7"],
-                    ["25", "TM", "ViIeOne", "2", "0", "1"],
-                    ["26", "TM", "vayden012", "2", "0", "4"],
-                    ["27", "TM", "TrofvbvvZx", "2", "0", "2"],
-                    ["28", "TM", "TBYellowDragon", "2", "0", "7"],
-                    ["29", "TM", "tbh_stars", "2", "0", "1"],
-                    ["30", "TM", "soartothestarz", "2", "0", "3"],
-                    ["31", "TM", "sacromentocoyotess", "2", "0", "0"],
-                    ["32", "TM", "Poloboy2256", "2", "0", "2"],
-                    ["33", "TM", "L0rd_maf", "2", "0", "0"],
-                    ["34", "TM", "kznf6", "2", "0", "6"],
-                    ["35", "TM", "Kazooeyy", "2", "0", "1"],
-                    ["36", "TM", "JoyFarmer36", "2", "0", "5"],
-                    ["37", "TM", "Ihyfox", "2", "0", "2"],
-                    ["38", "TM", "i9ut", "2", "0", "2"],
-                    ["39", "TM", "Dimeveil", "2", "0", "7"],
-                    ["40", "TM", "dearellax", "2", "0", "9"],
-                    ["41", "TM", "Australian_Sp1der", "2", "0", "12"],
-                    ["42", "TM", "4crmr", "2", "0", "3"],
-                    ["43", "TM", "zaffOw", "1", "0", "0"],
-                    ["44", "TM", "YX0AA", "1", "0", "1"],
-                    ["45", "TM", "YTdubbyboy126", "1", "0", "18"],
-                    ["46", "TM", "Yecipe6", "1", "0", "1"],
-                    ["47", "TM", "weak4love", "1", "0", "3"],
-                    ["48", "TM", "V1xsv", "1", "0", "3"],
-                    ["49", "TM", "Ur1zma6", "1", "0", "1"],
-                    ["50", "TM", "Tuxnover", "1", "0", "3"],
-                    ["51", "TM", "TT_vowel", "1", "0", "1"],
-                    ["52", "TM", "tt_aidendimes", "1", "0", "12"],
-                    ["53", "TM", "thtmoss", "1", "0", "11"],
-                    ["54", "TM", "Sxqrafice", "1", "0", "4"],
-                    ["55", "TM", "Stayquiet111", "1", "0", "11"],
-                    ["56", "TM", "sleekthemeat", "1", "0", "4"],
-                    ["57", "TM", "Shadow_phoenixYT123", "1", "0", "1"],
-                    ["58", "TM", "Sdsharkbait61999", "1", "0", "4"],
-                    ["59", "TM", "rykerools", "1", "0", "2"],
-                    ["60", "TM", "riccch33_44jrss", "1", "0", "5"],
-                    ["61", "TM", "reed42556", "1", "0", "6"],
-                    ["62", "TM", "ravensjj2014", "1", "0", "6"],
-                    ["63", "TM", "outpeering", "1", "0", "3"],
-                    ["64", "TM", "orqas4k", "1", "0", "2"],
-                    ["65", "TM", "oet3", "1", "0", "0"],
-                    ["66", "TM", "Notmadrussiannoob", "1", "0", "3"],
-                    ["67", "TM", "NervousHeartt", "1", "0", "4"],
-                    ["68", "TM", "LuOj26", "1", "0", "4"],
-                    ["69", "TM", "Laurentheegoatt236", "1", "0", "3"],
-                    ["70", "TM", "Justin_Jefferson2425", "1", "0", "1"],
-                    ["71", "TM", "jakex963", "1", "0", "5"],
-                    ["72", "TM", "j2rwr", "1", "0", "3"],
-                    ["73", "TM", "iyxt", "1", "0", "0"],
-                    ["74", "TM", "irznq", "1", "0", "10"],
-                    ["75", "TM", "Ipqzfits", "1", "0", "4"],
-                    ["76", "TM", "ImDucKingHot6", "1", "0", "3"],
-                    ["77", "TM", "imcq", "1", "0", "0"],
-                    ["78", "TM", "IcEeY_str6", "1", "0", "5"],
-                    ["79", "TM", "iamninjahype9", "1", "0", "1"],
-                    ["80", "TM", "gxpk", "1", "0", "1"],
-                    ["81", "TM", "Gregmvpikon", "1", "0", "2"],
-                    ["82", "TM", "fIeased", "1", "0", "4"],
-                    ["83", "TM", "Esxrusm", "1", "0", "1"],
-                    ["84", "TM", "Dripydawggg", "1", "0", "1"],
-                    ["85", "TM", "cytsil", "1", "0", "2"],
-                    ["86", "TM", "Christheoggost", "1", "0", "1"],
-                    ["87", "TM", "chriscodpro_2", "1", "0", "7"],
-                    ["88", "TM", "casperpants22", "1", "0", "3"],
-                    ["89", "TM", "bxk5", "1", "0", "4"],
-                    ["90", "TM", "Bkthegoat1008", "1", "0", "2"],
-                    ["91", "TM", "BillyArmyFree", "1", "0", "2"],
-                    ["92", "TM", "BiggiesEra", "1", "0", "3"],
-                    ["93", "TM", "BalIwork", "1", "0", "8"],
-                    ["94", "TM", "asukuxz", "1", "0", "0"],
-                    ["95", "TM", "Altbanxishck", "1", "0", "1"],
-                    ["96", "TM", "4soloz", "1", "0", "3"],
-                    ["97", "TM", "3fnr", "1", "0", "2"],
-                    ["98", "TM", "1xblz", "1", "0", "7"],
-                    ["99", "TM", "ziverrs", "0", "0", "9"],
-                    ["100", "TM", "Z_09523", "0", "0", "2"],
-                    ["101", "TM", "Yk_djmyduo62", "0", "0", "1"],
-                    ["102", "TM", "yamil15537", "0", "0", "4"],
-                    ["103", "TM", "xzVinto", "0", "0", "3"],
-                    ["104", "TM", "xxdamien09xx", "0", "0", "3"],
-                    ["105", "TM", "xansuii", "0", "0", "0"],
-                    ["106", "TM", "WZayZay6", "0", "0", "1"],
-                    ["107", "TM", "williamreinke", "0", "0", "1"],
-                    ["108", "TM", "whitejames", "0", "0", "3"],
-                    ["109", "TM", "Watashi_Vinto", "0", "0", "0"],
-                    ["110", "TM", "viking2654", "0", "0", "1"],
-                    ["111", "TM", "vB0BBYv", "0", "0", "9"],
-                    ["112", "TM", "uriahcasados55", "0", "0", "2"],
-                    ["113", "TM", "unspokan", "0", "0", "2"],
-                    ["114", "TM", "toh_atm", "0", "0", "4"],
-                    ["115", "TM", "TMA2", "0", "0", "6"],
-                    ["116", "TM", "Tinky759", "0", "0", "2"],
-                    ["117", "TM", "Theking574836", "0", "0", "1"],
-                    ["118", "TM", "TheBrainRotDude137", "0", "0", "4"],
-                    ["119", "TM", "The_ChampionATT", "0", "0", "0"],
-                    ["120", "TM", "Tghggfdcvvcdf", "0", "0", "6"],
-                    ["121", "TM", "Takeovreece", "0", "0", "1"],
-                    ["122", "TM", "T4MPAS", "0", "0", "6"],
-                    ["123", "TM", "Sxylo_alt", "0", "0", "6"],
-                    ["124", "TM", "sweetboost0", "0", "0", "2"],
-                    ["125", "TM", "Stevenmoney19", "0", "0", "4"],
-                    ["126", "TM", "SpideyM_2024", "0", "0", "6"],
-                    ["127", "TM", "sonicyoshipower", "0", "0", "1"],
-                    ["128", "TM", "solosh3ds", "0", "0", "2"],
-                    ["129", "TM", "solarbihh", "0", "0", "1"],
-                    ["130", "TM", "soccergavin1234", "0", "0", "3"],
-                    ["131", "TM", "SlythX_x", "0", "0", "6"],
-                    ["132", "TM", "SireBobby", "0", "0", "1"],
-                    ["133", "TM", "shinjewstu", "0", "0", "9"],
-                    ["134", "TM", "sharxpnes", "0", "0", "1"],
-                    ["135", "TM", "SantaBarbaraCougars", "0", "0", "3"],
-                    ["136", "TM", "Samfiretruck5", "0", "0", "3"],
-                    ["137", "TM", "rxlatxvealt", "0", "0", "4"],
-                    ["138", "TM", "Robuy_6677", "0", "0", "4"],
-                    ["139", "TM", "roblox_user_1610061131", "0", "0", "1"],
-                    ["140", "TM", "Robertbobk", "0", "0", "1"],
-                    ["141", "TM", "Rid3rH3roLight2023", "0", "0", "0"],
-                    ["142", "TM", "reedtheg0at", "0", "0", "1"],
-                    ["143", "TM", "reckkon", "0", "0", "1"],
-                    ["144", "TM", "Reag5n", "0", "0", "2"],
-                    ["145", "TM", "q5jsp", "0", "0", "4"],
-                    ["146", "TM", "pizzaci2", "0", "0", "4"],
-                    ["147", "TM", "peacentragedy", "0", "0", "1"],
-                    ["148", "TM", "PandaGamer_3900", "0", "0", "4"],
-                    ["149", "TM", "nyanthepro111", "0", "0", "11"],
-                    ["150", "TM", "Noidontsip", "0", "0", "3"],
-                    ["151", "TM", "Nemoup234", "0", "0", "1"],
-                    ["152", "TM", "NameYourTop5", "0", "0", "3"],
-                    ["153", "TM", "myusernameis_baconyt", "0", "0", "9"],
-                    ["154", "TM", "Mynia3458", "0", "0", "4"],
-                    ["155", "TM", "Myles_Ford7", "0", "0", "1"],
-                    ["156", "TM", "Mrmahnoob", "0", "0", "2"],
-                    ["157", "TM", "Mr_MackWhosack", "0", "0", "1"],
-                    ["158", "TM", "MoGrant46", "0", "0", "3"],
-                    ["159", "TM", "MissinCova", "0", "0", "1"],
-                    ["160", "TM", "mgqu", "0", "0", "1"],
-                    ["161", "TM", "M1SSTH30LDDAYSS", "0", "0", "3"],
-                    ["162", "TM", "lqrk", "0", "0", "2"],
-                    ["163", "TM", "LawkUp", "0", "0", "1"],
-                    ["164", "TM", "kzbh", "0", "0", "0"],
-                    ["165", "TM", "Kryptonltte", "0", "0", "3"],
-                    ["166", "TM", "kingcooie", "0", "0", "1"],
-                    ["167", "TM", "king2exclus1ve", "0", "0", "4"],
-                    ["168", "TM", "KeebsCam", "0", "0", "2"],
-                    ["169", "TM", "Kay_togood1", "0", "0", "5"],
-                    ["170", "TM", "kalensavage316", "0", "0", "2"],
-                    ["171", "TM", "Kaiden982011", "0", "0", "4"],
-                    ["172", "TM", "jzyr", "0", "0", "3"],
-                    ["173", "TM", "Jxn3rt", "0", "0", "0"],
-                    ["174", "TM", "JvkeThingz", "0", "0", "1"],
-                    ["175", "TM", "JoziaSr", "0", "0", "1"],
-                    ["176", "TM", "Jordanthegoat208", "0", "0", "7"],
-                    ["177", "TM", "JoJoIceGod", "0", "0", "0"],
-                    ["178", "TM", "joey2viralss", "0", "0", "0"],
-                    ["179", "TM", "Jix66gz", "0", "0", "3"],
-                    ["180", "TM", "jetlink", "0", "0", "1"],
-                    ["181", "TM", "Jaziergaming2", "0", "0", "2"],
-                    ["182", "TM", "JAYSBCKUP41", "0", "0", "5"],
-                    ["183", "TM", "JamesTheUnc18", "0", "0", "11"],
-                    ["184", "TM", "JajJajit", "0", "0", "0"],
-                    ["185", "TM", "Jacobjaguar10", "0", "0", "2"],
-                    ["186", "TM", "irwps", "0", "0", "2"],
-                    ["187", "TM", "irqz", "0", "0", "2"],
-                    ["188", "TM", "Iooooop224", "0", "0", "3"],
-                    ["189", "TM", "ImposterpopKill", "0", "0", "1"],
-                    ["190", "TM", "ilovepokeguy52", "0", "0", "1"],
-                    ["191", "TM", "IiarIiarliarliarr", "0", "0", "0"],
-                    ["192", "TM", "Ihyzpnk", "0", "0", "1"],
-                    ["193", "TM", "IhyElise", "0", "0", "1"],
-                    ["194", "TM", "Hxndred100", "0", "0", "3"],
-                    ["195", "TM", "Hurricane78123", "0", "0", "2"],
-                    ["196", "TM", "helloo78", "0", "0", "3"],
-                    ["197", "TM", "heianaye", "0", "0", "3"],
-                    ["198", "TM", "hdjwhesjwj", "0", "0", "1"],
-                    ["199", "TM", "Hawko", "0", "0", "1"],
-                    ["200", "TM", "GR1M125", "0", "0", "0"],
-                    ["201", "TM", "gotskills231", "0", "0", "0"],
-                    ["202", "TM", "gavinjalt", "0", "0", "7"],
-                    ["203", "TM", "gaminrobot2", "0", "0", "1"],
-                    ["204", "TM", "G1RB2", "0", "0", "1"],
-                    ["205", "TM", "g0dgotdjay", "0", "0", "2"],
-                    ["206", "TM", "Fw_Grayson1", "0", "0", "3"],
-                    ["207", "TM", "FrizzyXD7", "0", "0", "1"],
-                    ["208", "TM", "freesh3ds", "0", "0", "2"],
-                    ["209", "TM", "fmjmvamm", "0", "0", "2"],
-                    ["210", "TM", "fearthestarz", "0", "0", "8"],
-                    ["211", "TM", "FBathlete88", "0", "0", "1"],
-                    ["212", "TM", "f0rebear", "0", "0", "4"],
-                    ["213", "TM", "Easyboi_7", "0", "0", "4"],
-                    ["214", "TM", "eagles1418", "0", "0", "7"],
-                    ["215", "TM", "DraxcFitz", "0", "0", "1"],
-                    ["216", "TM", "Donalduhhhh", "0", "0", "2"],
-                    ["217", "TM", "Dinokingleoboy", "0", "0", "1"],
-                    ["218", "TM", "decidemapain", "0", "0", "4"],
-                    ["219", "TM", "Damm_st5r", "0", "0", "2"],
-                    ["220", "TM", "Damarionpritchett", "0", "0", "1"],
-                    ["221", "TM", "da1n0nlyn1g", "0", "0", "2"],
-                    ["222", "TM", "CxQzF1tS", "0", "0", "1"],
-                    ["223", "TM", "crushingego", "0", "0", "3"],
-                    ["224", "TM", "cq2Ny", "0", "0", "1"],
-                    ["225", "TM", "Coolpena10", "0", "0", "1"],
-                    ["226", "TM", "chromedbyfootball51", "0", "0", "2"],
-                    ["227", "TM", "chr0medbyflo", "0", "0", "3"],
-                    ["228", "TM", "chlidsins", "0", "0", "1"],
-                    ["229", "TM", "chinaawtw", "0", "0", "6"],
-                    ["230", "TM", "CHANEBRACKER", "0", "0", "7"],
-                    ["231", "TM", "Casas0551", "0", "0", "2"],
-                    ["232", "TM", "Carsondowler", "0", "0", "1"],
-                    ["233", "TM", "carp9063", "0", "0", "0"],
-                    ["234", "TM", "cam20891", "0", "0", "3"],
-                    ["235", "TM", "c1btw", "0", "0", "1"],
-                    ["236", "TM", "Buddyandrelle", "0", "0", "2"],
-                    ["237", "TM", "bpanther906", "0", "0", "6"],
-                    ["238", "TM", "boostmadeloll", "0", "0", "4"],
-                    ["239", "TM", "bontilink", "0", "0", "1"],
-                    ["240", "TM", "blues", "0", "0", "1"],
-                    ["241", "TM", "BGWClix", "0", "0", "1"],
-                    ["242", "TM", "betrayedalt8", "0", "0", "2"],
-                    ["243", "TM", "arkvoid1", "0", "0", "10"],
-                    ["244", "TM", "AlienZ873", "0", "0", "2"],
-                    ["245", "TM", "AJGONESUPERThe2nd", "0", "0", "6"],
-                    ["246", "TM", "AJFitted", "0", "0", "7"],
-                    ["247", "TM", "abkxg", "0", "0", "4"],
-                    ["248", "TM", "9FE3T", "0", "0", "7"],
-                    ["249", "TM", "91monk", "0", "0", "2"],
-                    ["250", "TM", "7lqkz", "0", "0", "4"],
-                    ["251", "TM", "6xkzo", "0", "0", "3"],
-                    ["252", "TM", "3B_1FNN0", "0", "0", "0"],
-                    ["253", "TM", "305Jewww", "0", "0", "6"],
-                    ["254", "TM", "2nqlz", "0", "0", "0"],
-                    ["255", "TM", "2BLQX", "0", "0", "1"],
-                    ["256", "TM", "2addyPinker", "0", "0", "0"],
-                    ["257", "TM", "0B1113", "0", "0", "3"]
-                ]
-            },
-            kicking: {
-                title: "kicking stats",
-                headers: ["#", "TM", "PLAYER", "FGM", "FGA", "LNG"],
-                rows: [
-                    ["1", "TM", "Dxsired_uf2", "18.0", "19", "32"],
-                    ["2", "TM", "L1GHTWORKS1", "3.0", "16", "45"],
-                    ["3", "TM", "199b", "13.0", "13", "32"],
-                    ["4", "TM", "Dimeveil", "12.0", "13", "32"],
-                    ["5", "TM", "YTdubbyboy12", "11.0", "13", "32"],
-                    ["6", "TM", "jaxversi", "10.0", "10", "32"],
-                    ["7", "TM", "jetlink", "8.0", "8", "32"],
-                    ["8", "TM", "arkvoid1", "7.0", "8", "32"],
-                    ["9", "TM", "T4MPAS", "6.0", "9", "32"],
-                    ["10", "TM", "V1xsv", "4.0", "4", "32"],
-                    ["11", "TM", "Sp1lnx", "4.0", "5", "32"],
-                    ["12", "TM", "Hxndred100", "4.0", "4", "32"],
-                    ["13", "TM", "gavinjalt", "4.0", "5", "32"],
-                    ["14", "TM", "pizzaci2", "3.0", "3", "32"],
-                    ["15", "TM", "JAYSBCKUP41", "3.0", "3", "32"],
-                    ["16", "TM", "goyboysag505", "3.0", "4", "32"],
-                    ["17", "TM", "Drewdulph", "3.0", "3", "32"],
-                    ["18", "TM", "YX0AA", "2.0", "2", "32"],
-                    ["19", "TM", "yurpzl", "2.0", "2", "32"],
-                    ["20", "TM", "uhhsoIzff2", "2.0", "2", "32"],
-                    ["21", "TM", "The_ChampionATT", "2.0", "2", "32"],
-                    ["22", "TM", "Stayquiet111", "2.0", "3", "32"],
-                    ["23", "TM", "orqas4k", "2.0", "2", "32"],
-                    ["24", "TM", "M1SSTH30LDDAYSS", "2.0", "2", "32"],
-                    ["25", "TM", "JamesTheUnc18", "2.0", "2", "32"],
-                    ["26", "TM", "i9ut", "2.0", "2", "32"],
-                    ["27", "TM", "Eliback000", "2.0", "2", "32"],
-                    ["28", "TM", "cam20891", "2.0", "2", "32"],
-                    ["29", "TM", "Z_09523", "1.0", "1", "32"],
-                    ["30", "TM", "soccergavin1234", "1.0", "1", "32"],
-                    ["31", "TM", "SlythX_x", "1.0", "1", "32"],
-                    ["32", "TM", "SireBobby", "1.0", "2", "32"],
-                    ["33", "TM", "rykerools", "1.0", "1", "32"],
-                    ["34", "TM", "roblox_user_1610061131", "1.0", "1", "32"],
-                    ["35", "TM", "Rid3rH3roLight2023", "1.0", "2", "32"],
-                    ["36", "TM", "ravensjj2014", "1.0", "1", "32"],
-                    ["37", "TM", "myusernameis_baconyt", "1.0", "1", "32"],
-                    ["38", "TM", "Kexiua_13", "1.0", "1", "32"],
-                    ["39", "TM", "jakex963", "1.0", "1", "32"],
-                    ["40", "TM", "carp9063", "1.0", "1", "32"],
-                    ["41", "TM", "Bkthegoat1008", "1.0", "1", "32"],
-                    ["42", "TM", "AlienZ873", "1.0", "1", "32"],
-                    ["43", "TM", "9FE3T", "1.0", "2", "32"],
-                    ["44", "TM", "4soloz", "1.0", "1", "32"]
-                ]
-            }
-        };
-
-        const allTimeLeaderboards = {
-            QB: { title: "quarterback", count: "72 players", headers: ["#", "PLAYER", "YDS", "ATT", "CMP", "TD", "INT"], rows: [["1", "hrupt", "67212", "4952", "2653", "734", "329"], ["2", "Cleaave", "62983", "4676", "2603", "731", "338"], ["3", "FINLEY", "45120", "3801", "2100", "490", "180"]] },
-            RB: { title: "running back", count: "412 players", headers: ["#", "PLAYER", "YDS", "ATT", "AVG", "TD", "FUM"], rows: [["1", "RobloxGamer", "14205", "2100", "6.7", "134", "12"]] },
-            WR: { title: "wide receiver", count: "894 players", headers: ["#", "PLAYER", "YDS", "REC", "TD", "YAC"], rows: [["1", "TBYellowDragon", "18450", "1102", "165", "4520"]] },
-            TE: { title: "tight end", count: "215 players", headers: ["#", "PLAYER", "YDS", "REC", "TD"], rows: [["1", "GronkRoblox", "8920", "610", "82"]] },
-            C: { title: "center", count: "140 players", headers: ["#", "PLAYER", "PANCAKES", "SNAPS"], rows: [["1", "BigBlocker", "380", "5420"]] },
-            DE: { title: "defensive end", count: "310 players", headers: ["#", "PLAYER", "SACKS", "TACKLES"], rows: [["1", "SackMaster", "142.5", "410"]] },
-            LB: { title: "linebacker", count: "430 players", headers: ["#", "PLAYER", "TACKLES", "INT", "FF"], rows: [["1", "MidfieldHawk", "740", "18", "11"]] },
-            DB: { title: "defensive back", count: "520 players", headers: ["#", "PLAYER", "INT", "PD"], rows: [["1", "IslandLock", "62", "145"]] },
-            K: { title: "kicker", count: "98 players", headers: ["#", "PLAYER", "FGM", "LNG"], rows: [["1", "LegPower", "210", "63"]] }
-        };
-
-        function switchCategory(category, event) {
-            if (event) event.preventDefault();
-            isRecordBookView = false;
-            currentCategoryGlobal = category;
-            
-            document.getElementById('stats-nav-link').classList.add('active');
-            const data = statsDatabase[category] || statsDatabase['passing'];
-            
-            let tabsHtml = '<div class="sub-nav-tabs">';
-            for (let key in statsDatabase) {
-                const activeClass = key === category ? 'active' : '';
-                tabsHtml += `<button class="tab-btn ${activeClass}" onclick="switchCategory('${key}')">${key}</button>`;
-            }
-            tabsHtml += '</div>';
-
-            let tableHeaders = data.headers.map(h => `<th>${h}</th>`).join('');
-            let tableRows = data.rows.map(row => {
-                return `<tr>${row.map((cell, idx) => {
-                    if (idx === 2) {
-                        return `<td class="highlight-col" style="cursor:pointer; color:var(--accent);" onclick="loadPlayerProfile('${cell}')">${cell}</td>`;
-                    }
-                    return `<td>${cell}</td>`;
-                }).join('')}</tr>`;
-            }).join('');
-
-            container.innerHTML = `
-                ${tabsHtml}
-                <div class="section-header-row">
-                    <h2 class="page-title-main">${data.title}</h2>
-                    <div class="search-wrapper">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" class="search-input" id="table-filter" placeholder="Search player name..." oninput="filterCurrentTable()">
-                    </div>
-                </div>
-                <div class="stat-table-card">
-                    <table>
-                        <thead class="red-table-header"><tr>${tableHeaders}</tr></thead>
-                        <tbody id="stat-table-body">${tableRows}</tbody>
-                    </table>
-                </div>
-            `;
+        // Update the header
+        if (player) {
+            document.getElementById('player-title').textContent = decodeURIComponent(player) + "'s Trophy Room";
+        } else {
+            document.getElementById('player-title').textContent = "Guest Player's Trophy Room";
         }
-
-        function filterCurrentTable() {
-            const query = document.getElementById('table-filter').value.toLowerCase();
-            const rows = document.querySelectorAll('#stat-table-body tr');
-            rows.forEach(row => {
-                const nameCell = row.cells[isRecordBookView ? 1 : 2];
-                if (nameCell) {
-                    const txt = nameCell.textContent.toLowerCase();
-                    row.style.display = txt.includes(query) ? '' : 'none';
-                }
-            });
-        }
-
-        function loadAllTimeStats(event) {
-            if (event) event.preventDefault();
-            isRecordBookView = true;
-            
-            let positionsHtml = '<div class="pill-toggle-row">';
-            for (let key in allTimeLeaderboards) {
-                const activeClass = key === currentRecordBookPos ? 'active' : '';
-                positionsHtml += `<button class="pill-btn ${activeClass}" onclick="switchRecordBookPosition('${key}')">${key}</button>`;
-            }
-            positionsHtml += '</div>';
-
-            const data = allTimeLeaderboards[currentRecordBookPos];
-            let tableHeaders = data.headers.map(h => `<th>${h}</th>`).join('');
-            let tableRows = data.rows.map(row => {
-                return `<tr>${row.map((cell, idx) => {
-                    if (idx === 1) {
-                        return `<td class="highlight-col" style="cursor:pointer; color:var(--accent);" onclick="loadPlayerProfile('${cell}')">${cell}</td>`;
-                    }
-                    return `<td>${cell}</td>`;
-                }).join('')}</tr>`;
-            }).join('');
-
-            container.innerHTML = `
-                <div class="alltime-hero">
-                    <div class="hero-tag">VFL History book</div>
-                    <h1 class="hero-heading">All-Time Records</h1>
-                    <p class="hero-desc">Search historical records or explore the career tracking data across all legacy seasons.</p>
-                    <div class="hero-search">
-                        <input type="text" id="alltime-search-input" placeholder="Enter custom player name...">
-                        <button onclick="triggerProfileSearch('alltime-search-input')">Search Profile</button>
-                    </div>
-                </div>
-
-                ${positionsHtml}
-
-                <div class="section-header-row">
-                    <h2 class="page-title-main" style="text-transform:uppercase; font-size:1.2rem;">All-Time ${data.title} leaderboard (${data.count})</h2>
-                    <div class="search-wrapper">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" class="search-input" id="table-filter" placeholder="Filter position rows..." oninput="filterCurrentTable()">
-                    </div>
-                </div>
-
-                <div class="stat-table-card">
-                    <table>
-                        <thead class="red-table-header"><tr>${tableHeaders}</tr></thead>
-                        <tbody id="stat-table-body">${tableRows}</tbody>
-                    </table>
-                </div>
-            `;
-        }
-
-        function switchRecordBookPosition(pos) {
-            currentRecordBookPos = pos;
-            loadAllTimeStats();
-        }
-
-        function triggerProfileSearch(inputId) {
-            const val = document.getElementById(inputId).value;
-            if(val.trim() !== "") {
-                loadPlayerProfile(val);
-            }
-        }
-
-        function goBackFromProfile() {
-            if (isRecordBookView) {
-                loadAllTimeStats();
-            } else {
-                switchCategory(currentCategoryGlobal);
-            }
-        }
-
-        function loadPlayerProfile(username) {
-            const cleanName = username.trim();
-            const upperName = cleanName.toUpperCase();
-            let robloxId = Math.floor(10000000 + Math.random() * 90000000);
-            if(upperName === "FINLEY" || upperName === "FINLEY4K") robloxId = 221991455;
-            if(upperName === "HRUPT") robloxId = 55431288;
-
-            // Database containing the exact "Season by Season" historical table matrix
-            const historyDatabase = {
-                "FINLEY4K": {
-                    title: "FINLEY4K's Quarterback stats",
-                    headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
-                    rows: [
-                        ["Career", "41469", "3511", "1912", "445", "165", "121", "241", "90", "1110", "640", "150", "50", "1200"]
-                        ["S6", "4105", "350", "203", "39", "12", "15", "20", "5", "110", "65", "18", "4", "350"],
-                        ["S5", "21015", "1751", "947", "221", "88", "45", "120", "45", "540", "335", "52", "21", "1450"],
-                        ["S4", "20000", "1700", "950", "230", "80", "50", "120", "45", "550", "300", "70", "25", "1400"]
-                    ]
-                },
-                "HRUPT": {
-                    title: "hrupt's Quarterback stats",
-                    headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
-                    rows: [
-                        ["Career", "67212", "4952", "2653", "734", "329", "186", "380", "142", "1650", "780", "162", "61", "4610"],
-                        ["S6", "5622", "388", "221", "51", "27", "36", "37", "13", "142", "55", "18", "6", "388"],
-                        ["S5", "31590", "2314", "1232", "343", "152", "75", "173", "64", "788", "365", "64", "25", "2122"],
-                        ["S4", "30000", "2250", "1200", "340", "150", "75", "170", "65", "720", "360", "80", "30", "2100"]
-                    ]
-                }
-            };
-
-            // Dynamic Fallback Generator for player entries not pre-mapped
-            const activeProfileData = historyDatabase[upperName] || {
-                title: `${cleanName}'s Player Stats`,
-                headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SNAP"],
-                rows: [
-                    ["Career", "12450", "1100", "620", "115", "42", "1450"],
-                    ["S6", "4150", "380", "210", "38", "15", "510"],
-                    ["S5", "8300", "720", "410", "77", "27", "940"]
-                ]
-            };
-
-            let tableHeadersHtml = activeProfileData.headers.map(h => `<th>${h}</th>`).join('');
-
-            // 1. Find the exact column index where the Player names live
-            const playerColumnIndex = activeProfileData.headers.findIndex(h => h.toLowerCase() === 'player');
-
-            let tableRowsHtml = activeProfileData.rows.map(row => {
-                const isCareer = row[0].toLowerCase() === 'career';
-                
-                // 2. Map over each cell in the row
-                const mappedCells = row.map((cell, index) => {
-                    // Only wrap in a link if:
-                    // - It's the "Player" column
-                    // - It's not the "Career" summary row at the bottom
-                    if (index === playerColumnIndex && !isCareer) {
-                        return `<td><a href="trophy.html?player=${encodeURIComponent(cell)}" class="player-link">${cell}</a></td>`;
-                    }
-                    // Otherwise, keep it as a normal cell
-                    return `<td>${cell}</td>`;
-                }).join('');
-
-                return `<tr class="${isCareer ? 'career-row' : ''}">${mappedCells}</tr>`;
-            }).join('');
-
-            container.innerHTML = `
-                <div class="back-link" onclick="goBackFromProfile()">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                        <polyline points="12 19 5 12 12 5"></polyline>
-                    </svg>
-                    Back to Leaderboards
-                </div>
-
-                <div class="profile-container-light">
-                    <!-- Header Card Component -->
-                    <div class="profile-header-card-light">
-                        <div class="avatar-circle-light">👤</div>
-                        <div class="header-details-light">
-                            <h1>${cleanName}</h1>
-                            <p>Roblox Account ID: ${robloxId}</p>
-                            <div class="pos-pills-row">
-                                <span class="pos-pill">QB</span>
-                                <span class="pos-pill">All-Time Book</span>
-                            </div>
-                        </div>
-                        <button class="trophy-room-btn-light">🏆 Showcase Awards</button>
-                    </div>
-
-                    <!-- Rank Quick Badges Row -->
-                    <div class="rank-badges-row-light">
-                        <div class="rank-quick-card">
-                            <span class="pos-label">Passing Yards</span>
-                            <span class="rank-value">#3 All-Time</span>
-                            <div class="rank-quick-box-row">
-                                <div class="stat-box-mini"><div>45K</div><div>YDS</div></div>
-                                <div class="stat-box-mini"><div>Tier</div><div>Gold</div></div>
-                            </div>
-                        </div>
-                        <div class="rank-quick-card">
-                            <span class="pos-label">Passing Touchdowns</span>
-                            <span class="rank-value">#2 All-Time</span>
-                            <div class="rank-quick-box-row">
-                                <div class="stat-box-mini"><div>490</div><div>TD</div></div>
-                                <div class="stat-box-mini"><div>Tier</div><div>Gold</div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h2 class="achievements-heading-light">progression metrics</h2>
-
-                    <!-- Mastery Panels Split Grid Layout -->
-                    <div class="mastery-split-grid">
-                        <div class="archetype-card-light">
-                            <div class="lock-icon-wrapper">🔒</div>
-                            <h3>Gunslinger Profile</h3>
-                            <span>Locked Archetype</span>
-                            <p>Achieve a 65%+ Career Completion Rate to unlock this special attribute module.</p>
-                        </div>
-
-                        <div class="mastery-panel-light">
-                            <div class="panel-header-row">
-                                <span>Position Specialty</span>
-                                <span>Skill Master Rank</span>
-                            </div>
-                            
-                            <div class="mastery-progress-item">
-                                <div class="mini-pos-tag qb">QB</div>
-                                <div class="mastery-label-text">Field General</div>
-                                <div class="bar-wrapper-light"><div class="bar-fill-light" style="width: 88%;"></div></div>
-                                <div class="mastery-score-fraction">88<span>/100</span></div>
-                            </div>
-                            <div class="mastery-progress-item">
-                                <div class="mini-pos-tag rb">RB</div>
-                                <div class="mastery-label-text">Elusive Back</div>
-                                <div class="bar-wrapper-light"><div class="bar-fill-light" style="width: 35%;"></div></div>
-                                <div class="mastery-score-fraction">35<span>/100</span></div>
-                            </div>
-                            <div class="mastery-progress-item">
-                                <div class="mini-pos-tag wr">WR</div>
-                                <div class="mastery-label-text">Route Technician</div>
-                                <div class="bar-wrapper-light"><div class="bar-fill-light" style="width: 15%;"></div></div>
-                                <div class="mastery-score-fraction">15<span>/100</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Milestones Badge Grid Section -->
-                    <div class="position-achievement-section">
-                        <div class="position-section-header">
-                            <div class="position-section-title">Milestone Badges</div>
-                            <div class="position-section-summary">3 badges earned out of 6</div>
-                        </div>
-
-                        <div class="badges-grid-layout">
-                            <div class="badge-milestone-card">
-                                <div class="badge-tier-indicator-line gold"></div>
-                                <div class="badge-icon-container">🎯</div>
-                                <div class="badge-content-box">
-                                    <div class="badge-main-row">
-                                        <div class="badge-title-name">Air Raid Master</div>
-                                        <span class="badge-xp-chip">+500 XP</span>
-                                    </div>
-                                    <div class="badge-tier-status-text gold">Gold Class</div>
-                                    <div class="badge-next-tier-label">Max Tier Reached</div>
-                                    <div class="badge-stat-metric-fraction"><span class="maxed">40,000 / 40,000 Yds</span></div>
-                                </div>
-                            </div>
-
-                            <div class="badge-milestone-card">
-                                <div class="badge-tier-indicator-line silver"></div>
-                                <div class="badge-icon-container">🏈</div>
-                                <div class="badge-content-box">
-                                    <div class="badge-main-row">
-                                        <div class="badge-title-name">Touchdown Machine</div>
-                                        <span class="badge-xp-chip">+350 XP</span>
-                                    </div>
-                                    <div class="badge-tier-status-text silver">Silver Class</div>
-                                    <div class="badge-next-tier-label">Next: Gold at 500 TDs</div>
-                                    <div class="badge-stat-metric-fraction"><span>490 / 500 TDs</span></div>
-                                </div>
-                            </div>
-
-                            <div class="badge-milestone-card">
-                                <div class="badge-tier-indicator-line bronze"></div>
-                                <div class="badge-icon-container">⏱️</div>
-                                <div class="badge-content-box">
-                                    <div class="badge-main-row">
-                                        <div class="badge-title-name">Iron Snap Veteran</div>
-                                        <span class="badge-xp-chip">+150 XP</span>
-                                    </div>
-                                    <div class="badge-tier-status-text bronze">Bronze Class</div>
-                                    <div class="badge-next-tier-label">Next: Silver at 5,000 Snaps</div>
-                                    <div class="badge-stat-metric-fraction"><span>3,200 / 5,000 Snaps</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Comprehensive Historical Data Matrix Box -->
-                    <div class="position-section-header" style="margin-top: 2.5rem; margin-bottom: 0.5rem;">
-                        <div class="position-section-title" style="font-size:1.1rem; text-transform:uppercase;">${activeProfileData.title}</div>
-                    </div>
-                    <div class="profile-table-card-light">
-                        <table>
-                            <thead><tr>${tableHeadersHtml}</tr></thead>
-                            <tbody>${tableRowsHtml}</tbody>
-                        </table>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Initialize App View
-        window.onload = () => {
-            switchCategory('passing');
-        };
     </script>
 </body>
 </html>
