@@ -70,7 +70,7 @@
         .legacy-dropdown li a { color: var(--text-muted) !important; padding: 0.5rem 1rem; display: block; text-transform: none; }
         .legacy-dropdown li a:hover { color: var(--text-main) !important; background-color: rgba(255,255,255,0.05); }
         nav ul li.dropdown-legacy:hover .legacy-dropdown { display: block; }
-        nav ul li.dropdown:hover .nav-arrow { transform: rotate(180deg); }
+        nav ul li.dropdown:hover .nav-arrow, nav ul li.dropdown-legacy:hover .nav-arrow { transform: rotate(180deg); }
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
         /* Layout Main Containers */
@@ -240,14 +240,14 @@
                     </div>
                 </div>
             </li>
-            <li class="dropdown">
+            <li class="dropdown-legacy">
                 <a href="#">
                     Legacy
                     <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
                         <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                     </svg>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="legacy-dropdown">
                     <li><a href="legacy.html">Legacy</a></li>
                     <li><a href="champions-awards.html">Champions & Awards</a></li>
                     <li><a href="award-tracker.html">Award Tracker</a></li>
@@ -461,16 +461,7 @@
                     title: "FINLEY4K's Quarterback stats",
                     headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
                     rows: [
-                        ["Career", "41469", "3511", "1912", "445", "165", "121", "241", "90", "1110", "640", "120", "42", "2990"],
-                        ["S5", "21042", "1720", "965", "215", "82", "54", "110", "42", "550", "320", "65", "20", "1420"],
-                        ["S4", "20427", "1791", "947", "230", "83", "67", "131", "48", "560", "320", "55", "22", "1570"]
-                    ]
-                },
-                "FINLEY": {
-                    title: "FINLEY's Quarterback stats",
-                    headers: ["SEASON", "YDS", "ATT", "CMP", "TD", "INT", "SCK", "3RD", "4TH", "<15", "<35", "<50", "50+", "SNAP"],
-                    rows: [
-                        ["Career", "45120", "3801", "2100", "490", "180", "110", "260", "95", "1200", "700", "140", "50", "3200"],
+                        ["Career", "41469", "3511", "1912", "445", "165", "121", "241", "90", "1110", "640", "150", "50", "1200"]
                         ["S6", "4105", "350", "203", "39", "12", "15", "20", "5", "110", "65", "18", "4", "350"],
                         ["S5", "21015", "1751", "947", "221", "88", "45", "120", "45", "540", "335", "52", "21", "1450"],
                         ["S4", "20000", "1700", "950", "230", "80", "50", "120", "45", "550", "300", "70", "25", "1400"]
