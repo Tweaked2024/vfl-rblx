@@ -49,20 +49,32 @@
 </head>
 <body>
 
-    <nav class="navbar">
+    <nav>
         <div class="logo-area">
             <div class="logo-circle">VFL</div>
-            <div class="logo-text">VIRTUAL FOOTBALL <span>LEAGUE • SEASON 6</span></div>
+            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
         </div>
-        <div class="nav-links">
-            <a href="#">HOME</a>
-            <a href="#">SCORES</a>
-            <a href="#">STANDINGS</a>
-            <a href="#" style="color:var(--accent-red)">STATS</a>
-            <a href="#">LEGACY ▾</a>
-            <a href="#">RULEBOOK</a>
-        </div>
-        <a href="#" class="join-btn">Join Now!</a>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="scores.html">Scores</a></li>
+            <li><a href="standings.html">Standings</a></li>
+            <li><a href="stats.html">Stats</a></li>
+            <li class="dropdown">
+                <a href="#">
+                    Legacy
+                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="legacy.html">Legacy</a></li>
+                    <li><a href="champions-awards.html">Champions & Awards</a></li>
+                    <li><a href="award-tracker.html">Award Tracker</a></li>
+                </ul>
+            </li>
+            <li><a href="rulebook.html">Rulebook</a></li>
+        </ul>
+        <a href="#" class="nav-btn">Join Now!</a>
     </nav>
 
     <div class="page-container">
