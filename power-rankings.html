@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power Rankings - Virtual Football League</title>
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       GLOBAL STYLES (Matching Standings theme)
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0c0e12;
+      color: #f3f4f6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      padding-bottom: 60px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ==========================================================================
+       NAVIGATION HEADER
+       ========================================================================== */
+    header {
+      background-color: #08090d;
+      border-bottom: 1px solid #1a1e26;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      background: #e14d43;
+      color: #fff;
+      font-weight: 800;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .brand-text h1 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .brand-text p {
+      font-size: 10px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    nav a {
+      color: #9ca3af;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: #ffffff;
+    }
+
+    .join-btn {
+      background-color: #e14d43;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+
+    .join-btn:hover {
+      background-color: #c93b32;
+    }
+
+    /* ==========================================================================
+       MAIN LAYOUT & TITLE SECTION
+       ========================================================================== */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .title-row h2 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    /* Page Switcher Buttons */
+    .view-switcher {
+      background-color: #11141b;
+      padding: 6px;
+      border-radius: 30px;
+      display: flex;
+      gap: 5px;
+      border: 1px solid #1e2330;
+    }
+
+    .switch-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #9ca3af;
+      transition: all 0.2s ease;
+    }
+
+    .switch-btn.active {
+      background-color: #e14d43;
+      color: white;
+    }
+
+    /* ==========================================================================
+       POWER RANKINGS COLUMNS GRID
+       ========================================================================== */
+    .rankings-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 25px;
+    }
+
+    .conference-card {
+      background-color: #10131a;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #1a1f2c;
+    }
+
+    /* Card Headers styling based on Image 1 colors but using Image 2 layouts */
+    .card-header-afc {
+      background: linear-gradient(90deg, #c21d24, #8b1015);
+      padding: 18px 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-header-nfc {
+      background: linear-gradient(90deg, #1e3a5f, #11223b);
+      padding: 18px 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-capsule {
+      background-color: rgba(255, 255, 255, 0.15);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* ==========================================================================
+       TABLES STYLING (Flawless adaptation of Image 2 UI elements)
+       ========================================================================== */
+    .rankings-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .rankings-table th {
+      background-color: #090b0f;
+      color: #6b7280;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      text-align: left;
+      border-bottom: 1px solid #151924;
+    }
+
+    .rankings-table th.num, .rankings-table td.num {
+      text-align: center;
+      width: 55px;
+    }
+
+    /* Group Category Headers */
+    .tier-header {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 10px 20px;
+      text-align: left;
+      color: #ffffff;
+    }
+
+    .tier-top4 {
+      background-color: #105c3a; /* Deep Emerald Green */
+    }
+
+    .tier-wildcard {
+      background-color: #b57a15; /* Rich Warm Amber */
+    }
+
+    .tier-hunt {
+      background-color: #4b525d; /* Modern Dark Slate Slate */
+    }
+
+    /* Rows */
+    .rankings-table tr.team-row {
+      border-bottom: 1px solid #161a25;
+      transition: background-color 0.15s ease;
+    }
+
+    .rankings-table tr.team-row:hover {
+      background-color: #161a26;
+    }
+
+    .rankings-table tr.team-row:last-child {
+      border-bottom: none;
+    }
+
+    .rankings-table td {
+      padding: 14px 20px;
+      font-size: 14px;
+      color: #e5e7eb;
+      vertical-align: middle;
+    }
+
+    /* Rank Pill Badge */
+    .rank-indicator {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Color Codes mapping directly to Legend */
+    .rank-top4 { background-color: #22c55e; }
+    .rank-wildcard { background-color: #eab308; }
+    .rank-hunt { background-color: #9ca3af; }
+
+    /* Team Identity Alignment */
+    .team-identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+    }
+
+    .team-logo {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    /* Text styling for Bold highlight */
+    .bold-stat {
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .faded-stat {
+      color: #9ca3af;
+    }
+
+    /* ==========================================================================
+       LEGEND FOOTER
+       ========================================================================== */
+    .legend-container {
+      background-color: #10131a;
+      border: 1px solid #1a1f2c;
+      border-radius: 8px;
+      padding: 16px 24px;
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #9ca3af;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .rankings-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      header {
+        padding: 15px 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .title-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      nav {
+        display: none; /* Can be adapted to hamburger menu if needed */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER NAVIGATION (Connected seamlessly to your structure) -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">VFL</div>
+      <div class="brand-text">
+        <h1>Virtual Football</h1>
+        <p>League • Season 6</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Scores</a>
+      <a href="standings.html" class="active">Standings</a>
+      <a href="#">Stats</a>
+      <a href="#">Legacy <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></a>
+      <a href="#">Rulebook</a>
+    </nav>
+    <a href="#" class="join-btn">Join Now!</a>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+    
+    <!-- Title and Navigation Switcher (Mirroring Style 2) -->
+    <div class="title-row">
+      <h2>standings</h2>
+      <div class="view-switcher">
+        <a href="standings.html" class="switch-btn">Standings</a>
+        <a href="#" class="switch-btn active">Power Rankings</a>
+        <a href="#" class="switch-btn">Playoff Bracket</a>
+      </div>
+    </div>
+
+    <!-- MAIN DUAL GRID SYSTEM (Mirroring Image 1 structure) -->
+    <div class="rankings-grid">
+      
+      <!-- ==================== COLUMN 1: AFC ==================== -->
+      <div class="conference-card">
+        <div class="card-header-afc">
+          <span class="badge-capsule">AFC</span> OVERALL POWER RANKINGS
+        </div>
+        <table class="rankings-table">
+          <thead>
+            <tr>
+              <th class="num">#</th>
+              <th>Team</th>
+              <th class="num">W</th>
+              <th class="num">L</th>
+              <th class="num">TP</th>
+              <th class="num">PD</th>
+              <th class="num">SOS</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <!-- Tier 1: Top 4 -->
+            <tr>
+              <td colspan="7" class="tier-header tier-top4">Top 4</td>
+            </tr>
+            <tr class="team-row">
+              <td class="num"><span class="rank-indicator rank-top4">1</span></td>
+              <td>
+                <div class="team-identity">
+                  <!-- Replace with your actual asset links -->
+                  <img src="https://placehold.co/50x50/1e293b/ffffff?text=D" alt="MIA" class="team-logo">
+                  <span>Dolphins</span>
+                </div>
+              </td>
+              <td class="num">10</td>
+              <td class="num">1</td>
+              <td class="num bold-stat">0</td>
+              <td class="num">+180</td>
+              <td class="num faded-stat">0.00</td>
+            </tr>
+            <tr class="team-row">
+              <td class="num"><span class="rank-indicator rank-top4">2</span></td>
+              <td>
+                <div class="team-identity">
+                  <img src="https://placehold.co/50x50/1e293b/ffffff?text=B" alt="BUF" class="team-logo">
+                  <span>Bills</span>
+                </div>
+              </td>
+              <td class="num">8</td>
+              <td class="num">3</td>
+              <td class="num bold-stat">0</td>
+              <td class="num">+95</td>
+              <td class="num faded-stat">0.00</td>
+            </tr>
+            
+            <!-- Tier 2: Wildcard -->
+            <tr>
+              <td colspan="7" class="tier-header tier-wildcard">Wildcard (5-10)</td>
+            </tr>
+            <tr class="team-row">
+              <td class="num"><span class="rank-indicator rank-wildcard">5</span></td>
+              <td>
+                <div class="team-identity">
+                  <img src="https://placehold.co/50x50/1e293b/ffffff?text=O" alt="LV" class="team-logo">
+                  <span>Raiders</span>
+                </div>
+              </td>
+              <td class="num">7</td>
+              <td class="num">4</td>
+              <td class="num bold-stat">0</td>
+              <td class="num">+32</td>
+              <td class="num faded-stat">0.00</td>
+            </tr>
+            <tr class="team-row">
+              <td class="num"><span class="rank-indicator rank-wildcard">6</span></td>
+              <td>
+                <div class="team-identity">
+                  <img src="https://placehold.co/50x50/1e293b/ffffff?text=C" alt="LAC" class="team-logo">
+                  <span>Chargers</span>
+                </div>
+              </td>
+              <td class="num">6</td>
+              <td class="num">5</td>
+              <td class="num bold-stat">0</td>
+              <td class="num">+12</td>
+              <td class="num faded-stat">0.00</td>
+            </tr>
+
+            <!-- Tier 3: In the Hunt -->
+            <tr>
+              <td colspan="7" class="tier-header tier-hunt">In the Hunt</td>
+            </tr>
+            <tr class="team-row">
+              <td class="num"><span class="rank-indicator rank-hunt">11</span></td>
+              <td>
+                <div class="team-identity">
+                  <img src="https://placehold.co/50x50/1e293b/ffffff?text=P" alt="PIT" class="team-logo">
+                  <span>Steelers</span>
+                </div>
+              </td>
+              <td class="num">4</td>
+              <td class="num">7</td>
+              <td class="num bold-stat">0</td>
+              <td class="num">-45</td>
+              <td class="num faded-stat">0.00</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LEGEND FOOTER PANEL (Exact replication of bottom indicators) -->
+    <div class="legend-container">
+      <div class="legend-item">
+        <div class="legend-dot" style="background-color: #22c55e;"></div>
+        <span>Top 4 seed</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background-color: #eab308;"></div>
+        <span>Wildcard (5-10)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background-color: #9ca3af;"></div>
+        <span>In the hunt</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
