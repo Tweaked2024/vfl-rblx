@@ -1,240 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VFL Roblox - Standings</title>
-    <style>
-        :root {
-            --bg-main: #111017; --bg-card: #1b1a25; --accent: #f05d51;
-            --text-main: #ffffff; --text-muted: #8b8a99; --border: #282735;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* Navigation Header Base */
-        nav { 
-            background-color: var(--bg-main); 
-            padding: 1.2rem 4%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-bottom: 1px solid var(--border); 
-            position: relative;
-            z-index: 1000;
-        }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-        .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
-        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
-        
-        /* Navigation Menu Lists */
-        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
-        nav ul li { position: relative !important; display: inline-block; }
-        
-        nav ul li a { 
-            color: var(--text-muted); 
-            text-decoration: none; 
-            font-size: 0.85rem; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: color 0.2s ease;
-        }
-        nav ul li a:hover, nav ul li a.active { 
-            color: var(--text-main); 
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trophy Room</title>
+  <style>
+    :root {
+      --bg-main: #111017;
+      --bg-card: #1b1a25;
+      --accent: #f05d51;
+      --text-main: #ffffff;
+      --text-muted: #8b8a99;
+      --border: #282735;
+    }
 
-        /* Pure Floating Dropdown Box Design */
-        .dropdown-menu {
-            display: none !important;
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background-color: #ffffff; /* Stark white card popout matches Image 1 */
-            min-width: 210px;
-            border-radius: 12px; /* Smooth rounded corners */
-            padding: 0.6rem 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Clean elevation shadow */
-            list-style: none !important;
-            margin-top: 5px;
-            z-index: 99999;
-            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-        /* Displays only on hover state */
-        nav ul li.dropdown:hover .dropdown-menu {
-            display: block !important;
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) translateY(0px);
-        }
+    body {
+      background: #f3f3f3;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        /* Dropdown Item Typography & Link Actions */
-        .dropdown-menu li { width: 100%; display: block; }
-        .dropdown-menu li a {
-            color: #111017 !important; /* Rich dark text on clean white background */
-            padding: 0.7rem 1.4rem;
-            display: block !important;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: none !important; /* Beautiful sentence-case formatting */
-            text-decoration: none;
-            text-align: left;
-            transition: background-color 0.15s ease, color 0.15s ease;
-        }
-        .dropdown-menu li a:hover { 
-            background-color: #f4f4f6 !important; /* Soft highlight fill */
-            color: var(--accent) !important; 
-        }
+    nav {
+      background-color: var(--bg-main);
+      padding: 1.2rem 4%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 1000;
+    }
 
-        /* Animates down arrow turn on hover */
-        nav ul li.dropdown:hover .nav-arrow {
-            transform: rotate(180deg);
-        }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+    .logo-circle {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+    }
 
-        /* Content Container Layout */
-        .container { max-width: 1400px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; }
-        
-        /* Sub-Navigation Toggle Header */
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
-        .page-title { font-size: 2rem; font-weight: 700; text-transform: lowercase; }
-        .view-toggle-group { display: flex; align-items: center; background-color: #16151f; border: 1px solid var(--border); padding: 6px; border-radius: 30px; gap: 4px; }
-        .toggle-item { display: inline-block; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); transition: all 0.2s ease; }
-        .toggle-item:hover { color: var(--text-main); }
-        .toggle-item.active { background-color: var(--accent); color: white; }
-        
-        .standings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); gap: 2rem; }
-        
-        /* Conference Card Base Layout */
-        .conf-card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-        .conf-header { background: linear-gradient(90deg, #024471, #082d47); padding: 1rem; display: flex; align-items: center; gap: 15px; font-size: 1.2rem; font-weight: bold; }
-        .conf-header.acc { background: linear-gradient(90deg, #00539b, #002d54); }
-        .conf-header.sec { background: linear-gradient(90deg, #004b87, #00284f); }
-        .conf-header.big12 { background: linear-gradient(90deg, #cf102d, #6e000f); }
-        
-        .badge-placeholder { background: rgba(255,255,255,0.1); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 800; }
-        
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
-        th, td { padding: 0.8rem 1rem; }
-        th { background-color: #15141e; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; }
-        td { color: var(--text-muted); border-bottom: 1px solid #232230; }
-        tr:last-child td { border-bottom: none; }
-        .active-row td { color: var(--text-main); }
-        
-        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); }
-    </style>
+    .logo-text {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav ul li {
+      position: relative !important;
+      display: inline-block;
+    }
+
+    nav ul li a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.2s ease;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--text-main);
+    }
+
+    .dropdown-menu {
+      display: none !important;
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background-color: #ffffff;
+      min-width: 210px;
+      border-radius: 12px;
+      padding: 0.6rem 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      list-style: none !important;
+      margin-top: 5px;
+      z-index: 99999;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    }
+
+    nav ul li.dropdown:hover .dropdown-menu {
+      display: block !important;
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0px);
+    }
+
+    .dropdown-menu li {
+      width: 100%;
+      display: block;
+    }
+
+    .dropdown-menu li a {
+      color: #111017 !important;
+      padding: 0.7rem 1.4rem;
+      display: block !important;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: none !important;
+      text-decoration: none;
+      text-align: left;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .dropdown-menu li a:hover {
+      background-color: #f4f4f6 !important;
+      color: var(--accent) !important;
+    }
+
+    nav ul li.dropdown:hover .nav-arrow {
+      transform: rotate(180deg);
+    }
+
+    .nav-btn {
+      background-color: var(--accent);
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 20px 30px;
+      width: 100%;
+    }
+
+    .top-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      margin-bottom: 20px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      color: #111;
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #e9d2a8;
+      background: #ddd;
+    }
+
+    .name-area {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #b58b44;
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
+
+    .player-name {
+      margin: 0 0 12px;
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(80px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .stat {
+      background: #f6f1e8;
+      border: 1px solid #e7dcc8;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .stat .val {
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #111;
+    }
+
+    .stat .lbl {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #777;
+      margin-top: 4px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      background: #f4e6d2;
+      color: #6c4d19;
+      border: 1px solid #d8c2a1;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .cabinet {
+      background: #1c120d;
+      color: #fff;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    }
+
+    .shelf {
+      background: linear-gradient(180deg, #24160f, #1a100b);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .shelf-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .shelf-title {
+      margin: 0;
+      font-size: 18px;
+      color: #f2d6a2;
+    }
+
+    .shelf-count {
+      font-size: 12px;
+      color: #f0c46d;
+      background: rgba(240,196,109,.14);
+      border: 1px solid rgba(240,196,109,.35);
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .trophy {
+      width: 120px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .trophy img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 8px;
+    }
+
+    .trophy .title {
+      font-size: 12px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .trophy .sub {
+      font-size: 10px;
+      color: #d7c29a;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 700px) {
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .player-name {
+        font-size: 32px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <nav>
-        <div class="logo-area">
-            <div class="logo-circle">VFL</div>
-            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
-        </div>
-        <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="scores.html">Scores</a></li>
-            <li><a href="standings.html">Standings</a></li>
-            <li><a href="stats.html">Stats</a></li>
-            <li class="dropdown">
-                <a href="#">
-                    Legacy
-                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
-                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="legacy.html">Legacy</a></li>
-                    <li><a href="champions-awards.html">Champions & Awards</a></li>
-                    <li><a href="award-tracker.html">Award Tracker</a></li>
-                </ul>
-            </li>
-            <li><a href="rulebook.html">Rulebook</a></li>
+  <nav>
+    <div class="logo-area">
+      <div class="logo-circle">VFL</div>
+      <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="scores.html">Scores</a></li>
+      <li><a href="standings.html">Standings</a></li>
+      <li><a href="stats.html">Stats</a></li>
+      <li class="dropdown">
+        <a href="#">
+          Legacy
+          <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="legacy.html">Legacy</a></li>
+          <li><a href="champions-awards.html">Champions & Awards</a></li>
+          <li><a href="award-tracker.html">Award Tracker</a></li>
         </ul>
-        <a href="#" class="nav-btn">Join Now!</a>
-    </nav>
+      </li>
+      <li><a href="rulebook.html">Rulebook</a></li>
+    </ul>
+    <a href="#" class="nav-btn">Join Now!</a>
+  </nav>
 
-    <div class="container">
-        
-        <div class="page-header">
-            <h1 class="page-title">standings</h1>
-            <div class="view-toggle-group">
-                <a href="standings.html" class="toggle-item active">Standings</a>
-                <a href="power-rankings.html" class="toggle-item">Power Rankings</a>
-                <a href="playoffs.html" class="toggle-item">Playoff Bracket</a>
-            </div>
+  <div class="page">
+    <div class="top-card">
+      <img id="player-avatar" class="avatar" src="" alt="player avatar" />
+      <div class="name-area">
+        <p class="eyebrow">Trophy Room</p>
+        <h1 id="player-name" class="player-name">PLAYER</h1>
+
+        <div class="stats">
+          <div class="stat"><span id="stat-trophies" class="val">0</span><span class="lbl">Trophies</span></div>
+          <div class="stat"><span id="stat-champs" class="val">0</span><span class="lbl">Championships</span></div>
+          <div class="stat"><span id="stat-honors" class="val">0</span><span class="lbl">Honors</span></div>
+          <div class="stat"><span id="stat-xp" class="val">0</span><span class="lbl">Trophy XP</span></div>
         </div>
 
-        <div class="standings-grid">
-            
-            <!-- Big 10 Block -->
-            <div class="conf-card">
-                <div class="conf-header b1g"><div class="badge-placeholder">B1G</div> Big 10 Standings</div>
-                <table>
-                    <thead><tr><th>#R</th><th>TEAM</th><th>W</th><th>L</th><th>T</th><th>CNF</th><th>PD</th></tr></thead>
-                    <tbody>
-                        <tr class="active-row"><td>1</td><td>Birmingham</td><td>10</td><td>1</td><td>0</td><td>5-1</td><td>+181</td></tr>
-                        <tr><td>2</td><td>Winchester</td><td>5</td><td>6</td><td>0</td><td>2-3</td><td>+7</td></tr>
-                        <tr><td>3</td><td>Sacramento</td><td>5</td><td>5</td><td>0</td><td>2-2</td><td>+16</td></tr>
-                        <tr><td>4</td><td>Miami</td><td>2</td><td>8</td><td>0</td><td>0-3</td><td>-116</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- ACC Block -->
-            <div class="conf-card">
-                <div class="conf-header acc"><div class="badge-placeholder">ACC</div> Atlantic Coast Standings</div>
-                <table>
-                    <thead><tr><th>#R</th><th>TEAM</th><th>W</th><th>L</th><th>T</th><th>CNF</th><th>PD</th></tr></thead>
-                    <tbody>
-                        <tr class="active-row"><td>1</td><td>Colorado</td><td>10</td><td>1</td><td>0</td><td>5-1</td><td>+212</td></tr>
-                        <tr><td>2</td><td>Baltimore</td><td>5</td><td>6</td><td>0</td><td>1-3</td><td>-25</td></tr>
-                        <tr><td>3</td><td>Minnesota</td><td>2</td><td>8</td><td>0</td><td>1-2</td><td>-61</td></tr>
-                        <tr><td>4</td><td>Dallas</td><td>3</td><td>7</td><td>0</td><td>0-4</td><td>-108</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- SEC Block -->
-            <div class="conf-card">
-                <div class="conf-header sec"><div class="badge-placeholder">SEC</div> South Eastern Standings</div>
-                <table>
-                    <thead><tr><th>#R</th><th>TEAM</th><th>W</th><th>L</th><th>T</th><th>CNF</th><th>PD</th></tr></thead>
-                    <tbody>
-                        <tr class="active-row"><td>1</td><td>Nashville</td><td>10</td><td>1</td><td>0</td><td>5-0</td><td>+185</td></tr>
-                        <tr><td>2</td><td>Pittsburgh</td><td>5</td><td>6</td><td>0</td><td>2-3</td><td>+28</td></tr>
-                        <tr><td>3</td><td>Rushmore</td><td>5</td><td>5</td><td>0</td><td>1-4</td><td>+10</td></tr>
-                        <tr><td>4</td><td>Alabama</td><td>3</td><td>7</td><td>0</td><td>2-2</td><td>-15</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Big 12 Block -->
-            <div class="conf-card">
-                <div class="conf-header big12"><div class="badge-placeholder">XII</div> Big 12 Standings</div>
-                <table>
-                    <thead><tr><th>#R</th><th>TEAM</th><th>W</th><th>L</th><th>T</th><th>CNF</th><th>PD</th></tr></thead>
-                    <tbody>
-                        <tr class="active-row"><td>1</td><td>Puerto Rico</td><td>7</td><td>4</td><td>0</td><td>6-1</td><td>+43</td></tr>
-                        <tr><td>2</td><td>Greensboro</td><td>6</td><td>5</td><td>0</td><td>2-3</td><td>+20</td></tr>
-                        <tr><td>3</td><td>Atlanta</td><td>3</td><td>7</td><td>0</td><td>2-3</td><td>-17</td></tr>
-                        <tr><td>4</td><td>Fairbank</td><td>2</td><td>8</td><td>0</td><td>0-3</td><td>-159</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
+        <div id="chips" class="chips"></div>
+      </div>
     </div>
 
-    <footer>2026 Virtual Football League INC</footer>
+    <div class="cabinet" id="shelves"></div>
+  </div>
+
+  <script>
+    const players = {
+      FINLEY4K: {
+        name: "FINLEY4K",
+        avatar: "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-0447FDAAA17F47D7EB81F2E0BA7F6EEC-Png/150/150/AvatarHeadshot/Png/isCircular",
+        trophies: 38,
+        championships: 6,
+        honors: 4,
+        xp: "17,250",
+        chips: ["6× Allegiance Bowl Champion", "2× MVP", "6× Conference Champion", "5× All-Pro", "12× Star Bowl"],
+        shelves: [
+          { title: "Allegiance Bowls", count: 6, items: 6 },
+          { title: "Conference Championships", count: 6, items: 6 },
+          { title: "Top Honors", count: 3, items: 3 },
+          { title: "Annual Awards", count: 1, items: 1 },
+          { title: "All-Pro Teams", count: 5, items: 5 },
+          { title: "Star Bowl Selections", count: 12, items: 12 },
+          { title: "League-Leader Crowns", count: 5, items: 5 }
+        ]
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const key = (params.get("player") || "FINLEY4K").toUpperCase();
+    const player = players[key] || players.FINLEY4K;
+
+    document.getElementById("player-avatar").src = player.avatar;
+    document.getElementById("player-avatar").alt = player.name;
+    document.getElementById("player-name").textContent = player.name;
+    document.getElementById("stat-trophies").textContent = player.trophies;
+    document.getElementById("stat-champs").textContent = player.championships;
+    document.getElementById("stat-honors").textContent = player.honors;
+    document.getElementById("stat-xp").textContent = player.xp;
+
+    document.getElementById("chips").innerHTML = player.chips
+      .map(chip => `<span class="chip">${chip}</span>`)
+      .join("");
+
+    document.getElementById("shelves").innerHTML = player.shelves
+      .map(shelf => `
+        <section class="shelf">
+          <div class="shelf-head">
+            <h2 class="shelf-title">${shelf.title}</h2>
+            <span class="shelf-count">${shelf.count} trophies</span>
+          </div>
+          <div class="row">
+            ${Array.from({ length: shelf.items }).map(() => `
+              <div class="trophy">
+                <img src="trophy.png" alt="trophy">
+                <div class="title">TROPHY</div>
+                <div class="sub">Season Win</div>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+      `).join("");
+  </script>
 </body>
 </html>
