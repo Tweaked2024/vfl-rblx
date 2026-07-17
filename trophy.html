@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AFL Trophy Room</title>
+    <title>VFL Trophy Room</title>
     <style>
         :root {
             /* Shared Theme Tokens */
@@ -11,6 +11,7 @@
             --text-main: #ffffff;
             --text-muted: #b89b76;
             --accent: #e51c35;
+            --accent-hover: #b81427;
             --border: #3c2a18;
             
             --color-neutral-100: #f5f5f5;
@@ -19,7 +20,15 @@
             --color-neutral-900: #171717;
         }
 
-        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; margin: 0; font-family: sans-serif; }
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-main); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            margin: 0; 
+            font-family: sans-serif; 
+        }
         
         /* Navigation Header */
         nav { 
@@ -36,17 +45,76 @@
         .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
         .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
         .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
-        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; margin: 0; }
-        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; display: flex; align-items: center; gap: 5px; transition: color 0.2s; }
+        
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; margin: 0; padding: 0; }
+        nav ul li { position: relative; display: inline-block; }
+        
+        nav ul li a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            padding: 0.5rem 0;
+            transition: color 0.2s ease; 
+        }
         nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 12px; padding: 0.6rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.4); list-style: none; z-index: 999; }
-        nav ul li.dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu li a { color: #111017 !important; padding: 0.7rem 1.4rem; }
-        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+        
+        /* Dropdown Structure Fixes */
+        .dropdown-menu { 
+            display: none; 
+            position: absolute; 
+            top: 100%; 
+            left: 50%; 
+            transform: translateX(-50%) translateY(10px); 
+            background: #ffffff; 
+            min-width: 200px;
+            border-radius: 12px; 
+            padding: 0.6rem 0; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            list-style: none; 
+            margin: 0;
+            margin-top: 5px;
+            z-index: 9999; 
+        }
+        nav ul li.dropdown:hover .dropdown-menu { 
+            display: block; 
+        }
+        .dropdown-menu li { width: 100%; display: block; }
+        .dropdown-menu li a { 
+            color: var(--color-neutral-900) !important; 
+            padding: 0.7rem 1.4rem; 
+            display: block;
+            text-transform: none;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .dropdown-menu li a:hover {
+            background-color: var(--color-neutral-100);
+            color: var(--accent) !important;
+        }
+        
+        /* Icon Interaction Elements */
+        .nav-arrow { transition: transform 0.2s ease; }
+        nav ul li.dropdown:hover .nav-arrow { transform: rotate(180deg); }
+
+        .nav-btn { 
+            background-color: var(--accent); 
+            color: white; 
+            padding: 0.5rem 1.2rem; 
+            border-radius: 20px; 
+            text-decoration: none; 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            transition: background-color 0.2s ease;
+        }
+        .nav-btn:hover { background-color: var(--accent-hover); }
 
         /* Trophy Room Styles */
         .trophy-room { padding-block: 3rem; }
-        .trophy-room .container { max-width: 1180px; margin: 0 auto; }
+        .trophy-room .container { max-width: 1180px; margin: 0 auto; padding-inline: 1rem; }
         .cabinet {
             margin-top: 2rem; display: flex; flex-direction: column; gap: 1.4rem; padding: 1.6rem;
             border-radius: 1.25rem; background: var(--bg-main);
@@ -55,8 +123,9 @@
         }
         .shelf { border-radius: 0.9rem; padding: 1.15rem; background: linear-gradient(180deg, rgba(10, 7, 4, 0.65), rgba(10, 7, 4, 0.2)); border: 1px solid var(--border); }
         .shelf-row { display: flex; gap: 1.4rem; min-height: 150px; align-items: flex-end; }
-        .trophy { cursor: pointer; background: transparent; border: 0; width: 120px; }
-        .trophy-photo { height: 120px; object-fit: contain; }
+        .trophy { cursor: pointer; background: transparent; border: 0; width: 120px; padding: 0; transition: transform 0.2s ease; }
+        .trophy:hover { transform: scale(1.05); }
+        .trophy-photo { height: 120px; width: 100%; object-fit: contain; }
     </style>
 </head>
 <body>
