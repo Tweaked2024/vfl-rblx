@@ -308,6 +308,7 @@
     }
 
     .trophy {
+      position: relative;
       width: 120px;
       background: rgba(255,255,255,.04);
       border: 1px solid rgba(255,255,255,.08);
@@ -315,8 +316,15 @@
       padding: 10px;
       text-align: center;
       color: #fff;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, z-index 0.25s ease;
     }
-
+    
+    .trophy:hover {
+      transform: translateY(-10px) scale(1.04);
+      z-index: 20;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+    }
+    
     .trophy img {
       width: 54px;
       height: 54px;
@@ -324,13 +332,13 @@
       display: block;
       margin: 0 auto 8px;
     }
-
+    
     .trophy .title {
       font-size: 12px;
       font-weight: 800;
       margin: 0;
     }
-
+    
     .trophy .sub {
       font-size: 10px;
       color: #d7c29a;
