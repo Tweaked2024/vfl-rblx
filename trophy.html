@@ -12,6 +12,8 @@
       --text-main: #ffffff;
       --text-muted: #8b8a99;
       --border: #282735;
+      --gold: #d4a84b;
+      --gold-light: #f4e6d2;
     }
 
     * {
@@ -310,19 +312,21 @@
     .trophy {
       position: relative;
       width: 120px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.06);
       border-radius: 12px;
       padding: 10px;
       text-align: center;
       color: #fff;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, z-index 0.25s ease;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, z-index 0.25s ease, border-color 0.25s ease;
       overflow: visible;
     }
 
     .trophy:hover {
       transform: translateY(-10px) scale(1.04);
       z-index: 50;
+      border-color: var(--gold);
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
     }
 
@@ -342,7 +346,10 @@
     .trophy-plate {
       position: relative;
       z-index: 2;
-      display: block;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
       margin-top: 2px;
     }
 
@@ -354,23 +361,27 @@
     }
 
     .trophy-plate-sub {
-      display: block;
+      display: inline-block;
       font-size: 10px;
-      color: #d7c29a;
-      margin-top: 4px;
+      color: var(--gold-light);
+      background: rgba(212, 168, 75, 0.12);
+      border: 1px solid rgba(212, 168, 75, 0.35);
+      border-radius: 8px;
+      padding: 2px 6px;
+      white-space: nowrap;
     }
 
     .trophy-pop {
       position: absolute;
       left: 50%;
       bottom: 100%;
-      transform: translateX(-50%) translateY(-8px);
+      transform: translateX(-50%) translateY(-10px);
       background: #f4e6d2;
       color: #111017;
       border: 1px solid #d8c2a1;
-      border-radius: 999px;
-      padding: 10px 14px;
-      min-width: 190px;
+      border-radius: 12px;
+      padding: 12px;
+      min-width: 210px;
       text-align: center;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
       opacity: 0;
@@ -383,35 +394,43 @@
     .trophy:hover .trophy-pop {
       opacity: 1;
       visibility: visible;
-      transform: translateX(-50%) translateY(-14px);
+      transform: translateX(-50%) translateY(-16px);
     }
 
     .trophy-pop-logo {
-      width: 34px;
-      height: 34px;
+      width: 40px;
+      height: 40px;
       object-fit: contain;
       display: block;
-      margin: 0 auto 6px;
+      margin: 0 auto 8px;
     }
 
     .trophy-pop-title {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 900;
-      line-height: 1.1;
+      line-height: 1.2;
+      margin-bottom: 4px;
     }
 
     .trophy-pop-sub {
-      font-size: 10px;
-      margin-top: 2px;
+      font-size: 11px;
+      margin-bottom: 8px;
     }
 
     .trophy-pop-xp {
-      margin-top: 6px;
+      display: inline-block;
     }
 
     .trophy-pop-xp-val {
+      display: inline-block;
       font-size: 10px;
       font-weight: 800;
+      background: #1c120d;
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 4px 10px;
+      white-space: nowrap;
     }
 
     @media (max-width: 700px) {
