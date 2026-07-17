@@ -1,552 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AFL Trophy Room App</title>
-  <style>
-    /* Add your trophy.css contents here to render the visual theme styling layout */
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #121214;
-      color: #fff;
-      padding: 1.5rem;
-    }
-    #trophy-root {
-      max-width: 1180px;
-      margin: 0 auto;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFL Trophy Room</title>
+    <style>
+        /* CSS Variables - Assuming standard site tokens */
+        :root {
+            --color-neutral-100: #f5f5f5;
+            --color-neutral-200: #e5e5e5;
+            --color-neutral-300: #d4d4d4;
+            --color-neutral-600: #525252;
+            --color-neutral-900: #171717;
+            --color-primary-400: #e51c35;
+            --fs-300: 0.8rem;
+            --fs-400: 0.95rem;
+            --fs-500: 1.1rem;
+            --fs-600: 1.25rem;
+            --fs-700: 1.5rem;
+        }
+
+        /* TROPHY ROOM STYLES */
+        .trophy-room { padding-block: clamp(1.5rem, 4vw, 3rem); }
+        .trophy-room .container { max-width: 1180px; margin: 0 auto; }
+
+        .tr-hero {
+            display: flex; gap: clamp(1.25rem, 3vw, 2.5rem); align-items: center; flex-wrap: wrap;
+            padding: clamp(1.25rem, 3vw, 2rem); border-radius: 1.25rem;
+            background: radial-gradient(120% 140% at 12% 0%, rgba(229, 28, 53, 0.16), transparent 55%),
+                        linear-gradient(135deg, rgba(255, 196, 84, 0.14), rgba(0, 0, 0, 0) 60%), var(--color-neutral-200);
+            border: 1px solid var(--color-neutral-300);
+            box-shadow: 0 24px 60px -36px rgba(0, 0, 0, 0.55); position: relative; overflow: hidden;
+        }
+        .tr-hero-avatar {
+            width: clamp(96px, 18vw, 148px); height: clamp(96px, 18vw, 148px); border-radius: 50%;
+            object-fit: cover; background: var(--color-neutral-300);
+            box-shadow: 0 0 0 3px rgba(255, 196, 84, 0.55), 0 16px 36px -18px rgba(0, 0, 0, 0.7); flex-shrink: 0;
+        }
+        .tr-hero-info { flex: 1 1 320px; min-width: 0; }
+        .tr-hero-name { margin: 0 0 0.9rem; font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 800; color: var(--color-neutral-900); }
+        
+        .cabinet {
+            margin-top: 2rem; display: flex; flex-direction: column; gap: 1.4rem; padding: 1.6rem;
+            border-radius: 1.25rem; background: linear-gradient(180deg, #2a1c11, #1c130b 55%, #150e07);
+            border: 1px solid #3c2a18; box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6), 0 30px 70px -40px rgba(0, 0, 0, 0.8);
+        }
+        .shelf { border-radius: 0.9rem; padding: 1.15rem 1.2rem 0; background: linear-gradient(180deg, rgba(10, 7, 4, 0.65), rgba(10, 7, 4, 0.2)); border: 1px solid rgba(255, 220, 160, 0.06); }
+        .shelf-row { display: flex; flex-wrap: wrap; gap: 1.4rem; align-items: flex-end; min-height: 150px; }
+        .shelf-plank { height: 18px; border-radius: 4px; background: linear-gradient(180deg, #7a5026, #4d3015 40%, #321f0c); box-shadow: 0 14px 22px -12px rgba(0, 0, 0, 0.85); }
+        
+        .trophy { cursor: pointer; background: transparent; border: 0; position: relative; width: 120px; }
+        .trophy-stage { position: relative; height: 120px; display: flex; align-items: flex-end; justify-content: center; }
+        .trophy-photo { height: 100%; object-fit: contain; filter: drop-shadow(0 10px 8px rgba(0,0,0,0.6)); }
+        .trophy-plate { display: flex; flex-direction: column; align-items: center; padding: 0.3rem; border-radius: 5px; background: linear-gradient(180deg, #caa86a, #8a6b3a); }
+        
+        .trophy-pop {
+            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+            background: #0f0a06; color: #fbe7c8; padding: 0.8rem; border-radius: 0.7rem;
+            visibility: hidden; opacity: 0; transition: opacity 0.16s;
+        }
+        .trophy:hover .trophy-pop { visibility: visible; opacity: 1; }
+    </style>
 </head>
 <body>
 
-  <!-- The target mount engine element for your trophy script layout output -->
-  <div id="trophy-root"></div>
+<section class="trophy-room">
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="tr-hero">
+            <img src="avatar.jpg" alt="Player" class="tr-hero-avatar">
+            <div class="tr-hero-info">
+                <p class="tr-hero-eyebrow">Trophy Room</p>
+                <h1 class="tr-hero-name">Player Name</h1>
+                <div class="tr-hero-stats">
+                    <!-- Stats injected via JS -->
+                </div>
+            </div>
+        </header>
 
-  <!-- ============================================================
-       MOCK AFL_AT SIMULATION DATA FRAMEWORK
-       (Remove or comment out this block when deploying to production server)
-       ============================================================ -->
-  <script>
-    window.AFL_AT = {
-      SEASONS: ['S17', 'S18', 'S19'],
-      batchUrl: function(ranges) { return ""; },
-      getJSON: function(url) {
-        return Promise.resolve({
-          valueRanges: [{
-            values: [
-              // Row index headers
-              ["", "S17", "", "", "S18", "", "", "S19"],
-              ["Award Code", "Roblox ID", "Username", "", "Roblox ID", "Username", "", "Roblox ID", "Username"],
-              // Section Category Row Header
-              ["", "HONORS AWARDS", ""],
-              ["MVP", "12345", "PlayerOne", "", "99999", "OtherPlayer", "", "", ""],
-              ["OPOTY", "", "", "", "12345", "PlayerOne", "", "", ""],
-              // Section Category Row Header
-              ["", "ALLEGIANCE BOWL RINGS", ""],
-              ["RING", "12345", "PlayerOne", "", "", "", "", "", ""]
-            ]
-          }]
-        });
-      },
-      fetchAvatarsByIds: function(ids) {
-        return Promise.resolve({ "12345": "https://via.placeholder.com/150" });
-      },
-      usernameToId: function(username) {
-        return Promise.resolve("12345");
-      }
-    };
+        <!-- Cabinet Section -->
+        <main class="cabinet" id="trophy-root">
+            <section class="shelf">
+                <div class="shelf-head">
+                    <h2 class="shelf-title">Allegiance Bowls</h2>
+                </div>
+                <div class="shelf-deck">
+                    <div class="shelf-row">
+                        <button class="trophy" data-tier="ring">
+                            <div class="trophy-stage">
+                                <img src="lombardi.png" class="trophy-photo" alt="Championship">
+                            </div>
+                            <span class="trophy-plate">
+                                <span class="trophy-plate-main">AB I</span>
+                            </span>
+                            <div class="trophy-pop">
+                                <div class="trophy-pop-title">Allegiance Bowl I</div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="shelf-plank"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+</section>
 
-    // Simulated URL Query Variables logic fallback framework (?id=12345&u=PlayerOne)
-    if (!window.location.search) {
-      window.history.replaceState({}, '', '?id=12345&u=PlayerOne');
-    }
-  </script>
-
-  <!-- ============================================================
-       CONVERTED TROPHYROOM.JS ENGINE
-       ============================================================ -->
-  <script>
-    (function () {
-      'use strict';
-
-      var AT = window.AFL_AT;
-      var root = document.getElementById('trophy-root');
-      if (!AT || !root) return;
-
-      var AWARDS_RANGE = 'AWARDS!A1:BZ240';
-      var SEASON_BASE = 16; /* S17 == Allegiance Bowl 1 */
-
-      /* ---- section title -> meaning ---- */
-      var SECTIONS = {
-        'HONORS AWARDS': { type: 'honor' },
-        'AFC STARBOWL ROSTER': { type: 'starbowl', conf: 'AFC' },
-        'NFC STARBOWL ROSTER': { type: 'starbowl', conf: 'NFC' },
-        '1ST TEAM ALL-PRO': { type: 'allpro', team: 1 },
-        '2ND TEAM ALL-PRO': { type: 'allpro', team: 2 },
-        '3RD TEAM ALL-PRO': { type: 'allpro', team: 3 },
-        'CROWNS & TITLES': { type: 'crown' },
-        'ALLEGIANCE BOWL RINGS': { type: 'ring' },
-        'CONFERENCE CHAMPIONS': { type: 'confchamp' }
-      };
-
-      /* ---- honor award id -> name / prestige / xp / icon ---- */
-      var HONORS = {
-        MVP:    { name: 'Most Valuable Player',        tier: 'legend', xp: 1000, icon: '\uD83D\uDC51' },
-        OPOTY:  { name: 'Offensive Player of the Year',  tier: 'elite',  xp: 750,  icon: '\uD83D\uDD25' },
-        DPOTY:  { name: 'Defensive Player of the Year',  tier: 'elite',  xp: 750,  icon: '\uD83D\uDEE1\uFE0F' },
-        VPOTY:  { name: 'Versatile Player of the Year',  tier: 'elite',  xp: 550,  icon: '\u2694\uFE0F' },
-        QBOTY:  { name: 'Quarterback of the Year',       tier: 'gold',   xp: 500,  icon: '\uD83C\uDFAF' },
-        RBOTY:  { name: 'Running Back of the Year',      tier: 'gold',   xp: 500,  icon: '\uD83C\uDFC3' },
-        WROTY:  { name: 'Wide Receiver of the Year',     tier: 'gold',   xp: 500,  icon: '\uD83E\uDDE4' },
-        TEOTY:  { name: 'Tight End of the Year',         tier: 'gold',   xp: 500,  icon: '\uD83D\uDCAA' },
-        COTY:   { name: 'Center of the Year',            tier: 'gold',   xp: 500,  icon: '\uD83E\uDDF1' },
-        DEOTY:  { name: 'Defensive End of the Year',     tier: 'gold',   xp: 500,  icon: '\uD83D\uDCA5' },
-        LBOTY:  { name: 'Linebacker of the Year',        tier: 'gold',   xp: 500,  icon: '\uD83E\uDD8D' },
-        DBOTY:  { name: 'Defensive Back of the Year',     tier: 'gold',   xp: 500,  icon: '\uD83D\uDD12' },
-        SCBOTY: { name: 'Slot Corner of the Year',       tier: 'gold',   xp: 500,  icon: '\uD83D\uDD12' },
-        DCBOTY: { name: 'Dime Corner of the Year',       tier: 'gold',   xp: 500,  icon: '\uD83D\uDD12' },
-        KOTY:   { name: 'Kicker of the Year',            tier: 'gold',   xp: 500,  icon: '\uD83E\uDDB5' },
-        ROTY:   { name: 'Rookie of the Year',            tier: 'gold',   xp: 550,  icon: '\uD83C\uDF31' },
-        OROTY:  { name: 'Offensive Rookie of the Year',  tier: 'gold',   xp: 550,  icon: '\uD83C\uDF31' },
-        DROTY:  { name: 'Defensive Rookie of the Year',  tier: 'gold',   xp: 550,  icon: '\uDF31' },
-        CPOTY:  { name: 'Comeback Player of the Year',   tier: 'silver', xp: 500,  icon: '\uD83D\uDD04' },
-        HCOTY:  { name: 'Head Coach of the Year',        tier: 'silver', xp: 450,  icon: '\uD83D\uDCCB' },
-        SOTY:   { name: 'Streamer of the Year',          tier: 'silver', xp: 250,  icon: '\uD83D\uDD0D' },
-        RefOTY: { name: 'Referee of the Year',           tier: 'silver', xp: 250,  icon: '\uD83E\uDD93' },
-        JrnOTY: { name: 'Journalist of the Year',        tier: 'silver', xp: 250,  icon: '\uD83D\uDCF0' },
-        ExecOTY:{ name: 'Executive of the Year',         tier: 'silver', xp: 250,  icon: '\uD83D\uDCBC' }
-      };
-
-      /* ---- display groups (shelves), in order ---- */
-      var GROUPS = [
-        { key: 'ring',   title: 'Allegiance Bowls', blurb: 'Every championship earned.' },
-        { key: 'conf',   title: 'Conference Championships',      blurb: 'Conference crowns on the road to the Allegiance Bowl.' },
-        { key: 'top',    title: 'Top Honors',                    blurb: 'The league\u2019s marquee individual awards.' },
-        { key: 'annual', title: 'Annual Awards',                 blurb: 'Position and season honors.' },
-        { key: 'allpro', title: 'All-Pro Teams',                 blurb: 'The best at the position, league-wide.' },
-        { key: 'star',   title: 'Star Bowl Selections',          blurb: 'All-star nods for a standout season.' },
-        { key: 'crown',  title: 'League-Leader Crowns',          blurb: 'Seasons finished #1 in a statistical category.' }
-      ];
-
-      var TOP_HONORS = { MVP: 1, OPOTY: 1, DPOTY: 1, VPOTY: 1 };
-      var POSITIONAL_AWARDS = { QBOTY: 1, RBOTY: 1, WROTY: 1, TEOTY: 1, COTY: 1, DEOTY: 1, LBOTY: 1, DBOTY: 1, SCBOTY: 1, DCBOTY: 1, KOTY: 1 };
-
-      /* ---------------- helpers ---------------- */
-      function el(tag, cls, text) {
-        var n = document.createElement(tag);
-        if (cls) n.className = cls;
-        if (text != null) n.textContent = text;
-        return n;
-      }
-      function getParam(name) {
-        var m = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-        if (!m) return '';
-        try { return decodeURIComponent(m[1].replace(/\+/g, ' ')); } catch (e) { return m[1]; }
-      }
-      function txt(v) { return v == null ? '' : String(v).trim(); }
-      function roman(n) {
-        var map = [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],
-          [50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
-        var out = '';
-        map.forEach(function (p) { while (n >= p[0]) { out += p[1]; n -= p[0]; } });
-        return out || '\u2014';
-      }
-      function seasonNum(sLabel) { return parseInt(String(sLabel).replace(/[^0-9]/g, ''), 10); }
-
-      /* ---------------- parse the AWARDS grid ---------------- */
-      function parseTrophies(rows, playerId, unameLower) {
-        var seasons = AT.SEASONS;            /* ['S17' .. 'S34'] */
-        var trophies = [];
-        var current = null;                  /* active section meta */
-
-        function idMatches(idCell, unameCell) {
-          var ids = txt(idCell).split(/[,\s]+/).filter(Boolean);
-          for (var i = 0; i < ids.length; i++) if (ids[i] === playerId) return true;
-          if (!ids.length && unameLower) {
-            /* blank-id cells may list one or more co-leader usernames,
-               e.g. "srm, supapokey (9)" — strip stats, split, compare each */
-            var names = txt(unameCell).replace(/\([^)]*\)/g, '').split(',');
-            for (var j = 0; j < names.length; j++) {
-              if (names[j].trim().toLowerCase() === unameLower) return true;
-            }
-          }
-          return false;
-        }
-
-        rows.forEach(function (r) {
-          var c0 = txt(r[0]), c1 = txt(r[1]), c2 = txt(r[2]);
-
-          /* season header row (S17, S18 ...) */
-          if (!c0 && /^S\d+$/i.test(c1)) return;
-          /* sub-header row */
-          if (c1.toLowerCase() === 'roblox id') return;
-          /* section header: empty id col, a text label, nothing in col2 */
-          if (!c0 && !c2 && c1 && /[A-Za-z]/.test(c1)) {
-            current = SECTIONS[c1.toUpperCase()] || null;
-            return;
-          }
-          if (!current) return;
-
-          /* data row — scan every season block */
-          for (var si = 0; si < seasons.length; si++) {
-            var idCol = 1 + si * 3;
-            if (!idMatches(r[idCol], r[idCol + 1])) continue;
-            var t = makeTrophy(current, c0, seasons[si], r[idCol + 1]);
-            if (t) trophies.push(t);
-          }
-        });
-
-        /* an Allegiance Bowl winner is also that season's conference champion;
-           add the Lamar Hunt trophy where one isn't already recorded */
-        var confSeasons = {};
-        trophies.forEach(function (t) { if (t.group === 'conf') confSeasons[t.seasonNum] = true; });
-        trophies.slice().forEach(function (t) {
-          if (t.group === 'ring' && !confSeasons[t.seasonNum]) {
-            confSeasons[t.seasonNum] = true;
-            var ct = makeTrophy(SECTIONS['CONFERENCE CHAMPIONS'], '', t.season, '');
-            if (ct) trophies.push(ct);
-          }
-        });
-
-        /* league-leader crowns: a season with multiple categories merges into
-           one golden crown; a single-category season stays a silver crown */
-        var crowns = trophies.filter(function (t) { return t.group === 'crown'; });
-        if (crowns.length) {
-          trophies = trophies.filter(function (t) { return t.group !== 'crown'; });
-          var bySeason = {};
-          crowns.forEach(function (t) {
-            (bySeason[t.seasonNum] = bySeason[t.seasonNum] || []).push(t);
-          });
-          Object.keys(bySeason).forEach(function (sn) {
-            var list = bySeason[sn];
-            var sNum = parseInt(sn, 10);
-            if (list.length === 1) {
-              var s = list[0];
-              s.photo = '/images/crown-silver.png';
-              s.photoClass = 'is-crown-silver';
-              s.tier = 'crownsilver';
-              trophies.push(s);
-            } else {
-              list.sort(function (a, b) { return a.code < b.code ? -1 : a.code > b.code ? 1 : 0; });
-              var cats = list.map(function (c) { return c.code; });
-              var totalXp = list.reduce(function (a, c) { return a + c.xp; }, 0);
-              trophies.push({
-                season: list[0].season, seasonNum: sNum, code: 'CROWNS',
-                group: 'crown', tier: 'crowngold', icon: '\uD83D\uDC51',
-                photo: '/images/crown-gold.png', photoClass: 'is-crown-gold',
-                title: list.length + '\u00D7 League Leader',
-                sub: 'Season ' + sNum + ' \u00b7 ' + cats.join(', '),
-                plateMain: list.length + ' Crowns',
-                plateSub: 'Season ' + sNum,
-                xp: totalXp,
-                cats: cats
-              });
-            }
-          });
-        }
-        return trophies;
-      }
-
-      function makeTrophy(section, code, sLabel, unameCell) {
-        var sNum = seasonNum(sLabel);
-        var t = { season: sLabel, seasonNum: sNum, code: code };
-
-        if (section.type === 'ring') {
-          var ab = sNum - SEASON_BASE;
-          t.group = 'ring'; t.tier = 'ring';
-          t.title = 'Allegiance Bowl ' + roman(ab);
-          t.sub = 'Season ' + sNum + ' Champion';
-          t.plateMain = 'AB ' + roman(ab);
-          t.plateSub = 'Season ' + sNum;
-          t.abLogo = '/images/abs/ab' + ab + '.png';
-          t.photo = '/images/lombardi.png?v=2'; t.photoClass = 'is-lombardi';
-          t.xp = 1000;
-          return t;
-        }
-        if (section.type === 'confchamp') {
-          t.group = 'conf'; t.tier = 'conf'; t.icon = '\uD83C\uDFC6';
-          t.photo = '/images/lamarhunt.png'; t.photoClass = 'is-mar';
-          t.title = 'Conference Champion';
-          t.sub = 'Season ' + sNum;
-          t.plateMain = 'Conf Champ';
-          t.plateSub = 'Season ' + sNum;
-          t.xp = 400;
-          return t;
-        }
-        if (section.type === 'honor') {
-          var meta = HONORS[code] || { name: code, tier: 'silver', xp: 400, icon: '\uD83C\uDFC5' };
-          t.group = TOP_HONORS[code] ? 'top' : 'annual';
-          if (t.group === 'top') { t.photo = '/images/tophonor.png'; t.photoClass = 'is-tophonor'; }
-          else if (POSITIONAL_AWARDS[code]) { t.photo = '/images/starhonor.png?v=2'; t.photoClass = 'is-star'; }
-          else { t.photo = '/images/starhonor-silver.png?v=2'; t.photoClass = 'is-star-silver'; }
-          t.tier = meta.tier; t.icon = meta.icon;
-          t.title = meta.name;
-          t.sub = 'Season ' + sNum + ' \u00b7 ' + code;
-          t.plateMain = code;
-          t.plateSub = 'Season ' + sNum;
-          t.xp = meta.xp;
-          return t;
-        }
-        if (section.type === 'allpro') {
-          var ord = section.team === 1 ? '1st' : section.team === 2 ? '2nd' : '3rd';
-          t.group = 'allpro';
-          t.tier = section.team === 1 ? 'allpro1' : 'allpro2';
-          t.icon = '\u2B50';
-          if (section.team === 1) { t.photo = '/images/allpro1.png'; t.photoClass = 'is-allpro1'; }
-          else if (section.team === 2) { t.photo = '/images/allpro2.png'; t.photoClass = 'is-allpro2'; }
-          t.title = ord + ' Team All-Pro';
-          t.sub = (code || '') + ' \u00b7 Season ' + sNum;
-          t.plateMain = ord + ' All-Pro';
-          t.plateSub = (code || '') + ' \u00b7 S' + sNum;
-          t.xp = section.team === 1 ? 300 : section.team === 2 ? 200 : 200;
-          return t;
-        }
-        if (section.type === 'starbowl') {
-          t.group = 'star'; t.tier = 'star'; t.icon = '\uD83C\uDF1F';
-          t.photo = '/images/starbowl.png?v=2'; t.photoClass = 'is-starbowl';
-          t.title = section.conf + ' Star Bowl';
-          t.sub = (code || '') + ' \u00b7 Season ' + sNum;
-          t.plateMain = section.conf + ' Star Bowl';
-          t.plateSub = (code || '') + ' \u00b7 S' + sNum;
-          t.xp = 150;
-          return t;
-        }
-        if (section.type === 'crown') {
-          var val = '';
-          var m = /\(([^)]*)\)/.exec(txt(unameCell));
-          if (m) val = m[1].trim();
-          t.group = 'crown'; t.tier = 'crown'; t.icon = '\uD83E\uDD47';
-          t.title = code + ' Leader';
-          t.sub = 'Season ' + sNum + (val ? ' \u00b7 ' + val : '');
-          t.plateMain = code;
-          t.plateSub = val ? val : 'Season ' + sNum;
-          t.xp = 300;
-          return t;
-        }
-        return null;
-      }
-
-      /* ---------------- rendering ---------------- */
-      function buildPopover(t) {
-        var pop = el('div', 'trophy-pop');
-        if (t.group === 'ring') {
-          var logo = el('img', 'trophy-pop-logo');
-          logo.src = t.abLogo; logo.alt = t.title; logo.loading = 'lazy';
-          logo.onerror = function () { this.style.display = 'none'; };
-          pop.appendChild(logo);
-        }
-        pop.appendChild(el('div', 'trophy-pop-title', t.title));
-        pop.appendChild(el('div', 'trophy-pop-sub', t.sub));
-        var xp = el('div', 'trophy-pop-xp');
-        xp.appendChild(el('span', 'trophy-pop-xp-val', '\u26A1 ' + t.xp.toLocaleString('en-US') + ' XP'));
-        pop.appendChild(xp);
-        return pop;
-      }
-
-      function buildTrophy(t) {
-        var btn = el('button', 'trophy', null);
-        btn.type = 'button';
-        btn.setAttribute('data-tier', t.tier);
-        btn.setAttribute('aria-label', t.title + ' \u2014 ' + t.sub + ' \u2014 ' + t.xp + ' XP');
-
-        var stage = el('div', 'trophy-stage');
-        var glow = el('span', 'trophy-glow');
-        stage.appendChild(glow);
-
-        if (t.photo) {
-          var img = el('img', 'trophy-photo' + (t.photoClass ? ' ' + t.photoClass : ''));
-          img.src = t.photo; img.alt = ''; img.loading = 'lazy';
-          img.onerror = function () {
-            this.style.display = 'none';
-            var fb = el('span', 'trophy-medal-icon', t.icon || '\uD83C\uDFC8');
-            stage.appendChild(fb);
-          };
-          stage.appendChild(img);
-        } else {
-          var medal = el('span', 'trophy-medal');
-          medal.appendChild(el('span', 'trophy-medal-ring'));
-          medal.appendChild(el('span', 'trophy-medal-icon', t.icon || '\uD83C\uDFC5'));
-          stage.appendChild(medal);
-          stage.appendChild(el('span', 'trophy-stand'));
-        }
-        btn.appendChild(stage);
-
-        var plate = el('span', 'trophy-plate');
-        plate.appendChild(el('span', 'trophy-plate-main', t.plateMain));
-        if (t.plateSub) plate.appendChild(el('span', 'trophy-plate-sub', t.plateSub));
-        btn.appendChild(plate);
-
-        btn.appendChild(buildPopover(t));
-
-        btn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          var open = btn.classList.contains('is-open');
-          closeAll();
-          if (!open) btn.classList.add('is-open');
-        });
-        return btn;
-      }
-
-      function closeAll() {
-        var open = root.querySelectorAll('.trophy.is-open');
-        open.forEach(function (n) { n.classList.remove('is-open'); });
-      }
-
-      function buildShelf(group, items) {
-        var shelf = el('section', 'shelf');
-        var head = el('div', 'shelf-head');
-        var titles = el('div', 'shelf-titles');
-        titles.appendChild(el('h2', 'shelf-title', group.title));
-        titles.appendChild(el('p', 'shelf-blurb', group.blurb));
-        head.appendChild(titles);
-        head.appendChild(el('span', 'shelf-count', items.length + (items.length === 1 ? ' trophy' : ' trophies')));
-        shelf.appendChild(head);
-
-        var deck = el('div', 'shelf-deck');
-        var row = el('div', 'shelf-row');
-        items.sort(function (a, b) { return a.seasonNum - b.seasonNum; });
-        items.forEach(function (t) { row.appendChild(buildTrophy(t)); });
-        deck.appendChild(row);
-        deck.appendChild(el('div', 'shelf-plank'));
-        shelf.appendChild(deck);
-        return shelf;
-      }
-
-      function buildMilestones(byGroup, trophies) {
-        var chips = [];
-        function add(icon, label) { chips.push({ icon: icon, label: label }); }
-        var rings = (byGroup.ring || []).length;
-        var mvps = trophies.filter(function (t) { return t.code === 'MVP'; }).length;
-        var allpro = (byGroup.allpro || []).length;
-        var star = (byGroup.star || []).length;
-        var conf = (byGroup.conf || []).length;
-
-        if (rings) add('\uD83D\uDC8D', rings + '\u00D7 Allegiance Bowl Champion');
-        if (mvps) add(mvps + '\u00D7 MVP');
-        if (conf) add(conf + '\u00D7 Conference Champion');
-        if (allpro) add(allpro + '\u00D7 All-Pro');
-        if (star) add(star + '\u00D7 Star Bowl');
-        return chips;
-      }
-
-      function render(id, name, trophies) {
-        root.innerHTML = '';
-
-        var byGroup = {};
-        trophies.forEach(function (t) { (byGroup[t.group] = byGroup[t.group] || []).push(t); });
-        var totalXp = trophies.reduce(function (s, t) { return s + t.xp; }, 0);
-        var champs = (byGroup.ring || []).length;
-        var honors = (byGroup.top || []).length + (byGroup.annual || []).length;
-
-        /* hero */
-        var hero = el('div', 'tr-hero');
-        var av = el('img', 'tr-hero-avatar');
-        av.alt = name;
-        av.onerror = function () { this.style.visibility = 'hidden'; };
-        hero.appendChild(av);
-
-        var hinfo = el('div', 'tr-hero-info');
-        hinfo.appendChild(el('p', 'tr-hero-eyebrow', 'Trophy Room'));
-        hinfo.appendChild(el('h1', 'tr-hero-name', name));
-
-        var stats = el('div', 'tr-hero-stats');
-        [[trophies.length, 'Trophies'], [champs, 'Championships'],
-         [honors, 'Honors'], [totalXp.toLocaleString('en-US'), 'Trophy XP']]
-          .forEach(function (s) {
-            var tile = el('div', 'tr-stat');
-            tile.appendChild(el('span', 'tr-stat-val', String(s[0])));
-            tile.appendChild(el('span', 'tr-stat-lbl', s[1]));
-            stats.appendChild(tile);
-          });
-        hinfo.appendChild(stats);
-
-        var chips = buildMilestones(byGroup, trophies);
-        if (chips.length) {
-          var chipWrap = el('div', 'tr-milestones');
-          chips.forEach(function (c) {
-            var chip = el('span', 'tr-chip');
-            chip.appendChild(el('span', 'tr-chip-icon', c.icon));
-            chip.appendChild(el('span', null, c.label));
-            chipWrap.appendChild(chip);
-          });
-          hinfo.appendChild(chipWrap);
-        }
-
-        var actions = el('div', 'tr-actions');
-        var stat = el('a', 'tr-btn tr-btn-primary', 'View Career Stats \u2192');
-        stat.href = '/alltime/player/?id=' + encodeURIComponent(id) +
-          (name ? '&u=' + encodeURIComponent(name) : '');
-        actions.appendChild(stat);
-        var back = el('a', 'tr-btn tr-btn-ghost', '\u2190 All-Time');
-        back.href = '/alltime/';
-        actions.appendChild(back);
-        hinfo.appendChild(actions);
-
-        hero.appendChild(hinfo);
-        root.appendChild(hero);
-
-        AT.fetchAvatarsByIds([id]).then(function (map) { if (map[id]) av.src = map[id]; });
-
-        if (!trophies.length) {
-          var empty = el('div', 'tr-empty');
-          empty.appendChild(el('div', 'tr-empty-icon', '\uD83C\uDFC6'));
-          empty.appendChild(el('h2', 'tr-empty-title', 'The case is empty \u2014 for now'));
-          empty.appendChild(el('p', 'tr-empty-text',
-            'No awards, championships or honors are recorded for ' + name + ' yet. There\u2019s a whole cabinet waiting to be filled.'));
-          root.appendChild(empty);
-          return;
-        }
-
-        var cabinet = el('div', 'cabinet');
-        GROUPS.forEach(function (g) {
-          var items = byGroup[g.key];
-          if (items && items.length) cabinet.appendChild(buildShelf(g, items));
-        });
-        root.appendChild(cabinet);
-      }
-
-      /* ---------------- load ---------------- */
-      function showMessage(msg) {
-        root.innerHTML = '';
-        root.appendChild(el('p', 'tr-loading', msg));
-      }
-
-      function loadFor(id, name) {
-        showMessage('Opening the trophy room\u2026');
-        AT.getJSON(AT.batchUrl([AWARDS_RANGE]))
-          .then(function (data) {
-            var vr = (data.valueRanges || [])[0] || {};
-            var rows = vr.values || [];
-            var trophies = parseTrophies(rows, String(id).trim(), (name || '').trim().toLowerCase());
-            render(String(id).trim(), name || ('Player ' + id), trophies);
-          })
-          .catch(function (e) {
-            console.error('Trophy room error:', e);
-            showMessage('Could not load the trophy room right now. Please try again later.');
-          });
-      }
-
-      function init() {
-        document.addEventListener('click', closeAll);
-        var id = getParam('id').trim();
-        var uname = getParam('u').trim();
-        if (id) {
-          loadFor(id, uname);
-        } else if (uname) {
-          showMessage('Looking up \u201c' + uname + '\u201d\u2026');
-          AT.usernameToId(uname).then(function (resolved) {
-            if (!resolved) { showMessage('No Roblox account found for \u201c' + uname + '\u201d.'); return; }
-            loadFor(resolved, uname);
-          }).catch(function () { showMessage('Could not reach Roblox right now. Please try again.'); });
-        } else {
-          showMessage('No player selected. Open a trophy room from an all-time player profile.');
-        }
-      }
-
-      init();
-    })();
-  </script>
 </body>
 </html>
