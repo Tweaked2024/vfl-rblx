@@ -446,24 +446,124 @@
       .map(chip => `<span class="chip">${chip}</span>`)
       .join("");
 
-    document.getElementById("shelves").innerHTML = player.shelves
-      .map(shelf => `
-        <section class="shelf">
-          <div class="shelf-head">
-            <h2 class="shelf-title">${shelf.title}</h2>
-            <span class="shelf-count">${shelf.count} trophies</span>
+    document.getElementById("shelves").innerHTML = `
+      <section class="shelf">
+        <div class="shelf-head">
+          <div class="shelf-titles">
+            <h2 class="shelf-title">Allegiance Bowls</h2>
+            <p style="color:#c9b08b; margin-top:4px; font-size:13px;">Every championship earned.</p>
           </div>
-          <div class="row">
-            ${Array.from({ length: shelf.items }).map(() => `
-              <div class="trophy">
-                <img src="trophy.png" alt="trophy">
-                <div class="title">TROPHY</div>
-                <div class="sub">Season Win</div>
+          <span class="shelf-count">6 trophies</span>
+        </div>
+
+        <div class="shelf-deck">
+          <div class="shelf-row">
+            <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl II — Season 18 Champion — 1000 XP">
+              <div class="trophy-stage">
+                <span class="trophy-glow"></span>
+                <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
               </div>
-            `).join("")}
+              <span class="trophy-plate">
+                <span class="trophy-plate-main">AB II</span>
+                <span class="trophy-plate-sub">Season 18</span>
+              </span>
+              <div class="trophy-pop">
+                <img class="trophy-pop-logo" src="/images/abs/ab2.png" alt="Allegiance Bowl II" loading="lazy">
+                <div class="trophy-pop-title">Allegiance Bowl II</div>
+                <div class="trophy-pop-sub">Season 18 Champion</div>
+                <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
+              </div>
+            </button>
+
+            <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl IV — Season 20 Champion — 1000 XP">
+              <div class="trophy-stage">
+                <span class="trophy-glow"></span>
+                <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
+              </div>
+              <span class="trophy-plate">
+                <span class="trophy-plate-main">AB IV</span>
+                <span class="trophy-plate-sub">Season 20</span>
+              </span>
+              <div class="trophy-pop">
+                <img class="trophy-pop-logo" src="/images/abs/ab4.png" alt="Allegiance Bowl IV" loading="lazy">
+                <div class="trophy-pop-title">Allegiance Bowl IV</div>
+                <div class="trophy-pop-sub">Season 20 Champion</div>
+                <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
+              </div>
+            </button>
+
+            <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl V — Season 21 Champion — 1000 XP">
+              <div class="trophy-stage">
+                <span class="trophy-glow"></span>
+                <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
+              </div>
+              <span class="trophy-plate">
+                <span class="trophy-plate-main">AB V</span>
+                <span class="trophy-plate-sub">Season 21</span>
+              </span>
+              <div class="trophy-pop">
+                <img class="trophy-pop-logo" src="/images/abs/ab5.png" alt="Allegiance Bowl V" loading="lazy">
+                <div class="trophy-pop-title">Allegiance Bowl V</div>
+                <div class="trophy-pop-sub">Season 21 Champion</div>
+                <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
+              </div>
+            </button>
+
+            <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl VI — Season 22 Champion — 1000 XP">
+              <div class="trophy-stage">
+                <span class="trophy-glow"></span>
+                <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
+              </div>
+              <span class="trophy-plate">
+                <span class="trophy-plate-main">AB VI</span>
+                <span class="trophy-plate-sub">Season 22</span>
+              </span>
+              <div class="trophy-pop">
+                <img class="trophy-pop-logo" src="/images/abs/ab6.png" alt="Allegiance Bowl VI" loading="lazy">
+                <div class="trophy-pop-title">Allegiance Bowl VI</div>
+                <div class="trophy-pop-sub">Season 22 Champion</div>
+                <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
+              </div>
+            </button>
+
+            <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl IX — Season 25 Champion — 1000 XP">
+              <div class="trophy-stage">
+                <span class="trophy-glow"></span>
+                <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
+              </div>
+              <span class="trophy-plate">
+                <span class="trophy-plate-main">AB IX</span>
+                <span class="trophy-plate-sub">Season 25</span>
+              </span>
+              <div class="trophy-pop">
+                <img class="trophy-pop-logo" src="/images/abs/ab9.png" alt="Allegiance Bowl IX" loading="lazy">
+                <div class="trophy-pop-title">Allegiance Bowl IX</div>
+                <div class="trophy-pop-sub">Season 25 Champion</div>
+                <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
+              </div>
+            </button>
+
+            <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl X — Season 26 Champion — 1000 XP">
+              <div class="trophy-stage">
+                <span class="trophy-glow"></span>
+                <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
+              </div>
+              <span class="trophy-plate">
+                <span class="trophy-plate-main">AB X</span>
+                <span class="trophy-plate-sub">Season 26</span>
+              </span>
+              <div class="trophy-pop">
+                <img class="trophy-pop-logo" src="/images/abs/ab10.png" alt="Allegiance Bowl X" loading="lazy">
+                <div class="trophy-pop-title">Allegiance Bowl X</div>
+                <div class="trophy-pop-sub">Season 26 Champion</div>
+                <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
+              </div>
+            </button>
           </div>
-        </section>
-      `).join("");
+          <div class="shelf-plank"></div>
+        </div>
+      </section>
+    `;
   </script>
 </body>
 </html>
