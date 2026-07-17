@@ -1,1035 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trophy Room</title>
-    <style>
-        :root {
-            --bg-body: #111017;
-            --card-bg: #1a191f;
-            --text-main: #ffffff;
-            --accent-red: #ff6b6b;
-            --gold-text: #d4af37;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trophy Room</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      color: #111;
+    }
 
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-        }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-        nav {
-            background-color: #111017;
-            padding: 1rem 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .top-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      margin-bottom: 20px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #e9d2a8;
+      background: #ddd;
+    }
 
-        .logo-circle {
-            width: 35px;
-            height: 35px;
-            background: var(--accent-red);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 0.7rem;
-        }
+    .name-area {
+      flex: 1;
+      min-width: 240px;
+    }
 
-        .logo-text {
-            font-size: 0.8rem;
-            font-weight: 800;
-            line-height: 1.1;
-            text-transform: uppercase;
-        }
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #b58b44;
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
 
-        .logo-text span {
-            display: block;
-            color: #888;
-            font-size: 0.65rem;
-        }
+    .player-name {
+      margin: 0 0 12px;
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            margin: 0;
-            padding: 0;
-        }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(80px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
 
-        nav ul li a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-        }
+    .stat {
+      background: #f6f1e8;
+      border: 1px solid #e7dcc8;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
 
-        .nav-btn {
-            background: var(--accent-red);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
+    .stat .val {
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
 
-        .dropdown {
-            position: relative;
-        }
+    .stat .lbl {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #777;
+      margin-top: 4px;
+    }
 
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #1a191f;
-            padding: 10px;
-            border-radius: 4px;
-            min-width: 150px;
-        }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
 
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
+    .chip {
+      background: #f4e6d2;
+      color: #6c4d19;
+      border: 1px solid #d8c2a1;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
 
-        .page-container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 20px;
-        }
+    .cabinet {
+      background: #1c120d;
+      color: #fff;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    }
 
-        .header-card {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #111;
-        }
+    .shelf {
+      background: linear-gradient(180deg, #24160f, #1a100b);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
 
-        .player-name {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin: 0.5rem 0;
-            text-transform: uppercase;
-        }
+    .shelf-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
 
-        .trophy-room {
-            padding-bottom: 3rem;
-        }
+    .shelf-title {
+      margin: 0;
+      font-size: 18px;
+      color: #f2d6a2;
+    }
 
-        .container {
-            width: 100%;
-        }
+    .shelf-count {
+      font-size: 12px;
+      color: #f0c46d;
+      background: rgba(240,196,109,.14);
+      border: 1px solid rgba(240,196,109,.35);
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
 
-        #trophy-root {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-        .tr-hero {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            background: #1a191f;
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
+    .trophy {
+      width: 120px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      color: #fff;
+    }
 
-        .tr-hero-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+    .trophy img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 8px;
+    }
 
-        .tr-hero-info {
-            flex: 1;
-        }
+    .trophy .title {
+      font-size: 12px;
+      font-weight: 800;
+      margin: 0;
+    }
 
-        .tr-hero-eyebrow {
-            margin: 0 0 0.3rem;
-            color: #d4af37;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            font-weight: 800;
-        }
+    .trophy .sub {
+      font-size: 10px;
+      color: #d7c29a;
+      margin-top: 4px;
+    }
 
-        .tr-hero-name {
-            margin: 0 0 1rem;
-            font-size: 2rem;
-            text-transform: uppercase;
-        }
+    @media (max-width: 700px) {
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
 
-        .tr-hero-stats {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .tr-stat {
-            background: #111017;
-            border-radius: 10px;
-            padding: 0.8rem;
-            text-align: center;
-        }
-
-        .tr-stat-val {
-            display: block;
-            font-size: 1.2rem;
-            font-weight: 800;
-        }
-
-        .tr-stat-lbl {
-            display: block;
-            font-size: 0.7rem;
-            color: #bbb;
-            text-transform: uppercase;
-            margin-top: 0.25rem;
-        }
-
-        .tr-milestones {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tr-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: #111017;
-            border-radius: 999px;
-            padding: 0.45rem 0.7rem;
-            font-size: 0.75rem;
-            color: #fff;
-        }
-
-        .tr-chip-icon {
-            font-size: 0.9rem;
-        }
-
-        .tr-actions {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .tr-btn {
-            text-decoration: none;
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
-
-        .tr-btn-primary {
-            background: var(--accent-red);
-            color: #fff;
-        }
-
-        .tr-btn-ghost {
-            background: transparent;
-            color: #fff;
-            border: 1px solid #444;
-        }
-
-        .cabinet {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .shelf {
-            background: #1a191f;
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .shelf-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .shelf-title {
-            margin: 0;
-            font-size: 1.1rem;
-            color: #d4af37;
-        }
-
-        .shelf-blurb {
-            margin: 0.25rem 0 0;
-            color: #bbb;
-            font-size: 0.9rem;
-        }
-
-        .shelf-count {
-            color: #ccc;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        .shelf-deck {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .shelf-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .trophy {
-            position: relative;
-            background: #111017;
-            border: 1px solid #2d2d35;
-            border-radius: 14px;
-            padding: 1rem;
-            width: 140px;
-            color: #fff;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .trophy-stage {
-            position: relative;
-            height: 84px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0.75rem;
-        }
-
-        .trophy-photo {
-            max-width: 70px;
-            max-height: 70px;
-            object-fit: contain;
-        }
-
-        .trophy-plate {
-            display: flex;
-            flex-direction: column;
-            gap: 0.15rem;
-        }
-
-        .trophy-plate-main {
-            font-weight: 800;
-            font-size: 0.85rem;
-        }
-
-        .trophy-plate-sub {
-            font-size: 0.7rem;
-            color: #bbb;
-        }
-
-        .trophy-pop {
-            margin-top: 0.75rem;
-            background: #1a191f;
-            border-radius: 10px;
-            padding: 0.75rem;
-            font-size: 0.75rem;
-            text-align: left;
-        }
-
-        .trophy-pop-title {
-            font-weight: 800;
-            margin-bottom: 0.2rem;
-        }
-
-        .trophy-pop-sub {
-            color: #ccc;
-            margin-bottom: 0.35rem;
-        }
-
-        .trophy-pop-xp-val {
-            color: #d4af37;
-            font-weight: 700;
-        }
-
-        .shelf-plank {
-            height: 8px;
-            background: #2a2a33;
-            border-radius: 999px;
-            margin-top: 0.25rem;
-        }
-
-        @media (max-width: 900px) {
-            .tr-hero {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .tr-hero-stats {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .shelf-head {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 600px) {
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .tr-hero-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .trophy {
-                width: 100%;
-            }
-        }
-    </style>
+      .player-name {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
+    <div class="top-card">
+      <img id="player-avatar" class="avatar" src="" alt="player avatar" />
+      <div class="name-area">
+        <p class="eyebrow">Trophy Room</p>
+        <h1 id="player-name" class="player-name">PLAYER</h1>
 
-    <nav>
-        <div class="logo-area">
-            <div class="logo-circle">VFL</div>
-            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
+        <div class="stats">
+          <div class="stat"><span id="stat-trophies" class="val">0</span><span class="lbl">Trophies</span></div>
+          <div class="stat"><span id="stat-champs" class="val">0</span><span class="lbl">Championships</span></div>
+          <div class="stat"><span id="stat-honors" class="val">0</span><span class="lbl">Honors</span></div>
+          <div class="stat"><span id="stat-xp" class="val">0</span><span class="lbl">Trophy XP</span></div>
         </div>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="scores.html">Scores</a></li>
-            <li><a href="standings.html">Standings</a></li>
-            <li><a href="stats.html">Stats</a></li>
-            <li class="dropdown">
-                <a href="#">Legacy ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="legacy.html">Legacy</a></li>
-                    <li><a href="champions-awards.html">Champions & Awards</a></li>
-                    <li><a href="award-tracker.html">Award Tracker</a></li>
-                </ul>
-            </li>
-            <li><a href="rulebook.html">Rulebook</a></li>
-        </ul>
-        <a href="#" class="nav-btn">Join Now!</a>
-    </nav>
 
-    <main>
-        <section class="trophy-room">
-            <div class="container">
-                <div id="trophy-root">
-                    <div class="tr-hero">
-                        <img class="tr-hero-avatar" alt="FINLEY4K" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-0447FDAAA17F47D7EB81F2E0BA7F6EEC-Png/150/150/AvatarHeadshot/Png/isCircular">
-                        <div class="tr-hero-info">
-                            <p class="tr-hero-eyebrow">Trophy Room</p>
-                            <h1 class="tr-hero-name">FINLEY4K</h1>
-                            <div class="tr-hero-stats">
-                                <div class="tr-stat">
-                                    <span class="tr-stat-val">38</span>
-                                    <span class="tr-stat-lbl">Trophies</span>
-                                </div>
-                                <div class="tr-stat">
-                                    <span class="tr-stat-val">6</span>
-                                    <span class="tr-stat-lbl">Championships</span>
-                                </div>
-                                <div class="tr-stat">
-                                    <span class="tr-stat-val">4</span>
-                                    <span class="tr-stat-lbl">Honors</span>
-                                </div>
-                                <div class="tr-stat">
-                                    <span class="tr-stat-val">17,250</span>
-                                    <span class="tr-stat-lbl">Trophy XP</span>
-                                </div>
-                            </div>
-                            <div class="tr-milestones">
-                                <span class="tr-chip"><span class="tr-chip-icon">💍</span><span>6× Allegiance Bowl Champion</span></span>
-                                <span class="tr-chip"><span class="tr-chip-icon">2× MVP</span><span></span></span>
-                                <span class="tr-chip"><span class="tr-chip-icon">6× Conference Champion</span><span></span></span>
-                                <span class="tr-chip"><span class="tr-chip-icon">5× All-Pro</span><span></span></span>
-                                <span class="tr-chip"><span class="tr-chip-icon">12× Star Bowl</span><span></span></span>
-                            </div>
-                            <div class="tr-actions">
-                                <a class="tr-btn tr-btn-primary" href="/alltime/player/?id=221991455&amp;u=FINLEY4K">View Career Stats →</a>
-                                <a class="tr-btn tr-btn-ghost" href="/alltime/">← All-Time</a>
-                            </div>
-                        </div>
-                    </div>
+        <div id="chips" class="chips"></div>
+      </div>
+    </div>
 
-                    <div class="cabinet">
-                        <section class="shelf">
-                            <div class="shelf-head">
-                                <div class="shelf-titles">
-                                    <h2 class="shelf-title">Allegiance Bowls</h2>
-                                    <p class="shelf-blurb">Every championship earned.</p>
-                                </div>
-                                <span class="shelf-count">6 trophies</span>
-                            </div>
-                            <div class="shelf-deck">
-                                <div class="shelf-row">
-                                    <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl II — Season 18 Champion — 1000 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">AB II</span>
-                                            <span class="trophy-plate-sub">Season 18</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <img class="trophy-pop-logo" src="/images/abs/ab2.png" alt="Allegiance Bowl II" loading="lazy">
-                                            <div class="trophy-pop-title">Allegiance Bowl II</div>
-                                            <div class="trophy-pop-sub">Season 18 Champion</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
-                                        </div>
-                                    </button>
+    <div class="cabinet" id="shelves"></div>
+  </div>
 
-                                    <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl IV — Season 20 Champion — 1000 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">AB IV</span>
-                                            <span class="trophy-plate-sub">Season 20</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <img class="trophy-pop-logo" src="/images/abs/ab4.png" alt="Allegiance Bowl IV" loading="lazy">
-                                            <div class="trophy-pop-title">Allegiance Bowl IV</div>
-                                            <div class="trophy-pop-sub">Season 20 Champion</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
-                                        </div>
-                                    </button>
+  <script>
+    const players = {
+      FINLEY4K: {
+        name: "FINLEY4K",
+        avatar: "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-0447FDAAA17F47D7EB81F2E0BA7F6EEC-Png/150/150/AvatarHeadshot/Png/isCircular",
+        trophies: 38,
+        championships: 6,
+        honors: 4,
+        xp: "17,250",
+        chips: ["6× Allegiance Bowl Champion", "2× MVP", "6× Conference Champion", "5× All-Pro", "12× Star Bowl"],
+        shelves: [
+          { title: "Allegiance Bowls", count: 6, items: 6 },
+          { title: "Conference Championships", count: 6, items: 6 },
+          { title: "Top Honors", count: 3, items: 3 }
+        ]
+      },
+      JACKSON: {
+        name: "JACKSON",
+        avatar: "https://via.placeholder.com/150",
+        trophies: 12,
+        championships: 2,
+        honors: 3,
+        xp: "4,200",
+        chips: ["2× Champion", "1× MVP", "3× All-Pro"],
+        shelves: [
+          { title: "Championships", count: 2, items: 2 },
+          { title: "Awards", count: 3, items: 3 }
+        ]
+      }
+    };
 
-                                    <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl V — Season 21 Champion — 1000 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">AB V</span>
-                                            <span class="trophy-plate-sub">Season 21</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <img class="trophy-pop-logo" src="/images/abs/ab5.png" alt="Allegiance Bowl V" loading="lazy">
-                                            <div class="trophy-pop-title">Allegiance Bowl V</div>
-                                            <div class="trophy-pop-sub">Season 21 Champion</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
-                                        </div>
-                                    </button>
+    const params = new URLSearchParams(window.location.search);
+    const key = (params.get("player") || "FINLEY4K").toUpperCase();
+    const player = players[key] || players.FINLEY4K;
 
-                                    <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl VI — Season 22 Champion — 1000 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">AB VI</span>
-                                            <span class="trophy-plate-sub">Season 22</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <img class="trophy-pop-logo" src="/images/abs/ab6.png" alt="Allegiance Bowl VI" loading="lazy">
-                                            <div class="trophy-pop-title">Allegiance Bowl VI</div>
-                                            <div class="trophy-pop-sub">Season 22 Champion</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
-                                        </div>
-                                    </button>
+    document.getElementById("player-avatar").src = player.avatar;
+    document.getElementById("player-avatar").alt = player.name;
+    document.getElementById("player-name").textContent = player.name;
+    document.getElementById("stat-trophies").textContent = player.trophies;
+    document.getElementById("stat-champs").textContent = player.championships;
+    document.getElementById("stat-honors").textContent = player.honors;
+    document.getElementById("stat-xp").textContent = player.xp;
 
-                                    <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl IX — Season 25 Champion — 1000 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">AB IX</span>
-                                            <span class="trophy-plate-sub">Season 25</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <img class="trophy-pop-logo" src="/images/abs/ab9.png" alt="Allegiance Bowl IX" loading="lazy">
-                                            <div class="trophy-pop-title">Allegiance Bowl IX</div>
-                                            <div class="trophy-pop-sub">Season 25 Champion</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
-                                        </div>
-                                    </button>
+    const chips = document.getElementById("chips");
+    chips.innerHTML = player.chips.map(chip => `<span class="chip">${chip}</span>`).join("");
 
-                                    <button class="trophy" type="button" data-tier="ring" aria-label="Allegiance Bowl X — Season 26 Champion — 1000 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lombardi" src="/images/lombardi.png?v=2" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">AB X</span>
-                                            <span class="trophy-plate-sub">Season 26</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <img class="trophy-pop-logo" src="/images/abs/ab10.png" alt="Allegiance Bowl X" loading="lazy">
-                                            <div class="trophy-pop-title">Allegiance Bowl X</div>
-                                            <div class="trophy-pop-sub">Season 26 Champion</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
-                                        </div>
-                                    </button>
-                                </div>
-                                <div class="shelf-plank"></div>
-                            </div>
-                        </section>
-
-                        <section class="shelf">
-                            <div class="shelf-head">
-                                <div class="shelf-titles">
-                                    <h2 class="shelf-title">Conference Championships</h2>
-                                    <p class="shelf-blurb">Conference crowns on the road to the Allegiance Bowl.</p>
-                                </div>
-                                <span class="shelf-count">6 trophies</span>
-                            </div>
-                            <div class="shelf-deck">
-                                <div class="shelf-row">
-                                    <button class="trophy" type="button" data-tier="conf" aria-label="Conference Champion — Season 18 — 400 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lamar" src="/images/lamarhunt.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">Conf Champ</span>
-                                            <span class="trophy-plate-sub">Season 18</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Conference Champion</div>
-                                            <div class="trophy-pop-sub">Season 18</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 400 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="conf" aria-label="Conference Champion — Season 20 — 400 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lamar" src="/images/lamarhunt.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">Conf Champ</span>
-                                            <span class="trophy-plate-sub">Season 20</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Conference Champion</div>
-                                            <div class="trophy-pop-sub">Season 20</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 400 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="conf" aria-label="Conference Champion — Season 21 — 400 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lamar" src="/images/lamarhunt.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">Conf Champ</span>
-                                            <span class="trophy-plate-sub">Season 21</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Conference Champion</div>
-                                            <div class="trophy-pop-sub">Season 21</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 400 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="conf" aria-label="Conference Champion — Season 22 — 400 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lamar" src="/images/lamarhunt.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">Conf Champ</span>
-                                            <span class="trophy-plate-sub">Season 22</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Conference Champion</div>
-                                            <div class="trophy-pop-sub">Season 22</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 400 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="conf" aria-label="Conference Champion — Season 25 — 400 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lamar" src="/images/lamarhunt.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">Conf Champ</span>
-                                            <span class="trophy-plate-sub">Season 25</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Conference Champion</div>
-                                            <div class="trophy-pop-sub">Season 25</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 400 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="conf" aria-label="Conference Champion — Season 26 — 400 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-lamar" src="/images/lamarhunt.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">Conf Champ</span>
-                                            <span class="trophy-plate-sub">Season 26</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Conference Champion</div>
-                                            <div class="trophy-pop-sub">Season 26</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 400 XP</span></div>
-                                        </div>
-                                    </button>
-                                </div>
-                                <div class="shelf-plank"></div>
-                            </div>
-                        </section>
-
-                        <section class="shelf">
-                            <div class="shelf-head">
-                                <div class="shelf-titles">
-                                    <h2 class="shelf-title">Top Honors</h2>
-                                    <p class="shelf-blurb">The league’s marquee individual awards.</p>
-                                </div>
-                                <span class="shelf-count">3 trophies</span>
-                            </div>
-                            <div class="shelf-deck">
-                                <div class="shelf-row">
-                                    <button class="trophy" type="button" data-tier="elite" aria-label="Offensive Player of the Year — Season 18 · OPOTY — 750 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-tophonor" src="/images/tophonor.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">OPOTY</span>
-                                            <span class="trophy-plate-sub">Season 18</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Offensive Player of the Year</div>
-                                            <div class="trophy-pop-sub">Season 18 · OPOTY</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 750 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="legend" aria-label="Most Valuable Player — Season 21 · MVP — 1000 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-tophonor" src="/images/tophonor.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">MVP</span>
-                                            <span class="trophy-plate-sub">Season 21</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Most Valuable Player</div>
-                                            <div class="trophy-pop-sub">Season 21 · MVP</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="legend" aria-label="Most Valuable Player — Season 27 · MVP — 1000 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-tophonor" src="/images/tophonor.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">MVP</span>
-                                            <span class="trophy-plate-sub">Season 27</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Most Valuable Player</div>
-                                            <div class="trophy-pop-sub">Season 27 · MVP</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 1,000 XP</span></div>
-                                        </div>
-                                    </button>
-                                </div>
-                                <div class="shelf-plank"></div>
-                            </div>
-                        </section>
-
-                        <section class="shelf">
-                            <div class="shelf-head">
-                                <div class="shelf-titles">
-                                    <h2 class="shelf-title">Annual Awards</h2>
-                                    <p class="shelf-blurb">Position and season honors.</p>
-                                </div>
-                                <span class="shelf-count">1 trophy</span>
-                            </div>
-                            <div class="shelf-deck">
-                                <div class="shelf-row">
-                                    <button class="trophy" type="button" data-tier="gold" aria-label="Running Back of the Year — Season 26 · RBOTY — 500 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-star" src="/images/starhonor.png?v=2" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">RBOTY</span>
-                                            <span class="trophy-plate-sub">Season 26</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">Running Back of the Year</div>
-                                            <div class="trophy-pop-sub">Season 26 · RBOTY</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 500 XP</span></div>
-                                        </div>
-                                    </button>
-                                </div>
-                                <div class="shelf-plank"></div>
-                            </div>
-                        </section>
-
-                        <section class="shelf">
-                            <div class="shelf-head">
-                                <div class="shelf-titles">
-                                    <h2 class="shelf-title">All-Pro Teams</h2>
-                                    <p class="shelf-blurb">The best at the position, league-wide.</p>
-                                </div>
-                                <span class="shelf-count">5 trophies</span>
-                            </div>
-                            <div class="shelf-deck">
-                                <div class="shelf-row">
-                                    <button class="trophy" type="button" data-tier="allpro2" aria-label="2nd Team All-Pro — DB · Season 17 — 200 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-allpro2" src="/images/allpro2.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">2nd All-Pro</span>
-                                            <span class="trophy-plate-sub">DB · S17</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">2nd Team All-Pro</div>
-                                            <div class="trophy-pop-sub">DB · Season 17</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 200 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="allpro1" aria-label="1st Team All-Pro — QB · Season 18 — 300 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-allpro1" src="/images/allpro1.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">1st All-Pro</span>
-                                            <span class="trophy-plate-sub">QB · S18</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">1st Team All-Pro</div>
-                                            <div class="trophy-pop-sub">QB · Season 18</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 300 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="allpro1" aria-label="1st Team All-Pro — QB · Season 21 — 300 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-allpro1" src="/images/allpro1.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">1st All-Pro</span>
-                                            <span class="trophy-plate-sub">QB · S21</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">1st Team All-Pro</div>
-                                            <div class="trophy-pop-sub">QB · Season 21</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 300 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="allpro1" aria-label="1st Team All-Pro — RB · Season 26 — 300 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-allpro1" src="/images/allpro1.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">1st All-Pro</span>
-                                            <span class="trophy-plate-sub">RB · S26</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">1st Team All-Pro</div>
-                                            <div class="trophy-pop-sub">RB · Season 26</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 300 XP</span></div>
-                                        </div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="allpro1" aria-label="1st Team All-Pro — QB · Season 27 — 300 XP">
-                                        <div class="trophy-stage">
-                                            <span class="trophy-glow"></span>
-                                            <img class="trophy-photo is-allpro1" src="/images/allpro1.png" alt="" loading="lazy">
-                                        </div>
-                                        <span class="trophy-plate">
-                                            <span class="trophy-plate-main">1st All-Pro</span>
-                                            <span class="trophy-plate-sub">QB · S27</span>
-                                        </span>
-                                        <div class="trophy-pop">
-                                            <div class="trophy-pop-title">1st Team All-Pro</div>
-                                            <div class="trophy-pop-sub">QB · Season 27</div>
-                                            <div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 300 XP</span></div>
-                                        </div>
-                                    </button>
-                                </div>
-                                <div class="shelf-plank"></div>
-                            </div>
-                        </section>
-
-                        <section class="shelf">
-                            <div class="shelf-head">
-                                <div class="shelf-titles">
-                                    <h2 class="shelf-title">Star Bowl Selections</h2>
-                                    <p class="shelf-blurb">All-star nods for a standout season.</p>
-                                </div>
-                                <span class="shelf-count">12 trophies</span>
-                            </div>
-                            <div class="shelf-deck">
-                                <div class="shelf-row">
-                                    <button class="trophy" type="button" data-tier="star" aria-label="NFC Star Bowl — DB · Season 17 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">NFC Star Bowl</span><span class="trophy-plate-sub">DB · S17</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">NFC Star Bowl</div><div class="trophy-pop-sub">DB · Season 17</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="AFC Star Bowl — QB · Season 18 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">AFC Star Bowl</span><span class="trophy-plate-sub">QB · S18</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">AFC Star Bowl</div><div class="trophy-pop-sub">QB · Season 18</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="AFC Star Bowl — DB · Season 18 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">AFC Star Bowl</span><span class="trophy-plate-sub">DB · S18</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">AFC Star Bowl</div><div class="trophy-pop-sub">DB · Season 18</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="NFC Star Bowl — QB · Season 21 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">NFC Star Bowl</span><span class="trophy-plate-sub">QB · S21</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">NFC Star Bowl</div><div class="trophy-pop-sub">QB · Season 21</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="NFC Star Bowl — DB · Season 21 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">NFC Star Bowl</span><span class="trophy-plate-sub">DB · S21</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">NFC Star Bowl</div><div class="trophy-pop-sub">DB · Season 21</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="NFC Star Bowl — QB · Season 24 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">NFC Star Bowl</span><span class="trophy-plate-sub">QB · S24</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">NFC Star Bowl</div><div class="trophy-pop-sub">QB · Season 24</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="NFC Star Bowl — HC · Season 26 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">NFC Star Bowl</span><span class="trophy-plate-sub">HC · S26</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">NFC Star Bowl</div><div class="trophy-pop-sub">HC · Season 26</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="NFC Star Bowl — RB · Season 26 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">NFC Star Bowl</span><span class="trophy-plate-sub">RB · S26</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">NFC Star Bowl</div><div class="trophy-pop-sub">RB · Season 26</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="AFC Star Bowl — QB · Season 27 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">AFC Star Bowl</span><span class="trophy-plate-sub">QB · S27</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">AFC Star Bowl</div><div class="trophy-pop-sub">QB · Season 27</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="AFC Star Bowl — DB · Season 27 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">AFC Star Bowl</span><span class="trophy-plate-sub">DB · S27</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">AFC Star Bowl</div><div class="trophy-pop-sub">DB · Season 27</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="AFC Star Bowl — QB · Season 34 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">AFC Star Bowl</span><span class="trophy-plate-sub">QB · S34</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">AFC Star Bowl</div><div class="trophy-pop-sub">QB · Season 34</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="star" aria-label="AFC Star Bowl — RB · Season 34 — 150 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-starbowl" src="/images/starbowl.png?v=2" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">AFC Star Bowl</span><span class="trophy-plate-sub">RB · S34</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">AFC Star Bowl</div><div class="trophy-pop-sub">RB · Season 34</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 150 XP</span></div></div>
-                                    </button>
-                                </div>
-                                <div class="shelf-plank"></div>
-                            </div>
-                        </section>
-
-                        <section class="shelf">
-                            <div class="shelf-head">
-                                <div class="shelf-titles">
-                                    <h2 class="shelf-title">League-Leader Crowns</h2>
-                                    <p class="shelf-blurb">Seasons finished #1 in a statistical category.</p>
-                                </div>
-                                <span class="shelf-count">5 trophies</span>
-                            </div>
-                            <div class="shelf-deck">
-                                <div class="shelf-row">
-                                    <button class="trophy" type="button" data-tier="crowngold" aria-label="3× League Leader — Season 18 · Least INTs, Passing TDs, Passing Yds — 900 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-crown-gold" src="/images/crown-gold.png" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">3 Crowns</span><span class="trophy-plate-sub">Season 18</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">3× League Leader</div><div class="trophy-pop-sub">Season 18 · Least INTs, Passing TDs, Passing Yds</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 900 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="crownsilver" aria-label="Least INTs Leader — Season 19 · 9 — 300 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-crown-silver" src="/images/crown-silver.png" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">Least INTs</span><span class="trophy-plate-sub">9</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">Least INTs Leader</div><div class="trophy-pop-sub">Season 19 · 9</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 300 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="crowngold" aria-label="2× League Leader — Season 21 · Least INTs, Passing TDs — 600 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-crown-gold" src="/images/crown-gold.png" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">2 Crowns</span><span class="trophy-plate-sub">Season 21</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">2× League Leader</div><div class="trophy-pop-sub">Season 21 · Least INTs, Passing TDs</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 600 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="crownsilver" aria-label="Rushing TDs Leader — Season 26 · 13 — 300 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-crown-silver" src="/images/crown-silver.png" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">Rushing TDs</span><span class="trophy-plate-sub">13</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">Rushing TDs Leader</div><div class="trophy-pop-sub">Season 26 · 13</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 300 XP</span></div></div>
-                                    </button>
-
-                                    <button class="trophy" type="button" data-tier="crownsilver" aria-label="Passing Yds Leader — Season 27 · 5,343 — 300 XP">
-                                        <div class="trophy-stage"><span class="trophy-glow"></span><img class="trophy-photo is-crown-silver" src="/images/crown-silver.png" alt="" loading="lazy"></div>
-                                        <span class="trophy-plate"><span class="trophy-plate-main">Passing Yds</span><span class="trophy-plate-sub">5,343</span></span>
-                                        <div class="trophy-pop"><div class="trophy-pop-title">Passing Yds Leader</div><div class="trophy-pop-sub">Season 27 · 5,343</div><div class="trophy-pop-xp"><span class="trophy-pop-xp-val">⚡ 300 XP</span></div></div>
-                                    </button>
-                                </div>
-                                <div class="shelf-plank"></div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
+    const shelves = document.getElementById("shelves");
+    shelves.innerHTML = player.shelves.map(shelf => `
+      <section class="shelf">
+        <div class="shelf-head">
+          <h2 class="shelf-title">${shelf.title}</h2>
+          <span class="shelf-count">${shelf.count} trophies</span>
+        </div>
+        <div class="row">
+          ${Array.from({ length: shelf.items }).map(() => `
+            <div class="trophy">
+              <img src="trophy.png" alt="trophy">
+              <div class="title">TROPHY</div>
+              <div class="sub">Season Win</div>
             </div>
-        </section>
-    </main>
-
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const player = urlParams.get('player');
-        document.getElementById('display-name').textContent = player ? decodeURIComponent(player) : "GUEST PLAYER";
-    </script>
+          `).join("")}
+        </div>
+      </section>
+    `).join("");
+  </script>
 </body>
 </html>
