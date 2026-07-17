@@ -5,105 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AFL Trophy Room</title>
     <style>
-        /* CSS Variables - Assuming standard site tokens */
         :root {
+            /* Shared Theme Tokens */
+            --bg-main: #1c130b; 
+            --text-main: #ffffff;
+            --text-muted: #b89b76;
+            --accent: #e51c35;
+            --border: #3c2a18;
+            
             --color-neutral-100: #f5f5f5;
             --color-neutral-200: #e5e5e5;
             --color-neutral-300: #d4d4d4;
-            --color-neutral-600: #525252;
             --color-neutral-900: #171717;
-            --color-primary-400: #e51c35;
-            --fs-300: 0.8rem;
-            --fs-400: 0.95rem;
-            --fs-500: 1.1rem;
-            --fs-600: 1.25rem;
-            --fs-700: 1.5rem;
         }
 
-        /* TROPHY ROOM STYLES */
-        .trophy-room { padding-block: clamp(1.5rem, 4vw, 3rem); }
-        .trophy-room .container { max-width: 1180px; margin: 0 auto; }
-
-        .tr-hero {
-            display: flex; gap: clamp(1.25rem, 3vw, 2.5rem); align-items: center; flex-wrap: wrap;
-            padding: clamp(1.25rem, 3vw, 2rem); border-radius: 1.25rem;
-            background: radial-gradient(120% 140% at 12% 0%, rgba(229, 28, 53, 0.16), transparent 55%),
-                        linear-gradient(135deg, rgba(255, 196, 84, 0.14), rgba(0, 0, 0, 0) 60%), var(--color-neutral-200);
-            border: 1px solid var(--color-neutral-300);
-            box-shadow: 0 24px 60px -36px rgba(0, 0, 0, 0.55); position: relative; overflow: hidden;
-        }
-        .tr-hero-avatar {
-            width: clamp(96px, 18vw, 148px); height: clamp(96px, 18vw, 148px); border-radius: 50%;
-            object-fit: cover; background: var(--color-neutral-300);
-            box-shadow: 0 0 0 3px rgba(255, 196, 84, 0.55), 0 16px 36px -18px rgba(0, 0, 0, 0.7); flex-shrink: 0;
-        }
-        .tr-hero-info { flex: 1 1 320px; min-width: 0; }
-        .tr-hero-name { margin: 0 0 0.9rem; font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 800; color: var(--color-neutral-900); }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; margin: 0; font-family: sans-serif; }
         
+        /* Navigation Header */
+        nav { 
+            background-color: var(--bg-main); 
+            padding: 1.2rem 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border); 
+            position: relative;
+            z-index: 1000;
+        }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; margin: 0; }
+        nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; display: flex; align-items: center; gap: 5px; transition: color 0.2s; }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 12px; padding: 0.6rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.4); list-style: none; z-index: 999; }
+        nav ul li.dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu li a { color: #111017 !important; padding: 0.7rem 1.4rem; }
+        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+
+        /* Trophy Room Styles */
+        .trophy-room { padding-block: 3rem; }
+        .trophy-room .container { max-width: 1180px; margin: 0 auto; }
         .cabinet {
             margin-top: 2rem; display: flex; flex-direction: column; gap: 1.4rem; padding: 1.6rem;
-            border-radius: 1.25rem; background: linear-gradient(180deg, #2a1c11, #1c130b 55%, #150e07);
-            border: 1px solid #3c2a18; box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6), 0 30px 70px -40px rgba(0, 0, 0, 0.8);
+            border-radius: 1.25rem; background: var(--bg-main);
+            border: 1px solid var(--border); 
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6);
         }
-        .shelf { border-radius: 0.9rem; padding: 1.15rem 1.2rem 0; background: linear-gradient(180deg, rgba(10, 7, 4, 0.65), rgba(10, 7, 4, 0.2)); border: 1px solid rgba(255, 220, 160, 0.06); }
-        .shelf-row { display: flex; flex-wrap: wrap; gap: 1.4rem; align-items: flex-end; min-height: 150px; }
-        .shelf-plank { height: 18px; border-radius: 4px; background: linear-gradient(180deg, #7a5026, #4d3015 40%, #321f0c); box-shadow: 0 14px 22px -12px rgba(0, 0, 0, 0.85); }
-        
-        .trophy { cursor: pointer; background: transparent; border: 0; position: relative; width: 120px; }
-        .trophy-stage { position: relative; height: 120px; display: flex; align-items: flex-end; justify-content: center; }
-        .trophy-photo { height: 100%; object-fit: contain; filter: drop-shadow(0 10px 8px rgba(0,0,0,0.6)); }
-        .trophy-plate { display: flex; flex-direction: column; align-items: center; padding: 0.3rem; border-radius: 5px; background: linear-gradient(180deg, #caa86a, #8a6b3a); }
-        
-        .trophy-pop {
-            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
-            background: #0f0a06; color: #fbe7c8; padding: 0.8rem; border-radius: 0.7rem;
-            visibility: hidden; opacity: 0; transition: opacity 0.16s;
-        }
-        .trophy:hover .trophy-pop { visibility: visible; opacity: 1; }
+        .shelf { border-radius: 0.9rem; padding: 1.15rem; background: linear-gradient(180deg, rgba(10, 7, 4, 0.65), rgba(10, 7, 4, 0.2)); border: 1px solid var(--border); }
+        .shelf-row { display: flex; gap: 1.4rem; min-height: 150px; align-items: flex-end; }
+        .trophy { cursor: pointer; background: transparent; border: 0; width: 120px; }
+        .trophy-photo { height: 120px; object-fit: contain; }
     </style>
 </head>
 <body>
 
-<section class="trophy-room">
-    <div class="container">
-        <!-- Hero Section -->
-        <header class="tr-hero">
-            <img src="avatar.jpg" alt="Player" class="tr-hero-avatar">
-            <div class="tr-hero-info">
-                <p class="tr-hero-eyebrow">Trophy Room</p>
-                <h1 class="tr-hero-name">Player Name</h1>
-                <div class="tr-hero-stats">
-                    <!-- Stats injected via JS -->
-                </div>
-            </div>
-        </header>
-
-        <!-- Cabinet Section -->
-        <main class="cabinet" id="trophy-root">
-            <section class="shelf">
-                <div class="shelf-head">
-                    <h2 class="shelf-title">Allegiance Bowls</h2>
-                </div>
-                <div class="shelf-deck">
+    <nav>
+        <div class="logo-area">
+            <div class="logo-circle">VFL</div>
+            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scores.html">Scores</a></li>
+            <li><a href="standings.html">Standings</a></li>
+            <li><a href="stats.html">Stats</a></li>
+            <li class="dropdown">
+                <a href="#">Legacy <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></a>
+                <ul class="dropdown-menu">
+                    <li><a href="legacy.html">Legacy</a></li>
+                    <li><a href="champions-awards.html">Champions & Awards</a></li>
+                    <li><a href="award-tracker.html">Award Tracker</a></li>
+                </ul>
+            </li>
+            <li><a href="rulebook.html">Rulebook</a></li>
+        </ul>
+        <a href="#" class="nav-btn">Join Now!</a>
+    </nav>
+    
+    <section class="trophy-room">
+        <div class="container">
+            <main class="cabinet" id="trophy-root">
+                <section class="shelf">
                     <div class="shelf-row">
-                        <button class="trophy" data-tier="ring">
-                            <div class="trophy-stage">
-                                <img src="lombardi.png" class="trophy-photo" alt="Championship">
-                            </div>
-                            <span class="trophy-plate">
-                                <span class="trophy-plate-main">AB I</span>
-                            </span>
-                            <div class="trophy-pop">
-                                <div class="trophy-pop-title">Allegiance Bowl I</div>
-                            </div>
+                        <button class="trophy">
+                            <img src="lombardi.png" class="trophy-photo" alt="Championship">
                         </button>
                     </div>
-                    <div class="shelf-plank"></div>
-                </div>
-            </section>
-        </main>
-    </div>
-</section>
+                </section>
+            </main>
+        </div>
+    </section>
 
 </body>
 </html>
