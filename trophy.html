@@ -112,6 +112,13 @@
         }
         .nav-btn:hover { background-color: var(--accent-hover); }
 
+        /* Animates down arrow turn on hover */
+        nav ul li.dropdown:hover .nav-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+
         /* Trophy Room Styles */
         .trophy-room { padding-block: 3rem; }
         .trophy-room .container { max-width: 1180px; margin: 0 auto; padding-inline: 1rem; }
