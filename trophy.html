@@ -317,14 +317,20 @@
       text-align: center;
       color: #fff;
       transition: transform 0.25s ease, box-shadow 0.25s ease, z-index 0.25s ease;
+      overflow: visible;
     }
-    
+
     .trophy:hover {
       transform: translateY(-10px) scale(1.04);
-      z-index: 20;
+      z-index: 50;
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
     }
-    
+
+    .trophy-stage {
+      position: relative;
+      z-index: 2;
+    }
+
     .trophy img {
       width: 54px;
       height: 54px;
@@ -332,17 +338,80 @@
       display: block;
       margin: 0 auto 8px;
     }
-    
-    .trophy .title {
+
+    .trophy-plate {
+      position: relative;
+      z-index: 2;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .trophy-plate-main {
+      display: block;
       font-size: 12px;
       font-weight: 800;
-      margin: 0;
+      color: #fff;
     }
-    
-    .trophy .sub {
+
+    .trophy-plate-sub {
+      display: block;
       font-size: 10px;
       color: #d7c29a;
       margin-top: 4px;
+    }
+
+    .trophy-pop {
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #f4e6d2;
+      color: #111017;
+      border: 1px solid #d8c2a1;
+      border-radius: 999px;
+      padding: 10px 14px;
+      min-width: 190px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+      z-index: 100;
+    }
+
+    .trophy:hover .trophy-pop {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-14px);
+    }
+
+    .trophy-pop-logo {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 6px;
+    }
+
+    .trophy-pop-title {
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .trophy-pop-sub {
+      font-size: 10px;
+      margin-top: 2px;
+    }
+
+    .trophy-pop-xp {
+      margin-top: 6px;
+    }
+
+    .trophy-pop-xp-val {
+      font-size: 10px;
+      font-weight: 800;
     }
 
     @media (max-width: 700px) {
@@ -457,7 +526,7 @@
     document.getElementById("shelves").innerHTML = `
       <section class="shelf">
         <div class="shelf-head">
-          <div class="shelf-titles">
+          <div>
             <h2 class="shelf-title">Allegiance Bowls</h2>
             <p style="color:#c9b08b; margin-top:4px; font-size:13px;">Every championship earned.</p>
           </div>
