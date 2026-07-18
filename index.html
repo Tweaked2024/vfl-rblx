@@ -149,6 +149,7 @@
         
         /* Scores styling rules */
         .card-score { font-size: 1.4rem; font-weight: 800; color: var(--text-muted); opacity: 0; transition: opacity 0.15s; }
+        .matchup-card.is-final .card-score { opacity: 1; }
         .team.left .card-score { margin-left: auto; } 
         .team.right .card-score { margin-right: auto; } 
 
@@ -158,7 +159,6 @@
         .matchup-card:hover .compare-link { color: var(--accent); }
 
         /* State visibility toggles for finished games */
-        .matchup-card.is-final .card-score { opacity: 1; }
         .matchup-card.is-final .vs-btn { background: #1f1d29; color: var(--text-muted); }
         
         .matchup-card.winner-left .team.left .card-score { color: var(--text-main); }
@@ -192,9 +192,9 @@
         .close-modal-btn:hover { background: var(--accent); }
 
         .comp-header-banner { display: flex; border-radius: 12px; overflow: hidden; margin-bottom: 2rem; font-weight: 800; text-transform: uppercase; }
-        .comp-team-side { padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; width: 45%; }
-        .comp-team-side.team-left { background: #967bb6; text-align: left; } 
-        .comp-team-side.team-right { background: #2e6f40; text-align: right; flex-direction: row-reverse; } 
+        .comp-team-side { padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; width: 45%; color: #ffffff; }
+        .comp-team-side.team-left { text-align: left; } 
+        .comp-team-side.team-right { text-align: right; flex-direction: row-reverse; } 
         
         .comp-vs-divider { width: 10%; background: #ffffff; color: #111017; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 0.75rem; }
         .comp-vs-divider strong { font-size: 1.1rem; }
@@ -211,8 +211,7 @@
         .stat-name { color: var(--text-main); }
         .stat-bar-container { height: 8px; background: #23222d; border-radius: 4px; overflow: hidden; display: flex; }
         .stat-bar-fill { height: 100%; transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .stat-bar-fill.fill-left { background: #967bb6; border-right: 2px solid var(--bg-main); }
-        .stat-bar-fill.fill-right { background: #2e6f40; }
+        .stat-bar-fill.fill-left { border-right: 2px solid var(--bg-main); }
 
         .join-footer { background-color: var(--accent); color: #111017; padding: 2.5rem 4%; display: flex; justify-content: space-between; align-items: center; }
         .join-footer h2 { font-size: 1.8rem; font-weight: 700; text-transform: lowercase; }
@@ -259,7 +258,6 @@
           <h2>MATCHUPS</h2>
           <div class="header-actions">
             
-            <!-- DROPDOWN CONTAINER ELEMENT -->
             <div class="week-dropdown-container">
               <button class="dropdown-btn" id="weekDropBtn" onclick="toggleWeekMenu(event)">
                 <span id="currentWeekText">Week 8</span>
@@ -278,7 +276,6 @@
           </div>
         </div>
     
-        <!-- Matchups will be automatically inserted here by JavaScript -->
         <div class="matchup-list" id="matchupList"></div>
 
       </div>
@@ -290,7 +287,7 @@
             <button class="close-modal-btn" onclick="closeComparison()">← Back</button>
             
             <div class="comp-header-banner">
-                <div class="comp-team-side team-left">
+                <div class="comp-team-side team-left" id="modalHeaderLeft">
                     <div class="comp-team-info">
                         <div>
                             <span class="comp-team-sub" id="lblSubLeft">REGION</span>
@@ -305,7 +302,7 @@
                     <span id="lblModalStatus">PREVIEW</span>
                 </div>
                 
-                <div class="comp-team-side team-right">
+                <div class="comp-team-side team-right" id="modalHeaderRight">
                     <div class="comp-team-info">
                         <div>
                             <span class="comp-team-sub" id="lblSubRight">REGION</span>
@@ -390,7 +387,14 @@
     <footer>2026 Virtual Football League INC</footer>
 
     <script>
-        // Centralized data object holding schedules, scores, and stats per week
+        // Centralized Master Registry mapping colors directly to specific Team Names
+        const teamColors = {
+            'VERACRUZ': '#967bb6', // Purple
+            'MOBILE': '#4a90e2',    // Blue
+            'COYOTES': '#2e6f40',   // Green
+            'RHINOS': '#e67e22'     // Orange
+        };
+
         const weekData = {
             "Week 6": [
                 {
@@ -436,17 +440,15 @@
             ]
         };
 
-        /* Renders the selected week content onto the page */
         function renderMatchups(weekName) {
             const listContainer = document.getElementById('matchupList');
-            listContainer.innerHTML = ''; // Wipe old list items cleanly
+            listContainer.innerHTML = ''; 
             
             const matchups = weekData[weekName] || [];
             
-            matchups.forEach((match, index) => {
+            matchups.forEach((match) => {
                 const card = document.createElement('div');
                 
-                // Determine CSS configurations depending on the game outcome state
                 let finalClass = match.status === 'FINAL' ? 'is-final' : '';
                 let winnerClass = '';
                 if (match.status === 'FINAL') {
@@ -458,13 +460,15 @@
                 
                 card.className = `matchup-card ${finalClass} ${winnerClass}`;
                 
-                // Construct parameters cleanly to hand off to modal window interactions
                 const stringifiedData = JSON.stringify(match).replace(/"/g, '&quot;');
                 card.setAttribute('onclick', `openComparison(${stringifiedData})`);
                 
+                const leftColor = (teamColors[match.leftTeam] || '#967bb6').replace('#', '');
+                const rightColor = (teamColors[match.rightTeam] || '#2e6f40').replace('#', '');
+
                 card.innerHTML = `
                     <div class="team left">
-                      <img src="${match.leftImg}" alt="${match.leftTeam}" onerror="this.src='https://placehold.co/35x35/967bb6/fff?text=${match.leftInitial}'">
+                      <img src="${match.leftImg}" alt="${match.leftTeam}" onerror="this.src='https://placehold.co/35x35/${leftColor}/fff?text=${match.leftInitial}'">
                       <span>${match.leftTeam}</span>
                       <span class="card-score">${match.leftScore}</span>
                     </div>
@@ -477,30 +481,48 @@
                     <div class="team right">
                       <span class="card-score">${match.rightScore}</span>
                       <span>${match.rightTeam}</span>
-                      <img src="${match.rightImg}" alt="${match.rightTeam}" onerror="this.src='https://placehold.co/35x35/2e6f40/fff?text=${match.rightInitial}'">
+                      <img src="${match.rightImg}" alt="${match.rightTeam}" onerror="this.src='https://placehold.co/35x35/${rightColor}/fff?text=${match.rightInitial}'">
                     </div>
                 `;
                 listContainer.appendChild(card);
             });
         }
 
-        /* Week Selection Interface Functions */
         function toggleWeekMenu(event) {
             event.stopPropagation();
             document.getElementById('weekMenu').classList.toggle('show');
         }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.week-dropdown-container')) {
+                document.getElementById('weekMenu').classList.remove('show');
+            }
+        });
 
         function selectWeek(event, weekName) {
             event.preventDefault();
             event.stopPropagation();
             document.getElementById('currentWeekText').innerText = weekName;
             document.getElementById('weekMenu').classList.remove('show');
-            
-            // Re-render the cards with selected week data records
             renderMatchups(weekName);
         }
 
         function openComparison(data) {
+            // Pull specific team matching hex code assignments dynamically
+            const colorLeft = teamColors[data.leftTeam] || '#967bb6';
+            const colorRight = teamColors[data.rightTeam] || '#2e6f40';
+
+            // Apply specific matching color styling configurations to elements
+            document.getElementById('modalHeaderLeft').style.backgroundColor = colorLeft;
+            document.getElementById('modalHeaderRight').style.backgroundColor = colorRight;
+
+            const leftBars = document.querySelectorAll('.stat-bar-fill.fill-left');
+            const rightBars = document.querySelectorAll('.stat-bar-fill.fill-right');
+            
+            leftBars.forEach(bar => bar.style.backgroundColor = colorLeft);
+            rightBars.forEach(bar => bar.style.backgroundColor = colorRight);
+
+            // Populate text parameters seamlessly
             document.getElementById('lblTeamLeft').innerText = data.leftTeam;
             document.getElementById('lblSubLeft').innerText = data.leftSub;
             document.getElementById('lblScoreLeft').innerText = data.leftScore;
@@ -510,6 +532,15 @@
             document.getElementById('lblScoreRight').innerText = data.rightScore;
             
             document.getElementById('lblModalStatus').innerText = data.status || 'PREVIEW';
+
+            // Handle scores visibility matching card configuration
+            if(data.status === 'FINAL') {
+                document.getElementById('lblScoreLeft').style.display = 'block';
+                document.getElementById('lblScoreRight').style.display = 'block';
+            } else {
+                document.getElementById('lblScoreLeft').style.display = 'none';
+                document.getElementById('lblScoreRight').style.display = 'none';
+            }
 
             document.getElementById('vWinL').innerText = data.stats.win[0] + '%';
             document.getElementById('vWinR').innerText = data.stats.win[1] + '%';
@@ -522,10 +553,8 @@
             document.getElementById('vSackL').innerText = data.stats.sacks[0];
             document.getElementById('vSackR').innerText = data.stats.sacks[1];
 
-            // Normalize values for safe comparison calculations
             updateStatBar('barWinL', 'barWinR', data.stats.win[0], data.stats.win[1]);
             
-            // Offset point differential values safely to keep logic clear of negative value scaling bugs
             let minDiff = Math.min(data.stats.pDiff[0], data.stats.pDiff[1]);
             let offset = minDiff < 0 ? Math.abs(minDiff) + 10 : 0;
             updateStatBar('barDiffL', 'barDiffR', data.stats.pDiff[0] + offset, data.stats.pDiff[1] + offset);
@@ -552,17 +581,12 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Window event click hook to close floating lists automatically when clicking outside
         window.onclick = function(e) {
             if (e.target == document.getElementById('compareModal')) { 
                 closeComparison(); 
             }
-            if (!e.target.closest('.week-dropdown-container')) {
-                document.getElementById('weekMenu').classList.remove('show');
-            }
         }
 
-        // Initialize default layout state on document initialization (Set to Week 8 baseline layout)
         window.onload = function() {
             renderMatchups("Week 8");
         };
