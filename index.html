@@ -258,7 +258,7 @@
           <h2>MATCHUPS</h2>
           <div class="header-actions">
             
-            <!-- FIXED AND FUNCTIONAL DROPDOWN CONTAINER ELEMENT -->
+            <!-- DROPDOWN CONTAINER ELEMENT -->
             <div class="week-dropdown-container">
               <button class="dropdown-btn" id="weekDropBtn" onclick="toggleWeekMenu(event)">
                 <span id="currentWeekText">Week 8</span>
@@ -277,59 +277,9 @@
           </div>
         </div>
     
-        <div class="matchup-list">
-          
-          <!-- VERACRUZ VS MOBILE -->
-          <div class="matchup-card is-final winner-left" onclick="openComparison({
-            leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24',
-            rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17',
-            status: 'FINAL',
-            stats: { win: [75, 50], pDiff: [45, -12], tYards: [380, 310], pYards: [240, 190], sacks: [4, 2] }
-          })">
-            <div class="team left">
-              <img src="images/veracruz.png" alt="Veracruz" onerror="this.src='https://placehold.co/35x35/967bb6/fff?text=V'">
-              <span>VERACRUZ</span>
-              <span class="card-score">24</span>
-            </div>
-            
-            <div class="center">
-              <button class="vs-btn">FINAL</button>
-              <span class="compare-link">GAME STATS ↪</span>
-            </div>
-            
-            <div class="team right">
-              <span class="card-score">17</span>
-              <span>MOBILE</span>
-              <img src="images/mobile.png" alt="Mobile" onerror="this.src='https://placehold.co/35x35/2e6f40/fff?text=M'">
-            </div>
-          </div>
+        <!-- Matchups will be automatically inserted here by JavaScript -->
+        <div class="matchup-list" id="matchupList"></div>
 
-          <!-- RHINOS VS COYOTES -->
-          <div class="matchup-card" onclick="openComparison({
-            leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0',
-            rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0',
-            status: 'PREVIEW',
-            stats: { win: [0, 0], pDiff: [0, 0], tYards: [0, 0], pYards: [0, 0], sacks: [0, 0] }
-          })">
-            <div class="team left">
-              <img src="images/rhinos.png" alt="Rhinos" onerror="this.src='https://placehold.co/35x35/967bb6/fff?text=R'">
-              <span>RHINOS</span>
-              <span class="card-score">0</span>
-            </div>
-            
-            <div class="center">
-              <button class="vs-btn">VS</button>
-              <span class="compare-link">COMPARE ↪</span>
-            </div>
-            
-            <div class="team right">
-              <span class="card-score">0</span>
-              <span>COYOTES</span>
-              <img src="images/coyotes.png" alt="Coyotes" onerror="this.src='https://placehold.co/35x35/2e6f40/fff?text=C'">
-            </div>
-          </div>
-
-        </div>
       </div>
     </div>
 
@@ -439,6 +389,100 @@
     <footer>2026 Virtual Football League INC</footer>
 
     <script>
+        // Centralized data object holding schedules, scores, and stats per week
+        const weekData = {
+            "Week 6": [
+                {
+                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '14', leftImg: 'images/veracruz.png', leftInitial: 'V',
+                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '28', rightImg: 'images/coyotes.png', rightInitial: 'C',
+                    status: 'FINAL',
+                    stats: { win: [50, 80], pDiff: [10, 45], tYards: [290, 410], pYards: [180, 310], sacks: [1, 5] }
+                },
+                {
+                    leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '21', leftImg: 'images/rhinos.png', leftInitial: 'R',
+                    rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '20', rightImg: 'images/mobile.png', rightInitial: 'M',
+                    status: 'FINAL',
+                    stats: { win: [60, 40], pDiff: [8, -5], tYards: [340, 325], pYards: [210, 230], sacks: [3, 2] }
+                }
+            ],
+            "Week 7": [
+                {
+                    leftTeam: 'MOBILE', leftSub: 'ALABAMA', leftScore: '35', leftImg: 'images/mobile.png', leftInitial: 'M',
+                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '42', rightImg: 'images/coyotes.png', rightInitial: 'C',
+                    status: 'FINAL',
+                    stats: { win: [35, 85], pDiff: [-12, 52], tYards: [390, 460], pYards: [280, 350], sacks: [2, 3] }
+                },
+                {
+                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '10', leftImg: 'images/veracruz.png', leftInitial: 'V',
+                    rightTeam: 'RHINOS', rightSub: 'RUSHMORE', leftScore: '7', rightImg: 'images/rhinos.png', rightInitial: 'R',
+                    status: 'FINAL',
+                    stats: { win: [55, 55], pDiff: [13, 5], tYards: [260, 245], pYards: [150, 130], sacks: [4, 4] }
+                }
+            ],
+            "Week 8": [
+                {
+                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24', leftImg: 'images/veracruz.png', leftInitial: 'V',
+                    rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17', rightImg: 'images/mobile.png', rightInitial: 'M',
+                    status: 'FINAL',
+                    stats: { win: [75, 50], pDiff: [45, -12], tYards: [380, 310], pYards: [240, 190], sacks: [4, 2] }
+                },
+                {
+                    leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0', leftImg: 'images/rhinos.png', leftInitial: 'R',
+                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0', rightImg: 'images/coyotes.png', rightInitial: 'C',
+                    status: 'PREVIEW',
+                    stats: { win: [60, 90], pDiff: [2, 59], tYards: [315, 435], pYards: [195, 320], sacks: [3, 4] }
+                }
+            ]
+        };
+
+        /* Renders the selected week content onto the page */
+        function renderMatchups(weekName) {
+            const listContainer = document.getElementById('matchupList');
+            listContainer.innerHTML = ''; // Wipe old list items cleanly
+            
+            const matchups = weekData[weekName] || [];
+            
+            matchups.forEach((match, index) => {
+                const card = document.createElement('div');
+                
+                // Determine CSS configurations depending on the game outcome state
+                let finalClass = match.status === 'FINAL' ? 'is-final' : '';
+                let winnerClass = '';
+                if (match.status === 'FINAL') {
+                    const sLeft = parseInt(match.leftScore);
+                    const sRight = parseInt(match.rightScore);
+                    if (sLeft > sRight) winnerClass = 'winner-left';
+                    if (sRight > sLeft) winnerClass = 'winner-right';
+                }
+                
+                card.className = `matchup-card ${finalClass} ${winnerClass}`;
+                
+                // Construct parameters cleanly to hand off to modal window interactions
+                const stringifiedData = JSON.stringify(match).replace(/"/g, '&quot;');
+                card.setAttribute('onclick', `openComparison(${stringifiedData})`);
+                
+                card.innerHTML = `
+                    <div class="team left">
+                      <img src="${match.leftImg}" alt="${match.leftTeam}" onerror="this.src='https://placehold.co/35x35/967bb6/fff?text=${match.leftInitial}'">
+                      <span>${match.leftTeam}</span>
+                      <span class="card-score">${match.leftScore}</span>
+                    </div>
+                    
+                    <div class="center">
+                      <button class="vs-btn">${match.status}</button>
+                      <span class="compare-link">${match.status === 'FINAL' ? 'GAME STATS ↪' : 'COMPARE ↪'}</span>
+                    </div>
+                    
+                    <div class="team right">
+                      <span class="card-score">${match.rightScore}</span>
+                      <span>${match.rightTeam}</span>
+                      <img src="${match.rightImg}" alt="${match.rightTeam}" onerror="this.src='https://placehold.co/35x35/2e6f40/fff?text=${match.rightInitial}'">
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
         /* Week Selection Interface Functions */
         function toggleWeekMenu(event) {
             event.stopPropagation();
@@ -451,8 +495,8 @@
             document.getElementById('currentWeekText').innerText = weekName;
             document.getElementById('weekMenu').classList.remove('show');
             
-            // This is where you can later hook up data filtering based on the weekName selected
-            console.log("Selected dashboard view context:", weekName);
+            // Re-render the cards with selected week data records
+            renderMatchups(weekName);
         }
 
         function openComparison(data) {
@@ -510,6 +554,11 @@
                 document.getElementById('weekMenu').classList.remove('show');
             }
         }
+
+        // Initialize default layout state on document initialization (Set to Week 8 baseline layout)
+        window.onload = function() {
+            renderMatchups("Week 8");
+        };
     </script>
 </body>
 </html>
