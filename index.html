@@ -150,14 +150,18 @@
         .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
         .matchup-card:hover { transform: translateY(-2px); border-color: var(--accent); }
         
-        .team { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 0.9rem; width: 42%; }
-        .team.left { justify-content: flex-start; }
-        .team.right { justify-content: flex-end; flex-direction: row-reverse; } 
+        .team { display: flex; align-items: center; font-weight: 700; font-size: 0.9rem; width: 42%; }
+        .team.left { justify-content: flex-start; gap: 12px; }
+        
+        /* Fixed Right Alignment: Score -> Name -> Logo */
+        .team.right { justify-content: flex-end; gap: 12px; flex-direction: row; } 
         .team img { width: 32px; height: 32px; object-fit: contain; }
         
         /* Score Text Styling */
         .card-score { font-size: 1.4rem; font-weight: 800; display: none; color: var(--text-muted); }
         .team.left .card-score { margin-left: auto; padding-left: 10px; }
+        
+        /* Pushes the name and logo correctly to the right edge */
         .team.right .card-score { margin-right: auto; padding-right: 10px; }
 
         .center { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 16%; }
@@ -294,6 +298,7 @@
               <button class="vs-btn">FINAL</button>
               <span class="compare-link">GAME STATS ↪</span>
             </div>
+            <!-- Updated order on the right: Score -> Name -> Logo -->
             <div class="team right">
               <span class="card-score">17</span>
               <span>MOBILE</span>
@@ -317,6 +322,7 @@
               <button class="vs-btn">VS</button>
               <span class="compare-link">COMPARE ↪</span>
             </div>
+            <!-- Updated order on the right: Score -> Name -> Logo -->
             <div class="team right">
               <span class="card-score">0</span>
               <span>COYOTES</span>
@@ -466,6 +472,7 @@
             document.body.style.overflow = 'hidden';
         }
 
+        UX / UI Script Layout Functions
         function updateStatBar(leftBarId, rightBarId, val1, val2) {
             let total = val1 + val2;
             let pct1 = total === 0 ? 50 : (val1 / total) * 100;
