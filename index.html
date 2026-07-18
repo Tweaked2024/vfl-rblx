@@ -35,7 +35,7 @@
         
         /* Navigation Menu Lists */
         nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
-        nav ul li { position: relative; display: inline-block; }
+        nav ul li { position: relative !important; display: inline-block; }
         nav ul li a { 
             color: var(--text-muted); 
             text-decoration: none; 
@@ -51,12 +51,11 @@
         }
         nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
 
-        /* Floating Dropdown Box Design */
+        /* Pure Floating Dropdown Box Design */
         .dropdown-menu {
-            display: block;
+            display: none !important;
             visibility: hidden;
             opacity: 0;
-            pointer-events: none;
             position: absolute;
             top: 100%;
             left: 50%;
@@ -66,32 +65,32 @@
             border-radius: 12px;
             padding: 0.6rem 0;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            list-style: none;
+            list-style: none !important;
             margin-top: 5px;
             z-index: 99999;
             transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
         }
         nav ul li.dropdown:hover .dropdown-menu {
+            display: block !important;
             visibility: visible;
             opacity: 1;
-            pointer-events: auto;
             transform: translateX(-50%) translateY(0px);
         }
         .dropdown-menu li { width: 100%; display: block; }
         .dropdown-menu li a {
-            color: #111017;
+            color: #111017 !important;
             padding: 0.7rem 1.4rem;
-            display: block;
+            display: block !important;
             font-size: 0.85rem;
             font-weight: 600;
-            text-transform: none;
+            text-transform: none !important;
             text-decoration: none;
             text-align: left;
             transition: background-color 0.15s ease, color 0.15s ease;
         }
         .dropdown-menu li a:hover { 
-            background-color: #f4f4f6;
-            color: var(--accent); 
+            background-color: #f4f4f6 !important;
+            color: var(--accent) !important; 
         }
         nav ul li.dropdown:hover .nav-arrow { transform: rotate(180deg); }
 
@@ -105,66 +104,44 @@
 
         /* Main Content Container */
         .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; display: flex; justify-content: center; }
-        .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 650px; padding: 2rem; min-height: 250px; }
+        .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 550px; padding: 2rem; min-height: 250px; }
         
         .matchup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid #3d3b4f; padding-bottom: 0.8rem; }
         .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; }
         .header-actions { display: flex; align-items: center; gap: 15px; }
         
-        /* Week Dropdown Container Styles */
-        .week-dropdown-container { position: relative; display: inline-block; }
-        .dropdown-btn { background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
-        .dropdown-btn:hover { border-color: var(--accent); }
-        
-        .week-menu { 
-            display: none; 
-            position: absolute; 
-            top: 100%; 
-            right: 0; 
-            background-color: #ffffff; 
-            min-width: 110px; 
-            border-radius: 8px; 
-            margin-top: 5px; 
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3); 
-            z-index: 500; 
-            overflow: hidden; 
-            list-style: none;
-        }
-        .week-menu.show { display: block; }
-        .week-menu li a { color: #111017; padding: 0.5rem 1rem; display: block; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: background 0.15s; }
-        .week-menu li a:hover { background-color: #f4f4f6; color: var(--accent); }
-
+        .dropdown-btn { background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
         .all-scores-btn { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
 
         /* Matchup Card Styles */
         .matchup-list { display: flex; flex-direction: column; gap: 1rem; }
-        .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: transform 0.2s, border-color 0.2s; user-select: none; }
+        .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
         .matchup-card:hover { transform: translateY(-2px); border-color: var(--accent); }
         
-        /* Balanced Mirroring layout elements */
-        .team { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 0.9rem; width: 38%; }
+        .team { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 0.9rem; width: 42%; }
         .team.left { justify-content: flex-start; }
-        .team.right { justify-content: flex-end; } 
+        .team.right { justify-content: flex-end; flex-direction: row-reverse; } /* Keeps logos on outer edges */
+        .team img { width: 32px; height: 32px; object-fit: contain; }
         
-        .team-badge { width: 35px; height: 35px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 1rem; }
-        
-        /* Scores styling rules */
-        .card-score { font-size: 1.4rem; font-weight: 800; color: var(--text-muted); display: none; }
-        .matchup-card.is-final .card-score { display: inline; }
-        .team.left .card-score { margin-left: auto; } 
-        .team.right .card-score { margin-right: auto; } 
+        /* New Score Text Styling hidden on previews by default */
+        .card-score { font-size: 1.4rem; font-weight: 800; display: none; color: var(--text-muted); }
+        .team.left .card-score { margin-left: auto; padding-left: 10px; }
+        .team.right .card-score { margin-right: auto; padding-right: 10px; }
 
-        .center { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 24%; }
-        .vs-btn { background: #282735; color: var(--text-main); border: none; padding: 0.35rem 0.8rem; font-size: 0.7rem; font-weight: 800; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; width: 85px; text-align: center; cursor: pointer; }
+        .center { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 16%; }
+        .vs-btn { background: #282735; color: var(--text-main); border: none; padding: 0.3rem 0.8rem; font-size: 0.7rem; font-weight: 800; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
         .compare-link { font-size: 0.65rem; color: var(--text-muted); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; white-space: nowrap; }
         .matchup-card:hover .compare-link { color: var(--accent); }
 
-        /* State visibility toggles for finished games */
-        .matchup-card.is-final .vs-btn { background: #1f1d29; color: var(--text-muted); }
+        /* --- STATE VARIANT: IS FINAL (Transforms layout if match is done) --- */
+        .matchup-card.is-final .card-score { display: inline-block; }
+        .matchup-card.is-final .vs-btn { background: #1f1d29; color: var(--text-muted); font-size: 0.65rem; }
+        
+        /* Highlighting the winning score */
         .matchup-card.winner-left .team.left .card-score { color: var(--text-main); }
         .matchup-card.winner-right .team.right .card-score { color: var(--text-main); }
 
-        /* --- DYNAMIC MODAL OVERLAY --- */
+        /* --- MODAL DESIGN --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -192,9 +169,9 @@
         .close-modal-btn:hover { background: var(--accent); }
 
         .comp-header-banner { display: flex; border-radius: 12px; overflow: hidden; margin-bottom: 2rem; font-weight: 800; text-transform: uppercase; }
-        .comp-team-side { padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; width: 45%; color: #ffffff; }
-        .comp-team-side.team-left { text-align: left; } 
-        .comp-team-side.team-right { text-align: right; flex-direction: row-reverse; } 
+        .comp-team-side { padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; width: 45%; }
+        .comp-team-side.team-left { background: #967bb6; text-align: left; } 
+        .comp-team-side.team-right { background: #2e6f40; text-align: right; flex-direction: row-reverse; } 
         
         .comp-vs-divider { width: 10%; background: #ffffff; color: #111017; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 0.75rem; }
         .comp-vs-divider strong { font-size: 1.1rem; }
@@ -204,14 +181,15 @@
         .comp-team-sub { font-size: 0.7rem; opacity: 0.8; display: block; font-weight: 600; }
         .comp-team-score { font-size: 2rem; }
 
-        /* Stat Comparison Bar Rows */
+        /* Stat Comparison Rows */
         .stat-section-title { font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 1.5rem 0 0.8rem 0; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
         .stat-row { margin-bottom: 1.2rem; }
         .stat-labels { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; }
         .stat-name { color: var(--text-main); }
         .stat-bar-container { height: 8px; background: #23222d; border-radius: 4px; overflow: hidden; display: flex; }
         .stat-bar-fill { height: 100%; transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .stat-bar-fill.fill-left { border-right: 2px solid var(--bg-main); }
+        .stat-bar-fill.fill-left { background: #967bb6; border-right: 2px solid var(--bg-main); }
+        .stat-bar-fill.fill-right { background: #2e6f40; }
 
         .join-footer { background-color: var(--accent); color: #111017; padding: 2.5rem 4%; display: flex; justify-content: space-between; align-items: center; }
         .join-footer h2 { font-size: 1.8rem; font-weight: 700; text-transform: lowercase; }
@@ -257,28 +235,65 @@
         <div class="matchup-header">
           <h2>MATCHUPS</h2>
           <div class="header-actions">
-            
-            <div class="week-dropdown-container">
-              <button class="dropdown-btn" id="weekDropBtn" onclick="toggleWeekMenu(event)">
-                <span id="currentWeekText">Week 8</span>
-                <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
-                    <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                </svg>
-              </button>
-              <ul class="week-menu" id="weekMenu">
-                <li><a href="#" onclick="selectWeek(event, 'Week 6')">Week 6</a></li>
-                <li><a href="#" onclick="selectWeek(event, 'Week 7')">Week 7</a></li>
-                <li><a href="#" onclick="selectWeek(event, 'Week 8')">Week 8</a></li>
-              </ul>
+            <div class="dropdown">
+              <button class="dropdown-btn">Week 8 ▾</button>
+              <div class="dropdown-menu" style="min-width: 120px;">
+                <li><a href="#">Week 8</a></li>
+              </div>
             </div>
-            
             <a class="all-scores-btn" href="scores.html">all scores →</a>
           </div>
         </div>
     
-        <!-- Matchups Container Area -->
-        <div class="matchup-list" id="matchupList"></div>
+        <div class="matchup-list">
+          
+          <!-- COMPLETED GAME CARD (Notice classes: is-final winner-left) -->
+          <div class="matchup-card is-final winner-left" onclick="openComparison({
+            leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24',
+            rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17',
+            status: 'FINAL',
+            stats: { win: [75, 50], pDiff: [45, -12], tYards: [380, 310], pYards: [240, 190], sacks: [4, 2] }
+          })">
+            <div class="team left">
+              <img src="images/veracruz.png" alt="Veracruz" onerror="this.src='https://placehold.co/32x32/967bb6/fff?text=V'">
+              <span>VERACRUZ</span>
+              <span class="card-score">24</span>
+            </div>
+            <div class="center">
+              <button class="vs-btn">FINAL</button>
+              <span class="compare-link">GAME STATS ↪</span>
+            </div>
+            <div class="team right">
+              <span class="card-score">17</span>
+              <span>MOBILE</span>
+              <img src="images/mobile.png" alt="Mobile" onerror="this.src='https://placehold.co/32x32/2e6f40/fff?text=M'">
+            </div>
+          </div>
 
+          <!-- UNPLAYED/PREVIEW GAME CARD (Standard setup) -->
+          <div class="matchup-card" onclick="openComparison({
+            leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0',
+            rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0',
+            status: 'PREVIEW',
+            stats: { win: [0, 0], pDiff: [0, 0], tYards: [0, 0], pYards: [0, 0], sacks: [0, 0] }
+          })">
+            <div class="team left">
+              <img src="images/rhinos.png" alt="Rhinos" onerror="this.src='https://placehold.co/32x32/967bb6/fff?text=R'">
+              <span>RHINOS</span>
+              <span class="card-score">0</span>
+            </div>
+            <div class="center">
+              <button class="vs-btn">VS</button>
+              <span class="compare-link">COMPARE ↪</span>
+            </div>
+            <div class="team right">
+              <span class="card-score">0</span>
+              <span>COYOTES</span>
+              <img src="images/coyotes.png" alt="Coyotes" onerror="this.src='https://placehold.co/32x32/2e6f40/fff?text=C'">
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -288,7 +303,7 @@
             <button class="close-modal-btn" onclick="closeComparison()">← Back</button>
             
             <div class="comp-header-banner">
-                <div class="comp-team-side team-left" id="modalHeaderLeft">
+                <div class="comp-team-side team-left">
                     <div class="comp-team-info">
                         <div>
                             <span class="comp-team-sub" id="lblSubLeft">REGION</span>
@@ -303,7 +318,7 @@
                     <span id="lblModalStatus">PREVIEW</span>
                 </div>
                 
-                <div class="comp-team-side team-right" id="modalHeaderRight">
+                <div class="comp-team-side team-right">
                     <div class="comp-team-info">
                         <div>
                             <span class="comp-team-sub" id="lblSubRight">REGION</span>
@@ -365,42 +380,6 @@
                 </div>
             </div>
 
-            <!-- Game Stats Section Block -->
-            <div class="stat-section-title">Game Stats</div>
-            <div class="stat-row">
-                <div class="stat-labels">
-                    <span id="vRushL">0</span>
-                    <span class="stat-name">Rushing Yards</span>
-                    <span id="vRushR">0</span>
-                </div>
-                <div class="stat-bar-container">
-                    <div class="stat-bar-fill fill-left" id="barRushL"></div>
-                    <div class="stat-bar-fill fill-right" id="barRushR"></div>
-                </div>
-            </div>
-            <div class="stat-row">
-                <div class="stat-labels">
-                    <span id="vTurnoverL">0</span>
-                    <span class="stat-name">Turnovers</span>
-                    <span id="vTurnoverR">0</span>
-                </div>
-                <div class="stat-bar-container">
-                    <div class="stat-bar-fill fill-left" id="barTurnoverL"></div>
-                    <div class="stat-bar-fill fill-right" id="barTurnoverR"></div>
-                </div>
-            </div>
-            <div class="stat-row">
-                <div class="stat-labels">
-                    <span id="vFirstDownL">0</span>
-                    <span class="stat-name">First Downs</span>
-                    <span id="vFirstDownR">0</span>
-                </div>
-                <div class="stat-bar-container">
-                    <div class="stat-bar-fill fill-left" id="barFirstDownL"></div>
-                    <div class="stat-bar-fill fill-right" id="barFirstDownR"></div>
-                </div>
-            </div>
-
             <div class="stat-section-title">Defense</div>
             <div class="stat-row">
                 <div class="stat-labels">
@@ -411,17 +390,6 @@
                 <div class="stat-bar-container">
                     <div class="stat-bar-fill fill-left" id="barSackL"></div>
                     <div class="stat-bar-fill fill-right" id="barSackR"></div>
-                </div>
-            </div>
-            <div class="stat-row">
-                <div class="stat-labels">
-                    <span id="vIntL">0</span>
-                    <span class="stat-name">Interceptions</span>
-                    <span id="vIntR">0</span>
-                </div>
-                <div class="stat-bar-container">
-                    <div class="stat-bar-fill fill-left" id="barIntL"></div>
-                    <div class="stat-bar-fill fill-right" id="barIntR"></div>
                 </div>
             </div>
         </div>
@@ -435,155 +403,8 @@
     <footer>2026 Virtual Football League INC</footer>
 
     <script>
-        const teamColors = {
-            'VERACRUZ': '#967bb6', 
-            'MOBILE': '#4a90e2',    
-            'COYOTES': '#2e6f40',   
-            'RHINOS': '#e67e22'     
-        };
-
-        const weekData = {
-            "Week 6": [
-                {
-                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '14', leftInitial: 'V',
-                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '28', rightInitial: 'C',
-                    status: 'FINAL',
-                    stats: { win: [50, 80], pDiff: [10, 45], tYards: [290, 410], pYards: [180, 310], sacks: [1, 5], rush: [110, 100], turnovers: [2, 1], firstDowns: [14, 21], ints: [1, 0] }
-                },
-                {
-                    leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '21', leftInitial: 'R',
-                    rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '20', rightInitial: 'M',
-                    status: 'FINAL',
-                    stats: { win: [60, 40], pDiff: [8, -5], tYards: [340, 325], pYards: [210, 230], sacks: [3, 2], rush: [130, 95], turnovers: [1, 3], firstDowns: [18, 16], ints: [1, 2] }
-                }
-            ],
-            "Week 7": [
-                {
-                    leftTeam: 'MOBILE', leftSub: 'ALABAMA', leftScore: '35', leftInitial: 'M',
-                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '42', rightInitial: 'C',
-                    status: 'FINAL',
-                    stats: { win: [35, 85], pDiff: [-12, 52], tYards: [390, 460], pYards: [280, 350], sacks: [2, 3], rush: [110, 110], turnovers: [2, 0], firstDowns: [22, 25], ints: [2, 0] }
-                },
-                {
-                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '10', leftInitial: 'V',
-                    rightTeam: 'RHINOS', rightSub: 'RUSHMORE', rightScore: '7', rightInitial: 'R',
-                    status: 'FINAL',
-                    stats: { win: [55, 55], pDiff: [13, 5], tYards: [260, 245], pYards: [150, 130], sacks: [4, 4], rush: [110, 115], turnovers: [0, 1], firstDowns: [12, 11], ints: [0, 0] }
-                }
-            ],
-            "Week 8": [
-                {
-                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24', leftInitial: 'V',
-                    rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17', rightInitial: 'M',
-                    status: 'FINAL',
-                    stats: { win: [75, 50], pDiff: [45, -12], tYards: [380, 310], pYards: [240, 190], sacks: [4, 2], rush: [140, 120], turnovers: [1, 2], firstDowns: [19, 15], ints: [1, 1] }
-                },
-                {
-                    leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0', leftInitial: 'R',
-                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0', rightInitial: 'C',
-                    status: 'PREVIEW',
-                    stats: { win: [60, 90], pDiff: [2, 59], tYards: [315, 435], pYards: [195, 320], sacks: [3, 4], rush: [120, 115], turnovers: [0, 0], firstDowns: [15, 22], ints: [0, 0] }
-                }
-            ]
-        };
-
-        function renderMatchups(weekName) {
-            const listContainer = document.getElementById('matchupList');
-            listContainer.innerHTML = ''; 
-            
-            const matchups = weekData[weekName] || [];
-            
-            matchups.forEach((match) => {
-                const card = document.createElement('div');
-                
-                let finalClass = match.status === 'FINAL' ? 'is-final' : '';
-                let winnerClass = '';
-                if (match.status === 'FINAL') {
-                    const sLeft = parseInt(match.leftScore);
-                    const sRight = parseInt(match.rightScore);
-                    if (sLeft > sRight) winnerClass = 'winner-left';
-                    if (sRight > sLeft) winnerClass = 'winner-right';
-                }
-                
-                card.className = `matchup-card ${finalClass} ${winnerClass}`;
-                
-                const stringifiedData = JSON.stringify(match).replace(/"/g, '&quot;');
-                card.setAttribute('onclick', `openComparison(${stringifiedData})`);
-                
-                const leftColor = teamColors[match.leftTeam] || '#967bb6';
-                const rightColor = teamColors[match.rightTeam] || '#2e6f40';
-
-                card.innerHTML = `
-                    <div class="team left">
-                      <div class="team-badge" style="background-color: ${leftColor};">${match.leftInitial}</div>
-                      <span>${match.leftTeam}</span>
-                      <span class="card-score">${match.leftScore}</span>
-                    </div>
-                    
-                    <div class="center">
-                      <button class="vs-btn">${match.status}</button>
-                      <span class="compare-link">${match.status === 'FINAL' ? 'GAME STATS ↪' : 'COMPARE ↪'}</span>
-                    </div>
-                    
-                    <div class="team right">
-                      <span class="card-score">${match.rightScore}</span>
-                      <span>${match.rightTeam}</span>
-                      <div class="team-badge" style="background-color: ${rightColor};">${match.rightInitial}</div>
-                    </div>
-                `;
-                listContainer.appendChild(card);
-            });
-        }
-
-        function toggleWeekMenu(event) {
-            event.stopPropagation();
-            document.getElementById('weekMenu').classList.toggle('show');
-        }
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.week-dropdown-container')) {
-                document.getElementById('weekMenu').classList.remove('show');
-            }
-        });
-
-        function selectWeek(event, weekName) {
-            event.preventDefault();
-            event.stopPropagation();
-            document.getElementById('currentWeekText').innerText = weekName;
-            document.getElementById('weekMenu').classList.remove('show');
-            renderMatchups(weekName);
-        }
-
-        // Helper function to calculate proportional side-by-side widths
-        function updateStatBar(leftBarId, rightBarId, valLeft, valRight) {
-            const total = parseFloat(valLeft) + parseFloat(valRight);
-            const leftBar = document.getElementById(leftBarId);
-            const rightBar = document.getElementById(rightBarId);
-            
-            if (total === 0) {
-                leftBar.style.width = '50%';
-                rightBar.style.width = '50%';
-            } else {
-                const pctLeft = (valLeft / total) * 100;
-                const pctRight = (valRight / total) * 100;
-                leftBar.style.width = pctLeft + '%';
-                rightBar.style.width = pctRight + '%';
-            }
-        }
-
         function openComparison(data) {
-            const colorLeft = teamColors[data.leftTeam] || '#967bb6';
-            const colorRight = teamColors[data.rightTeam] || '#2e6f40';
-
-            document.getElementById('modalHeaderLeft').style.backgroundColor = colorLeft;
-            document.getElementById('modalHeaderRight').style.backgroundColor = colorRight;
-
-            const leftBars = document.querySelectorAll('.stat-bar-fill.fill-left');
-            const rightBars = document.querySelectorAll('.stat-bar-fill.fill-right');
-            
-            leftBars.forEach(bar => bar.style.backgroundColor = colorLeft);
-            rightBars.forEach(bar => bar.style.backgroundColor = colorRight);
-
+            // 1. Fill Text Data Elements
             document.getElementById('lblTeamLeft').innerText = data.leftTeam;
             document.getElementById('lblSubLeft').innerText = data.leftSub;
             document.getElementById('lblScoreLeft').innerText = data.leftScore;
@@ -592,17 +413,10 @@
             document.getElementById('lblSubRight').innerText = data.rightSub;
             document.getElementById('lblScoreRight').innerText = data.rightScore;
             
+            // Updates internal modal status tag ("FINAL" or "PREVIEW")
             document.getElementById('lblModalStatus').innerText = data.status || 'PREVIEW';
 
-            if(data.status === 'FINAL') {
-                document.getElementById('lblScoreLeft').style.display = 'block';
-                document.getElementById('lblScoreRight').style.display = 'block';
-            } else {
-                document.getElementById('lblScoreLeft').style.display = 'none';
-                document.getElementById('lblScoreRight').style.display = 'none';
-            }
-
-            // Assign standard text maps
+            // 2. Load Metric Text Values
             document.getElementById('vWinL').innerText = data.stats.win[0] + '%';
             document.getElementById('vWinR').innerText = data.stats.win[1] + '%';
             document.getElementById('vDiffL').innerText = data.stats.pDiff[0];
@@ -614,43 +428,35 @@
             document.getElementById('vSackL').innerText = data.stats.sacks[0];
             document.getElementById('vSackR').innerText = data.stats.sacks[1];
 
-            // Assign new Game Stats parameters text maps
-            document.getElementById('vRushL').innerText = data.stats.rush[0];
-            document.getElementById('vRushR').innerText = data.stats.rush[1];
-            document.getElementById('vTurnoverL').innerText = data.stats.turnovers[0];
-            document.getElementById('vTurnoverR').innerText = data.stats.turnovers[1];
-            document.getElementById('vFirstDownL').innerText = data.stats.firstDowns[0];
-            document.getElementById('vFirstDownR').innerText = data.stats.firstDowns[1];
-            document.getElementById('vIntL').innerText = data.stats.ints[0];
-            document.getElementById('vIntR').innerText = data.stats.ints[1];
-
-            // Render width bar percentages dynamically
+            // 3. Calculate and Render Proportional Dynamic Bar Widths
             updateStatBar('barWinL', 'barWinR', data.stats.win[0], data.stats.win[1]);
-            
-            let minDiff = Math.min(data.stats.pDiff[0], data.stats.pDiff[1]);
-            let offset = minDiff < 0 ? Math.abs(minDiff) + 10 : 0;
-            updateStatBar('barDiffL', 'barDiffR', data.stats.pDiff[0] + offset, data.stats.pDiff[1] + offset);
-            
+            updateStatBar('barDiffL', 'barDiffR', data.stats.pDiff[0] + 100, data.stats.pDiff[1] + 100);
             updateStatBar('barYardsL', 'barYardsR', data.stats.tYards[0], data.stats.tYards[1]);
             updateStatBar('barPassL', 'barPassR', data.stats.pYards[0], data.stats.pYards[1]);
-            updateStatBar('barRushL', 'barRushR', data.stats.rush[0], data.stats.rush[1]);
             updateStatBar('barSackL', 'barSackR', data.stats.sacks[0], data.stats.sacks[1]);
-            updateStatBar('barFirstDownL', 'barFirstDownR', data.stats.firstDowns[0], data.stats.firstDowns[1]);
-            updateStatBar('barIntL', 'barIntR', data.stats.ints[0], data.stats.ints[1]);
 
-            // Turnovers are treated inversely (fewer turnovers is better, but bar size shows absolute balance)
-            updateStatBar('barTurnoverL', 'barTurnoverR', data.stats.turnovers[0], data.stats.turnovers[1]);
-
-            // Show the modal
+            // 4. Reveal Modal Canvas Space
             document.getElementById('compareModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateStatBar(leftBarId, rightBarId, val1, val2) {
+            let total = val1 + val2;
+            let pct1 = total === 0 ? 50 : (val1 / total) * 100;
+            let pct2 = total === 0 ? 50 : (val2 / total) * 100;
+            
+            document.getElementById(leftBarId).style.width = pct1 + '%';
+            document.getElementById(rightBarId).style.width = pct2 + '%';
         }
 
         function closeComparison() {
             document.getElementById('compareModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
-        // Run default load
-        renderMatchups('Week 8');
+        window.onclick = function(e) {
+            if (e.target == document.getElementById('compareModal')) { closeComparison(); }
+        }
     </script>
 </body>
 </html>
