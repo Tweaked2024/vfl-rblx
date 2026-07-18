@@ -554,6 +554,23 @@
             renderMatchups(weekName);
         }
 
+        // Helper function to calculate proportional side-by-side widths
+        function updateStatBar(leftBarId, rightBarId, valLeft, valRight) {
+            const total = parseFloat(valLeft) + parseFloat(valRight);
+            const leftBar = document.getElementById(leftBarId);
+            const rightBar = document.getElementById(rightBarId);
+            
+            if (total === 0) {
+                leftBar.style.width = '50%';
+                rightBar.style.width = '50%';
+            } else {
+                const pctLeft = (valLeft / total) * 100;
+                const pctRight = (valRight / total) * 100;
+                leftBar.style.width = pctLeft + '%';
+                rightBar.style.width = pctRight + '%';
+            }
+        }
+
         function openComparison(data) {
             const colorLeft = teamColors[data.leftTeam] || '#967bb6';
             const colorRight = teamColors[data.rightTeam] || '#2e6f40';
@@ -617,38 +634,23 @@
             updateStatBar('barYardsL', 'barYardsR', data.stats.tYards[0], data.stats.tYards[1]);
             updateStatBar('barPassL', 'barPassR', data.stats.pYards[0], data.stats.pYards[1]);
             updateStatBar('barRushL', 'barRushR', data.stats.rush[0], data.stats.rush[1]);
-            updateStatBar('barTurnoverL', 'barTurnoverR', data.stats.turnovers[0], data.stats.turnovers[1]);
-            updateStatBar('barFirstDownL', 'barFirstDownR', data.stats.firstDowns[0], data.stats.firstDowns[1]);
             updateStatBar('barSackL', 'barSackR', data.stats.sacks[0], data.stats.sacks[1]);
+            updateStatBar('barFirstDownL', 'barFirstDownR', data.stats.firstDowns[0], data.stats.firstDowns[1]);
             updateStatBar('barIntL', 'barIntR', data.stats.ints[0], data.stats.ints[1]);
 
-            document.getElementById('compareModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
+            // Turnovers are treated inversely (fewer turnovers is better, but bar size shows absolute balance)
+            updateStatBar('barTurnoverL', 'barTurnoverR', data.stats.turnovers[0], data.stats.turnovers[1]);
 
-        function updateStatBar(leftBarId, rightBarId, val1, val2) {
-            let total = val1 + val2;
-            let pct1 = total === 0 ? 50 : (val1 / total) * 100;
-            let pct2 = total === 0 ? 50 : (val2 / total) * 100;
-            
-            document.getElementById(leftBarId).style.width = pct1 + '%';
-            document.getElementById(rightBarId).style.width = pct2 + '%';
+            // Show the modal
+            document.getElementById('compareModal').style.display = 'flex';
         }
 
         function closeComparison() {
             document.getElementById('compareModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
         }
 
-        window.onclick = function(e) {
-            if (e.target == document.getElementById('compareModal')) { 
-                closeComparison(); 
-            }
-        }
-
-        window.onload = function() {
-            renderMatchups("Week 8");
-        };
+        // Run default load
+        renderMatchups('Week 8');
     </script>
 </body>
 </html>
