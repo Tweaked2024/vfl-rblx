@@ -51,7 +51,7 @@
         }
         nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
 
-        /* Pure Floating Dropdown Box Design */
+        /* Floating Dropdown Box Design */
         .dropdown-menu {
             display: block;
             visibility: hidden;
@@ -111,7 +111,7 @@
         .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; }
         .header-actions { display: flex; align-items: center; gap: 15px; }
         
-        /* Functional Week Dropdown Container Styles */
+        /* Week Dropdown Container Styles */
         .week-dropdown-container { position: relative; display: inline-block; }
         .dropdown-btn { background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
         .dropdown-btn:hover { border-color: var(--accent); }
@@ -138,33 +138,33 @@
 
         /* Matchup Card Styles */
         .matchup-list { display: flex; flex-direction: column; gap: 1rem; }
-        .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+        .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: transform 0.2s, border-color 0.2s; user-select: none; }
         .matchup-card:hover { transform: translateY(-2px); border-color: var(--accent); }
         
-        /* Left/Right layout boxes for balanced mirroring */
+        /* Balanced Mirroring layout elements */
         .team { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 0.9rem; width: 38%; }
         .team.left { justify-content: flex-start; }
         .team.right { justify-content: flex-end; } 
-        .team img { width: 35px; height: 35px; object-fit: contain; }
+        
+        .team-badge { width: 35px; height: 35px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 1rem; }
         
         /* Scores styling rules */
-        .card-score { font-size: 1.4rem; font-weight: 800; color: var(--text-muted); opacity: 0; transition: opacity 0.15s; }
-        .matchup-card.is-final .card-score { opacity: 1; }
+        .card-score { font-size: 1.4rem; font-weight: 800; color: var(--text-muted); display: none; }
+        .matchup-card.is-final .card-score { display: inline; }
         .team.left .card-score { margin-left: auto; } 
         .team.right .card-score { margin-right: auto; } 
 
         .center { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 24%; }
-        .vs-btn { background: #282735; color: var(--text-main); border: none; padding: 0.35rem 0.8rem; font-size: 0.7rem; font-weight: 800; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; width: 75px; text-align: center; }
+        .vs-btn { background: #282735; color: var(--text-main); border: none; padding: 0.35rem 0.8rem; font-size: 0.7rem; font-weight: 800; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; width: 85px; text-align: center; cursor: pointer; }
         .compare-link { font-size: 0.65rem; color: var(--text-muted); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; white-space: nowrap; }
         .matchup-card:hover .compare-link { color: var(--accent); }
 
         /* State visibility toggles for finished games */
         .matchup-card.is-final .vs-btn { background: #1f1d29; color: var(--text-muted); }
-        
         .matchup-card.winner-left .team.left .card-score { color: var(--text-main); }
         .matchup-card.winner-right .team.right .card-score { color: var(--text-main); }
 
-        /* --- MODAL DESIGN --- */
+        /* --- STATS COMPARISON MODAL OVERLAY --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -204,7 +204,7 @@
         .comp-team-sub { font-size: 0.7rem; opacity: 0.8; display: block; font-weight: 600; }
         .comp-team-score { font-size: 2rem; }
 
-        /* Stat Comparison Rows */
+        /* Stat Comparison Bar Rows */
         .stat-section-title { font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 1.5rem 0 0.8rem 0; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
         .stat-row { margin-bottom: 1.2rem; }
         .stat-labels { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; }
@@ -276,12 +276,13 @@
           </div>
         </div>
     
+        <!-- Matchups Container Area -->
         <div class="matchup-list" id="matchupList"></div>
 
       </div>
     </div>
 
-    <!-- --- DYNAMIC MODAL OVERLAY --- -->
+    <!-- --- STATS MODAL OVERLAY --- -->
     <div class="modal-overlay" id="compareModal">
         <div class="modal-content">
             <button class="close-modal-btn" onclick="closeComparison()">← Back</button>
@@ -387,53 +388,53 @@
     <footer>2026 Virtual Football League INC</footer>
 
     <script>
-        // Centralized Master Registry mapping colors directly to specific Team Names
+        // Central Team Color Scheme Configuration Registry
         const teamColors = {
-            'VERACRUZ': '#967bb6', // Purple
-            'MOBILE': '#4a90e2',    // Blue
-            'COYOTES': '#2e6f40',   // Green
-            'RHINOS': '#e67e22'     // Orange
+            'VERACRUZ': '#967bb6', 
+            'MOBILE': '#4a90e2',    
+            'COYOTES': '#2e6f40',   
+            'RHINOS': '#e67e22'     
         };
 
         const weekData = {
             "Week 6": [
                 {
-                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '14', leftImg: 'images/veracruz.png', leftInitial: 'V',
-                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '28', rightImg: 'images/coyotes.png', rightInitial: 'C',
+                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '14', leftInitial: 'V',
+                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '28', rightInitial: 'C',
                     status: 'FINAL',
                     stats: { win: [50, 80], pDiff: [10, 45], tYards: [290, 410], pYards: [180, 310], sacks: [1, 5] }
                 },
                 {
-                    leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '21', leftImg: 'images/rhinos.png', leftInitial: 'R',
-                    rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '20', rightImg: 'images/mobile.png', rightInitial: 'M',
+                    leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '21', leftInitial: 'R',
+                    rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '20', rightInitial: 'M',
                     status: 'FINAL',
                     stats: { win: [60, 40], pDiff: [8, -5], tYards: [340, 325], pYards: [210, 230], sacks: [3, 2] }
                 }
             ],
             "Week 7": [
                 {
-                    leftTeam: 'MOBILE', leftSub: 'ALABAMA', leftScore: '35', leftImg: 'images/mobile.png', leftInitial: 'M',
-                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '42', rightImg: 'images/coyotes.png', rightInitial: 'C',
+                    leftTeam: 'MOBILE', leftSub: 'ALABAMA', leftScore: '35', leftInitial: 'M',
+                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '42', rightInitial: 'C',
                     status: 'FINAL',
                     stats: { win: [35, 85], pDiff: [-12, 52], tYards: [390, 460], pYards: [280, 350], sacks: [2, 3] }
                 },
                 {
-                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '10', leftImg: 'images/veracruz.png', leftInitial: 'V',
-                    rightTeam: 'RHINOS', rightSub: 'RUSHMORE', rightScore: '7', rightImg: 'images/rhinos.png', rightInitial: 'R',
+                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '10', leftInitial: 'V',
+                    rightTeam: 'RHINOS', rightSub: 'RUSHMORE', rightScore: '7', rightInitial: 'R',
                     status: 'FINAL',
                     stats: { win: [55, 55], pDiff: [13, 5], tYards: [260, 245], pYards: [150, 130], sacks: [4, 4] }
                 }
             ],
             "Week 8": [
                 {
-                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24', leftImg: 'images/veracruz.png', leftInitial: 'V',
-                    rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17', rightImg: 'images/mobile.png', rightInitial: 'M',
+                    leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24', leftInitial: 'V',
+                    rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17', rightInitial: 'M',
                     status: 'FINAL',
                     stats: { win: [75, 50], pDiff: [45, -12], tYards: [380, 310], pYards: [240, 190], sacks: [4, 2] }
                 },
                 {
-                    leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0', leftImg: 'images/rhinos.png', leftInitial: 'R',
-                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0', rightImg: 'images/coyotes.png', rightInitial: 'C',
+                    leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0', leftInitial: 'R',
+                    rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0', rightInitial: 'C',
                     status: 'PREVIEW',
                     stats: { win: [60, 90], pDiff: [2, 59], tYards: [315, 435], pYards: [195, 320], sacks: [3, 4] }
                 }
@@ -460,15 +461,16 @@
                 
                 card.className = `matchup-card ${finalClass} ${winnerClass}`;
                 
+                // Directly pass string data to open the model overlay layout smoothly
                 const stringifiedData = JSON.stringify(match).replace(/"/g, '&quot;');
                 card.setAttribute('onclick', `openComparison(${stringifiedData})`);
                 
-                const leftColor = (teamColors[match.leftTeam] || '#967bb6').replace('#', '');
-                const rightColor = (teamColors[match.rightTeam] || '#2e6f40').replace('#', '');
+                const leftColor = teamColors[match.leftTeam] || '#967bb6';
+                const rightColor = teamColors[match.rightTeam] || '#2e6f40';
 
                 card.innerHTML = `
                     <div class="team left">
-                      <img src="${match.leftImg}" alt="${match.leftTeam}" onerror="this.src='https://placehold.co/35x35/${leftColor}/fff?text=${match.leftInitial}'">
+                      <div class="team-badge" style="background-color: ${leftColor};">${match.leftInitial}</div>
                       <span>${match.leftTeam}</span>
                       <span class="card-score">${match.leftScore}</span>
                     </div>
@@ -481,7 +483,7 @@
                     <div class="team right">
                       <span class="card-score">${match.rightScore}</span>
                       <span>${match.rightTeam}</span>
-                      <img src="${match.rightImg}" alt="${match.rightTeam}" onerror="this.src='https://placehold.co/35x35/${rightColor}/fff?text=${match.rightInitial}'">
+                      <div class="team-badge" style="background-color: ${rightColor};">${match.rightInitial}</div>
                     </div>
                 `;
                 listContainer.appendChild(card);
@@ -508,11 +510,10 @@
         }
 
         function openComparison(data) {
-            // Pull specific team matching hex code assignments dynamically
             const colorLeft = teamColors[data.leftTeam] || '#967bb6';
             const colorRight = teamColors[data.rightTeam] || '#2e6f40';
 
-            // Apply specific matching color styling configurations to elements
+            // Apply designated team banner color blocks 
             document.getElementById('modalHeaderLeft').style.backgroundColor = colorLeft;
             document.getElementById('modalHeaderRight').style.backgroundColor = colorRight;
 
@@ -522,7 +523,7 @@
             leftBars.forEach(bar => bar.style.backgroundColor = colorLeft);
             rightBars.forEach(bar => bar.style.backgroundColor = colorRight);
 
-            // Populate text parameters seamlessly
+            // Populates modal information fields
             document.getElementById('lblTeamLeft').innerText = data.leftTeam;
             document.getElementById('lblSubLeft').innerText = data.leftSub;
             document.getElementById('lblScoreLeft').innerText = data.leftScore;
@@ -533,7 +534,7 @@
             
             document.getElementById('lblModalStatus').innerText = data.status || 'PREVIEW';
 
-            // Handle scores visibility matching card configuration
+            // Check if game is complete to toggle score displays properly
             if(data.status === 'FINAL') {
                 document.getElementById('lblScoreLeft').style.display = 'block';
                 document.getElementById('lblScoreRight').style.display = 'block';
@@ -542,6 +543,7 @@
                 document.getElementById('lblScoreRight').style.display = 'none';
             }
 
+            // Assign numerical text outputs
             document.getElementById('vWinL').innerText = data.stats.win[0] + '%';
             document.getElementById('vWinR').innerText = data.stats.win[1] + '%';
             document.getElementById('vDiffL').innerText = data.stats.pDiff[0];
@@ -553,6 +555,7 @@
             document.getElementById('vSackL').innerText = data.stats.sacks[0];
             document.getElementById('vSackR').innerText = data.stats.sacks[1];
 
+            // Animate layout tracking fill states
             updateStatBar('barWinL', 'barWinR', data.stats.win[0], data.stats.win[1]);
             
             let minDiff = Math.min(data.stats.pDiff[0], data.stats.pDiff[1]);
@@ -563,6 +566,7 @@
             updateStatBar('barPassL', 'barPassR', data.stats.pYards[0], data.stats.pYards[1]);
             updateStatBar('barSackL', 'barSackR', data.stats.sacks[0], data.stats.sacks[1]);
 
+            // Open overlay window display config
             document.getElementById('compareModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
