@@ -110,7 +110,29 @@
         .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; }
         .header-actions { display: flex; align-items: center; gap: 15px; }
         
-        .dropdown-btn { background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+        /* Functional Week Dropdown Container Styles */
+        .week-dropdown-container { position: relative; display: inline-block; }
+        .dropdown-btn { background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
+        .dropdown-btn:hover { border-color: var(--accent); }
+        
+        .week-menu { 
+            display: none; 
+            position: absolute; 
+            top: 100%; 
+            right: 0; 
+            background-color: #ffffff; 
+            min-width: 110px; 
+            border-radius: 8px; 
+            margin-top: 5px; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3); 
+            z-index: 500; 
+            overflow: hidden; 
+            list-style: none;
+        }
+        .week-menu.show { display: block; }
+        .week-menu li a { color: #111017; padding: 0.5rem 1rem; display: block; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+        .week-menu li a:hover { background-color: #f4f4f6; color: var(--accent); }
+
         .all-scores-btn { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
 
         /* Matchup Card Styles */
@@ -118,7 +140,7 @@
         .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
         .matchup-card:hover { transform: translateY(-2px); border-color: var(--accent); }
         
-        /* Updated Left/Right layout boxes for balanced mirroring */
+        /* Left/Right layout boxes for balanced mirroring */
         .team { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 0.9rem; width: 38%; }
         .team.left { justify-content: flex-start; }
         .team.right { justify-content: flex-end; } 
@@ -235,26 +257,35 @@
         <div class="matchup-header">
           <h2>MATCHUPS</h2>
           <div class="header-actions">
-            <div class="dropdown">
-              <button class="dropdown-btn">Week 8 ▾</button>
-              <div class="dropdown-menu" style="min-width: 120px;">
-                <li><a href="#">Week 8</a></li>
-              </div>
+            
+            <!-- FIXED AND FUNCTIONAL DROPDOWN CONTAINER ELEMENT -->
+            <div class="week-dropdown-container">
+              <button class="dropdown-btn" id="weekDropBtn" onclick="toggleWeekMenu(event)">
+                <span id="currentWeekText">Week 8</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
+                    <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+              </button>
+              <ul class="week-menu" id="weekMenu">
+                <li><a href="#" onclick="selectWeek(event, 'Week 6')">Week 6</a></li>
+                <li><a href="#" onclick="selectWeek(event, 'Week 7')">Week 7</a></li>
+                <li><a href="#" onclick="selectWeek(event, 'Week 8')">Week 8</a></li>
+              </ul>
             </div>
+            
             <a class="all-scores-btn" href="scores.html">all scores →</a>
           </div>
         </div>
     
         <div class="matchup-list">
           
-          <!-- VERACRUZ VS MOBILE (COMPLETED IN REVERSED MIRROR FORMAT) -->
+          <!-- VERACRUZ VS MOBILE -->
           <div class="matchup-card is-final winner-left" onclick="openComparison({
             leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24',
             rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17',
             status: 'FINAL',
             stats: { win: [75, 50], pDiff: [45, -12], tYards: [380, 310], pYards: [240, 190], sacks: [4, 2] }
           })">
-            <!-- Left Side: Logo -> Name -> Score -->
             <div class="team left">
               <img src="images/veracruz.png" alt="Veracruz" onerror="this.src='https://placehold.co/35x35/967bb6/fff?text=V'">
               <span>VERACRUZ</span>
@@ -266,7 +297,6 @@
               <span class="compare-link">GAME STATS ↪</span>
             </div>
             
-            <!-- Right Side: Score -> Name -> Logo -->
             <div class="team right">
               <span class="card-score">17</span>
               <span>MOBILE</span>
@@ -274,14 +304,13 @@
             </div>
           </div>
 
-          <!-- RHINOS VS COYOTES (PREVIEW MATCH IN REVERSED MIRROR FORMAT) -->
+          <!-- RHINOS VS COYOTES -->
           <div class="matchup-card" onclick="openComparison({
             leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0',
             rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0',
             status: 'PREVIEW',
             stats: { win: [0, 0], pDiff: [0, 0], tYards: [0, 0], pYards: [0, 0], sacks: [0, 0] }
           })">
-            <!-- Left Side: Logo -> Name -> Score -->
             <div class="team left">
               <img src="images/rhinos.png" alt="Rhinos" onerror="this.src='https://placehold.co/35x35/967bb6/fff?text=R'">
               <span>RHINOS</span>
@@ -293,7 +322,6 @@
               <span class="compare-link">COMPARE ↪</span>
             </div>
             
-            <!-- Right Side: Score -> Name -> Logo -->
             <div class="team right">
               <span class="card-score">0</span>
               <span>COYOTES</span>
@@ -411,6 +439,22 @@
     <footer>2026 Virtual Football League INC</footer>
 
     <script>
+        /* Week Selection Interface Functions */
+        function toggleWeekMenu(event) {
+            event.stopPropagation();
+            document.getElementById('weekMenu').classList.toggle('show');
+        }
+
+        function selectWeek(event, weekName) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById('currentWeekText').innerText = weekName;
+            document.getElementById('weekMenu').classList.remove('show');
+            
+            // This is where you can later hook up data filtering based on the weekName selected
+            console.log("Selected dashboard view context:", weekName);
+        }
+
         function openComparison(data) {
             document.getElementById('lblTeamLeft').innerText = data.leftTeam;
             document.getElementById('lblSubLeft').innerText = data.leftSub;
@@ -457,8 +501,14 @@
             document.body.style.overflow = 'auto';
         }
 
+        // Window event click hook to close floating lists automatically when clicking outside
         window.onclick = function(e) {
-            if (e.target == document.getElementById('compareModal')) { closeComparison(); }
+            if (e.target == document.getElementById('compareModal')) { 
+                closeComparison(); 
+            }
+            if (!e.target.closest('.week-dropdown-container')) {
+                document.getElementById('weekMenu').classList.remove('show');
+            }
         }
     </script>
 </body>
