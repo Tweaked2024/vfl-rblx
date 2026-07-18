@@ -104,7 +104,7 @@
 
         /* Main Content Container */
         .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; display: flex; justify-content: center; }
-        .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 500px; padding: 2rem; min-height: 250px; }
+        .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 550px; padding: 2rem; min-height: 250px; }
         
         .matchup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid #3d3b4f; padding-bottom: 0.8rem; }
         .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; }
@@ -115,18 +115,31 @@
 
         /* Matchup Card Styles */
         .matchup-list { display: flex; flex-direction: column; gap: 1rem; }
-        .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+        .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
         .matchup-card:hover { transform: translateY(-2px); border-color: var(--accent); }
         
-        .team { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.9rem; width: 40%; }
+        .team { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 0.9rem; width: 42%; }
         .team.left { justify-content: flex-start; }
-        .team.right { justify-content: flex-end; }
-        .team img { width: 30px; height: 30px; object-fit: contain; }
+        .team.right { justify-content: flex-end; flex-direction: row-reverse; } /* Keeps logos on outer edges */
+        .team img { width: 32px; height: 32px; object-fit: contain; }
         
-        .center { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 20%; }
-        .vs-btn { background: #282735; color: var(--text-main); border: none; padding: 0.3rem 0.6rem; font-size: 0.75rem; font-weight: 800; border-radius: 4px; }
-        .compare-link { font-size: 0.7rem; color: var(--text-muted); text-decoration: none; font-weight: 600; }
+        /* New Score Text Styling hidden on previews by default */
+        .card-score { font-size: 1.4rem; font-weight: 800; display: none; color: var(--text-muted); }
+        .team.left .card-score { margin-left: auto; padding-left: 10px; }
+        .team.right .card-score { margin-right: auto; padding-right: 10px; }
+
+        .center { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 16%; }
+        .vs-btn { background: #282735; color: var(--text-main); border: none; padding: 0.3rem 0.8rem; font-size: 0.7rem; font-weight: 800; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .compare-link { font-size: 0.65rem; color: var(--text-muted); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; white-space: nowrap; }
         .matchup-card:hover .compare-link { color: var(--accent); }
+
+        /* --- STATE VARIANT: IS FINAL (Transforms layout if match is done) --- */
+        .matchup-card.is-final .card-score { display: inline-block; }
+        .matchup-card.is-final .vs-btn { background: #1f1d29; color: var(--text-muted); font-size: 0.65rem; }
+        
+        /* Highlighting the winning score */
+        .matchup-card.winner-left .team.left .card-score { color: var(--text-main); }
+        .matchup-card.winner-right .team.right .card-score { color: var(--text-main); }
 
         /* --- MODAL DESIGN --- */
         .modal-overlay {
@@ -234,43 +247,49 @@
     
         <div class="matchup-list">
           
-          <!-- MATCHUP BOX 1 -->
-          <div class="matchup-card" onclick="openComparison({
+          <!-- COMPLETED GAME CARD (Notice classes: is-final winner-left) -->
+          <div class="matchup-card is-final winner-left" onclick="openComparison({
             leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24',
             rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17',
+            status: 'FINAL',
             stats: { win: [75, 50], pDiff: [45, -12], tYards: [380, 310], pYards: [240, 190], sacks: [4, 2] }
           })">
             <div class="team left">
-              <img src="images/veracruz.png" alt="Veracruz" onerror="this.src='https://placehold.co/30x30/967bb6/fff?text=V'">
+              <img src="images/veracruz.png" alt="Veracruz" onerror="this.src='https://placehold.co/32x32/967bb6/fff?text=V'">
               <span>VERACRUZ</span>
+              <span class="card-score">24</span>
             </div>
             <div class="center">
-              <button class="vs-btn">VS</button>
-              <span class="compare-link">COMPARE ↪</span>
+              <button class="vs-btn">FINAL</button>
+              <span class="compare-link">GAME STATS ↪</span>
             </div>
             <div class="team right">
+              <span class="card-score">17</span>
               <span>MOBILE</span>
-              <img src="images/mobile.png" alt="Mobile" onerror="this.src='https://placehold.co/30x30/2e6f40/fff?text=M'">
+              <img src="images/mobile.png" alt="Mobile" onerror="this.src='https://placehold.co/32x32/2e6f40/fff?text=M'">
             </div>
           </div>
 
-          <!-- MATCHUP BOX 2 (Example of a second box) -->
+          <!-- UNPLAYED/PREVIEW GAME CARD (Standard setup) -->
           <div class="matchup-card" onclick="openComparison({
             leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0',
             rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0',
+            status: 'PREVIEW',
             stats: { win: [0, 0], pDiff: [0, 0], tYards: [0, 0], pYards: [0, 0], sacks: [0, 0] }
           })">
             <div class="team left">
-              <img src="images/rhinos.png" alt="Rhinos" onerror="this.src='https://placehold.co/30x30/967bb6/fff?text=R'">
+              <img src="images/rhinos.png" alt="Rhinos" onerror="this.src='https://placehold.co/32x32/967bb6/fff?text=R'">
               <span>RHINOS</span>
+              <span class="card-score">0</span>
             </div>
             <div class="center">
               <button class="vs-btn">VS</button>
               <span class="compare-link">COMPARE ↪</span>
             </div>
             <div class="team right">
+              <span class="card-score">0</span>
               <span>COYOTES</span>
-              <img src="images/coyotes.png" alt="Coyotes" onerror="this.src='https://placehold.co/30x30/2e6f40/fff?text=C'">
+              <img src="images/coyotes.png" alt="Coyotes" onerror="this.src='https://placehold.co/32x32/2e6f40/fff?text=C'">
             </div>
           </div>
 
@@ -296,7 +315,7 @@
                 
                 <div class="comp-vs-divider">
                     <strong>VS</strong>
-                    <span>PREVIEW</span>
+                    <span id="lblModalStatus">PREVIEW</span>
                 </div>
                 
                 <div class="comp-team-side team-right">
@@ -383,7 +402,6 @@
 
     <footer>2026 Virtual Football League INC</footer>
 
-    <!-- INTERACTIVE JAVASCRIPT ENGINE -->
     <script>
         function openComparison(data) {
             // 1. Fill Text Data Elements
@@ -394,6 +412,9 @@
             document.getElementById('lblTeamRight').innerText = data.rightTeam;
             document.getElementById('lblSubRight').innerText = data.rightSub;
             document.getElementById('lblScoreRight').innerText = data.rightScore;
+            
+            // Updates internal modal status tag ("FINAL" or "PREVIEW")
+            document.getElementById('lblModalStatus').innerText = data.status || 'PREVIEW';
 
             // 2. Load Metric Text Values
             document.getElementById('vWinL').innerText = data.stats.win[0] + '%';
@@ -409,7 +430,6 @@
 
             // 3. Calculate and Render Proportional Dynamic Bar Widths
             updateStatBar('barWinL', 'barWinR', data.stats.win[0], data.stats.win[1]);
-            // Point difference handles negative margins smoothly by shifting bounds
             updateStatBar('barDiffL', 'barDiffR', data.stats.pDiff[0] + 100, data.stats.pDiff[1] + 100);
             updateStatBar('barYardsL', 'barYardsR', data.stats.tYards[0], data.stats.tYards[1]);
             updateStatBar('barPassL', 'barPassR', data.stats.pYards[0], data.stats.pYards[1]);
