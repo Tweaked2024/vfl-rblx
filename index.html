@@ -104,7 +104,7 @@
 
         /* Main Content Container */
         .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; display: flex; justify-content: center; }
-        .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 620px; padding: 2rem; min-height: 250px; }
+        .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 650px; padding: 2rem; min-height: 250px; }
         
         .matchup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid #3d3b4f; padding-bottom: 0.8rem; }
         .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; }
@@ -115,31 +115,31 @@
 
         /* Matchup Card Styles */
         .matchup-list { display: flex; flex-direction: column; gap: 1rem; }
-        .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; display: flex; align-items: center; cursor: pointer; position: relative; transition: transform 0.2s, border-color 0.2s; }
+        .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
         .matchup-card:hover { transform: translateY(-2px); border-color: var(--accent); }
         
-        /* Fixed team block configurations to perfectly preserve your exact structure */
+        /* Updated Left/Right layout boxes for balanced mirroring */
         .team { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 0.9rem; width: 38%; }
         .team.left { justify-content: flex-start; }
-        .team.right { justify-content: flex-start; flex-direction: row; } 
+        .team.right { justify-content: flex-end; } 
         .team img { width: 35px; height: 35px; object-fit: contain; }
         
-        /* Score styling decoupled from layout boxes to prevent element collision shifts */
-        .score-wrap { display: none; width: 12%; text-align: center; font-size: 1.4rem; font-weight: 800; color: var(--text-muted); }
-        .score-wrap.left-score { margin-left: auto; margin-right: 5px; }
-        .score-wrap.right-score { margin-right: auto; margin-left: 5px; }
+        /* Scores styling rules */
+        .card-score { font-size: 1.4rem; font-weight: 800; color: var(--text-muted); opacity: 0; transition: opacity 0.15s; }
+        .team.left .card-score { margin-left: auto; } 
+        .team.right .card-score { margin-right: auto; } 
 
         .center { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 24%; }
         .vs-btn { background: #282735; color: var(--text-main); border: none; padding: 0.35rem 0.8rem; font-size: 0.7rem; font-weight: 800; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; width: 75px; text-align: center; }
         .compare-link { font-size: 0.65rem; color: var(--text-muted); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; white-space: nowrap; }
         .matchup-card:hover .compare-link { color: var(--accent); }
 
-        /* Toggles layout properties conditionally on match completeness status */
-        .matchup-card.is-final .score-wrap { display: block; }
+        /* State visibility toggles for finished games */
+        .matchup-card.is-final .card-score { opacity: 1; }
         .matchup-card.is-final .vs-btn { background: #1f1d29; color: var(--text-muted); }
         
-        .matchup-card.winner-left .left-score { color: var(--text-main); }
-        .matchup-card.winner-right .right-score { color: var(--text-main); }
+        .matchup-card.winner-left .team.left .card-score { color: var(--text-main); }
+        .matchup-card.winner-right .team.right .card-score { color: var(--text-main); }
 
         /* --- MODAL DESIGN --- */
         .modal-overlay {
@@ -247,57 +247,57 @@
     
         <div class="matchup-list">
           
-          <!-- COMPLETED MATCH (VERACRUZ 24 - 17 MOBILE) -->
+          <!-- VERACRUZ VS MOBILE (COMPLETED IN REVERSED MIRROR FORMAT) -->
           <div class="matchup-card is-final winner-left" onclick="openComparison({
             leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24',
             rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17',
             status: 'FINAL',
             stats: { win: [75, 50], pDiff: [45, -12], tYards: [380, 310], pYards: [240, 190], sacks: [4, 2] }
           })">
+            <!-- Left Side: Logo -> Name -> Score -->
             <div class="team left">
               <img src="images/veracruz.png" alt="Veracruz" onerror="this.src='https://placehold.co/35x35/967bb6/fff?text=V'">
               <span>VERACRUZ</span>
+              <span class="card-score">24</span>
             </div>
-            
-            <span class="score-wrap left-score">24</span>
             
             <div class="center">
               <button class="vs-btn">FINAL</button>
               <span class="compare-link">GAME STATS ↪</span>
             </div>
             
-            <span class="score-wrap right-score">17</span>
-            
+            <!-- Right Side: Score -> Name -> Logo -->
             <div class="team right">
-              <img src="images/mobile.png" alt="Mobile" onerror="this.src='https://placehold.co/35x35/2e6f40/fff?text=M'">
+              <span class="card-score">17</span>
               <span>MOBILE</span>
+              <img src="images/mobile.png" alt="Mobile" onerror="this.src='https://placehold.co/35x35/2e6f40/fff?text=M'">
             </div>
           </div>
 
-          <!-- UNPLAYED MATCH (RHINOS VS COYOTES) -->
+          <!-- RHINOS VS COYOTES (PREVIEW MATCH IN REVERSED MIRROR FORMAT) -->
           <div class="matchup-card" onclick="openComparison({
             leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0',
             rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0',
             status: 'PREVIEW',
             stats: { win: [0, 0], pDiff: [0, 0], tYards: [0, 0], pYards: [0, 0], sacks: [0, 0] }
           })">
+            <!-- Left Side: Logo -> Name -> Score -->
             <div class="team left">
               <img src="images/rhinos.png" alt="Rhinos" onerror="this.src='https://placehold.co/35x35/967bb6/fff?text=R'">
               <span>RHINOS</span>
+              <span class="card-score">0</span>
             </div>
-            
-            <span class="score-wrap left-score">0</span>
             
             <div class="center">
               <button class="vs-btn">VS</button>
               <span class="compare-link">COMPARE ↪</span>
             </div>
             
-            <span class="score-wrap right-score">0</span>
-            
+            <!-- Right Side: Score -> Name -> Logo -->
             <div class="team right">
-              <img src="images/coyotes.png" alt="Coyotes" onerror="this.src='https://placehold.co/35x35/2e6f40/fff?text=C'">
+              <span class="card-score">0</span>
               <span>COYOTES</span>
+              <img src="images/coyotes.png" alt="Coyotes" onerror="this.src='https://placehold.co/35x35/2e6f40/fff?text=C'">
             </div>
           </div>
 
@@ -443,7 +443,7 @@
             document.body.style.overflow = 'hidden';
         }
 
-        fnction updateStatBar(leftBarId, rightBarId, val1, val2) {
+        function updateStatBar(leftBarId, rightBarId, val1, val2) {
             let total = val1 + val2;
             let pct1 = total === 0 ? 50 : (val1 / total) * 100;
             let pct2 = total === 0 ? 50 : (val2 / total) * 100;
