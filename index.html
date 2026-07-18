@@ -36,7 +36,6 @@
         /* Navigation Menu Lists */
         nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
         nav ul li { position: relative !important; display: inline-block; }
-        
         nav ul li a { 
             color: var(--text-muted); 
             text-decoration: none; 
@@ -50,9 +49,7 @@
             gap: 5px;
             transition: color 0.2s ease;
         }
-        nav ul li a:hover, nav ul li a.active { 
-            color: var(--text-main); 
-        }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
 
         /* Pure Floating Dropdown Box Design */
         .dropdown-menu {
@@ -73,16 +70,12 @@
             z-index: 99999;
             transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
         }
-
-        /* Displays only on hover state */
         nav ul li.dropdown:hover .dropdown-menu {
             display: block !important;
             visibility: visible;
             opacity: 1;
             transform: translateX(-50%) translateY(0px);
         }
-
-        /* Dropdown Item Typography & Link Actions */
         .dropdown-menu li { width: 100%; display: block; }
         .dropdown-menu li a {
             color: #111017 !important;
@@ -99,11 +92,7 @@
             background-color: #f4f4f6 !important;
             color: var(--accent) !important; 
         }
-
-        /* Animates down arrow turn on hover */
-        nav ul li.dropdown:hover .nav-arrow {
-            transform: rotate(180deg);
-        }
+        nav ul li.dropdown:hover .nav-arrow { transform: rotate(180deg); }
 
         .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; transition: background 0.2s; }
         .nav-btn:hover { background-color: var(--accent-hover); }
@@ -118,7 +107,7 @@
         .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 500px; padding: 2rem; min-height: 250px; }
         
         .matchup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid #3d3b4f; padding-bottom: 0.8rem; }
-        .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; border: none; padding: 0; margin: 0; }
+        .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; }
         .header-actions { display: flex; align-items: center; gap: 15px; }
         
         .dropdown-btn { background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
@@ -139,19 +128,18 @@
         .compare-link { font-size: 0.7rem; color: var(--text-muted); text-decoration: none; font-weight: 600; }
         .matchup-card:hover .compare-link { color: var(--accent); }
 
-        /* --- OVERLAY BOX/MODAL DESIGN (From your layout reference) --- */
+        /* --- MODAL DESIGN --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(11, 10, 15, 0.95);
             z-index: 10000;
-            display: none; /* Hidden initially */
+            display: none; 
             justify-content: center;
             align-items: flex-start;
             overflow-y: auto;
             padding: 2rem 1rem;
         }
-        
         .modal-content {
             background: var(--bg-main);
             width: 100%;
@@ -162,54 +150,18 @@
             position: relative;
             box-shadow: 0 20px 50px rgba(0,0,0,0.6);
         }
-
         .close-modal-btn {
-            background: #282735;
-            color: var(--text-main);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            margin-bottom: 1.5rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+            background: #282735; color: var(--text-main); border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; margin-bottom: 1.5rem;
         }
         .close-modal-btn:hover { background: var(--accent); }
 
-        /* Dynamic vs Header split colors */
-        .comp-header-banner {
-            display: flex;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-        .comp-team-side {
-            padding: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 45%;
-        }
-        .comp-team-side.team-left { background: #967bb6; text-align: left; } /* Rhinos side tint */
-        .comp-team-side.team-right { background: #2e6f40; text-align: right; flex-direction: row-reverse; } /* Coyotes side tint */
+        .comp-header-banner { display: flex; border-radius: 12px; overflow: hidden; margin-bottom: 2rem; font-weight: 800; text-transform: uppercase; }
+        .comp-team-side { padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; width: 45%; }
+        .comp-team-side.team-left { background: #967bb6; text-align: left; } 
+        .comp-team-side.team-right { background: #2e6f40; text-align: right; flex-direction: row-reverse; } 
         
-        .comp-vs-divider {
-            width: 10%;
-            background: #ffffff;
-            color: #111017;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.75rem;
-        }
+        .comp-vs-divider { width: 10%; background: #ffffff; color: #111017; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 0.75rem; }
         .comp-vs-divider strong { font-size: 1.1rem; }
-
         .comp-team-info { display: flex; align-items: center; gap: 12px; }
         .comp-team-side.team-right .comp-team-info { flex-direction: row-reverse; }
         .comp-team-name { font-size: 1.2rem; display: block; }
@@ -217,50 +169,18 @@
         .comp-team-score { font-size: 2rem; }
 
         /* Stat Comparison Rows */
-        .stat-section-title {
-            font-size: 0.8rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 1.5rem 0 0.8rem 0;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 4px;
-        }
-        .stat-row {
-            margin-bottom: 1.2rem;
-        }
-        .stat-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            text-transform: uppercase;
-        }
+        .stat-section-title { font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 1.5rem 0 0.8rem 0; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+        .stat-row { margin-bottom: 1.2rem; }
+        .stat-labels { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; }
         .stat-name { color: var(--text-main); }
-        
-        .stat-bar-container {
-            height: 8px;
-            background: #23222d;
-            border-radius: 4px;
-            overflow: hidden;
-            display: flex;
-        }
-        .stat-bar-fill {
-            height: 100%;
-            width: 50%; /* Equal initial spread */
-            transition: width 0.3s ease;
-        }
+        .stat-bar-container { height: 8px; background: #23222d; border-radius: 4px; overflow: hidden; display: flex; }
+        .stat-bar-fill { height: 100%; transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .stat-bar-fill.fill-left { background: #967bb6; border-right: 2px solid var(--bg-main); }
         .stat-bar-fill.fill-right { background: #2e6f40; }
 
-        /* Highlight Callout Footer Section */
         .join-footer { background-color: var(--accent); color: #111017; padding: 2.5rem 4%; display: flex; justify-content: space-between; align-items: center; }
         .join-footer h2 { font-size: 1.8rem; font-weight: 700; text-transform: lowercase; }
         .join-footer .footer-btn { background-color: #2b2726; color: white; padding: 0.7rem 1.8rem; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1); }
-
-        /* Legal Footer */
         footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
     </style>
 </head>
@@ -277,8 +197,7 @@
             <li><a href="standings.html">Standings</a></li>
             <li><a href="stats.html">Stats</a></li>
             <li class="dropdown">
-                <a href="#">
-                    Legacy
+                <a href="#">Legacy
                     <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
                         <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                     </svg>
@@ -302,64 +221,77 @@
       <div class="matchup-panel">
         <div class="matchup-header">
           <h2>MATCHUPS</h2>
-    
           <div class="header-actions">
             <div class="dropdown">
               <button class="dropdown-btn">Week 8 ▾</button>
-              <!-- Fixed standard menu layout markup compatibility -->
               <div class="dropdown-menu" style="min-width: 120px;">
-                <li><a href="#">Week 1</a></li>
-                <li><a href="#">Week 2</a></li>
-                <li><a href="#">Week 3</a></li>
-                <li><a href="#">Week 4</a></li>
-                <li><a href="#">Week 5</a></li>
-                <li><a href="#">Week 6</a></li>
-                <li><a href="#">Week 7</a></li>
                 <li><a href="#">Week 8</a></li>
               </div>
             </div>
-    
             <a class="all-scores-btn" href="scores.html">all scores →</a>
           </div>
         </div>
     
         <div class="matchup-list">
-          <!-- Added trigger class and unique dataset handles -->
-          <div class="matchup-card" onclick="openComparison('VERACRUZ', 'MOBILE')">
+          
+          <!-- MATCHUP BOX 1 -->
+          <div class="matchup-card" onclick="openComparison({
+            leftTeam: 'VERACRUZ', leftSub: 'MEXICO', leftScore: '24',
+            rightTeam: 'MOBILE', rightSub: 'ALABAMA', rightScore: '17',
+            stats: { win: [75, 50], pDiff: [45, -12], tYards: [380, 310], pYards: [240, 190], sacks: [4, 2] }
+          })">
             <div class="team left">
-              <img src="images/veracruz.png" alt="Veracruz" onerror="this.src='https://placehold.co/30x30/f05d51/fff?text=V'">
+              <img src="images/veracruz.png" alt="Veracruz" onerror="this.src='https://placehold.co/30x30/967bb6/fff?text=V'">
               <span>VERACRUZ</span>
             </div>
-    
             <div class="center">
               <button class="vs-btn">VS</button>
               <span class="compare-link">COMPARE ↪</span>
             </div>
-    
             <div class="team right">
               <span>MOBILE</span>
               <img src="images/mobile.png" alt="Mobile" onerror="this.src='https://placehold.co/30x30/2e6f40/fff?text=M'">
             </div>
           </div>
+
+          <!-- MATCHUP BOX 2 (Example of a second box) -->
+          <div class="matchup-card" onclick="openComparison({
+            leftTeam: 'RHINOS', leftSub: 'RUSHMORE', leftScore: '0',
+            rightTeam: 'COYOTES', rightSub: 'USC', rightScore: '0',
+            stats: { win: [0, 0], pDiff: [0, 0], tYards: [0, 0], pYards: [0, 0], sacks: [0, 0] }
+          })">
+            <div class="team left">
+              <img src="images/rhinos.png" alt="Rhinos" onerror="this.src='https://placehold.co/30x30/967bb6/fff?text=R'">
+              <span>RHINOS</span>
+            </div>
+            <div class="center">
+              <button class="vs-btn">VS</button>
+              <span class="compare-link">COMPARE ↪</span>
+            </div>
+            <div class="team right">
+              <span>COYOTES</span>
+              <img src="images/coyotes.png" alt="Coyotes" onerror="this.src='https://placehold.co/30x30/2e6f40/fff?text=C'">
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <!-- --- STATS PREVIEW MODAL OVERLAY --- -->
+    <!-- --- DYNAMIC MODAL OVERLAY --- -->
     <div class="modal-overlay" id="compareModal">
         <div class="modal-content">
             <button class="close-modal-btn" onclick="closeComparison()">← Back</button>
             
-            <!-- Comparison Scoreboard Bar -->
             <div class="comp-header-banner">
                 <div class="comp-team-side team-left">
                     <div class="comp-team-info">
-                        <div class="comp-team-names">
-                            <span class="comp-team-sub">RUSHMORE</span>
-                            <span class="comp-team-name" id="modalTeamLeft">RHINOS</span>
+                        <div>
+                            <span class="comp-team-sub" id="lblSubLeft">REGION</span>
+                            <span class="comp-team-name" id="lblTeamLeft">TEAM A</span>
                         </div>
                     </div>
-                    <span class="comp-team-score">0</span>
+                    <span class="comp-team-score" id="lblScoreLeft">0</span>
                 </div>
                 
                 <div class="comp-vs-divider">
@@ -369,63 +301,77 @@
                 
                 <div class="comp-team-side team-right">
                     <div class="comp-team-info">
-                        <div class="comp-team-names">
-                            <span class="comp-team-sub">USC</span>
-                            <span class="comp-team-name" id="modalTeamRight">COYOTES</span>
+                        <div>
+                            <span class="comp-team-sub" id="lblSubRight">REGION</span>
+                            <span class="comp-team-name" id="lblTeamRight">TEAM B</span>
                         </div>
                     </div>
-                    <span class="comp-team-score">0</span>
+                    <span class="comp-team-score" id="lblScoreRight">0</span>
                 </div>
             </div>
 
-            <!-- Position Battles Sections -->
             <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Position Battles</h3>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Each team's top performer by category, head to head.</p>
 
             <div class="stat-section-title">Standing</div>
             <div class="stat-row">
                 <div class="stat-labels">
-                    <span>0.0%</span>
+                    <span id="vWinL">0%</span>
                     <span class="stat-name">Win %</span>
-                    <span>0.0%</span>
+                    <span id="vWinR">0%</span>
                 </div>
-                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 50%;"></div><div class="stat-bar-fill fill-right" style="width: 50%;"></div></div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar-fill fill-left" id="barWinL"></div>
+                    <div class="stat-bar-fill fill-right" id="barWinR"></div>
+                </div>
             </div>
             <div class="stat-row">
                 <div class="stat-labels">
-                    <span>0</span>
+                    <span id="vDiffL">0</span>
                     <span class="stat-name">Point Differential</span>
-                    <span>0</span>
+                    <span id="vDiffR">0</span>
                 </div>
-                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 50%;"></div><div class="stat-bar-fill fill-right" style="width: 50%;"></div></div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar-fill fill-left" id="barDiffL"></div>
+                    <div class="stat-bar-fill fill-right" id="barDiffR"></div>
+                </div>
             </div>
 
             <div class="stat-section-title">Offense</div>
             <div class="stat-row">
                 <div class="stat-labels">
-                    <span>0</span>
+                    <span id="vYardsL">0</span>
                     <span class="stat-name">Total Yards</span>
-                    <span>0</span>
+                    <span id="vYardsR">0</span>
                 </div>
-                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 55%;"></div><div class="stat-bar-fill fill-right" style="width: 45%;"></div></div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar-fill fill-left" id="barYardsL"></div>
+                    <div class="stat-bar-fill fill-right" id="barYardsR"></div>
+                </div>
             </div>
             <div class="stat-row">
                 <div class="stat-labels">
-                    <span>0</span>
+                    <span id="vPassL">0</span>
                     <span class="stat-name">Passing Yards</span>
-                    <span>0</span>
+                    <span id="vPassR">0</span>
                 </div>
-                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 40%;"></div><div class="stat-bar-fill fill-right" style="width: 60%;"></div></div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar-fill fill-left" id="barPassL"></div>
+                    <div class="stat-bar-fill fill-right" id="barPassR"></div>
+                </div>
             </div>
 
             <div class="stat-section-title">Defense</div>
             <div class="stat-row">
                 <div class="stat-labels">
-                    <span>0</span>
+                    <span id="vSackL">0</span>
                     <span class="stat-name">Sacks</span>
-                    <span>0</span>
+                    <span id="vSackR">0</span>
                 </div>
-                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 50%;"></div><div class="stat-bar-fill fill-right" style="width: 50%;"></div></div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar-fill fill-left" id="barSackL"></div>
+                    <div class="stat-bar-fill fill-right" id="barSackR"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -435,32 +381,62 @@
         <a href="#" class="footer-btn">GET STARTED</a>
     </div>
 
-    <footer>
-        2026 Virtual Football League INC
-    </footer>
+    <footer>2026 Virtual Football League INC</footer>
 
-    <!-- INTERACTIVE TOGGLE JAVASCRIPT -->
+    <!-- INTERACTIVE JAVASCRIPT ENGINE -->
     <script>
-        function openComparison(team1, team2) {
-            document.getElementById('modalTeamLeft').innerText = team1;
-            document.getElementById('modalTeamRight').innerText = team2;
+        function openComparison(data) {
+            // 1. Fill Text Data Elements
+            document.getElementById('lblTeamLeft').innerText = data.leftTeam;
+            document.getElementById('lblSubLeft').innerText = data.leftSub;
+            document.getElementById('lblScoreLeft').innerText = data.leftScore;
+            
+            document.getElementById('lblTeamRight').innerText = data.rightTeam;
+            document.getElementById('lblSubRight').innerText = data.rightSub;
+            document.getElementById('lblScoreRight').innerText = data.rightScore;
+
+            // 2. Load Metric Text Values
+            document.getElementById('vWinL').innerText = data.stats.win[0] + '%';
+            document.getElementById('vWinR').innerText = data.stats.win[1] + '%';
+            document.getElementById('vDiffL').innerText = data.stats.pDiff[0];
+            document.getElementById('vDiffR').innerText = data.stats.pDiff[1];
+            document.getElementById('vYardsL').innerText = data.stats.tYards[0];
+            document.getElementById('vYardsR').innerText = data.stats.tYards[1];
+            document.getElementById('vPassL').innerText = data.stats.pYards[0];
+            document.getElementById('vPassR').innerText = data.stats.pYards[1];
+            document.getElementById('vSackL').innerText = data.stats.sacks[0];
+            document.getElementById('vSackR').innerText = data.stats.sacks[1];
+
+            // 3. Calculate and Render Proportional Dynamic Bar Widths
+            updateStatBar('barWinL', 'barWinR', data.stats.win[0], data.stats.win[1]);
+            // Point difference handles negative margins smoothly by shifting bounds
+            updateStatBar('barDiffL', 'barDiffR', data.stats.pDiff[0] + 100, data.stats.pDiff[1] + 100);
+            updateStatBar('barYardsL', 'barYardsR', data.stats.tYards[0], data.stats.tYards[1]);
+            updateStatBar('barPassL', 'barPassR', data.stats.pYards[0], data.stats.pYards[1]);
+            updateStatBar('barSackL', 'barSackR', data.stats.sacks[0], data.stats.sacks[1]);
+
+            // 4. Reveal Modal Canvas Space
             document.getElementById('compareModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Prevents background body scrolling
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateStatBar(leftBarId, rightBarId, val1, val2) {
+            let total = val1 + val2;
+            let pct1 = total === 0 ? 50 : (val1 / total) * 100;
+            let pct2 = total === 0 ? 50 : (val2 / total) * 100;
+            
+            document.getElementById(leftBarId).style.width = pct1 + '%';
+            document.getElementById(rightBarId).style.width = pct2 + '%';
         }
 
         function closeComparison() {
             document.getElementById('compareModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restores scrolling
+            document.body.style.overflow = 'auto';
         }
 
-        // Close modal instantly if user clicks on outer dimmed background space
-        window.onclick = function(event) {
-            let modal = document.getElementById('compareModal');
-            if (event.target == modal) {
-                closeComparison();
-            }
+        window.onclick = function(e) {
+            if (e.target == document.getElementById('compareModal')) { closeComparison(); }
         }
     </script>
-
 </body>
 </html>
