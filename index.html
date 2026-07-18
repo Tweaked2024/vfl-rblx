@@ -115,8 +115,145 @@
 
         /* Main Content Container */
         .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; width: 100%; flex: 1; display: flex; justify-content: center; }
-        .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 500px; padding: 2rem; height: 350px; }
-        .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.8rem; border-bottom: 2px solid #3d3b4f; padding-bottom: 0.8rem; }
+        .matchup-panel { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 500px; padding: 2rem; min-height: 250px; }
+        
+        .matchup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid #3d3b4f; padding-bottom: 0.8rem; }
+        .matchup-panel h2 { font-size: 1.4rem; font-weight: 600; border: none; padding: 0; margin: 0; }
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+        
+        .dropdown-btn { background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+        .all-scores-btn { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+
+        /* Matchup Card Styles */
+        .matchup-list { display: flex; flex-direction: column; gap: 1rem; }
+        .matchup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+        .matchup-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+        
+        .team { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.9rem; width: 40%; }
+        .team.left { justify-content: flex-start; }
+        .team.right { justify-content: flex-end; }
+        .team img { width: 30px; height: 30px; object-fit: contain; }
+        
+        .center { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 20%; }
+        .vs-btn { background: #282735; color: var(--text-main); border: none; padding: 0.3rem 0.6rem; font-size: 0.75rem; font-weight: 800; border-radius: 4px; }
+        .compare-link { font-size: 0.7rem; color: var(--text-muted); text-decoration: none; font-weight: 600; }
+        .matchup-card:hover .compare-link { color: var(--accent); }
+
+        /* --- OVERLAY BOX/MODAL DESIGN (From your layout reference) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 10, 15, 0.95);
+            z-index: 10000;
+            display: none; /* Hidden initially */
+            justify-content: center;
+            align-items: flex-start;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+        }
+        
+        .modal-content {
+            background: var(--bg-main);
+            width: 100%;
+            max-width: 850px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        .close-modal-btn {
+            background: #282735;
+            color: var(--text-main);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .close-modal-btn:hover { background: var(--accent); }
+
+        /* Dynamic vs Header split colors */
+        .comp-header-banner {
+            display: flex;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .comp-team-side {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 45%;
+        }
+        .comp-team-side.team-left { background: #967bb6; text-align: left; } /* Rhinos side tint */
+        .comp-team-side.team-right { background: #2e6f40; text-align: right; flex-direction: row-reverse; } /* Coyotes side tint */
+        
+        .comp-vs-divider {
+            width: 10%;
+            background: #ffffff;
+            color: #111017;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+        .comp-vs-divider strong { font-size: 1.1rem; }
+
+        .comp-team-info { display: flex; align-items: center; gap: 12px; }
+        .comp-team-side.team-right .comp-team-info { flex-direction: row-reverse; }
+        .comp-team-name { font-size: 1.2rem; display: block; }
+        .comp-team-sub { font-size: 0.7rem; opacity: 0.8; display: block; font-weight: 600; }
+        .comp-team-score { font-size: 2rem; }
+
+        /* Stat Comparison Rows */
+        .stat-section-title {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 1.5rem 0 0.8rem 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
+        }
+        .stat-row {
+            margin-bottom: 1.2rem;
+        }
+        .stat-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        .stat-name { color: var(--text-main); }
+        
+        .stat-bar-container {
+            height: 8px;
+            background: #23222d;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+        }
+        .stat-bar-fill {
+            height: 100%;
+            width: 50%; /* Equal initial spread */
+            transition: width 0.3s ease;
+        }
+        .stat-bar-fill.fill-left { background: #967bb6; border-right: 2px solid var(--bg-main); }
+        .stat-bar-fill.fill-right { background: #2e6f40; }
 
         /* Highlight Callout Footer Section */
         .join-footer { background-color: var(--accent); color: #111017; padding: 2.5rem 4%; display: flex; justify-content: space-between; align-items: center; }
@@ -159,7 +296,7 @@
     <div class="hero">
         <h1>Virtual Football League</h1>
         <a href="#" class="hero-btn">Join the VFL today!</a>
-    </div class="hero">
+    </div>
 
     <div class="container">
       <div class="matchup-panel">
@@ -169,15 +306,16 @@
           <div class="header-actions">
             <div class="dropdown">
               <button class="dropdown-btn">Week 8 ▾</button>
-              <div class="dropdown-menu">
-                <a href="#">Week 1</a>
-                <a href="#">Week 2</a>
-                <a href="#">Week 3</a>
-                <a href="#">Week 4</a>
-                <a href="#">Week 5</a>
-                <a href="#">Week 6</a>
-                <a href="#">Week 7</a>
-                <a href="#">Week 8</a>
+              <!-- Fixed standard menu layout markup compatibility -->
+              <div class="dropdown-menu" style="min-width: 120px;">
+                <li><a href="#">Week 1</a></li>
+                <li><a href="#">Week 2</a></li>
+                <li><a href="#">Week 3</a></li>
+                <li><a href="#">Week 4</a></li>
+                <li><a href="#">Week 5</a></li>
+                <li><a href="#">Week 6</a></li>
+                <li><a href="#">Week 7</a></li>
+                <li><a href="#">Week 8</a></li>
               </div>
             </div>
     
@@ -186,24 +324,110 @@
         </div>
     
         <div class="matchup-list">
-          <div class="matchup-card">
+          <!-- Added trigger class and unique dataset handles -->
+          <div class="matchup-card" onclick="openComparison('VERACRUZ', 'MOBILE')">
             <div class="team left">
-              <img src="images/veracruz.png" alt="Veracruz">
+              <img src="images/veracruz.png" alt="Veracruz" onerror="this.src='https://placehold.co/30x30/f05d51/fff?text=V'">
               <span>VERACRUZ</span>
             </div>
     
             <div class="center">
               <button class="vs-btn">VS</button>
-              <a href="#" class="compare-link">COMPARE ↪</a>
+              <span class="compare-link">COMPARE ↪</span>
             </div>
     
             <div class="team right">
               <span>MOBILE</span>
-              <img src="images/mobile.png" alt="Mobile">
+              <img src="images/mobile.png" alt="Mobile" onerror="this.src='https://placehold.co/30x30/2e6f40/fff?text=M'">
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- --- STATS PREVIEW MODAL OVERLAY --- -->
+    <div class="modal-overlay" id="compareModal">
+        <div class="modal-content">
+            <button class="close-modal-btn" onclick="closeComparison()">← Back</button>
+            
+            <!-- Comparison Scoreboard Bar -->
+            <div class="comp-header-banner">
+                <div class="comp-team-side team-left">
+                    <div class="comp-team-info">
+                        <div class="comp-team-names">
+                            <span class="comp-team-sub">RUSHMORE</span>
+                            <span class="comp-team-name" id="modalTeamLeft">RHINOS</span>
+                        </div>
+                    </div>
+                    <span class="comp-team-score">0</span>
+                </div>
+                
+                <div class="comp-vs-divider">
+                    <strong>VS</strong>
+                    <span>PREVIEW</span>
+                </div>
+                
+                <div class="comp-team-side team-right">
+                    <div class="comp-team-info">
+                        <div class="comp-team-names">
+                            <span class="comp-team-sub">USC</span>
+                            <span class="comp-team-name" id="modalTeamRight">COYOTES</span>
+                        </div>
+                    </div>
+                    <span class="comp-team-score">0</span>
+                </div>
+            </div>
+
+            <!-- Position Battles Sections -->
+            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Position Battles</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Each team's top performer by category, head to head.</p>
+
+            <div class="stat-section-title">Standing</div>
+            <div class="stat-row">
+                <div class="stat-labels">
+                    <span>0.0%</span>
+                    <span class="stat-name">Win %</span>
+                    <span>0.0%</span>
+                </div>
+                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 50%;"></div><div class="stat-bar-fill fill-right" style="width: 50%;"></div></div>
+            </div>
+            <div class="stat-row">
+                <div class="stat-labels">
+                    <span>0</span>
+                    <span class="stat-name">Point Differential</span>
+                    <span>0</span>
+                </div>
+                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 50%;"></div><div class="stat-bar-fill fill-right" style="width: 50%;"></div></div>
+            </div>
+
+            <div class="stat-section-title">Offense</div>
+            <div class="stat-row">
+                <div class="stat-labels">
+                    <span>0</span>
+                    <span class="stat-name">Total Yards</span>
+                    <span>0</span>
+                </div>
+                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 55%;"></div><div class="stat-bar-fill fill-right" style="width: 45%;"></div></div>
+            </div>
+            <div class="stat-row">
+                <div class="stat-labels">
+                    <span>0</span>
+                    <span class="stat-name">Passing Yards</span>
+                    <span>0</span>
+                </div>
+                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 40%;"></div><div class="stat-bar-fill fill-right" style="width: 60%;"></div></div>
+            </div>
+
+            <div class="stat-section-title">Defense</div>
+            <div class="stat-row">
+                <div class="stat-labels">
+                    <span>0</span>
+                    <span class="stat-name">Sacks</span>
+                    <span>0</span>
+                </div>
+                <div class="stat-bar-container"><div class="stat-bar-fill fill-left" style="width: 50%;"></div><div class="stat-bar-fill fill-right" style="width: 50%;"></div></div>
+            </div>
+        </div>
     </div>
 
     <div class="join-footer">
@@ -214,6 +438,29 @@
     <footer>
         2026 Virtual Football League INC
     </footer>
+
+    <!-- INTERACTIVE TOGGLE JAVASCRIPT -->
+    <script>
+        function openComparison(team1, team2) {
+            document.getElementById('modalTeamLeft').innerText = team1;
+            document.getElementById('modalTeamRight').innerText = team2;
+            document.getElementById('compareModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevents background body scrolling
+        }
+
+        function closeComparison() {
+            document.getElementById('compareModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restores scrolling
+        }
+
+        // Close modal instantly if user clicks on outer dimmed background space
+        window.onclick = function(event) {
+            let modal = document.getElementById('compareModal');
+            if (event.target == modal) {
+                closeComparison();
+            }
+        }
+    </script>
 
 </body>
 </html>
