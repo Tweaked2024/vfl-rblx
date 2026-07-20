@@ -216,6 +216,11 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             cursor: pointer;
             border: none;
+            transition: transform 0.15s ease, background-color 0.2s ease;
+        }
+        .showcase-awards-btn:hover {
+            background: #fff9e6;
+            transform: scale(1.03);
         }
 
         /* Trophy Shelf Section Structural Rows */
@@ -397,6 +402,7 @@
                     <div class="player-badge">Pro Athlete</div>
                 </div>
             </div>
+            <!-- Showcase Awards button connects using JavaScript at the bottom -->
             <button class="showcase-awards-btn">
                 🏆 Showcase Awards
             </button>
@@ -405,7 +411,7 @@
         <!-- Categorized Shelf Display Structure (Image 2 Layout) -->
         
         <!-- Shelf Row 1: Allegiance Bowls -->
-        <div class="shelf-section">
+        <div class="shelf-section" id="shelves-start">
             <div class="shelf-title-row">
                 <h2>Allegiance Bowls</h2>
                 <span class="shelf-count-tag">6 Trophies</span>
@@ -551,5 +557,17 @@
         © 2026 Virtual Football League • All Rights Reserved
     </footer>
 
+    <!-- Interactive Smooth Scroll Script Connection -->
+    <script>
+        const showcaseBtn = document.querySelector('.showcase-awards-btn');
+        const targetSection = document.getElementById('shelves-start');
+
+        showcaseBtn.addEventListener('click', () => {
+            targetSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    </script>
 </body>
 </html>
