@@ -1477,7 +1477,8 @@
             // Safely render the requested player profile
             container.innerHTML = `
                 <div class="profile-container-light">
-                    <span class="back-link" onclick="goBackFromProfile()">← Back to Leaderboards</span>
+                    <span class="back-link" onclick="goBackFromProfile()" style="cursor: pointer; font-weight: bold; color: var(--accent);">← Back to Leaderboards</span>
+                    
                     <div class="profile-header-card-light">
                         <div class="avatar-circle-light">🏈</div>
                         <div class="header-details-light">
@@ -1486,12 +1487,14 @@
                             <div class="pos-pills-row">
                                 <span class="pos-pill">PRO ATHLETE</span>
                             </div>
-                            <!-- Button added here -->
-                            <button class="trophy-room-btn-light" onclick="window.location.href='trophy.html?player=${encodeURIComponent(cleanName)}'">
+                            
+                            <!-- Fixed dynamic link injection -->
+                            <button class="trophy-room-btn-light" onclick="window.location.href='trophy.html?player=' + encodeURIComponent('${cleanName}')">
                                 🏆 Showcase Awards
                             </button>
                         </div>
                     </div>
+                    
                     <div class="achievements-heading-light">Career Summary</div>
                     <p style="color: var(--text-dark); font-size: 0.95rem; margin-bottom: 1rem;">
                         View detailed stats on the record book pages. More custom career breakdown data coming soon!
