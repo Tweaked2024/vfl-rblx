@@ -529,18 +529,45 @@
     <div class="container">
 
         <!-- Linked Dynamic Profile Header -->
-        <div class="player-header">
-            <div class="player-profile-left">
-                <div class="player-avatar" id="display-avatar">🏈</div>
-                <div class="player-info">
-                    <h2 id="display-name">L1GHTWORKS</h2>
-                    <div class="player-id" id="display-id">Roblox ID: 91430049</div>
-                    <div class="player-badge" id="display-badge">Pro Athlete</div>
+        <div class="tr-hero">
+            <img class="tr-hero-avatar" alt="L1GHTWORKS" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-0447FDAAA17F47D7EB81F2E0BA7F6EEC-Png/150/150/AvatarHeadshot/Png/isCircular">
+            <div class="tr-hero-info">
+                <p class="tr-hero-eyebrow">Trophy Room</p>
+                <h1 class="tr-hero-name" id="display-name">L1GHTWORKS</h1>
+                <p class="tr-hero-roblox-id" id="display-id" style="font-size: 0.85rem; color: #666; margin-top: -4px; margin-bottom: 12px; font-weight: 600;">Roblox ID: 91430049</p>
+                
+                <div class="tr-hero-stats">
+                    <div class="tr-stat">
+                        <span class="tr-stat-val">38</span>
+                        <span class="tr-stat-lbl">Trophies</span>
+                    </div>
+                    <div class="tr-stat">
+                        <span class="tr-stat-val">6</span>
+                        <span class="tr-stat-lbl">Championships</span>
+                    </div>
+                    <div class="tr-stat">
+                        <span class="tr-stat-val">4</span>
+                        <span class="tr-stat-lbl">Honors</span>
+                    </div>
+                    <div class="tr-stat">
+                        <span class="tr-stat-val">17,250</span>
+                        <span class="tr-stat-lbl">Trophy XP</span>
+                    </div>
+                </div>
+                
+                <div class="tr-milestones">
+                    <span class="tr-chip"><span class="tr-chip-icon">💍</span><span>6× Allegiance Bowl Champion</span></span>
+                    <span class="tr-chip"><span class="tr-chip-icon">2× MVP</span></span>
+                    <span class="tr-chip"><span class="tr-chip-icon">6× Conference Champion</span></span>
+                    <span class="tr-chip"><span class="tr-chip-icon">5× All-Pro</span></span>
+                    <span class="tr-chip"><span class="tr-chip-icon">12× Star Bowl</span></span>
+                </div>
+                
+                <div class="tr-actions">
+                    <a class="tr-btn tr-btn-primary" href="/alltime/player/?id=91430049&amp;u=L1GHTWORKS">View Career Stats →</a>
+                    <a class="tr-btn tr-btn-ghost" href="/alltime/">← All-Time</a>
                 </div>
             </div>
-            <button class="showcase-awards-btn" id="showcase-btn">
-                🏆 Showcase Awards
-            </button>
         </div>
 
         <!-- Dynamic Container for Trophy Shelves -->
@@ -565,46 +592,51 @@
                 shelves: [
                     {
                         title: "Allegiance Bowls",
-                        count: "6 Trophies",
+                        count: "2 Trophies",
                         items: [
-                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "AB II", plateSub: "Season 18", title: "Allegiance Bowl II", sub: "Season 18 Champion", xp: "1,000 XP" },
-                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL VI", plateSub: "Season 6", title: "VFL Bowl VI", sub: "Season 6 Champion", xp: "1,000 XP" },
-                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL V", plateSub: "Season 5", title: "VFL Bowl V", sub: "Season 5 Champion", xp: "1,000 XP" },
-                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL IV", plateSub: "Season 4", title: "VFL Bowl IV", sub: "Season 4 Champion", xp: "1,000 XP" },
-                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL III", plateSub: "Season 3", title: "VFL Bowl III", sub: "Season 3 Champion", xp: "1,000 XP" },
-                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL I", plateSub: "Season 1", title: "VFL Bowl I", sub: "Season 1 Champion", xp: "1,000 XP" }
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/ab2.png", plateMain: "VFL VI", plateSub: "Season 6", title: "VFL Bowl IV", sub: "Season 6 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/ab2.png", plateMain: "VFL IV", plateSub: "Season 4", title: "VFL Bowl VI", sub: "Season 4 Champion", xp: "1,000 XP" }
                         ]
                     },
                     {
-                        title: "Conference Championships",
+                        title: "Conf./Bowl Championships",
                         count: "6 Trophies",
                         items: [
-                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 6", title: "Conference Champ", sub: "Season 6 Title", xp: "500 XP" },
-                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 5", title: "Conference Champ", sub: "Season 5 Title", xp: "500 XP" },
-                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 4", title: "Conference Champ", sub: "Season 4 Title", xp: "500 XP" },
-                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 3", title: "Conference Champ", sub: "Season 3 Title", xp: "500 XP" },
-                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 2", title: "Conference Champ", sub: "Season 2 Title", xp: "500 XP" },
-                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 1", title: "Conference Champ", sub: "Season 1 Title", xp: "500 XP" }
+                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 4", title: "Big 10 Champ", sub: "Season 4 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Bowl Game", plateSub: "Season 4", title: "Sugar Bowl Champ", sub: "Season 4 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Bowl Game", plateSub: "Season 4", title: "Cotton Bowl Champ", sub: "Season 4 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 6", title: "Big 10 Champ", sub: "Season 6 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Bowl Game", plateSub: "Season 6", title: "Fiesta Bowl Champ", sub: "Season 6 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Bowl Game", plateSub: "Season 6", title: "Cotton Bowl Champ", sub: "Season 6 Title", xp: "500 XP" }
                         ]
                     },
                     {
                         title: "Top Honors",
                         count: "3 Trophies",
                         items: [
-                            { tier: "gold", icon: "⭐", plateMain: "League MVP", plateSub: "Season 6", title: "League MVP", sub: "Season 6 Winner", xp: "750 XP" },
-                            { tier: "gold", icon: "⭐", plateMain: "OPOTY", plateSub: "Season 5", title: "Offensive Player", sub: "Season 5 Winner", xp: "750 XP" },
-                            { tier: "gold", icon: "⭐", plateMain: "League MVP", plateSub: "Season 3", title: "League MVP", sub: "Season 3 Winner", xp: "750 XP" }
+                            { tier: "gold", icon: "⭐", plateMain: "League MVP", plateSub: "Season 4", title: "League MVP", sub: "Season 4 Winner", xp: "750 XP" },
+                            { tier: "gold", icon: "⭐", plateMain: "OPOTY", plateSub: "Season 4", title: "Offensive Player", sub: "Season 4 Winner", xp: "750 XP" },
+                            { tier: "gold", icon: "⭐", plateMain: "OPOTY", plateSub: "Season 6", title: "Offensive Player", sub: "Season 6 Winner", xp: "750 XP" }
+                        ]
+                    },
+                    {
+                        title: "Annual Awards",
+                        count: "3 Trophies",
+                        items: [
+                            { tier: "gold", icon: "⭐", plateMain: "QBOTY", plateSub: "Season 4", title: "Quarterback OTY", sub: "Season 4 Winner", xp: "750 XP" },
+                            { tier: "gold", icon: "⭐", plateMain: "HCOTY", plateSub: "Season 4", title: "Head Coach OTY", sub: "Season 4 Winner", xp: "750 XP" },
+                            { tier: "gold", icon: "⭐", plateMain: "QBOTY", plateSub: "Season 6", title: "Quarterback OTY", sub: "Season 6 Winner", xp: "750 XP" }
                         ]
                     },
                     {
                         title: "All-Pro Teams",
                         count: "5 Trophies",
                         items: [
-                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S6 • WR", title: "1st Team All-VFL", sub: "Season 6 WR", xp: "250 XP" },
-                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S5 • WR", title: "1st Team All-VFL", sub: "Season 5 WR", xp: "250 XP" },
-                            { tier: "silver", icon: "🎖️", plateMain: "2nd Team", plateSub: "S4 • QB", title: "2nd Team All-VFL", sub: "Season 4 QB", xp: "150 XP" },
-                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S3 • QB", title: "1st Team All-VFL", sub: "Season 3 QB", xp: "250 XP" },
-                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S2 • WR", title: "1st Team All-VFL", sub: "Season 2 WR", xp: "250 XP" }
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S4 • WR", title: "1st Team All-VFL", sub: "Season 4 QB", xp: "250 XP" },
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S4 • HC", title: "1st Team All-VFL", sub: "Season 4 HC", xp: "250 XP" },
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S5 • QB", title: "2nd Team All-VFL", sub: "Season 5 QB", xp: "150 XP" },
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S6 • QB", title: "1st Team All-VFL", sub: "Season 6 QB", xp: "250 XP" },
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S6 • HC", title: "1st Team All-VFL", sub: "Season 6 HC", xp: "250 XP" }
                         ]
                     }
                 ]
