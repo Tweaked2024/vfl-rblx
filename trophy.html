@@ -316,7 +316,7 @@
             text-transform: uppercase;
         }
 
-        /* ==================== HOVER POPUP CARD ==================== */
+        /* ==================== HOVER POPUP CARD (UPDATED BG COLOR) ==================== */
         .trophy .trophy-pop {
             visibility: hidden;
             opacity: 0;
@@ -327,8 +327,8 @@
             left: 50%;
             transform: translateX(-50%) translateY(-10px);
             
-            background-color: #0e0b07;
-            border: 1px solid #3d3121;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 14px;
             padding: 1.1rem 1.2rem;
             width: 175px;
@@ -352,7 +352,7 @@
             transform: translateX(-50%);
             border-width: 6px;
             border-style: solid;
-            border-color: #0e0b07 transparent transparent transparent;
+            border-color: #1b1a25 transparent transparent transparent;
         }
 
         .trophy-pop-logo {
@@ -377,7 +377,7 @@
         .trophy-pop-sub {
             font-size: 0.65rem;
             font-weight: 600;
-            color: #cbb898;
+            color: var(--text-muted);
             margin-bottom: 0.75rem;
         }
 
