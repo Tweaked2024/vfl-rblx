@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html style="--live-bar-h: 0px;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ACFL — Live Multiview</title>
+    <link rel="icon" type="image/x-icon" href="/images/afllogo.png">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <script>(function(){try{if(localStorage.getItem("afl-theme")==="dark"){document.documentElement.className+=" dark-mode";}}catch(e){}})();</script>
+    <link href="/darkmode.css?v=3" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&amp;display=swap" rel="stylesheet">
+
+    <!-- Embedded CSS (Including your custom Nav & Multiview styles) -->
+    <style>
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-main); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+        
+        /* Navigation Header Base */
+        nav { 
+            background-color: var(--bg-main); 
+            padding: 1.2rem 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border); 
+            position: relative;
+            z-index: 1000;
+        }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; }
+        .logo-text { font-size: 0.85rem; font-weight: 700; line-height: 1.2; text-transform: uppercase; }
+        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
+        
+        /* Navigation Menu Lists */
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav ul li { position: relative !important; display: inline-block; }
+        nav ul li a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s ease;
+        }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
+
+        /* Pure Floating Dropdown Box Design - Scoped to Nav */
+        nav .dropdown-menu {
+            display: none !important;
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background-color: #ffffff;
+            min-width: 210px;
+            border-radius: 12px;
+            padding: 0.6rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            list-style: none !important;
+            margin-top: 5px;
+            z-index: 99999;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+        }
+        nav ul li.dropdown:hover .dropdown-menu {
+            display: block !important;
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px);
+        }
+        nav .dropdown-menu li { width: 100%; display: block; }
+        nav .dropdown-menu li a {
+            color: #111017 !important;
+            padding: 0.7rem 1.4rem;
+            display: block !important;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: none !important;
+            text-decoration: none;
+            text-align: left;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        nav .dropdown-menu li a:hover { 
+            background-color: #f4f4f6 !important;
+            color: var(--accent) !important; 
+        }
+        nav ul li.dropdown:hover .nav-arrow { transform: rotate(180deg); }
+
+        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; transition: background 0.2s; }
+        .nav-btn:hover { background-color: var(--accent-hover); }
+
+        /* Multiview Grid & Stream Cards */
+        .mv-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .mv-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mv-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .mv-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: #ffffff;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .mv-user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mv-live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00b4d8;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.2);
+        }
+
+        .mv-username {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #111827;
+        }
+
+        .mv-twitch-link {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #00b4d8;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .mv-twitch-link:hover {
+            text-decoration: underline;
+            opacity: 0.85;
+        }
+
+        .mv-player-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000000;
+        }
+
+        .mv-player-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .join-footer { background-color: var(--accent); color: #111017; padding: 2.5rem 4%; display: flex; justify-content: space-between; align-items: center; }
+        .join-footer h2 { font-size: 1.8rem; font-weight: 700; text-transform: lowercase; }
+        .join-footer .footer-btn { background-color: #2b2726; color: white; padding: 0.7rem 1.8rem; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1); }
+        footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
+    </style>
+</head>
+
+<body>
+    <!-- Live Announcement Bar -->
+    <div id="live-bar" class="live-bar" hidden="">
+      <div class="container live-bar-inner">
+        <a class="live-bar-cta" href="/multiview/"><span class="live-bar-dot" aria-hidden="true"></span><span>ACFL is live now</span><span class="live-bar-watch">watch →</span></a>
+        <div class="live-bar-scores" id="live-bar-scores"></div>
+      </div>
+    </div>
+
+    <!-- Integrated Navigation Header -->
+    <nav>
+        <div class="logo-area">
+            <div class="logo-circle">VFL</div>
+            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scores.html">Scores</a></li>
+            <li><a href="standings.html">Standings</a></li>
+            <li><a href="stats.html">Stats</a></li>
+            <li class="dropdown">
+                <a href="#">Legacy
+                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="legacy.html">Legacy</a></li>
+                    <li><a href="champions-awards.html">Champions & Awards</a></li>
+                </ul>
+            </li>
+            <li><a href="rulebook.html">Rulebook</a></li>
+        </ul>
+        <a href="#" class="nav-btn">Join Now!</a>
+    </nav>
+
+    <!-- Main Content Body -->
+    <main class="mv-main is-wide">
+      <div class="container">
+        <div class="mv-head">
+          <div>
+            <h1 class="mv-title">live multiview</h1>
+            <p class="mv-sub">Every live ACFL stream, side by side.</p>
+          </div>
+          <div class="mv-tools">
+            <span class="mv-pill" id="mv-status">no streams live</span>
+            <button class="mv-fs-btn" id="mv-wide" type="button" aria-pressed="true">⊟ normal view</button>
+            <button class="mv-fs-btn" id="mv-fs" type="button">⛶ fullscreen</button>
+          </div>
+        </div>
+
+        <div class="mv-grid" id="mv-grid"></div>
+
+        <!-- HTML Template for Stream Cards -->
+        <template id="mv-card-template">
+          <div class="mv-card">
+            <div class="mv-card-header">
+              <div class="mv-user-info">
+                <span class="mv-live-dot"></span>
+                <span class="mv-username"></span>
+              </div>
+              <a class="mv-twitch-link" target="_blank" rel="noopener noreferrer">open on twitch →</a>
+            </div>
+            <div class="mv-player-wrapper">
+              <iframe allowfullscreen></iframe>
+            </div>
+          </div>
+        </template>
+
+        <!-- HTML Template for Empty State -->
+        <template id="mv-empty-template">
+          <div class="mv-empty">
+            <span class="mv-empty-title">Nobody is live right now</span>
+            <p class="mv-empty-note">Check back when a game is on — this page updates automatically.</p>
+          </div>
+        </template>
+
+        <section class="mv-scores" id="mv-scores" hidden="" aria-live="polite">
+          <div class="mv-scores-head">
+            <h2 class="mv-scores-title">live scores</h2>
+            <span class="mv-scores-updated" id="mv-scores-updated"></span>
+          </div>
+          <div class="mv-scores-grid" id="mv-scores-grid"></div>
+          <p class="mv-scores-note">Scores are read from the streams automatically and may occasionally lag or misread.</p>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Virtual Football League. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/multiview/multiview.js?v=7"></script>
+</body>
+</html>
