@@ -250,17 +250,26 @@
             gap: 1.5rem;
         }
 
-        .trophy-item-mini {
+        /* ==================== BUTTON TROPHY STYLING ==================== */
+        button.trophy {
+            position: relative; /* Anchor point for hover popup */
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            cursor: pointer;
+            padding: 0;
             transition: transform 0.2s ease;
         }
-        .trophy-item-mini:hover { transform: translateY(-5px); }
 
-        .trophy-icon-display {
+        button.trophy:hover {
+            transform: translateY(-4px);
+        }
+
+        .trophy-stage {
             width: 75px;
             height: 75px;
             background: radial-gradient(circle, rgba(40,39,55,1) 0%, rgba(27,26,37,1) 100%);
@@ -269,19 +278,135 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
             margin-bottom: 0.6rem;
             position: relative;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            font-size: 2rem;
         }
-        
-        /* Subtle Rarity Under-Glow Effects */
-        .trophy-item-mini.gold .trophy-icon-display { border-color: #fcae1e40; box-shadow: 0 0 15px rgba(252,174,30,0.1), inset 0 0 10px rgba(252,174,30,0.05); }
-        .trophy-item-mini.silver .trophy-icon-display { border-color: #94a3b840; box-shadow: 0 0 15px rgba(148,163,184,0.1), inset 0 0 10px rgba(148,163,184,0.05); }
-        .trophy-item-mini.bronze .trophy-icon-display { border-color: #cd7f3240; box-shadow: 0 0 15px rgba(205,127,50,0.1), inset 0 0 10px rgba(205,127,50,0.05); }
 
-        .trophy-lbl-main { font-size: 0.7rem; font-weight: 700; color: white; display: block; margin-bottom: 0.15rem; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .trophy-lbl-sub { font-size: 0.6rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+        .trophy-photo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .trophy-plate {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .trophy-plate-main {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #ffffff;
+            display: block;
+            margin-bottom: 0.1rem;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .trophy-plate-sub {
+            font-size: 0.62rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* ==================== HOVER POPUP CARD ==================== */
+        .trophy .trophy-pop {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            
+            background-color: #0e0b07;
+            border: 1px solid #3d3121;
+            border-radius: 14px;
+            padding: 1.1rem 1.2rem;
+            width: 175px;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+        }
+
+        /* Tooltip Arrow */
+        .trophy .trophy-pop::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: #0e0b07 transparent transparent transparent;
+        }
+
+        .trophy-pop-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trophy-pop-title {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.2rem;
+            line-height: 1.2;
+        }
+
+        .trophy-pop-sub {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #cbb898;
+            margin-bottom: 0.75rem;
+        }
+
+        .trophy-pop-xp {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .trophy-pop-xp-val {
+            background: #f7ca66;
+            color: #1a1202;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 8px rgba(247, 202, 102, 0.2);
+        }
+
+        /* Trigger Pop-up on Hover & Focus */
+        button.trophy:hover .trophy-pop,
+        button.trophy:focus .trophy-pop {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-14px);
+        }
 
         footer { background-color: #1a1922; color: var(--text-muted); padding: 1.5rem 4%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-top: 1px solid var(--border); margin-top: auto; }
     </style>
@@ -430,7 +555,7 @@
 
     <!-- Dynamic Player & Trophy Script -->
     <script>
-        // Data structure for each player
+        // Data structure mapped directly to the button component with custom images or fallback icons
         const playersData = {
             l1ghtworks: {
                 name: "L1GHTWORKS",
@@ -442,44 +567,44 @@
                         title: "Allegiance Bowls",
                         count: "6 Trophies",
                         items: [
-                            { type: "gold", icon: "🏆", title: "VFL Bowl VI", sub: "Season 6" },
-                            { type: "gold", icon: "🏆", title: "VFL Bowl V", sub: "Season 5" },
-                            { type: "gold", icon: "🏆", title: "VFL Bowl IV", sub: "Season 4" },
-                            { type: "gold", icon: "🏆", title: "VFL Bowl III", sub: "Season 3" },
-                            { type: "gold", icon: "🏆", title: "VFL Bowl II", sub: "Season 2" },
-                            { type: "gold", icon: "🏆", title: "VFL Bowl I", sub: "Season 1" }
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "AB II", plateSub: "Season 18", title: "Allegiance Bowl II", sub: "Season 18 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL VI", plateSub: "Season 6", title: "VFL Bowl VI", sub: "Season 6 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL V", plateSub: "Season 5", title: "VFL Bowl V", sub: "Season 5 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL IV", plateSub: "Season 4", title: "VFL Bowl IV", sub: "Season 4 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL III", plateSub: "Season 3", title: "VFL Bowl III", sub: "Season 3 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL I", plateSub: "Season 1", title: "VFL Bowl I", sub: "Season 1 Champion", xp: "1,000 XP" }
                         ]
                     },
                     {
                         title: "Conference Championships",
                         count: "6 Trophies",
                         items: [
-                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 6" },
-                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 5" },
-                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 4" },
-                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 3" },
-                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 2" },
-                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 1" }
+                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 6", title: "Conference Champ", sub: "Season 6 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 5", title: "Conference Champ", sub: "Season 5 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 4", title: "Conference Champ", sub: "Season 4 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 3", title: "Conference Champ", sub: "Season 3 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 2", title: "Conference Champ", sub: "Season 2 Title", xp: "500 XP" },
+                            { tier: "silver", icon: "🏈", plateMain: "Conf Champ", plateSub: "Season 1", title: "Conference Champ", sub: "Season 1 Title", xp: "500 XP" }
                         ]
                     },
                     {
                         title: "Top Honors",
                         count: "3 Trophies",
                         items: [
-                            { type: "gold", icon: "⭐", title: "League MVP", sub: "Season 6" },
-                            { type: "gold", icon: "⭐", title: "OPOTY", sub: "Season 5" },
-                            { type: "gold", icon: "⭐", title: "League MVP", sub: "Season 3" }
+                            { tier: "gold", icon: "⭐", plateMain: "League MVP", plateSub: "Season 6", title: "League MVP", sub: "Season 6 Winner", xp: "750 XP" },
+                            { tier: "gold", icon: "⭐", plateMain: "OPOTY", plateSub: "Season 5", title: "Offensive Player", sub: "Season 5 Winner", xp: "750 XP" },
+                            { tier: "gold", icon: "⭐", plateMain: "League MVP", plateSub: "Season 3", title: "League MVP", sub: "Season 3 Winner", xp: "750 XP" }
                         ]
                     },
                     {
                         title: "All-Pro Teams",
                         count: "5 Trophies",
                         items: [
-                            { type: "gold", icon: "🎖️", title: "1st Team All-VFL", sub: "S6 • WR" },
-                            { type: "gold", icon: "🎖️", title: "1st Team All-VFL", sub: "S5 • WR" },
-                            { type: "silver", icon: "🎖️", title: "2nd Team All-VFL", sub: "S4 • QB" },
-                            { type: "gold", icon: "🎖️", title: "1st Team All-VFL", sub: "S3 • QB" },
-                            { type: "gold", icon: "🎖️", title: "1st Team All-VFL", sub: "S2 • WR" }
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S6 • WR", title: "1st Team All-VFL", sub: "Season 6 WR", xp: "250 XP" },
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S5 • WR", title: "1st Team All-VFL", sub: "Season 5 WR", xp: "250 XP" },
+                            { tier: "silver", icon: "🎖️", plateMain: "2nd Team", plateSub: "S4 • QB", title: "2nd Team All-VFL", sub: "Season 4 QB", xp: "150 XP" },
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S3 • QB", title: "1st Team All-VFL", sub: "Season 3 QB", xp: "250 XP" },
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S2 • WR", title: "1st Team All-VFL", sub: "Season 2 WR", xp: "250 XP" }
                         ]
                     }
                 ]
@@ -494,26 +619,26 @@
                         title: "Allegiance Bowls",
                         count: "2 Trophies",
                         items: [
-                            { type: "gold", icon: "🏆", title: "VFL Bowl VI", sub: "Season 6" },
-                            { type: "gold", icon: "🏆", title: "VFL Bowl IV", sub: "Season 4" }
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL VI", plateSub: "Season 6", title: "VFL Bowl VI", sub: "Season 6 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL IV", plateSub: "Season 4", title: "VFL Bowl IV", sub: "Season 4 Champion", xp: "1,000 XP" }
                         ]
                     },
                     {
                         title: "Defensive Honors",
                         count: "3 Trophies",
                         items: [
-                            { type: "gold", icon: "🛡️", title: "DPOTY", sub: "Season 6" },
-                            { type: "gold", icon: "⭐", title: "Defensive MVP", sub: "Season 5" },
-                            { type: "silver", icon: "🛡️", title: "DPOTY Runner-Up", sub: "Season 4" }
+                            { tier: "gold", icon: "🛡️", plateMain: "DPOTY", plateSub: "Season 6", title: "Defensive Player", sub: "Season 6 Winner", xp: "750 XP" },
+                            { tier: "gold", icon: "⭐", plateMain: "Def MVP", plateSub: "Season 5", title: "Defensive MVP", sub: "Season 5 Winner", xp: "750 XP" },
+                            { tier: "silver", icon: "🛡️", plateMain: "DPOTY Runner", plateSub: "Season 4", title: "DPOTY Runner-Up", sub: "Season 4 Finalist", xp: "350 XP" }
                         ]
                     },
                     {
                         title: "All-Pro Teams",
                         count: "3 Trophies",
                         items: [
-                            { type: "gold", icon: "🎖️", title: "1st Team All-VFL", sub: "S6 • CB" },
-                            { type: "gold", icon: "🎖️", title: "1st Team All-VFL", sub: "S5 • FS" },
-                            { type: "gold", icon: "🎖️", title: "1st Team All-VFL", sub: "S4 • CB" }
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S6 • CB", title: "1st Team All-VFL", sub: "Season 6 CB", xp: "250 XP" },
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S5 • FS", title: "1st Team All-VFL", sub: "Season 5 FS", xp: "250 XP" },
+                            { tier: "gold", icon: "🎖️", plateMain: "1st Team", plateSub: "S4 • CB", title: "1st Team All-VFL", sub: "Season 4 CB", xp: "250 XP" }
                         ]
                     }
                 ]
@@ -526,19 +651,19 @@
                 shelves: [
                     {
                         title: "Allegiance Bowls",
-                        count: "7 Trophies",
+                        count: "3 Trophies",
                         items: [
-                            { type: "gold", icon: "🏆", title: "VFL Bowl VII", sub: "Season 5" },
-                            { type: "gold", icon: "🏆", title: "VFL Bowl VI", sub: "Season 4" },
-                            { type: "gold", icon: "🏆", title: "VFL Bowl IV", sub: "Season 2" }
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL VII", plateSub: "Season 5", title: "VFL Bowl VII", sub: "Season 5 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL VI", plateSub: "Season 4", title: "VFL Bowl VI", sub: "Season 4 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "VFL IV", plateSub: "Season 2", title: "VFL Bowl IV", sub: "Season 2 Champion", xp: "1,000 XP" }
                         ]
                     },
                     {
                         title: "Top Honors",
                         count: "2 Trophies",
                         items: [
-                            { type: "gold", icon: "⭐", title: "Super Bowl MVP", sub: "Season 5" },
-                            { type: "gold", icon: "⭐", title: "League MVP", sub: "Season 4" }
+                            { tier: "gold", icon: "⭐", plateMain: "SB MVP", plateSub: "Season 5", title: "Super Bowl MVP", sub: "Season 5 Winner", xp: "850 XP" },
+                            { tier: "gold", icon: "⭐", plateMain: "League MVP", plateSub: "Season 4", title: "League MVP", sub: "Season 4 Winner", xp: "750 XP" }
                         ]
                     }
                 ]
@@ -553,16 +678,16 @@
                         title: "Allegiance Bowls",
                         count: "2 Trophies",
                         items: [
-                            { type: "gold", icon: "🏆", title: "VFL Bowl LVIII", sub: "Season 6" },
-                            { type: "gold", icon: "🏆", title: "VFL Bowl LVII", sub: "Season 5" }
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "LVIII", plateSub: "Season 6", title: "VFL Bowl LVIII", sub: "Season 6 Champion", xp: "1,000 XP" },
+                            { tier: "ring", photo: "/images/lombardi.png?v=2", popLogo: "/images/abs/ab2.png", plateMain: "LVII", plateSub: "Season 5", title: "VFL Bowl LVII", sub: "Season 5 Champion", xp: "1,000 XP" }
                         ]
                     },
                     {
                         title: "Top Honors",
                         count: "2 Trophies",
                         items: [
-                            { type: "gold", icon: "⭐", title: "League MVP", sub: "Season 6" },
-                            { type: "gold", icon: "⭐", title: "OPOTY", sub: "Season 4" }
+                            { tier: "gold", icon: "⭐", plateMain: "League MVP", plateSub: "Season 6", title: "League MVP", sub: "Season 6 Winner", xp: "750 XP" },
+                            { tier: "gold", icon: "⭐", plateMain: "OPOTY", plateSub: "Season 4", title: "Offensive Player", sub: "Season 4 Winner", xp: "750 XP" }
                         ]
                     }
                 ]
@@ -589,12 +714,35 @@
 
                 let itemsHTML = '';
                 shelf.items.forEach(item => {
+                    // Render image if present, otherwise render standard icon emoji inside trophy-stage
+                    const stageContent = item.photo 
+                        ? `<img class="trophy-photo is-lombardi" src="${item.photo}" alt="" loading="lazy">` 
+                        : (item.icon || '🏆');
+
+                    // Render pop logo if image present, otherwise use standard icon emoji inside popup
+                    const popLogoContent = item.popLogo 
+                        ? `<img class="trophy-pop-logo" src="${item.popLogo}" alt="${item.title}" loading="lazy">` 
+                        : `<div class="trophy-pop-logo">${item.icon || '🏆'}</div>`;
+
                     itemsHTML += `
-                        <div class="trophy-item-mini ${item.type}">
-                            <div class="trophy-icon-display">${item.icon}</div>
-                            <span class="trophy-lbl-main">${item.title}</span>
-                            <span class="trophy-lbl-sub">${item.sub}</span>
-                        </div>
+                        <button class="trophy" type="button" data-tier="${item.tier}" aria-label="${item.title} — ${item.sub} — ${item.xp}">
+                            <div class="trophy-stage">
+                                <span class="trophy-glow"></span>
+                                ${stageContent}
+                            </div>
+                            <span class="trophy-plate">
+                                <span class="trophy-plate-main">${item.plateMain}</span>
+                                <span class="trophy-plate-sub">${item.plateSub}</span>
+                            </span>
+                            <div class="trophy-pop">
+                                ${popLogoContent}
+                                <div class="trophy-pop-title">${item.title}</div>
+                                <div class="trophy-pop-sub">${item.sub}</div>
+                                <div class="trophy-pop-xp">
+                                    <span class="trophy-pop-xp-val">⚡ ${item.xp}</span>
+                                </div>
+                            </div>
+                        </button>
                     `;
                 });
 
