@@ -33,65 +33,6 @@
             flex-direction: column; 
             min-height: 100vh; 
         }
-        
-        /* Navigation Header */
-        nav { 
-            background-color: var(--bg-main); 
-            padding: 1.2rem 4%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-bottom: 1px solid var(--border); 
-            position: relative;
-            z-index: 1000;
-        }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-circle { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-        .logo-text { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
-        .logo-text span { display: block; color: var(--text-muted); font-size: 0.7rem; }
-        
-        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
-        nav ul li { position: relative !important; display: inline-block; }
-        
-        nav ul li a { 
-            color: var(--text-muted); 
-            text-decoration: none; 
-            font-size: 0.85rem; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: color 0.2s ease;
-        }
-        nav ul li a:hover, nav ul li a.active { color: var(--text-main); }
-
-        /* Mega Dropdown Setup */
-        .mega-dropdown {
-            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-            background-color: var(--bg-card); border: 1px solid var(--border); width: 680px; border-radius: 12px; padding: 1.5rem 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); list-style: none !important; z-index: 99999;
-            grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-        }
-        .mega-dropdown::before { content: ''; position: absolute; top: -25px; left: 0; width: 100%; height: 25px; background: transparent; }
-        nav ul li.dropdown:hover .mega-dropdown { display: grid; }
-
-        .dropdown-col h4 { color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem; font-weight: 700; }
-        .dropdown-col ul { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; list-style: none; padding: 0; }
-        .dropdown-col ul li a { color: var(--text-muted) !important; padding: 0.3rem 0; display: block !important; font-size: 0.95rem; font-weight: 600; text-transform: none !important; text-decoration: none; }
-        .dropdown-col ul li a:hover { color: var(--accent) !important; }
-
-        /* Legacy Dropdown */
-        .legacy-dropdown {
-            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-            background-color: var(--bg-card); border: 1px solid var(--border); min-width: 200px; border-radius: 8px; padding: 0.5rem 0; list-style: none; z-index: 99999;
-        }
-        .legacy-dropdown li a { color: var(--text-muted) !important; padding: 0.5rem 1rem; display: block; text-transform: none; }
-        .legacy-dropdown li a:hover { color: var(--text-main) !important; background-color: rgba(255,255,255,0.05); }
-        nav ul li.dropdown-legacy:hover .legacy-dropdown { display: block; }
-        nav ul li.dropdown:hover .nav-arrow, nav ul li.dropdown-legacy:hover .nav-arrow { transform: rotate(180deg); }
-        .nav-btn { background-color: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
 
         /* Customization Bar */
         .customization-bar {
@@ -109,6 +50,7 @@
             display: flex;
             align-items: center;
             gap: 1.2rem;
+            flex-wrap: wrap;
         }
 
         .control-group {
@@ -287,74 +229,18 @@
 </head>
 <body>
 
-    <!-- Main Navigation Header -->
-    <nav>
-        <div class="logo-area">
-            <div class="logo-circle">VFL</div>
-            <div class="logo-text">Virtual Football<span>League • Season 6</span></div>
-        </div>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="scores.html">Scores</a></li>
-            <li><a href="standings.html">Standings</a></li>
-            <li class="dropdown">
-                <a href="#" class="active" id="stats-nav-link">
-                    Stats
-                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
-                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                </a>
-                <div class="mega-dropdown">
-                    <div class="dropdown-col">
-                        <h4>Offense</h4>
-                        <ul>
-                            <li><a href="#">Quarterbacks</a></li>
-                            <li><a href="#">Running Backs</a></li>
-                            <li><a href="#">Wide Receivers</a></li>
-                            <li><a href="#">Tight Ends</a></li>
-                            <li><a href="#">Centers</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown-col">
-                        <h4>Defense</h4>
-                        <ul>
-                            <li><a href="#">Defensive Ends</a></li>
-                            <li><a href="#">Linebackers</a></li>
-                            <li><a href="#">Defensive Backs</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown-col">
-                        <h4>Special Teams</h4>
-                        <ul style="margin-bottom: 1.5rem;">
-                            <li><a href="#">Kickers</a></li>
-                        </ul>
-                        <h4>Record Book</h4>
-                        <ul>
-                            <li><a href="#">All-Time Stats</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            <li class="dropdown-legacy">
-                <a href="#">
-                    Legacy
-                    <svg class="nav-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="transition: transform 0.2s ease; margin-left: 2px;">
-                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                </a>
-                <ul class="legacy-dropdown">
-                    <li><a href="legacy.html">Legacy</a></li>
-                    <li><a href="champions-awards.html">Champions & Awards</a></li>
-                </ul>
-            </li>
-            <li><a href="rulebook.html">Rulebook</a></li>
-        </ul>
-        <a href="#" class="nav-btn">Join Now!</a>
-    </nav>
-
     <!-- Integrated Customization Bar Section -->
     <div class="customization-bar">
         <div class="custom-controls-left">
+            <div class="control-group">
+                <span class="control-label">Select Player</span>
+                <select class="custom-select" id="player-select">
+                    <option value="l1ghtworks">L1GHTWORKS</option>
+                    <option value="tombrady">Tom Brady</option>
+                    <option value="mahomes">Patrick Mahomes</option>
+                </select>
+            </div>
+
             <div class="control-group">
                 <span class="control-label">Filter Category</span>
                 <select class="custom-select" id="filter-category">
@@ -392,163 +278,23 @@
     <!-- Main Content Container -->
     <div class="container">
 
-        <!-- Linked Dynamic Profile Header (Image 1 Layout) -->
+        <!-- Linked Dynamic Profile Header -->
         <div class="player-header">
             <div class="player-profile-left">
-                <div class="player-avatar">🏈</div>
+                <div class="player-avatar" id="display-avatar">🏈</div>
                 <div class="player-info">
-                    <h2>L1GHTWORKS</h2>
-                    <div class="player-id">Roblox ID: 91430049</div>
-                    <div class="player-badge">Pro Athlete</div>
+                    <h2 id="display-name">L1GHTWORKS</h2>
+                    <div class="player-id" id="display-id">Roblox ID: 91430049</div>
+                    <div class="player-badge" id="display-badge">Pro Athlete</div>
                 </div>
             </div>
-            <!-- Showcase Awards button connects using JavaScript at the bottom -->
-            <button class="showcase-awards-btn">
+            <button class="showcase-awards-btn" id="showcase-btn">
                 🏆 Showcase Awards
             </button>
         </div>
 
-        <!-- Categorized Shelf Display Structure (Image 2 Layout) -->
-        
-        <!-- Shelf Row 1: Allegiance Bowls -->
-        <div class="shelf-section" id="shelves-start">
-            <div class="shelf-title-row">
-                <h2>Allegiance Bowls</h2>
-                <span class="shelf-count-tag">6 Trophies</span>
-            </div>
-            <div class="trophy-grid-row">
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🏆</div>
-                    <span class="trophy-lbl-main">VFL Bowl VI</span>
-                    <span class="trophy-lbl-sub">Season 6</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🏆</div>
-                    <span class="trophy-lbl-main">VFL Bowl V</span>
-                    <span class="trophy-lbl-sub">Season 5</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🏆</div>
-                    <span class="trophy-lbl-main">VFL Bowl IV</span>
-                    <span class="trophy-lbl-sub">Season 4</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🏆</div>
-                    <span class="trophy-lbl-main">VFL Bowl III</span>
-                    <span class="trophy-lbl-sub">Season 3</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🏆</div>
-                    <span class="trophy-lbl-main">VFL Bowl II</span>
-                    <span class="trophy-lbl-sub">Season 2</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🏆</div>
-                    <span class="trophy-lbl-main">VFL Bowl I</span>
-                    <span class="trophy-lbl-sub">Season 1</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Shelf Row 2: Conference Championships -->
-        <div class="shelf-section">
-            <div class="shelf-title-row">
-                <h2>Conference Championships</h2>
-                <span class="shelf-count-tag">6 Trophies</span>
-            </div>
-            <div class="trophy-grid-row">
-                <div class="trophy-item-mini silver">
-                    <div class="trophy-icon-display">🏈</div>
-                    <span class="trophy-lbl-main">Conf Champ</span>
-                    <span class="trophy-lbl-sub">Season 6</span>
-                </div>
-                <div class="trophy-item-mini silver">
-                    <div class="trophy-icon-display">🏈</div>
-                    <span class="trophy-lbl-main">Conf Champ</span>
-                    <span class="trophy-lbl-sub">Season 5</span>
-                </div>
-                <div class="trophy-item-mini silver">
-                    <div class="trophy-icon-display">🏈</div>
-                    <span class="trophy-lbl-main">Conf Champ</span>
-                    <span class="trophy-lbl-sub">Season 4</span>
-                </div>
-                <div class="trophy-item-mini silver">
-                    <div class="trophy-icon-display">🏈</div>
-                    <span class="trophy-lbl-main">Conf Champ</span>
-                    <span class="trophy-lbl-sub">Season 3</span>
-                </div>
-                <div class="trophy-item-mini silver">
-                    <div class="trophy-icon-display">🏈</div>
-                    <span class="trophy-lbl-main">Conf Champ</span>
-                    <span class="trophy-lbl-sub">Season 2</span>
-                </div>
-                <div class="trophy-item-mini silver">
-                    <div class="trophy-icon-display">🏈</div>
-                    <span class="trophy-lbl-main">Conf Champ</span>
-                    <span class="trophy-lbl-sub">Season 1</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Shelf Row 3: Top Honors -->
-        <div class="shelf-section">
-            <div class="shelf-title-row">
-                <h2>Top Honors</h2>
-                <span class="shelf-count-tag">3 Trophies</span>
-            </div>
-            <div class="trophy-grid-row">
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">⭐</div>
-                    <span class="trophy-lbl-main">League MVP</span>
-                    <span class="trophy-lbl-sub">Season 6</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">⭐</div>
-                    <span class="trophy-lbl-main">OPOTY</span>
-                    <span class="trophy-lbl-sub">Season 5</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">⭐</div>
-                    <span class="trophy-lbl-main">League MVP</span>
-                    <span class="trophy-lbl-sub">Season 3</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Shelf Row 4: All-Pro Teams -->
-        <div class="shelf-section">
-            <div class="shelf-title-row">
-                <h2>All-Pro Teams</h2>
-                <span class="shelf-count-tag">5 Trophies</span>
-            </div>
-            <div class="trophy-grid-row">
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🎖️</div>
-                    <span class="trophy-lbl-main">1st Team All-VFL</span>
-                    <span class="trophy-lbl-sub">S6 • WR</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🎖️</div>
-                    <span class="trophy-lbl-main">1st Team All-VFL</span>
-                    <span class="trophy-lbl-sub">S5 • WR</span>
-                </div>
-                <div class="trophy-item-mini silver">
-                    <div class="trophy-icon-display">🎖️</div>
-                    <span class="trophy-lbl-main">2nd Team All-VFL</span>
-                    <span class="trophy-lbl-sub">S4 • QB</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🎖️</div>
-                    <span class="trophy-lbl-main">1st Team All-VFL</span>
-                    <span class="trophy-lbl-sub">S3 • QB</span>
-                </div>
-                <div class="trophy-item-mini gold">
-                    <div class="trophy-icon-display">🎖️</div>
-                    <span class="trophy-lbl-main">1st Team All-VFL</span>
-                    <span class="trophy-lbl-sub">S2 • WR</span>
-                </div>
-            </div>
-        </div>
+        <!-- Dynamic Container for Trophy Shelves -->
+        <div id="trophy-shelves-container"></div>
 
     </div>
 
@@ -557,16 +303,158 @@
         © 2026 Virtual Football League • All Rights Reserved
     </footer>
 
-    <!-- Interactive Smooth Scroll Script Connection -->
+    <!-- Dynamic Player & Trophy Script -->
     <script>
-        const showcaseBtn = document.querySelector('.showcase-awards-btn');
-        const targetSection = document.getElementById('shelves-start');
+        // Data for each player
+        const playersData = {
+            l1ghtworks: {
+                name: "L1GHTWORKS",
+                id: "Roblox ID: 91430049",
+                badge: "Pro Athlete",
+                avatar: "🏈",
+                shelves: [
+                    {
+                        title: "Allegiance Bowls",
+                        count: "6 Trophies",
+                        items: [
+                            { type: "gold", icon: "🏆", title: "VFL Bowl VI", sub: "Season 6" },
+                            { type: "gold", icon: "🏆", title: "VFL Bowl V", sub: "Season 5" },
+                            { type: "gold", icon: "🏆", title: "VFL Bowl IV", sub: "Season 4" },
+                            { type: "gold", icon: "🏆", title: "VFL Bowl III", sub: "Season 3" },
+                            { type: "gold", icon: "🏆", title: "VFL Bowl II", sub: "Season 2" },
+                            { type: "gold", icon: "🏆", title: "VFL Bowl I", sub: "Season 1" }
+                        ]
+                    },
+                    {
+                        title: "Conference Championships",
+                        count: "6 Trophies",
+                        items: [
+                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 6" },
+                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 5" },
+                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 4" },
+                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 3" },
+                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 2" },
+                            { type: "silver", icon: "🏈", title: "Conf Champ", sub: "Season 1" }
+                        ]
+                    },
+                    {
+                        title: "Top Honors",
+                        count: "3 Trophies",
+                        items: [
+                            { type: "gold", icon: "⭐", title: "League MVP", sub: "Season 6" },
+                            { type: "gold", icon: "⭐", title: "OPOTY", sub: "Season 5" },
+                            { type: "gold", icon: "⭐", title: "League MVP", sub: "Season 3" }
+                        ]
+                    }
+                ]
+            },
+            tombrady: {
+                name: "Tom Brady",
+                id: "Roblox ID: 12093841",
+                badge: "Hall of Famer",
+                avatar: "🐐",
+                shelves: [
+                    {
+                        title: "Allegiance Bowls",
+                        count: "7 Trophies",
+                        items: [
+                            { type: "gold", icon: "🏆", title: "VFL Bowl VII", sub: "Season 5" },
+                            { type: "gold", icon: "🏆", title: "VFL Bowl VI", sub: "Season 4" },
+                            { type: "gold", icon: "🏆", title: "VFL Bowl IV", sub: "Season 2" }
+                        ]
+                    },
+                    {
+                        title: "Top Honors",
+                        count: "3 Trophies",
+                        items: [
+                            { type: "gold", icon: "⭐", title: "Super Bowl MVP", sub: "Season 5" },
+                            { type: "gold", icon: "⭐", title: "League MVP", sub: "Season 4" }
+                        ]
+                    }
+                ]
+            },
+            mahomes: {
+                name: "Patrick Mahomes",
+                id: "Roblox ID: 88392019",
+                badge: "Elite QB",
+                avatar: "⚡",
+                shelves: [
+                    {
+                        title: "Allegiance Bowls",
+                        count: "3 Trophies",
+                        items: [
+                            { type: "gold", icon: "🏆", title: "VFL Bowl LVIII", sub: "Season 6" },
+                            { type: "gold", icon: "🏆", title: "VFL Bowl LVII", sub: "Season 5" }
+                        ]
+                    },
+                    {
+                        title: "Top Honors",
+                        count: "2 Trophies",
+                        items: [
+                            { type: "gold", icon: "⭐", title: "League MVP", sub: "Season 6" },
+                            { type: "gold", icon: "⭐", title: "OPOTY", sub: "Season 4" }
+                        ]
+                    }
+                ]
+            }
+        };
 
-        showcaseBtn.addEventListener('click', () => {
-            targetSection.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
+        // Render player profile and trophies
+        function renderPlayer(playerKey) {
+            const player = playersData[playerKey];
+            if (!player) return;
+
+            document.getElementById('display-name').textContent = player.name;
+            document.getElementById('display-id').textContent = player.id;
+            document.getElementById('display-badge').textContent = player.badge;
+            document.getElementById('display-avatar').textContent = player.avatar;
+
+            const container = document.getElementById('trophy-shelves-container');
+            container.innerHTML = '';
+
+            player.shelves.forEach((shelf, index) => {
+                const shelfDiv = document.createElement('div');
+                shelfDiv.className = 'shelf-section';
+                if (index === 0) shelfDiv.id = 'shelves-start';
+
+                let itemsHTML = '';
+                shelf.items.forEach(item => {
+                    itemsHTML += `
+                        <div class="trophy-item-mini ${item.type}">
+                            <div class="trophy-icon-display">${item.icon}</div>
+                            <span class="trophy-lbl-main">${item.title}</span>
+                            <span class="trophy-lbl-sub">${item.sub}</span>
+                        </div>
+                    `;
+                });
+
+                shelfDiv.innerHTML = `
+                    <div class="shelf-title-row">
+                        <h2>${shelf.title}</h2>
+                        <span class="shelf-count-tag">${shelf.count}</span>
+                    </div>
+                    <div class="trophy-grid-row">
+                        ${itemsHTML}
+                    </div>
+                `;
+                container.appendChild(shelfDiv);
             });
+        }
+
+        // Initialize page with default player
+        renderPlayer('l1ghtworks');
+
+        // Dropdown switch event
+        document.getElementById('player-select').addEventListener('change', (e) => {
+            renderPlayer(e.target.value);
+        });
+
+        // Smooth scroll button
+        document.getElementById('showcase-btn').addEventListener('click', () => {
+            const targetSection = document.getElementById('shelves-start');
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
     </script>
 </body>
